@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="initial-scale=1"/>
+    <meta name="keywords" content="Space, International Space Station, Space Station, ISS, International Space Station live views, ISS live views, International Space Station live view, ISS live view, Space Dashboard, spacedashboard, Deep Space Network, DSN, geomagnetic activity, geomagnetic activity observation and forecast, planetary K index, K index, Kp index, solar radiation activity observation and forecast"/>
+    <meta name="description" content="Space dashboard is a collection of a select few live happenings in space."/>
+    <title>Space Dashboard</title>
+
+    <meta name="google-site-verification" content="oBRA-AAdPeqeePAc2eup9qvEBt2VjAsGdTNR2wyK9Go" />
+
+    <!--sse--><!-- All of the icons --><!--/sse-->
+    <link rel="icon" href="./img/space-dashboard.ico">
+    <link rel="mask-icon" href="./img/space-dashboard.svg" color="#000000">
+    <link rel="apple-touch-icon-precomposed" href="./img/apple-touch-icon-precomposed.png">
+    <link rel="icon" href="./img/space-dashboard-512.png" sizes="512x512">
+    <link rel="shortcut icon" sizes="196x196" href="./img/space-dashboard-196.png">
+    <!--[if IE]><link rel="icon" sizes="16x16" href="./img/space-dashboard-16.ico"><![endif]-->
+    <!--[if IE]><link rel="icon" sizes="32x32" href="./img/space-dashboard-32.ico"><![endif]-->
+
+    <!--sse--><!-- Social meta tags --><!--/sse-->
+    <meta property="og:url" content="https://spacedashboard.com" />
+    <meta property="og:title" content="Space Dashboard" />
+    <meta property="og:description" content="A collection of a select few live happenings in space." />
+    <meta property="og:image" content="https://spacedashboard.com/img/spacedashboard.png" />
+
+    <!--sse--><!-- npm modules CSS --><!--/sse-->
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/lib/space-dashboard-libs.css?v=<%= htmlWebpackPlugin.options.__DATE__ %>">
+
+    <!--sse--><!-- Space Dashboard CSS --><!--/sse-->
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/space-dashboard.css?v=<%= htmlWebpackPlugin.options.__DATE__ %>">
+
+    <script>
+        if (window.location.hostname !== "localhost") {
+            // ga
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-11432600-19', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+</head>
+<body>
+    <div id="header">
+        <div class="header-logo-title-wrapper">
+            <img src="./img/space-dashboard.svg" id="logo">
+            <h2 id="title">Space Dashboard</h2>
+        </div>
+        <div class="header-nav">
+            <a href="javascript:void(0);" class="site-alert site-monitor" style="display: none;"><span>Site Monitor</span><span class="number"></span></a>
+            <a href="javascript:void(0);" class="site-alert message" style="display: none;"><span>Notifications</span><span class="number">1</span></a>
+            <a href="javascript:void(0);" class="site-alert webcast" style="display: none;"><span>Webcast</span><span class="number">1</span></a>
+            <a href="javascript:void(0);" class="site-info-menu"><span>About &amp; Contact</span></a>
+            <a href="https://ko-fi.com/A487E93" target="_blank">Powered By Coffee <i class="fa fa-external-link" style="font-size:80%;margin-left:5px;"></i></a>
+        </div>
+        <span class="header-toggle"><span class="number" style="display: none;">1</span> <span class="toggle-text">Menu</span></span>
+    </div>
+
+    <div class="content-wrapper">
+        <!--sse--><!-- Site info menu --><!--/sse-->
+        <div class="site-info menu full-screen">
+            <span class="close-menu close-site-info full-screen"></span>
+            <div class="menu-content">
+                <div class="col col-2">
+                    <h2>Hello! I'm Caleb.</h2>
+
+                    <br>
+
+                    <p>I'm a Software Engineer, and I got bored one afternoon and made this site because I, like yourself, wanted as much space related data on my screen as possible. If you like this, great! I'm happy I can make an impact.</p>
+
+                    <p>If you have any questions/suggestions/bug reports, let me know using the contact form.</p>
+
+                    <p>I'm also available via email, Facebook, or Twitter.</p>
+
+                    <p>
+                        <a href="mailto:caleb@spacedashboard.com" class="btn btn-large">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;
+                            caleb@spacedashboard.com
+                        </a>
+                        <a href="https://www.facebook.com/SpaceDashboard" class="btn btn-large" target="_blank" rel="noreferrer">
+                            </i><i class="fa fa-facebook" aria-hidden="true"></i> &nbsp;
+                            @SpaceDashboard
+                        </a>
+                        <a href="https://twitter.com/SpaceDashboard" class="btn btn-large" target="_blank" rel="noreferrer">
+                            <i class="fa fa-twitter" aria-hidden="true"></i> &nbsp;
+                            @SpaceDashboard
+                        </a>
+                    </p>
+
+                    <p>If you like this, you may like my other project on Twitter: <a href="https://twitter.com/closeapproaches" target="_blank" rel="noreferrer">@CloseApproaches</a> &ndash; basically, I tweet near-Earth objects for the day.</p>
+
+                    <br>
+
+                    <p>Thanks for visiting!</p>
+                </div>
+
+                <div class="col col-2 col-border">
+                    <h2>Drop me a line</h2>
+
+                    <form id="contact-form">
+                        <p class="text-error">Test</p>
+
+                        <label>Name</label>
+                        <input type="text" name="name">
+
+                        <label>Email</label>
+                        <input type="text" name="email">
+
+                        <label>Message</label>
+                        <textarea name="message" id="message" rows="5" cols="40"></textarea>
+
+                        <label>Uncheck this: <input type="checkbox" name="sentient" checked></label>
+
+                        <button type="button" class="btn btn-large" id="submit-contact-form">Send</button>
+                        <button type="button" class="btn btn-large btn-link reset" id="reset-contact-form">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!--sse--><!-- webcast wrapper --><!--/sse-->
+        <div id="webcast-wrapper"></div>
+
+
+        <!--sse--><!-- First row --><!--/sse-->
+        <div class="grid-row half">
+            <div class="grid-col-3 iss-feed-1-wrapper">
+                <div class="btn-wrapper">
+                    <!--sse--><!-- <button type="button" class="btn toggle-iss-feed-1" data-video-feed="nasa-tv">Watch NASA TV</button> --><!--/sse-->
+                    <!--sse--><!-- <button type="button" class="btn toggle-iss-feed-1" data-video-feed="iss-feed-2" style="display:none;">Watch ISS Live Stream</button> --><!--/sse-->
+                    <button type="button" class="btn toggle-menu player-settings"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-btn" id="refresh-iss-feed-1"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://www.ustream.tv/channel/live-iss-stream" target="_blank" rel="noreferrer">Live ISS Stream - via Ustream</a></p>
+
+                        <p>Having trouble viewing the live stream? Try changing the player type.</p>
+
+                        <p>Player Type:
+                        <button type="button" class="btn iss1-player-type" data-player="iss-feed-1" data-type="html5">HTML5</button>
+                        <button type="button" class="btn iss1-player-type" data-player="iss-feed-1" data-type="flash">Flash</button>
+                        </p>
+
+                        <!--sse--><!-- https://support.ustream.tv/hc/en-us/articles/212714667-Ustream-HTML-player-update --><!--/sse-->
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap">
+                    <noscript><span style="background-color:#000; color:#FFF;">I'm sorry, the service being used here needs JavaScript enabled.</span></noscript>
+                </div>
+            </div>
+
+            <div class="grid-col-3 iss-feed-2-wrapper">
+                <div class="btn-wrapper">
+                    <!--sse--><button type="button" class="btn toggle-iss-feed-2" data-video-feed="nasa-tv" style="display:none;">Watch NASA TV</button><!--/sse-->
+                    <!--sse--><button type="button" class="btn toggle-iss-feed-2" data-video-feed="iss-feed-2" style="display:none;">Watch ISS HDEV</button><!--/sse-->
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-btn" id="refresh-iss-feed-2"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://www.ustream.tv/channel/iss-hdev-payload" target="_blank" rel="noreferrer">ISS HD Earth Viewing Experiment - via Ustream</a></p>
+                        <p>More information for the ISS HD Earth Viewing Experiment can be found here: <a href="https://eol.jsc.nasa.gov/ESRS/HDEV/" target="_blank" rel="noreferrer">NASA High Definition Earth-Viewing System</a></p>
+
+                        <br>
+
+                        <p>Credit: <a href="https://www.ustream.tv/nasahdtv" target="_blank" rel="noreferrer">NASA TV - via Ustream</a></p>
+                        <p>Channel information for NASA TV Public can be found here: <a href="https://www.nasa.gov/multimedia/nasatv/index.html#public">NASA TV</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap">
+                    <noscript><span style="background-color:#000; color:#FFF;">I'm sorry, the service being used here needs JavaScript enabled.</span></noscript>
+                </div>
+            </div>
+
+            <div class="grid-col-2">
+                <div class="btn-wrapper">
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-btn" id="refresh-iss-tracker"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" target="_blank" rel="noreferrer">ESA: Where is the International Space Station</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap iss-track-col-wrapper">
+                    <noscript><span style="background-color:#000; color:#FFF;">I'm sorry, the service being used here needs JavaScript enabled.</span></noscript>
+                    <div class="iss-track-outer-wrapper">
+                        <div class="iss-track-inner-wrapper">
+                            <iframe class="iss-tracker" src="https://isstracker.spaceflight.esa.int/" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" allowtransparency="false"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--sse--><!-- Second row --><!--/sse-->
+        <div class="grid-row half">
+            <!--sse--><!-- Planetary K index --><!--/sse-->
+            <div class="grid-col" style="background-color:#303030;">
+                <div class="btn-wrapper">
+
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-k-index"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p><strong>Geomagnetic storms by K index</strong>
+                            <br>G1: 5
+                            <br>G2: 6
+                            <br>G3: 7
+                            <br>G4: 8-9
+                            <br>G5: 9+
+                        </p>
+                        <p>For more information on NOAA scales for geomagnetic storms, visit: <a href="https://www.swpc.noaa.gov/noaa-scales-explanation" target="_blank" rel="noreferrer">NOAA Space Weather Scales</a></p>
+                        <p>Credit: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noreferrer">Space Weather Prediction Center</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap k-index-section">
+                    <!--sse--><!-- <img class="img-k-index" src="https://services.swpc.noaa.gov/images/planetary-k-index.gif"> --><!--/sse-->
+                    <div class="current-k-index">
+                        <p>Current Kp Index: <span class="k-index-value">-.--</span> <span class="geo-storm"></span>
+                        <i class="fa fa-refresh fa-spin"></i></p>
+                        <small>As of: <span class="kindex-local-timestamp">--:--</span> (<span class="kindex-utc-timestamp">--:-- UTC</span>)</small>
+                    </div>
+                    <div class="k-index-wrapper">
+                        <canvas id="planetary-k-index"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!--sse--><!-- Aurora forecast, map --><!--/sse-->
+            <div class="grid-col" data-aurora-forecast="map">
+                <div class="btn-wrapper">
+                    <button type="button" class="btn justify-width toggle-aurora-forecast" data-aurora-forecast="text">3-Day</button>
+                    <button type="button" class="btn justify-width toggle-hemisphere" data-hemisphere="north" style="display:none;">Show N. Hem.</button>
+                    <button type="button" class="btn justify-width toggle-hemisphere" data-hemisphere="south">Show S. Hem.</button>
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-btn" id="refresh-img-aurora-forecast"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noreferrer">Space Weather Prediction Center</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap">
+                    <img class="img-aurora-forecast" data-hemisphere="north" src="./api/img/aurora-forecast-northern-hemisphere.jpg">
+                    <img class="img-aurora-forecast" data-hemisphere="south" src="./api/img/aurora-forecast-southern-hemisphere.jpg" style="display:none;">
+                </div>
+            </div>
+
+            <!--sse--><!-- Aurora forecast, 3-day text --><!--/sse-->
+            <div class="grid-col" data-aurora-forecast="text" style="background-color:#2D2D2D; display: none;">
+                <div class="btn-wrapper">
+                    <button type="button" class="btn toggle-aurora-forecast" data-aurora-forecast="map">Forecast Map</button>
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-aurora-forecast" id="refresh-text-aurora-forecast"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://www.swpc.noaa.gov/communities/space-weather-enthusiasts" target="_blank" rel="noreferrer">Space Weather Enthusiasts Dashboard (SWPC)</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content no-btn-overlap">
+                    <noscript><iframe class="text-aurora-forecast" style="background-color:#DEDEDE;" src="./api/txt/3-day-forecast.txt" name="iframeSgarf" frameborder="0"></iframe></noscript>
+
+                    <div id="text-aurora-forecast"></div>
+                </div>
+            </div>
+
+            <!--sse--><!-- people in space / near Earth objects --><!--/sse-->
+            <div class="grid-col" style="background-color:#303030;">
+                <!--sse--><!--<div class="btn-wrapper">
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-aurora-forecast" id="refresh-text-aurora-forecast"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div>--><!--/sse-->
+                <!--sse--><!-- Basic info:   http://launchlibrary.net/1.2/launch?next=10 --><!--/sse-->
+                <!--sse--><!-- All the info: http://launchlibrary.net/1.2/launch/next/10 --><!--/sse-->
+                <!--sse--><!-- All the info: http://launchlibrary.net/1.2/launch/1219 --><!--/sse-->
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="#" target="_blank" rel="noreferrer">--</a></p>
+                    </div>
+                </div>
+
+                <div class="col-content people-neo-wrapper"><!--sse--><!-- no-btn-overlap --><!--/sse-->
+                    <div id="people-in-space"></div>
+                    <div class="people-neo-dragger"></div>
+                    <div id="neo-list"></div>
+                </div>
+            </div>
+
+            <!--sse--><!-- Current solar activity, corona image and video --><!--/sse-->
+            <div class="grid-col">
+                <div class="btn-wrapper">
+                    <button type="button" class="btn justify-width toggle-solar-visual active" data-solar-activity="img">Image</button>
+                    <button type="button" class="btn justify-width toggle-solar-visual" data-solar-activity="video">Video</button>
+                    <button type="button" class="btn toggle-menu"><i class="fa fa-cog" aria-hidden="true"></i></button>
+                    <button type="button" class="btn refresh-btn" id="refresh-solar-activity">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div class="refresh-overlay">
+                    <div class="refresh-system">
+                        <div class="inner-orbit orbit-1"></div>
+                        <div class="inner-orbit orbit-2"></div>
+                        <div class="inner-orbit orbit-3"></div>
+                        <div class="inner-orbit-guide orbit-1"></div>
+                        <div class="inner-orbit-guide orbit-2"></div>
+                        <div class="inner-orbit-guide orbit-3"></div>
+                        <div class="star"></div>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <span class="close-menu"></span>
+                    <div class="menu-content">
+                        <p>Credit: <a href="https://sdo.gsfc.nasa.gov/" target="_blank" rel="noreferrer">NASA Solar Dynamics Observatory</a></p>
+                        <p>This visual highlights the outer atmosphere of the Sun, the corona, as well as hot flare plasma.</p>
+                    </div>
+                </div>
+                <div class="col-content no-btn-overlap">
+                    <img class="solar-activity" data-solar-activity="img" src="./api/img/current-corona.jpg">
+                    <video class="solar-activity" data-solar-activity="video" name="media" autoplay loop="true" style="display:none;"></video>
+                </div>
+            </div>
+        </div>
+
+
+        <!--sse--><!-- Deep Space Network section --><!--/sse-->
+        <div class="grid-row full dsn-row">
+            <div class="grid-col-1">
+                <noscript><span style="background-color:#000; color:#FFF;">I'm sorry, the service being used here needs JavaScript enabled.</span></noscript>
+                <iframe src="https://eyes.nasa.gov/dsn/dsn.html" allowfullscreen webkitallowfullscreen scrolling="no" frameborder="0" id="dsn-iframe"></iframe>
+            </div>
+        </div>
+    </div> <!--sse--><!-- end content wrapper --><!--/sse-->
+
+
+    <!--sse--><!-- handlebars templates --><!--/sse-->
+    <!--sse--><!-- astronauts info --><!--/sse-->
+    <script id="people-in-space-astronaut-template" type="text/x-handlebars-template">
+        <h2>People in space: {{number}}</h2>
+
+        {{#each this}}
+        <div class="collapsing-data">
+            <span class="astronaut-name">{{name}} <span class="additional-info" style="opacity:1;">
+            	<img style="max-width:25px;" src="./img/flags/{{flag}}.jpg" alt="{{country}}" title="{{country}}">
+            	<!-- {{country}} -->
+            </span></span>
+            <div class="data-details">
+                <span class="astronaut-title">{{title}}</span>
+                <span class="astronaut-bio">{{bio}}</span>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <!--sse--><!-- NEO info --><!--/sse-->
+    <script id="neo-template" type="text/x-handlebars-template">
+        <h2>Near-Earth Objects <small>(in lunar distance)</small></h2>
+
+        {{#each this}}
+        <div class="collapsing-data">
+            <span class="neo-date">{{@key}} <span class="additional-info">{{this.length}} objects</span></span>
+            <div class="data-details">
+                {{#each this}}
+                <div class="neo-list-item">
+                    <span class="neo-distance">{{distance}} LD - </span>
+                    <span class="neo-name">{{name}}</span>
+                </div>
+                {{else}}
+                <p style="margin: 0;">No close approaches for this day</p>
+                {{/each}}
+            </div>
+
+        </div>
+        {{/each}}
+    </script>
+
+    <script id="webcast-template" type="text/x-handlebars-template">
+        <div class="webcast menu full-screen">
+            <span class="close-menu full-screen close-webcast"></span>
+            <div class="menu-content">
+                {{{webcast_embed}}}
+            </div>
+        </div>
+    </script>
+
+    <!--sse--><!-- npm modules JS --><!--/sse-->
+    <script src="./js/lib/space-dashboard-libs.min.js?v=<%= htmlWebpackPlugin.options.__DATE__ %>"></script>
+
+    <!--sse--><!-- Space Dashboard JS --><!--/sse-->
+    <script src="./js/space-dashboard.min.js?v=<%= htmlWebpackPlugin.options.__DATE__ %>"></script>
+
+    <!--sse--><!-- Sentry --><!--/sse-->
+    <%= htmlWebpackPlugin.options.__SENTRY_JS__ %>
+
+    <!--sse--><!-- Toggles the initial feed for the 2nd streaming widget --><!--/sse-->
+    <script type="text/javascript">
+        window.INIT_FEED_2 = "ISS";
+    </script>
+</body>
+</html>

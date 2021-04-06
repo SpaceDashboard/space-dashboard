@@ -1,0 +1,21 @@
+{
+    "has_site_message" : false,
+    "site_message" : {
+        "title": "Apollo 11 Moon Landing \n50th Anniversary",
+        "message": "<div style='text-align:left; padding: 0 15px;'>Today is the anniversary of when human exploration reached new heights. Please join the world in celebrating this monumental achievement as we reflect on the Apollo 11 Moon landing that happened 50 years ago on this day, July 20, 1969.<br><br><img src='http://spacedashboard.com/apollo-moon.jpg' style='width:100%;min-height:150px;'></div>",
+        "type" : {
+            "error" : false
+        }
+    },
+    "has_webcast_message" : true,
+    "webcast_message" : {
+        "title": "SpaceX Crew Dragon Launch",
+        "message": "NASA astronauts Robert Behnken and Douglas Hurley are launching aboard SpaceX Crew Dragon heading to the Space Station. They'll be the 1st humans to launch from U.S. soil since the final space shuttle mission in 2011. <br><br>T-0 scheduled for 15:22 EDT (19:22 UTC)",
+        "webcast_embed" : "NASA_TV",
+        "webcast_link" : "",
+        "NASA_TV" : "<iframe width='560' height='315' src='https://www.youtube.com/embed/21X5lGlDOfg?autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
+    },
+    "webcast_publish_time_start" : "2020-05-30 15:00",
+    "webcast_publish_time_end" : "2020-05-30 19:50",
+    "time_format_UTC" : "2017-01-31 15:15"
+}

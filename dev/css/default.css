@@ -1,0 +1,647 @@
+/* Google fonts, but from local server! */
+/* vietnamese */
+@font-face {
+  font-family: 'Maven Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Maven Pro Regular'), local('MavenPro-Regular'), url(../fonts/Maven-Pro-1.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Maven Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Maven Pro Regular'), local('MavenPro-Regular'), url(../fonts/Maven-Pro-2.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Maven Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Maven Pro Regular'), local('MavenPro-Regular'), url(../fonts/Maven-Pro-3.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* @import url('grid.css');
+@import url('buttons.css');
+@import url('menus.css');
+@import url('nav-menu.css');
+@import url('responsive.css'); */
+
+/**
+ * Core CSS for Space Dashboard
+ */
+
+:focus {
+    /*-webkit-animation: focus-outline 1.6s infinite;*/
+    /*animation: focus-outline 1.6s infinite;*/
+    -webkit-box-shadow: 0 0 0 2px rgba(45, 125, 189, 0.9) !important;
+    -moz-box-shadow: 0 0 0 2px rgba(45, 125, 189, 0.9) !important;
+    box-shadow: 0 0 0 2px rgba(45, 125, 189, 0.9) !important;
+    outline: none;
+}
+
+@-webkit-keyframes focus-outline {
+    0% { -webkit-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9); }
+    45% { -webkit-box-shadow: 0 0 0 3px rgba(45, 125, 189, 0.7); }
+    90% { -webkit-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9); }
+    100% { -webkit-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9); }
+}
+@keyframes focus-outline {
+    0% {
+        -moz-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+        box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+    }
+    45% {
+        -moz-box-shadow: 0 0 0 3px rgba(45, 125, 189, 0.7);
+        box-shadow: 0 0 0 3px rgba(45, 125, 189, 0.7);
+    }
+    90% {
+        -moz-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+        box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+        box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.9);
+    }
+}
+
+body {
+    background-color: #000;
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    margin: 0;
+    padding: 0;
+}
+
+body.no-scroll { overflow: hidden; }
+
+/* blur background when full-screen menu is open */
+body.no-scroll #header,
+body.no-scroll .grid-row,
+body.swal2-shown .grid-row,
+body.swal2-shown .site-info-btn-row,
+body.no-scroll .site-info-btn-row,
+body.swal2-shown #header,
+body.swal2-shown .menu.full-screen {
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+}
+
+img,
+video {
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+iframe {
+    border: 0 none transparent;
+    height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    width: 1px;
+    *width: 100%;
+}
+
+label { display: block; }
+
+p {
+    font-weight: 300;
+    line-height: 1.4;
+    margin-top: 0;
+    max-width: 900px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 300;
+    margin-top: 0;
+}
+
+hr { margin: 50px 0; }
+
+.text-error {
+    color: #f35858;
+    display: none;
+}
+
+
+/* sweetalert2 style overrides */
+.swal2-modal .swal2-title { margin: 0.7em 0 0.4em !important; }
+.swal2-content {
+    font-weight: 200 !important;
+    margin-bottom: 30px !important;
+    padding: 0 15px !important;
+}
+.swal2-modal .swal2-buttonswrapper {
+    margin: 0 0 20px !important;
+}
+.swal2-modal button {
+    border: 1px solid #FFF !important;
+    border-radius: 50px !important;
+    box-sizing: border-box;
+    margin-top: 0 !important;
+    padding: 8px 32px !important;
+}
+
+
+/* refresh overlay */
+.refresh-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    transition: visibility 0s linear 0.15s, opacity 0.15s linear;
+    visibility: hidden;
+    width: 100%;
+    z-index: 10;
+}
+
+.refresh-overlay.visible {
+    opacity: 1;
+    transition-delay: 0s;
+    visibility: visible;
+}
+
+.refresh-overlay i {
+    font-size: 60px;
+    margin: -30px 0 0 -30px;
+    position: absolute;
+    top: 50%;
+}
+
+.refresh-system {
+    /*background: #FFF;*/
+    border-radius: 50%;
+    height: 150px;
+    left: calc(50% - 75px);
+    position: absolute;
+    top: calc(50% - 75px);
+    width: 150px;
+}
+
+.refresh-system .star {
+    background: #FFF;
+    border-radius: 50%;
+    height: 14%;
+    left: 43%;
+    position: absolute;
+    top: 43%;
+    width: 14%;
+}
+
+.refresh-system .inner-orbit,
+.refresh-system .inner-orbit-guide {
+    -webkit-animation: spin 5s linear infinite;
+    -moz-animation: spin 5s linear infinite;
+    animation: spin 5s linear infinite;
+    background: transparent;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transition: 0.3s all ease;
+    width: 0;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit.orbit-1 {
+    height: 84%;
+    left: 8%;
+    top: 8%;
+    width: 84%;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit.orbit-2 {
+    height: 60%;
+    left: 20%;
+    top: 20%;
+    -webkit-transition-delay: 0.1s;
+    transition-delay: 0.1s;
+    width: 60%;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit.orbit-3 {
+    height: 40%;
+    left: 30%;
+    top: 30%;
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+    width: 40%;
+}
+
+.refresh-system .inner-orbit-guide {
+    background: transparent;
+    border: none;
+    position: absolute;
+}
+
+.refresh-system .inner-orbit-guide.orbit-1 {
+    -webkit-animation-duration: 8s;
+    -moz-animation-duration: 8s;
+    animation-duration: 8s;
+    height: 84%;
+    left: 8%;
+    top: 8%;
+    width: 84%;
+}
+.refresh-system .inner-orbit-guide.orbit-2 {
+    height: 60%;
+    left: 20%;
+    top: 20%;
+    width: 60%;
+}
+.refresh-system .inner-orbit-guide.orbit-3 {
+    -webkit-animation-duration: 3s;
+    -moz-animation-duration: 3s;
+    animation-duration: 3s;
+    height: 40%;
+    left: 30%;
+    top: 30%;
+    width: 40%;
+}
+
+.refresh-system .inner-orbit-guide:before {
+    background: #FFF;
+    border-radius: 50%;
+    content: '';
+    height: 0;
+    position: absolute;
+    transition: 0.3s all ease;
+    width: 0;
+}
+
+.refresh-system .inner-orbit-guide.orbit-1:before { top: -4px; }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    .refresh-system .inner-orbit-guide.orbit-1:before {
+        top: 10px;
+        left: 17px;
+    }
+}
+
+.refresh-system .inner-orbit-guide.orbit-2:before {
+    left: -3px;
+    top: 50px;
+}
+
+.refresh-system .inner-orbit-guide.orbit-3:before {
+    left: 50px;
+    top: 38px;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit-guide.orbit-1:before {
+    -webkit-transition-delay: 0.13s;
+    transition-delay: 0.13s;
+    height: 10px;
+    width: 10px;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit-guide.orbit-2:before {
+    -webkit-transition-delay: 0.15s;
+    transition-delay: 0.15s;
+    height: 10px;
+    width: 10px;
+}
+
+.refresh-overlay.visible .refresh-system .inner-orbit-guide.orbit-3:before {
+    -webkit-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+    height: 10px;
+    width: 10px;
+}
+
+@-moz-keyframes spin {
+    100% { -moz-transform: rotate(-360deg); }
+}
+@-webkit-keyframes spin {
+    100% { -webkit-transform: rotate(-360deg); }
+}
+@keyframes spin {
+    100% { -webkit-transform: rotate(-360deg); transform: rotate(-360deg); }
+}
+
+
+/* ISS tracker */
+.iss-track-col-wrapper {
+    background-color: #191919;
+    position: relative;
+}
+
+.iss-track-col-wrapper .iss-track-outer-wrapper {
+    padding-bottom:9px;
+    padding-top:56.25%;
+    position:relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    width:100%;
+}
+
+.iss-track-col-wrapper .iss-track-inner-wrapper {
+    bottom:10px;
+    height:calc(100% - 20px);
+    left:10px;
+    margin:0 auto;
+    max-height: 353px;
+    max-width: 625px;
+    overflow:hidden;
+    position: absolute;
+    right:10px;
+    top:10px;
+}
+
+
+/* Planetary K index section */
+.col-content.k-index-section { overflow-y: hidden; }
+
+.current-k-index {
+    box-sizing: border-box;
+    min-height: 55px;
+    padding: 2%;
+    text-align: center;
+}
+
+.current-k-index p {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 100;
+    margin: 0;
+    position: relative;
+}
+
+.current-k-index small {
+    color: #FFF;
+    font-weight: 200;
+    letter-spacing: 0.7px;
+}
+
+.current-k-index .k-index-value,
+.current-k-index .geo-storm {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.current-k-index .k-index-value { padding: 0 6px; }
+
+.current-k-index .geo-storm {
+    background-color: #202020;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0 6px;
+}
+
+.current-k-index i {
+    display: none;
+    font-size: 14px;
+    opacity: 0.7;
+    position: absolute;
+    right: 0;
+    top: calc(50% - 7px);
+}
+
+.k-index-wrapper {
+    background-color: #191919;
+    height: calc(100% - 65px);
+    position: relative;
+}
+
+#planetary-k-index {
+    background-color: #191919;
+    box-sizing: border-box;
+    padding: 3%;
+}
+
+
+/* NEO and people in space */
+#neo-list,
+#people-in-space {
+    box-sizing: border-box;
+    color: #FFF;
+    height: auto;
+    float: left;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 50;
+}
+
+#neo-list h2,
+#people-in-space h2 {
+    margin: 0;
+    padding: 12px 10px 15px;
+}
+
+.collapsing-data,
+.touch .collapsing-data:hover {
+    background-color: #232323;
+    border-top: 1px solid #5d5d5d;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 7px 10px;
+}
+.collapsing-data:last-child {
+    border-bottom: 1px solid #5d5d5d;
+    margin-bottom: 35px;
+}
+.collapsing-data:hover { background-color: rgba(255,255,255,0.08); }
+
+.collapsing-data .additional-info {
+    float: right;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+.data-details {
+    display: none;
+    margin: 8px 0;
+}
+
+#people-in-space {
+    bottom: 50%;
+    padding: 0;
+    top: 0;
+}
+
+.people-neo-dragger {
+    background-color: #888;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(15, 15, 15, 0.65);
+    box-shadow: 0px 0px 5px 1px rgba(15, 15, 15, 0.65);
+    cursor: row-resize;
+    float: left;
+    height: 6px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    z-index: 51;
+}
+
+.people-neo-dragger:after {
+    background-color: #888;
+    box-sizing: border-box;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    content: "\f0c9";
+    font-family: FontAwesome;
+    font-size: 7px;
+    height: 16px;
+    left: calc(50% - 15px);
+    padding-top: 5px;
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 8px);
+    width: 30px;
+}
+
+/* arrow with 90 deg rotation */
+/*.people-neo-dragger:after {
+    background-color: #888;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    box-sizing: border-box;
+    content: "\f0ec";
+    font-family: FontAwesome;
+    font-size: 9px;
+    height: 40px;
+    left: calc(50% - 10px);
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 20px);
+    transform: rotate(90deg);
+    width: 20px;
+}*/
+
+.people-neo-dragger:hover,
+.people-neo-dragger.is-pointer-down,
+.people-neo-dragger:hover:after,
+.people-neo-dragger.is-pointer-down:after { background-color: #CCC; }
+
+.people-neo-dragger.is-dragging + #neo-list { border-top-color: #888; }
+
+
+/* astronaut information */
+.astronaut-name { display: block; }
+.astronaut-title {
+    display: block;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+.astronaut-bio { display: block; }
+
+
+/* neo list */
+#neo-list {
+    background-color: #303030;
+    border-top: 6px solid transparent;
+    bottom: 0;
+    height: auto;
+    top: 50%;
+}
+.neo-list-item { display: block; }
+.neo-date { display: block; }
+.neo-distance {
+    display: inline-block;
+    margin-right: 4px;
+    min-width: 65px;
+    text-align: right;
+}
+
+
+/* contact form style */
+#contact-form input[type="text"],
+#contact-form textarea {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-bottom: 1px solid #FFF;
+    box-sizing: border-box;
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    outline: 0;
+    padding: 10px;
+    resize: none;
+    -webkit-transition: 0.2s all ease;
+    -moz-transition: 0.2s all ease;
+    transition: 0.2s all ease;
+    width: 100%;
+}
+
+#contact-form input[type="text"]:hover,
+#contact-form textarea:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+#contact-form input[type="text"]:focus,
+#contact-form textarea:focus { background: #FFF !important; }
+
+#contact-form input[type="text"] { max-width: 350px; }
+#contact-form input[type="checkbox"] { font-size: 16px; }
+#contact-form textarea { max-width: 600px; }
+
+#contact-form input.not-empty,
+#contact-form textarea.not-empty { background: #FFF !important; }
+
+#contact-form input.not-empty:hover,
+#contact-form textarea.not-empty:hover { background: #FFF !important; }
+
+#contact-form label { margin: 25px 0 5px; }
+#contact-form label:first-child { margin-top: 0; }
+
+#contact-form .btn {
+    margin: 25px 0 10px;
+    padding: 12px 35px;
+}
+
+
+/* Specific elemental styles */
+#text-aurora-forecast {
+    box-sizing: border-box;
+    color: #FFF;
+    font-family: monospace;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0 10px 10px 10px;
+    white-space: pre-wrap;
+}
+
+
+/* Error text for fetching data */
+.error-text-fetching-data {
+    height: 100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight: 300;
+}
+
+
+/* donate link */
+/*#donate-link span {
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 8px;
+    width: 0;
+}
+
+#donate-link:hover span {
+    max-width: 500px;
+}*/
