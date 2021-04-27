@@ -104,7 +104,7 @@ $(function() {
             padding: '0.5em'
         }).then(function(result) {
             if (result.value) {
-                window.open("https://status.spacedashboard.com/");
+                window.open('http://status.spacedashboard.com');
             }
         });
     });
