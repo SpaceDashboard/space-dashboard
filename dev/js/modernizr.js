@@ -1,6 +1,6 @@
 /*!
- * modernizr v3.11.3
- * Build https://modernizr.com/download?-adownload-ambientlight-apng-appearance-applicationcache-arrow-atobbtoa-audio-audioautoplay-audioloop-audiopreload-backdropfilter-backgroundblendmode-backgroundcliptext-backgroundsize-batteryapi-bdi-beacon-bgpositionshorthand-bgpositionxy-bgrepeatspace_bgrepeatround-bgsizecover-blobconstructor-bloburls-blobworkers-borderimage-borderradius-boxdecorationbreak-boxshadow-boxsizing-canvas-canvasblending-canvastext-canvaswinding-capture-checked-classlist-connectioneffectivetype-contains-contenteditable-contextmenu-cookies-cors-createelementattrs_createelement_attrs-cryptography-cssall-cssanimations-csscalc-csschunit-csscolumns-cssescape-cssexunit-cssfilters-cssgradients-cssgrid_cssgridlegacy-csshyphens_softhyphens_softhyphensfind-cssinvalid-cssmask-csspointerevents-csspositionsticky-csspseudoanimations-csspseudotransitions-cssreflections-cssremunit-cssresize-cssscrollbar-csstransforms-csstransforms3d-csstransformslevel2-csstransitions-cssvalid-cssvhunit-cssvmaxunit-cssvminunit-cssvwunit-cubicbezierrange-customelements-customevent-customproperties-customprotocolhandler-dart-datachannel-datalistelem-dataset-datauri-dataview-dataworkers-details-devicemotion_deviceorientation-directory-display_runin-displaytable-documentfragment-ellipsis-emoji-es5-es5array-es5date-es5function-es5object-es5string-es5syntax-es5undefined-es6array-es6class-es6collections-es6math-es6number-es6object-es6string-es6symbol-es7array-es8object-eventlistener-eventsource-exiforientation-fetch-fileinput-filereader-filesystem-flash-flexbox-flexboxlegacy-flexboxtweener-flexgap-flexwrap-focuswithin-fontdisplay-fontface-forcetouch-formattribute-formvalidation-framed-fullscreen-gamepads-generatedcontent-generators-geolocation-getrandomvalues-getusermedia-hairline-hashchange-hidden-hiddenscroll-history-hovermq-hsla-htmlimports-ie8compat-imgcrossorigin-indexeddb-indexeddbblob-inlinesvg-input-inputformaction-inputformenctype-inputformmethod-inputformnovalidate-inputformtarget-inputsearchevent-inputtypes-intersectionobserver-intl-jpeg2000-jpegxr-json-lastchild-lazyloading-ligatures-localizednumber-localstorage-lowbandwidth-lowbattery-matchmedia-mathml-mediaqueries-mediasource-messagechannel-microdata-multiplebgs-mutationobserver-notification-nthchild-objectfit-olreversed-oninput-opacity-outputelem-overflowscrolling-pagevisibility-passiveeventlisteners-peerconnection-performance-picture-placeholder-pointerevents-pointerlock-pointermq-postmessage-preserve3d-progressbar_meter-promises-proximity-proxy-publickeycredential-queryselector-quotamanagement-regions-requestanimationframe-requestautocomplete-restdestructuringarray_restdestructuringobject-restparameters-rgba-ruby-sandbox-scriptasync-scriptdefer-scrollsnappoints-seamless-serviceworker-sessionstorage-shadowroot-shadowrootlegacy-shapes-sharedworkers-siblinggeneral-sizes-smil-speechrecognition-speechsynthesis-spreadarray-spreadobject-srcdoc-srcset-strictmode-stringtemplate-stylescoped-subpixelfont-supports-svg-svgasimg-svgclippaths-svgfilters-svgforeignobject-target-template-templatestrings-textalignlast-textareamaxlength-textdecoration-textencoder_textdecoder-textshadow-texttrackapi_track-time-todataurljpeg_todataurlpng_todataurlwebp-transferables-typedarrays-unicoderange-unknownelements-urlparser-urlsearchparams-userdata-userselect-variablefonts-vibrate-video-videoautoplay-videocrossorigin-videoloop-videopreload-vml-webanimations-webaudio-webgl-webglextensions-webintents-webp-webpalpha-webpanimation-webplossless_webp_lossless-websockets-websocketsbinary-websqldatabase-webworkers-willchange-wrapflow-xdomainrequest-xhr2-xhrresponsetype-xhrresponsetypearraybuffer-xhrresponsetypeblob-xhrresponsetypedocument-xhrresponsetypejson-xhrresponsetypetext-addtest-atrule-domprefixes-hasevent-load-mq-prefixed-prefixedcss-prefixes-printshiv-setclasses-testallprops-testprop-teststyles-dontmin
+ * modernizr v3.12.0
+ * Build https://modernizr.com/download?-adownload-ambientlight-aping-apng-appearance-applicationcache-areaping-arrow-atobbtoa-audio-audioautoplay-audioloop-audiopreload-avif-backdropfilter-backgroundblendmode-backgroundcliptext-backgroundsize-batteryapi-bdi-beacon-bgpositionshorthand-bgpositionxy-bgrepeatspace_bgrepeatround-bgsizecover-blobconstructor-bloburls-blobworkers-borderimage-borderradius-boxdecorationbreak-boxshadow-boxsizing-canvas-canvasblending-canvastext-canvaswinding-capture-checked-classlist-clipboard-connectioneffectivetype-contains-contenteditable-contextmenu-cookies-cors-createelementattrs_createelement_attrs-cryptography-cssall-cssanimations-csscalc-csschunit-csscolumns-cssescape-cssexunit-cssfilters-cssgradients-cssgrid_cssgridlegacy-csshyphens_softhyphens_softhyphensfind-cssinvalid-cssmask-csspointerevents-csspositionsticky-csspseudoanimations-csspseudotransitions-cssreflections-cssremunit-cssresize-cssscrollbar-csstransforms-csstransforms3d-csstransformslevel2-csstransitions-cssvalid-cssvhunit-cssvmaxunit-cssvminunit-cssvwunit-cubicbezierrange-customelements-customevent-customproperties-customprotocolhandler-dart-datachannel-datalistelem-dataset-datauri-dataview-dataworkers-details-devicemotion_deviceorientation-directory-display_runin-displaytable-documentfragment-ellipsis-emoji-es5-es5array-es5date-es5function-es5object-es5string-es5syntax-es5undefined-es6array-es6class-es6collections-es6math-es6number-es6object-es6string-es6symbol-es7array-es8object-eventlistener-eventsource-exiforientation-fetch-fileinput-filereader-filesystem-flash-flexbox-flexboxlegacy-flexboxtweener-flexgap-flexwrap-focusvisible-focuswithin-fontdisplay-fontface-forcetouch-formattribute-formvalidation-framed-fullscreen-gamepads-generatedcontent-generators-geolocation-getrandomvalues-getusermedia-hairline-hashchange-hidden-hiddenscroll-history-hovermq-hsla-htmlimports-ie8compat-imgcrossorigin-indexeddb-indexeddb2-indexeddbblob-inlinesvg-input-inputformaction-inputformenctype-inputformmethod-inputformnovalidate-inputformtarget-inputsearchevent-inputtypes-intersectionobserver-intl-jpeg2000-jpegxr-json-lastchild-lazyloading-ligatures-localizednumber-localstorage-lowbandwidth-lowbattery-matchmedia-mathml-mediaqueries-mediarecorder-mediasource-messagechannel-microdata-multiplebgs-mutationobserver-notification-nthchild-objectfit-olreversed-oninput-opacity-outputelem-overflowscrolling-pagevisibility-passiveeventlisteners-peerconnection-performance-picture-placeholder-pointerevents-pointerlock-pointermq-postmessage-prefetch-preserve3d-progressbar_meter-promises-proximity-proxy-publickeycredential-queryselector-quotamanagement-regions-requestanimationframe-requestautocomplete-resizeobserver-restdestructuringarray_restdestructuringobject-restparameters-rgba-ruby-sandbox-scriptasync-scriptdefer-scrollsnappoints-scrolltooptions-seamless-serviceworker-sessionstorage-shadowroot-shadowrootlegacy-shapes-sharedworkers-siblinggeneral-sizes-smil-speechrecognition-speechsynthesis-spreadarray-spreadobject-srcdoc-srcset-strictmode-stringtemplate-stylescoped-subpixelfont-supports-svg-svgasimg-svgclippaths-svgfilters-svgforeignobject-target-template-templatestrings-textalignlast-textareamaxlength-textdecoration-textencoder_textdecoder-textshadow-texttrackapi_track-time-todataurljpeg_todataurlpng_todataurlwebp-transferables-typedarrays-unicoderange-unknownelements-urlparser-urlsearchparams-userdata-userselect-variablefonts-vibrate-video-videoautoplay-videocrossorigin-videoloop-videopreload-vml-webanimations-webaudio-webgl-webglextensions-webintents-webp-webpalpha-webpanimation-webplossless_webp_lossless-websockets-websocketsbinary-websqldatabase-webworkers-willchange-wrapflow-xdomainrequest-xhr2-xhrresponsetype-xhrresponsetypearraybuffer-xhrresponsetypeblob-xhrresponsetypedocument-xhrresponsetypejson-xhrresponsetypetext-addtest-atrule-domprefixes-hasevent-load-mq-prefixed-prefixedcss-prefixes-printshiv-setclasses-testallprops-testprop-teststyles-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -35,7 +35,7 @@
    * @access public
    */
   var ModernizrProto = {
-    _version: '3.11.3',
+    _version: '3.12.0',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.
@@ -569,7 +569,7 @@
    * @example
    *
    * Modernizr._domPrefixes is exactly the same as [_prefixes](#modernizr-_prefixes), but rather
-   * than kebab-case properties, all properties are their Capitalized variant
+   * than hyphen-case properties, all properties are their Capitalized variant
    *
    * ```js
    * Modernizr._domPrefixes === [ "Moz", "O", "ms", "Webkit" ];
@@ -1330,7 +1330,7 @@
 
     ret = callback(div, rule);
     // If this is done after page load we don't want to remove the body so check if body exists
-    if (body.fake) {
+    if (body.fake && body.parentNode) {
       body.parentNode.removeChild(body);
       docElement.style.overflow = docOverflow;
       // Trigger layout so kinetic scrolling isn't disabled in iOS6+
@@ -1496,13 +1496,13 @@
   
 
   /**
-   * domToCSS takes a camelCase string and converts it to kebab-case
+   * domToCSS takes a camelCase string and converts it to hyphen-case
    * e.g. boxSizing -> box-sizing
    *
    * @access private
    * @function domToCSS
    * @param {string} name - String name of camelCase prop we want to convert
-   * @returns {string} The kebab-case version of the supplied name
+   * @returns {string} The hyphen-case version of the supplied name
    */
   function domToCSS(name) {
     return name.replace(/([A-Z])/g, function(str, m1) {
@@ -1553,12 +1553,12 @@
   ;
 
   /**
-   * cssToDOM takes a kebab-case string and converts it to camelCase
+   * cssToDOM takes a hyphen-case string and converts it to camelCase
    * e.g. box-sizing -> boxSizing
    *
    * @access private
    * @function cssToDOM
-   * @param {string} name - String name of kebab-case prop we want to convert
+   * @param {string} name - String name of hyphen-case prop we want to convert
    * @returns {string} The camelCase version of the supplied name
    */
   function cssToDOM(name) {
@@ -1580,7 +1580,7 @@
   // on our modernizr element, but instead just testing undefined vs
   // empty string.
 
-  // Property names can be provided in either camelCase or kebab-case.
+  // Property names can be provided in either camelCase or hyphen-case.
 
   function testProps(props, prefixed, value, skipValueTest) {
     skipValueTest = is(skipValueTest, 'undefined') ? false : skipValueTest;
@@ -1776,7 +1776,7 @@
    * @example
    *
    * Modernizr.prefixed takes a string css value in the DOM style camelCase (as
-   * opposed to the css style kebab-case) form and returns the (possibly prefixed)
+   * opposed to the css style hyphen-case) form and returns the (possibly prefixed)
    * version of that property that the browser actually supports.
    *
    * For example, in older Firefox...
@@ -1821,7 +1821,7 @@
    * var transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
    * ```
    *
-   * If you want a similar lookup, but in kebab-case, you can use [prefixedCSS](#modernizr-prefixedcss).
+   * If you want a similar lookup, but in hyphen-case, you can use [prefixedCSS](#modernizr-prefixedcss).
    */
   var prefixed = ModernizrProto.prefixed = function(prop, obj, elem) {
     if (prop.indexOf('@') === 0) {
@@ -1829,7 +1829,7 @@
     }
 
     if (prop.indexOf('-') !== -1) {
-      // Convert kebab-case to camelCase
+      // Convert hyphen-case to camelCase
       prop = cssToDOM(prop);
     }
     if (!obj) {
@@ -1855,7 +1855,7 @@
    *
    * Modernizr._prefixes is the internal list of prefixes that we test against
    * inside of things like [prefixed](#modernizr-prefixed) and [prefixedCSS](#-code-modernizr-prefixedcss). It is simply
-   * an array of kebab-case vendor prefixes you can use within your code.
+   * an array of hyphen-case vendor prefixes you can use within your code.
    *
    * Some common use cases include
    *
@@ -1884,7 +1884,7 @@
 
   /**
    * prefixedCSS is just like [prefixed](#modernizr-prefixed), but the returned values are in
-   * kebab-case (e.g. `box-sizing`) rather than camelCase (boxSizing).
+   * hyphen-case (e.g. `box-sizing`) rather than camelCase (boxSizing).
    *
    * @memberOf Modernizr
    * @name Modernizr.prefixedCSS
@@ -1907,7 +1907,7 @@
    * Since it is only useful for CSS style properties, it can only be tested against
    * an HTMLElement.
    *
-   * Properties can be passed as both the DOM style camelCase or CSS style kebab-case.
+   * Properties can be passed as both the DOM style camelCase or CSS style hyphen-case.
    */
   var prefixedCSS = ModernizrProto.prefixedCSS = function(prop) {
     var prefixedProp = prefixed(prop);
@@ -1925,7 +1925,7 @@
    * @optionProp testAllProps
    * @access public
    * @function testAllProps
-   * @param {string} prop - String naming the property to test (either camelCase or kebab-case)
+   * @param {string} prop - String naming the property to test (either camelCase or hyphen-case)
    * @param {string} [value] - String of the value to test
    * @param {boolean} [skipValueTest=false] - Whether to skip testing that the value is supported when using non-native detection
    * @returns {string|boolean} returns the string version of the property, or `false` if it is unsupported
@@ -1963,7 +1963,7 @@
 
   /**
    * testProp() investigates whether a given style property is recognized
-   * Property names can be provided in either camelCase or kebab-case.
+   * Property names can be provided in either camelCase or hyphen-case.
    *
    * @memberOf Modernizr
    * @name Modernizr.testProp
@@ -2075,6 +2075,46 @@ When used on an `<a>`, this attribute signifies that the resource it points to s
 */
 
   Modernizr.addTest('adownload', !window.externalHost && 'download' in createElement('a'));
+
+/*!
+{
+  "name": "a[ping] Attribute",
+  "property": "aping",
+  "caniuse": "ping",
+  "tags": ["media", "attribute"],
+  "builderAliases": ["a_ping"],
+  "authors": ["Hélio Correia (@heliocorreia)"],
+  "notes": [{
+    "name": "WHATWG Spec",
+    "href": "https://html.spec.whatwg.org/dev/links.html#ping"
+  }]
+}
+!*/
+/* DOC
+The ping attribute, if present, gives the URLs of the resources that are interested in being notified if the user follows the hyperlink.
+*/
+
+  Modernizr.addTest('aping', !window.externalHost && 'ping' in createElement('a'));
+
+/*!
+{
+  "name": "area[ping] Attribute",
+  "property": "areaping",
+  "caniuse": "ping",
+  "tags": ["media", "attribute"],
+  "builderAliases": ["area_ping"],
+  "authors": ["Hélio Correia (@heliocorreia)"],
+  "notes": [{
+    "name": "WHATWG Spec",
+    "href": "https://html.spec.whatwg.org/dev/links.html#ping"
+  }]
+}
+!*/
+/* DOC
+The ping attribute, if present, gives the URLs of the resources that are interested in being notified if the user follows the hyperlink.
+*/
+
+  Modernizr.addTest('areaping', !window.externalHost && 'ping' in createElement('area'));
 
 /*!
 {
@@ -2594,6 +2634,52 @@ Detects support for the text APIs for `<canvas>` elements.
       return false;
     }
     return typeof createElement('canvas').getContext('2d').fillText === 'function';
+  });
+
+/*!
+{
+  "name": "Clipboard API",
+  "property": "clipboard",
+  "tags": ["clipboard"],
+  "authors": ["Markel Ferro (@MarkelFe)"],
+  "async": true,
+  "warnings": ["It may return false in non-HTTPS connections as the API is only available in secure contexts"],
+  "notes": [{
+    "name": "MDN Docs Clipboard Object",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard"
+  }, {
+    "name": "MDN Docs Clipboard API",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API"
+  }]
+}
+!*/
+/* DOC
+It tests for the whole clipboard API. The sub-properties `read`, `readText`, `write` and `writeText` are supported. Note: This test does not detect the [clipboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/ClipboardEvent).
+
+```javascript
+Modernizr.clipboard         // Supports the clipboard API
+Modernizr.clipboard.read    // Supports the read sub-property
+```
+*/
+
+  Modernizr.addAsyncTest(function() {
+    var result;
+    var props = ['read', 'readText', 'write', 'writeText'];
+    if (navigator.clipboard) {
+      addTest('clipboard', true);
+      // The sub-modules checked only if API is available to avoid Edge crashes
+      for (var i = 0; i < props.length; i++) {
+        if (navigator.clipboard[props[i]]) {
+          result = true;
+        } else {
+          result = false;
+        }
+        addTest('clipboard.' + props[i].toLowerCase(), result);
+      }
+    }
+    else {
+      addTest('clipboard', false);
+    }
   });
 
 /*!
@@ -3543,8 +3629,27 @@ else {
 
 /*!
 {
-  "name": "CSS :focus-within pseudo-selector",
+  "name": "CSS :focus-visible pseudo-selector",
   "caniuse": "css-focus-visible",
+  "property": "focusvisible",  
+  "authors": ["@esaborit4code"],
+  "tags": ["css"]
+}
+!*/
+
+  Modernizr.addTest('focusvisible', function() {
+    try {
+      document.querySelector(':focus-visible');
+    } catch (error) {
+      return false;
+    }
+    return true;
+  });
+
+/*!
+{
+  "name": "CSS :focus-within pseudo-selector",
+  "caniuse": "css-focus-within",
   "property": "focuswithin",
   "tags": ["css"]
 }
@@ -6323,8 +6428,8 @@ Check if browser implements ECMAScript 6 String per specification.
 Check if browser implements ECMAScript 6 Symbol per specification.
 */
 
-  Modernizr.addTest('es6symbol', !!(Symbol &&
-    Symbol.for &&
+  Modernizr.addTest('es6symbol', !!(typeof(Symbol)==="function" &&
+    Symbol['for'] &&
     Symbol.hasInstance &&
     Symbol.isConcatSpreadable &&
     Symbol.iterator &&
@@ -7225,7 +7330,7 @@ Detects whether input type="number" is capable of receiving and displaying local
 
     /* cleanup */
     body.removeChild(div);
-    if (body.fake) {
+    if (body.fake && body.parentNode) {
       body.parentNode.removeChild(body);
     }
 
@@ -7590,6 +7695,36 @@ Test for animated png support.
     image.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAAABAAAAAcMq2TYAAAANSURBVAiZY2BgYPgPAAEEAQB9ssjfAAAAGmZjVEwAAAAAAAAAAQAAAAEAAAAAAAAAAAD6A+gBAbNU+2sAAAARZmRBVAAAAAEImWNgYGBgAAAABQAB6MzFdgAAAABJRU5ErkJggg==';
   });
 
+/*!
+{
+  "name": "AVIF",
+  "async": true,
+  "property": "avif",
+  "caniuse": "avif",
+  "tags": ["image"],
+  "authors": ["Markel Ferro (@MarkelFe)"],
+  "polyfills": ["avifjs"],
+  "notes": [{
+    "name": "Avif Spec",
+    "href": "https://aomediacodec.github.io/av1-avif/"
+  }]
+}
+!*/
+/* DOC
+Test for AVIF support
+*/
+
+
+    Modernizr.addAsyncTest(function() {
+      var image = new Image();
+  
+      image.onload = image.onerror = function() {
+        addTest('avif', image.width === 1);
+      };
+  
+      image.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAAEcbWV0YQAAAAAAAABIaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGNhdmlmIC0gaHR0cHM6Ly9naXRodWIuY29tL2xpbmstdS9jYXZpZgAAAAAeaWxvYwAAAAAEQAABAAEAAAAAAUQAAQAAABcAAAAqaWluZgEAAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFJbWFnZQAAAAAOcGl0bQAAAAAAAQAAAHJpcHJwAAAAUmlwY28AAAAQcGFzcAAAAAEAAAABAAAAFGlzcGUAAAAAAAAAAQAAAAEAAAAQcGl4aQAAAAADCAgIAAAAFmF2MUOBAAwACggYAAYICGgIIAAAABhpcG1hAAAAAAAAAAEAAQUBAoMDhAAAAB9tZGF0CggYAAYICGgIIBoFHiAAAEQiBACwDoA=';
+    });
+  
 /*!
 {
   "name": "Image crossOrigin",
@@ -8951,6 +9086,39 @@ Detects the ability to request a specific amount of space for filesystem access
 
 /*!
 {
+  "name": "rel=prefetch",
+  "property": "prefetch",
+  "caniuse": "link-rel-prefetch",
+  "notes": [{
+    "name": "W3C Spec",
+    "href": "https://www.w3.org/TR/resource-hints/#prefetch"
+  }, {
+    "name": "Related Github Issue",
+    "href": "https://github.com/Modernizr/Modernizr/issues/2536"
+  }]
+}
+!*/
+/* DOC
+Test for resource hints: prefetch.
+*/
+
+  Modernizr.addTest("prefetch", function() {
+    if (document.documentMode === 11) {
+      // Need to check specifically for IE11 as it supports prefetch, but not relList
+      // https://github.com/Modernizr/Modernizr/pull/2610#issuecomment-709717161
+      return true;
+    }
+
+    var relList = createElement("link").relList;
+    if (!relList || !relList.supports) {
+      return false;
+    }
+
+    return relList.supports("prefetch");
+  });
+
+/*!
+{
   "name": "requestAnimationFrame",
   "property": "requestanimationframe",
   "aliases": ["raf"],
@@ -9003,6 +9171,40 @@ Detects support for the `defer` attribute on the `<script>` element.
 */
 
   Modernizr.addTest('scriptdefer', 'defer' in createElement('script'));
+
+/*!
+{
+  "name": "scrollToOptions dictionary",
+  "property": "scrolltooptions",
+  "caniuse": "mdn-api_scrolltooptions",
+  "notes": [{
+    "name": "MDN docs",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo"
+  }],
+  "authors": ["Oliver Tušla (@asmarcz)", "Chris Smith (@chris13524)"]
+}
+!*/
+
+  Modernizr.addTest('scrolltooptions', function () {
+    var body = getBody();
+    var returnTo = window.pageYOffset;
+    var needsFill = body.clientHeight <= window.innerHeight;
+    if (needsFill) {
+      var div = createElement('div');
+      div.style.height = (window.innerHeight - body.clientHeight + 1) + 'px';
+      div.style.display = 'block';
+      body.appendChild(div);
+    }
+    window.scrollTo({
+      top: 1
+    });
+    var result = window.pageYOffset !== 0;
+    if (needsFill) {
+      body.removeChild(div);
+    }
+    window.scrollTo(0, returnTo);
+    return result;
+  });
 
 /*!
 {
@@ -9066,6 +9268,28 @@ ServiceWorkers (formerly Navigation Controllers) are a way to persistently cache
     } catch (e) {
       return false;
     }
+  });
+
+/*!
+{
+  "name": "IndexedDB 2.0",
+  "property": "indexeddb2",
+  "tags": ["storage"],
+  "caniuse": "indexeddb2",
+  "authors": ["Tan Zhen Yong (@Xenonym)"],
+  "polyfills": ["indexeddb"],
+  "async": true
+}
+!*/
+/* DOC
+Detects support for the IndexedDB 2.0 client-side storage API.
+*/
+
+  Modernizr.addAsyncTest(function() {
+    Modernizr.on('indexeddb', function(result) {
+      if (!result) return;
+      addTest('indexeddb2', 'getAll' in IDBIndex.prototype);
+    });
   });
 
 /*!
@@ -10113,6 +10337,25 @@ Detects support for the new Promise-based `getUserMedia` API.
 
 /*!
 {
+  "name": "MediaStream Recording API",
+  "property": "mediarecorder",
+  "caniuse": "mediarecorder",
+  "tags": ["mediarecorder", "media"],
+  "authors": ["Onkar Dahale"],
+  "notes": [{
+    "name": "MDN Docs",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API"
+  }]
+}
+!*/
+/* DOC
+Detects support for the MediaStream Recording API.
+*/
+
+    Modernizr.addTest('mediastream', typeof MediaRecorder !== "undefined" );
+
+/*!
+{
   "name": "WebSockets Support",
   "property": "websockets",
   "authors": ["Phread (@fearphage)", "Mike Sherov (@mikesherov)", "Burak Yigit Kaya (@BYK)"],
@@ -10236,6 +10479,35 @@ Detects support for matchMedia.
 */
 
   Modernizr.addTest('matchmedia', !!prefixed('matchMedia', window));
+
+/*!
+{
+  "name": "ResizeObserver",
+  "property": "resizeobserver",
+  "caniuse": "resizeobserver",
+  "tags": ["ResizeObserver"],
+  "authors": ["Christian Andersson"],
+  "notes": [{
+    "name": "W3C Spec",
+    "href": "https://www.w3.org/TR/resize-observer/"
+  }, {
+    "name": "MDN Docs",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver"
+  }, {
+    "name": "Web.dev Article",
+    "href": "https://web.dev/resize-observer/"
+  }, {
+    "name": "Digital Ocean tutorial",
+    "href": "https://www.digitalocean.com/community/tutorials/js-resize-observer"
+  }]
+}
+!*/
+
+/* DOC
+Detects support for ResizeObserver.
+*/
+
+  Modernizr.addTest('resizeobserver', 'ResizeObserver' in window);
 
 /*!
 {

@@ -33,7 +33,6 @@
     "gulp-plumber": "1.2.0",
     "gulp-regex-replace": "0.2.3",
     "gulp-rename": "1.2.2",
-    "gulp-shell": "^0.6.5",
     "gulp-uglifyjs": "0.6.2",
     "gulp-watch": "^5.0.1",
     "html-webpack-exclude-assets-plugin": "0.0.7",

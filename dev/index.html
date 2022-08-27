@@ -230,6 +230,7 @@
                     <span class="close-menu"></span>
                     <div class="menu-content">
                         <p>Credit: <a href="https://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" target="_blank" rel="noreferrer">ESA: Where is the International Space Station</a></p>
+                        <p>Note: The incorrect rendering of the ISS tracker for smaller viewports is a known issue and a future workaround is being investigated.</p>
                     </div>
                 </div>
 
@@ -460,8 +461,10 @@
             	<!-- {{country}} -->
             </span></span>
             <div class="data-details">
-                <span class="astronaut-title">{{title}}</span>
-                <span class="astronaut-bio">{{bio}}</span>
+                <div class="inner-wrapper">
+                    <span class="astronaut-title">{{title}}</span>
+                    <span class="astronaut-country">&nbsp;&ndash;&nbsp;{{country}}</span>
+                </div>
             </div>
         </div>
         {{/each}}
@@ -493,7 +496,7 @@
         <div class="webcast menu full-screen">
             <span class="close-menu full-screen close-webcast"></span>
             <div class="menu-content">
-                {{{webcast_embed}}}
+                {{{embed_code}}}
             </div>
         </div>
     </script>

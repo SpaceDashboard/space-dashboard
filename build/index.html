@@ -26,10 +26,10 @@
     <meta property="og:image" content="https://spacedashboard.com/img/spacedashboard.png" />
 
     <!--sse--><!-- npm modules CSS --><!--/sse-->
-    <link type="text/css" rel="stylesheet" media="screen" href="./css/lib/space-dashboard-libs.css?v=1619521566836">
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/lib/space-dashboard-libs.css?v=1661611261051">
 
     <!--sse--><!-- Space Dashboard CSS --><!--/sse-->
-    <link type="text/css" rel="stylesheet" media="screen" href="./css/space-dashboard.css?v=1619521566836">
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/space-dashboard.css?v=1661611261051">
 
     <script>
         if (window.location.hostname !== "localhost") {
@@ -230,6 +230,7 @@
                     <span class="close-menu"></span>
                     <div class="menu-content">
                         <p>Credit: <a href="https://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" target="_blank" rel="noreferrer">ESA: Where is the International Space Station</a></p>
+                        <p>Note: The incorrect rendering of the ISS tracker for smaller viewports is a known issue and a future workaround is being investigated.</p>
                     </div>
                 </div>
 
@@ -460,8 +461,10 @@
             	<!-- {{country}} -->
             </span></span>
             <div class="data-details">
-                <span class="astronaut-title">{{title}}</span>
-                <span class="astronaut-bio">{{bio}}</span>
+                <div class="inner-wrapper">
+                    <span class="astronaut-title">{{title}}</span>
+                    <span class="astronaut-country">&nbsp;&ndash;&nbsp;{{country}}</span>
+                </div>
             </div>
         </div>
         {{/each}}
@@ -493,16 +496,16 @@
         <div class="webcast menu full-screen">
             <span class="close-menu full-screen close-webcast"></span>
             <div class="menu-content">
-                {{{webcast_embed}}}
+                {{{embed_code}}}
             </div>
         </div>
     </script>
 
     <!--sse--><!-- npm modules JS --><!--/sse-->
-    <script src="./js/lib/space-dashboard-libs.min.js?v=1619521566836"></script>
+    <script src="./js/lib/space-dashboard-libs.min.js?v=1661611261051"></script>
 
     <!--sse--><!-- Space Dashboard JS --><!--/sse-->
-    <script src="./js/space-dashboard.min.js?v=1619521566836"></script>
+    <script src="./js/space-dashboard.min.js?v=1661611261051"></script>
 
     <!--sse--><!-- Sentry --><!--/sse-->
     <script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous"></script>

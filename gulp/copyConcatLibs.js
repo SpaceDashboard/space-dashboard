@@ -4,8 +4,9 @@ var gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     concatCss = require('gulp-concat-css'),
     watch = require('gulp-watch'),
-    runSequence = require('run-sequence'),
-    shell = require('gulp-shell');
+    runSequence = require('run-sequence');
+
+var exec = require('child_process').exec;
 
 var libCssFiles = [
     './node_modules/font-awesome/css/font-awesome.min.css',
@@ -47,10 +48,18 @@ gulp.task('copy-css', function() {
 //     });
 // });
 
-gulp.task('neo-feed', shell.task('/usr/bin/php ./build/api/neo-feed-s7m1GMwJZKwXyxz5cpNQ5nfcB.php'));
-gulp.task('cron-job-10-min', shell.task('/usr/bin/php ./build/api/cron-job-10-min-hvLwXAoUl5MJ3tmu422MNG6eB.php'));
-gulp.task('cron-job-1-day', shell.task('/usr/bin/php ./build/api/cron-job-1-day-z2LXE3pDaB1ivWsVWtuXAWF2j.php'));
-gulp.task('cron-job-2-min', shell.task('/usr/bin/php ./build/api/cron-job-2-min-r5fn18qgspPn2IOeqQorHKFZh.php'));
+gulp.task('neo-feed', function() {
+    exec('/usr/local/Cellar/php/8.1.9/bin/php ./build/api/neo-feed-s7m1GMwJZKwXyxz5cpNQ5nfcB.php');
+});
+gulp.task('cron-job-10-min', function() {
+    exec('/usr/local/Cellar/php/8.1.9/bin/php ./build/api/cron-job-10-min-hvLwXAoUl5MJ3tmu422MNG6eB.php');
+});
+gulp.task('cron-job-1-day', function() {
+    exec('/usr/local/Cellar/php/8.1.9/bin/php ./build/api/cron-job-1-day-z2LXE3pDaB1ivWsVWtuXAWF2j.php');
+});
+gulp.task('cron-job-2-min', function() {
+    exec('/usr/local/Cellar/php/8.1.9/bin/php ./build/api/cron-job-2-min-r5fn18qgspPn2IOeqQorHKFZh.php');
+});
 
 gulp.task('build-local', function () {
     runSequence('copy-concat-css');
