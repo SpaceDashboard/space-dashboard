@@ -277,11 +277,16 @@ function renderPeopleInSpace(people) {
 
         if (key === "people") {
             _.each(people.people, function(obj) {
+                const countryName = (obj.country !== '') ? obj.country : obj.countryflag.slice(58, -4);
+                const firstLetterCountry = countryName.charAt(0);
+                const firstLetterCountryUpperCase = firstLetterCountry.toUpperCase();
+                const remainingCountryName = countryName.slice(1);
+                const capitalizedCountryName = firstLetterCountryUpperCase + remainingCountryName;
                 astronautsArray.push({
                     name: obj.name,
                     title: obj.title,
-                    country: (obj.country !== '') ? obj.country : obj.countryflag.slice(58, -4),
-                    flag: (obj.country !== '') ? obj.country : obj.countryflag.slice(58, -4),
+                    country: (countryName === 'usa') ? 'USA' : capitalizedCountryName,
+                    flag: countryName,
                     bio: obj.bio
                 });
             });

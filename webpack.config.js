@@ -10,7 +10,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const shell = require('shelljs');
 
-let isLocalEnv = process.env.ENV === "local";
+let isLocalEnv = process.env.ENV === 'local';
 
 // const coreCSS = new ExtractTextPlugin('css/space-dashboard.min.css');
 // const libsCSS = new ExtractTextPlugin('css/lib/space-dashboard-libs.css');
