@@ -31,5 +31,6 @@
 
     // Current/live K index results
     // fetchFile('https://services.swpc.noaa.gov/products/geospace/planetary-k-index-dst.json', '/json/planetary-k-index-dst.json');
-    fetchFile('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-1-minute.json', '/json/planetary-k-index-dst.json');
+    // fetchFile('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-1-minute.json', '/json/planetary-k-index-dst.json');
+    fetchFile('https://services.swpc.noaa.gov/json/planetary_k_index_1m.json', '/json/planetary-k-index-dst.json');
 ?>

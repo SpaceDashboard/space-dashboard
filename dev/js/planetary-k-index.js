@@ -16,8 +16,8 @@ function fetchCurrentKindex() {
             try {
                 var response = JSON.parse(xhr.response);
                 var latestKindex = response[response.length - 1];
-                var utcTime = moment(latestKindex[0]).format('HH:mm');
-                var localTime = moment(moment.tz(latestKindex[0], "UTC")).tz(moment.tz.guess()).format('HH:mm');
+                var utcTime = moment(latestKindex['time_tag']).format('HH:mm');
+                var localTime = moment(moment.tz(latestKindex['time_tag'], "UTC")).tz(moment.tz.guess()).format('HH:mm');
                 var localTimezone = moment.tz(moment.tz.guess()).zoneAbbr();
 
                 var stormByIndex = {
@@ -51,13 +51,13 @@ function fetchCurrentKindex() {
                     return;
                 }
 
-                var storm = stormByIndex[Math.floor(latestKindex[1])];
+                var storm = stormByIndex[Math.floor(latestKindex['estimated_kp'])];
                 var stormColor = colorByStorm[storm];
 
                 $('.geo-storm').empty().hide().css('color', stormColor);
 
                 // populate kp index and geo storm value if applicable
-                $('.k-index-value').empty().append(latestKindex[1].toFixed(2));
+                $('.k-index-value').empty().append(latestKindex['estimated_kp'].toFixed(2));
                 $('.kindex-local-timestamp').empty().append(localTime + ' ' + localTimezone);
                 $('.kindex-utc-timestamp').empty().append(utcTime + ' UTC');
                 if (storm !== "G0") { $('.geo-storm').append(storm).show(); }
@@ -125,7 +125,7 @@ function fetchThreeHourKindex(updateChart, Callbacks) {
                 _.each(response, function(val, key) {
                     if (val[0] !== "time_tag") {
                         kIndexData.kIndexArray.push(val[1]);
-                        kIndexData.kIndexColorArray.push(colorByIndex[val[1]]);
+                        kIndexData.kIndexColorArray.push(colorByIndex[Math.floor(val[1])]);
 
                         var time = val[0].substr(-12, 5);
                         kIndexData.kIndexLabelArray.push(time);
