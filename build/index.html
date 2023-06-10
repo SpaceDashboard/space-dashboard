@@ -26,21 +26,20 @@
     <meta property="og:image" content="https://spacedashboard.com/img/spacedashboard.png" />
 
     <!--sse--><!-- npm modules CSS --><!--/sse-->
-    <link type="text/css" rel="stylesheet" media="screen" href="./css/lib/space-dashboard-libs.css?v=1670514550862">
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/lib/space-dashboard-libs.css?v=1686416472866">
 
     <!--sse--><!-- Space Dashboard CSS --><!--/sse-->
-    <link type="text/css" rel="stylesheet" media="screen" href="./css/space-dashboard.css?v=1670514550862">
+    <link type="text/css" rel="stylesheet" media="screen" href="./css/space-dashboard.css?v=1686416472866">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QYCQH7WGRR"></script>
     <script>
         if (window.location.hostname !== "localhost") {
-            // ga
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-            ga('create', 'UA-11432600-19', 'auto');
-            ga('send', 'pageview');
+            gtag('config', 'G-QYCQH7WGRR');
         }
     </script>
 </head>
@@ -152,16 +151,7 @@
                 <div class="menu">
                     <span class="close-menu"></span>
                     <div class="menu-content">
-                        <p>Credit: <a href="https://www.ustream.tv/channel/live-iss-stream" target="_blank" rel="noreferrer">Live ISS Stream - via Ustream</a></p>
-
-                        <p>Having trouble viewing the live stream? Try changing the player type.</p>
-
-                        <p>Player Type:
-                        <button type="button" class="btn iss1-player-type" data-player="iss-feed-1" data-type="html5">HTML5</button>
-                        <button type="button" class="btn iss1-player-type" data-player="iss-feed-1" data-type="flash">Flash</button>
-                        </p>
-
-                        <!--sse--><!-- https://support.ustream.tv/hc/en-us/articles/212714667-Ustream-HTML-player-update --><!--/sse-->
+                        <p>Credit: <a href="https://www.youtube.com/watch?v=xAieE-QtOeM" target="_blank" rel="noreferrer">Live Video from the International Space Station</a></p>
                     </div>
                 </div>
 
@@ -193,12 +183,12 @@
                 <div class="menu">
                     <span class="close-menu"></span>
                     <div class="menu-content">
-                        <p>Credit: <a href="https://www.ustream.tv/channel/iss-hdev-payload" target="_blank" rel="noreferrer">ISS HD Earth Viewing Experiment - via Ustream</a></p>
+                        <p>Credit: <a href="https://www.youtube.com/watch?v=itdpuGHAcpg" target="_blank" rel="noreferrer">Live High-Definition Views from the International Space Station</a></p>
                         <p>More information for the ISS HD Earth Viewing Experiment can be found here: <a href="https://eol.jsc.nasa.gov/ESRS/HDEV/" target="_blank" rel="noreferrer">NASA High Definition Earth-Viewing System</a></p>
 
                         <br>
 
-                        <p>Credit: <a href="https://www.ustream.tv/nasahdtv" target="_blank" rel="noreferrer">NASA TV - via Ustream</a></p>
+                        <p>Credit: <a href="https://www.youtube.com/watch?v=21X5lGlDOfg" target="_blank" rel="noreferrer">NASA Live: Official Stream of NASA TV</a></p>
                         <p>Channel information for NASA TV Public can be found here: <a href="https://www.nasa.gov/multimedia/nasatv/index.html#public">NASA TV</a></p>
                     </div>
                 </div>
@@ -502,10 +492,10 @@
     </script>
 
     <!--sse--><!-- npm modules JS --><!--/sse-->
-    <script src="./js/lib/space-dashboard-libs.min.js?v=1670514550862"></script>
+    <script src="./js/lib/space-dashboard-libs.min.js?v=1686416472866"></script>
 
     <!--sse--><!-- Space Dashboard JS --><!--/sse-->
-    <script src="./js/space-dashboard.min.js?v=1670514550862"></script>
+    <script src="./js/space-dashboard.min.js?v=1686416472866"></script>
 
     <!--sse--><!-- Sentry --><!--/sse-->
     <script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous"></script>

@@ -67,5 +67,8 @@
     "sweetalert2": "^9.17.1",
     "underscore": "^1.10.2",
     "ustream-embedapi": "^1.0.0"
+  },
+  "overrides": {
+    "graceful-fs": "^4.2.11"
   }
 }
