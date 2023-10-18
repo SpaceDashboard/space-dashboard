@@ -69,7 +69,7 @@ function loadIssFeed1(autoplay) {
     $('.iss1-player-type').removeClass('active');
     $('.iss1-player-type[data-type="' + localStorage.iss1Type + '"]').addClass('active');
 
-    var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" width="560" height="315" src="https://www.youtube.com/embed/xAieE-QtOeM?&autoplay=1" title="YouTube video player - ISS Live View" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+    var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" width="560" height="315" src="https://www.youtube.com/embed/1rcSyN74BY0?&autoplay=1" title="YouTube video player - ISS Live View" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
     // var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" ' +
     // 'src="https://www.ustream.tv/embed/9408562?html5ui=' + playerFormat + '&autoplay=' + autoplay + '&volume=0&muted=1&wmode" ' +
@@ -107,7 +107,7 @@ function loadIssFeed2(html5, autoplay) {
         issFeed2UstreamObj = null;
     }
 
-    var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" src="https://www.youtube.com/embed/itdpuGHAcpg?&autoplay=1" title="YouTube video player - Live High-Definition Views from ISS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+    var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" src="https://www.youtube.com/embed/K5JSRGhB-nM?&autoplay=1" title="YouTube video player - Live High-Definition Views from ISS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
     // var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" ' +
     // 'src="https://www.ustream.tv/embed/17074538?html5ui=' + html5 + '&autoplay=' + autoplay + '&volume=0&muted=1" ' +

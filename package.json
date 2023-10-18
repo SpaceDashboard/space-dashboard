@@ -21,7 +21,6 @@
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "events": "2.0.0",
-    "extract-text-webpack-plugin": "^3.0.2",
     "filemanager-webpack-plugin": "^1.0.28",
     "flow-bin": "0.69.0",
     "gulp": "3.9.1",
