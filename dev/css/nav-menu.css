@@ -139,12 +139,12 @@
     padding: 2px 0 0;
     position: absolute;
     text-align: center;
-    top: calc(50% - 10px);
+    top: calc(50% - 9px);
     width: 18px;
 }
 
 .header-nav a.unread .number,
-.header-toggle.alert.unread .number, {
+.header-toggle.alert.unread .number {
     animation: pulse 4s ease;
     animation-iteration-count: infinite;
     -webkit-animation: pulse 4s ease;
