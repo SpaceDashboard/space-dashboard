@@ -15,7 +15,7 @@ _.mixin({
 
 function fetchNEOs() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/json/neo-feed.json');
+    xhr.open('GET', 'https://api.spacedashboard.com/json/neo-feed.json');
     xhr.onload = function (e) {
         if (xhr.status === 200) {
             if (xhr.response === "Request failed") {
@@ -23,7 +23,7 @@ function fetchNEOs() {
             } else {
                 try {
                     var response = xhr.response;
-                    var cleanResponse = JSON.parse(response.substring(response.indexOf("{")));
+                    var cleanResponse = JSON.parse(response.substring(response.indexOf('{"links')));
                     var neoObj = cleanResponse.near_earth_objects;
                     cleanNEOs(neoObj);
                 } catch (error) {
