@@ -88,7 +88,7 @@ function fetchCurrentKindex() {
 
 function fetchThreeHourKindex(updateChart, Callbacks) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/json/noaa-planetary-k-index.json');
+    xhr.open('GET', 'https://api.spacedashboard.com/json/noaa-planetary-k-index.json');
     xhr.onload = function (e) {
         if (xhr.status === 200) {
             try {
