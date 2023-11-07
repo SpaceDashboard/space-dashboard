@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - main
+    - beta
 
 name: Deploy website on push
 jobs:
@@ -23,7 +23,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: srv89116145.ultasrv.net
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
+        username: ${{ secrets.BETA_FTP_USERNAME }}
+        password: ${{ secrets.BETA_FTP_PASSWORD }}
         server-dir: public_html/
-        local-dir: ./app/
+        local-dir: ./build/
