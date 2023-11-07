@@ -3,7 +3,7 @@ on:
     branches:
     - beta
 
-name: Deploy website on push
+name: Deploy beta site
 jobs:
   web-deploy:
     name: Deploy
