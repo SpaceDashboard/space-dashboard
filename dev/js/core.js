@@ -169,7 +169,7 @@ function fetchNewData(targetClass, Callbacks) {
             if ($(this)) {
                 if (tagEl === 'VIDEO') {
                     $(this).find('source').remove();
-                    var source = '<source src="./api/vid/current-corona.mp4?lastrefresh=' + seconds_since_epoch() + '" type="video/mp4">';
+                    var source = '<source src="https://api.spacedashboard.com/vid/current-corona.mp4?lastrefresh=' + seconds_since_epoch() + '" type="video/mp4">';
                     $(this).html(source);
                 } else {
                     var elementSrcReference = $(this).attr('src').replace(/\?lastrefresh=.*/,'');
@@ -224,7 +224,7 @@ function fetchNewData(targetClass, Callbacks) {
 
 function fetchAuroraForecast(Callbacks) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/txt/3-day-forecast.txt');
+    xhr.open('GET', 'https://api.spacedashboard.com/txt/3-day-forecast.txt');
     xhr.onload = function (e) {
         if (xhr.status === 200) {
             try {
@@ -245,6 +245,7 @@ function fetchAuroraForecast(Callbacks) {
 }
 
 
+// DEPRECATED
 function fetchPeopleInSpace() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/api/json/peopleinspace.json');
@@ -367,7 +368,7 @@ $(function() {
     checkSiteMessages();
 
     fetchNEOs();
-    fetchPeopleInSpace();
+    // fetchPeopleInSpace();
     fetchAuroraForecast();
 
     loadIssFeed1(autoPlayFeeds);
@@ -472,7 +473,7 @@ $(function() {
         $('.solar-activity[data-solar-activity="' + solarActivity + '"]').show();
 
         if (solarActivity === 'video' && $('.solar-activity[data-solar-activity="video"] source').length === 0) {
-            var source = '<source src="./api/vid/current-corona.mp4" type="video/mp4">';
+            var source = '<source src="https://api.spacedashboard.com/vid/current-corona.mp4" type="video/mp4">';
             $('.solar-activity[data-solar-activity="video"]').html(source);
         }
     });

@@ -21,7 +21,7 @@ let coreJsFiles = [
     './dev/js/planetary-k-index.js',
     './dev/js/site-messages.js',
     './dev/js/site-monitors.js',
-    './dev/js/space-dragging.js',
+    // './dev/js/space-dragging.js',
     './dev/js/modernizr.js'
 ];
 
@@ -82,6 +82,7 @@ module.exports = {
             }
         ]
     },
+    devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             '__DATE__': isLocalEnv ? '' : Date.now(),

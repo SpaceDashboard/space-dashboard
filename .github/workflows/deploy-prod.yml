@@ -3,7 +3,7 @@ on:
     branches:
     - main
 
-name: Deploy website on push
+name: Deploy to production
 jobs:
   web-deploy:
     name: Deploy
@@ -23,7 +23,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: srv89116145.ultasrv.net
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
+        username: ${{ secrets.PROD_FTP_USERNAME }}
+        password: ${{ secrets.PROD_FTP_PASSWORD }}
         server-dir: public_html/
-        local-dir: ./app/
+        local-dir: ./build/

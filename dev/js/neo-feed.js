@@ -96,7 +96,7 @@ function renderNEOs(neoArray) {
             var neoName = neoArray[key][neoObj].name;
             var neoDistance = neoArray[key][neoObj].distance;
             neoInfo += '<div class="neo-list-item">' +
-                            '<span class="neo-distance">' + neoDistance + ' LD - </span>' +
+                            '<span class="neo-distance">' + neoDistance + ' LD :: </span>' +
                             '<span class="neo-name">' + neoName + '</span>' +
                         '</div>';
             neoNumber++;

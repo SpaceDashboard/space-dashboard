@@ -16,10 +16,6 @@ const fetchSiteAssetStatuses = () => {
     return new Promise(function(resolve, reject) {
         var requestOptions = {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
         };
 
         fetch('https://status.spacedashboard.com/json/status-monitors.json', requestOptions)
