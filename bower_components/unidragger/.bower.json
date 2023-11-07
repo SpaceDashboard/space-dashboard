@@ -1,0 +1,41 @@
+{
+  "name": "unidragger",
+  "main": "unidragger.js",
+  "dependencies": {
+    "unipointer": "~2.1.0"
+  },
+  "authors": [
+    "David DeSandro <desandrocodes@gmail.com>"
+  ],
+  "description": "Draggable base class",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "draggable",
+    "flickity",
+    "draggabilly"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "package.json"
+  ],
+  "homepage": "https://github.com/metafizzy/unidragger",
+  "version": "2.1.0",
+  "_release": "2.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.0",
+    "commit": "c0f385d75422b1d26e1e980b996d7971bb27db2a"
+  },
+  "_source": "https://github.com/metafizzy/unidragger.git",
+  "_target": "~2.1.0",
+  "_originalSource": "unidragger"
+}
