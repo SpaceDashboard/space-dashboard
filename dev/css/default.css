@@ -108,7 +108,6 @@ iframe {
     max-width: 100%;
     min-width: 100%;
     width: 1px;
-    *width: 100%;
 }
 
 label { display: block; }
@@ -335,32 +334,20 @@ hr { margin: 50px 0; }
 
 
 /* ISS tracker */
-.iss-track-col-wrapper {
+.col-content.iss-track-col-wrapper {
+    align-items: center;
     background-color: #191919;
+    display: flex;
+    justify-content: center;
+    overflow: scroll;
     position: relative;
 }
 
-.iss-track-col-wrapper .iss-track-outer-wrapper {
-    padding-bottom:9px;
-    padding-top:56.25%;
-    position:relative;
-    top: 50%;
-    transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    width:100%;
-}
-
-.iss-track-col-wrapper .iss-track-inner-wrapper {
-    bottom:10px;
-    height:calc(100% - 20px);
-    left:10px;
-    margin:0 auto;
-    max-height: 353px;
-    max-width: 625px;
-    overflow:hidden;
-    position: absolute;
-    right:10px;
-    top:10px;
+.iss-tracker {
+    max-height: 352px !important;
+    min-height: 352px !important;
+    max-width: 625px !important;
+    min-width: 625px !important;
 }
 
 
