@@ -356,6 +356,22 @@ $(document).on('keyup', function(e) {
     }
 });
 
+let resizeIssFrameTimeout;
+function resizeIssTrackerFrame() {
+    const issTrackerWrapper = document.querySelector('.iss-track-col-wrapper');
+    const issTrackerFrame = document.querySelector('iframe.iss-tracker');
+    const scaleForWidth = issTrackerWrapper.clientWidth / issTrackerFrame.clientWidth;
+    const scaleForHeight = issTrackerWrapper.clientHeight / issTrackerFrame.clientHeight
+
+    clearTimeout(resizeIssFrameTimeout);
+    resizeIssFrameTimeout = setTimeout(() => {
+        issTrackerFrame.style.transform = `scale(${scaleForWidth})`;
+
+        if ((issTrackerFrame.clientHeight * scaleForWidth) - issTrackerWrapper.clientHeight >= 0) {
+            issTrackerFrame.style.transform = `scale(${scaleForHeight})`;
+        }
+    }, 500);
+}
 
 $(function() {
     FastClick.attach(document.body);
@@ -366,12 +382,10 @@ $(function() {
     });
 
     checkSiteMessages();
-
     fetchNEOs();
-    // fetchPeopleInSpace();
     fetchAuroraForecast();
-
     loadIssFeed1(autoPlayFeeds);
+    resizeIssTrackerFrame();
 
     if (window.INIT_FEED_2 === "ISS") {
         loadIssFeed2(1, autoPlayFeeds);
@@ -388,25 +402,6 @@ $(function() {
         localStorage.iss1Type = playerType;
         loadIssFeed1(autoPlayFeeds);
     });
-
-    // toggle ISS feed 1 pane
-    // $('.toggle-iss-feed-1').on('click', function(){
-    //     var videoFeed = $(this).data('video-feed');
-
-    //     if (videoFeed === "nasa-tv") {
-    //         // NASA TV channel - 6540154
-    //         issFeed1UstreamObj.callMethod('load', 'channel', 6540154);
-    //         issFeed1UstreamObj.callMethod('volume', 50);
-    //     } else {
-    //         // ISS Live Stream - 9408562
-    //         issFeed1UstreamObj.callMethod('load', 'channel', 9408562);
-    //         issFeed1UstreamObj.callMethod('volume', 0);
-    //     }
-
-    //     $('.toggle-iss-feed-1[data-video-feed]').show();
-    //     $('.toggle-iss-feed-1[data-video-feed="' + videoFeed + '"]').hide();
-    // });
-
 
     // toggle ISS feed 2 pane
     $('.toggle-iss-feed-2').on('click', function(){
@@ -586,13 +581,6 @@ $(function() {
         }
     });
 
-    $(window).resize(function() {
-        if (window.outerWidth > 1024) {
-            $('.header-nav').removeClass('visible');
-            $('.header-toggle .toggle-text').empty().append('Menu');
-        }
-    });
-
     // Force reload aurora forecast image
     setTimeout(function() {
         $('#refresh-img-aurora-forecast').trigger('click');
@@ -602,4 +590,13 @@ $(function() {
     setTimeout(function() {
         $('#refresh-solar-activity').trigger('click');
     }, 2000);
+});
+
+window.addEventListener('resize', function() {
+    console.log('Window resized');
+    if (window.outerWidth > 1024) {
+        document.querySelector('.header-nav').classList.remove('visible');
+        document.querySelector('.header-toggle .toggle-text').innerHTML = 'Menu';
+    }
+    resizeIssTrackerFrame()
 });
