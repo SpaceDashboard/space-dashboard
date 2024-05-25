@@ -54,7 +54,7 @@ var libJsFiles = [
 // ];
 
 const sentry = {
-    js: '<script src="https://browser.sentry-cdn.com/5.20.1/bundle.min.js" integrity="sha384-O8HdAJg1h8RARFowXd2J/r5fIWuinSBtjhwQoPesfVILeXzGpJxvyY/77OaPPXUo" crossorigin="anonymous"></script>'
+    js: '<script src="https://js.sentry-cdn.com/4ef023b94fba4dfd9ab26e6a3f8610f3.min.js" crossorigin="anonymous"></script>'
 }
 
 // Remove the 'build' directory
