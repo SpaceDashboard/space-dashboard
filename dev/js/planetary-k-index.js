@@ -105,21 +105,24 @@ function fetchThreeHourKindex(updateChart, Callbacks) {
                     kIndexTooltipDateArray: []
                 };
 
-                var green = '#1DFF00';
-                var yellow = '#FFDD00';
-                var red = '#FF381F';
+                var green = '#92D050';
+                var yellow = '#F6EB14';
+                var lightOrange = '#FFC800';
+                var darkOrange = '#FF9600';
+                var lightRed = '#FF0000';
+                var darkRed = '#C80000';
 
                 var colorByIndex = {
                     0: green,
                     1: green,
                     2: green,
                     3: green,
-                    4: yellow,
-                    5: red,
-                    6: red,
-                    7: red,
-                    8: red,
-                    9: red
+                    4: green,
+                    5: yellow,
+                    6: lightOrange,
+                    7: darkOrange,
+                    8: lightRed,
+                    9: darkRed
                 };
 
                 _.each(response, function(val, key) {
