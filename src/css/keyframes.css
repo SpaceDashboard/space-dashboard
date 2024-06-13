@@ -1,0 +1,140 @@
+/*
+  Stylesheet for CSS animations
+*/
+@keyframes bgContainerFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes navBarIn {
+  0% {
+    /* border-top-width: 2px; */
+    /* border-bottom-width: 2px; */
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(0);
+  }
+
+  45%,
+  55% {
+    /* border-top-width: 2px; */
+    /* border-bottom-width: 2px; */
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(1);
+  }
+
+  100% {
+    /* border-top-width: 4px; */
+    /* border-bottom-width: 4px; */
+    height: calc(100% - 50px);
+    margin-top: 25px;
+    padding: 15px 0;
+    transform: scaleX(1);
+  }
+}
+
+/* @keyframes panelIn {
+  0% {
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(0);
+  }
+
+  45%, 55% {
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(1);
+  }
+
+  100% {
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    height: calc(100% - 30px);
+    margin-top: 15px;
+    padding: 15px 0;
+    transform: scaleX(1);
+  }
+} */
+
+@keyframes tooltipIn {
+  /* For proper tooltip positioning */
+  0% {
+    border-top-width: 0;
+    border-bottom-width: 0;
+    height: 36px;
+    transform: translateY(0) scaleX(1);
+  }
+
+  /* Rest of the animation */
+  1% {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    height: 0;
+    transform: translateY(18px) scaleX(0);
+  }
+
+  50% {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    height: 0;
+    transform: translateY(18px) scaleX(1);
+  }
+
+  100% {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    height: 36px;
+    transform: translateY(0) scaleX(1);
+  }
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* @keyframes blockIn {
+  0% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  45% {
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blockOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+} */

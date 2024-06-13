@@ -1,0 +1,42 @@
+/*
+  Override styles for MUI tooltip
+*/
+
+.MuiTooltip-tooltip {
+  --right-left-border-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 10%)
+  );
+  align-items: center;
+  animation: 0.3s ease normal forwards 1 tooltipIn;
+  backdrop-filter: blur(3px);
+  background: hsla(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 10%),
+    0.8
+  ) !important;
+  border: 0.25px solid
+    hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 20%)
+    );
+  border-right-color: var(--right-left-border-color);
+  border-left-color: var(--right-left-border-color);
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-radius: 0 !important;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.3) !important;
+  box-sizing: border-box;
+  display: flex;
+  font-size: 0.9rem !important;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0 0 0 10px !important;
+  overflow: hidden;
+  padding: 0 8px !important;
+  transform-origin: center !important;
+}

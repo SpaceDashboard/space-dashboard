@@ -1,0 +1,313 @@
+/* 
+  Available additional style classes:
+  - flat-bottom
+  - secondary
+  - small
+  - nav
+  - toggle-menu (only used with .active for active state visual difference - showing X)
+  - active
+*/
+
+/*
+  Base button styles
+*/
+.button {
+  --border-width: 1px;
+  --edge-size: 15px;
+  --background-color: var(--base-orange);
+  --border-color: hsl(
+    var(--base-orange-hue),
+    var(--base-orange-saturation),
+    calc(var(--base-orange-lightness) + 20%)
+  );
+  --clip-path-value: polygon(
+    0 0,
+    calc(100% - var(--edge-size)) 0%,
+    100% var(--edge-size),
+    100% 100%,
+    calc(var(--edge-size) / 3) 100%,
+    0 calc(100% - var(--edge-size) / 3)
+  );
+  align-items: end;
+  background:
+    linear-gradient(to top right, transparent 50%, var(--border-color) 50%) top
+      right,
+    linear-gradient(to bottom left, transparent 80%, var(--border-color) 50%)
+      bottom left,
+    #fff;
+  background-origin: border-box;
+  background-color: var(--background-color);
+  background-repeat: no-repeat;
+  background-size: 16.5px 16.5px;
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--border-color);
+  border-radius: 3px 0;
+  box-sizing: border-box;
+  clip-path: var(--clip-path-value);
+  color: #fff;
+  cursor: pointer;
+  display: inline-grid;
+  font-size: 0.85rem;
+  min-height: 50px;
+  min-width: 75px;
+  max-width: 250px;
+  padding: 0 12px 6px 20px;
+  position: relative;
+  text-align: right;
+  width: fit-content;
+
+  &:hover,
+  &:focus-visible {
+    --background-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 10%)
+    );
+    --border-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 35%)
+    );
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:active {
+    --background-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 7%)
+    );
+    --border-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 22%)
+    );
+  }
+
+  &:after {
+    content: '\2022\2022\2022\2022';
+    color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 20%)
+    );
+    font-size: 0.6rem;
+    opacity: 0.6;
+    padding: 0 3px;
+    position: absolute;
+    top: 0px;
+  }
+
+  &:hover:after,
+  &:focus-visible:after,
+  &:active:after {
+    box-shadow: none;
+    color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 30%)
+    );
+  }
+
+  &.active {
+    --background-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 20%)
+    );
+    --border-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 45%)
+    );
+
+    &:after {
+      box-shadow: none;
+      color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 40%)
+      );
+    }
+
+    &:focus-visible {
+      --background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 24%)
+      );
+      --border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 48%)
+      );
+    }
+  }
+
+  /*
+    ------------------------
+    Additional button styles
+    ------------------------
+  */
+
+  /*
+    Secondary button styles
+  */
+  &.secondary {
+    --background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 10%)
+    );
+    --border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 40%)
+    );
+  }
+
+  &.secondary:hover,
+  &.secondary:focus-visible {
+    --background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 20%)
+    );
+    --border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 65%)
+    );
+    box-shadow: none;
+  }
+
+  &.secondary:active {
+    --background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 15%)
+    );
+    --border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 50%)
+    );
+  }
+
+  &.secondary:after {
+    color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 50%)
+    );
+  }
+
+  &.secondary:hover:after,
+  &.secondary:focus-visible:after,
+  &.secondary:active:after {
+    box-shadow: none;
+    color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 80%)
+    );
+  }
+
+  &.secondary.active {
+    --background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 25%)
+    );
+    --border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 75%)
+    );
+
+    &:after {
+      box-shadow: none;
+      color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 90%)
+      );
+    }
+
+    &:focus-visible {
+      --background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 30%)
+      );
+      --border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 70%)
+      );
+    }
+  }
+
+  /*
+    Small button styles
+  */
+  &.small {
+    --edge-size: 10px;
+    align-items: end;
+    background-size: 11.5px 11.5px;
+    min-height: 32px;
+    padding: 0 8px 3px 16px;
+  }
+
+  /*
+    Flat bottom button styles
+  */
+  &.flat-bottom {
+    --clip-path-value: polygon(
+      0 0,
+      calc(100% - var(--edge-size)) 0%,
+      100% var(--edge-size),
+      100% 100%,
+      0 100%
+    );
+    background:
+      linear-gradient(to top right, transparent 50%, var(--border-color) 50%)
+        top right,
+      #fff;
+    background-color: var(--background-color);
+    background-repeat: no-repeat;
+    background-size: 14.5px 14.5px;
+    border-radius: 3px 0 0 0;
+
+    &.small {
+      --clip-path-value: polygon(
+        0 0,
+        calc(100% - var(--edge-size)) 0%,
+        100% var(--edge-size),
+        100% 100%,
+        0 100%
+      );
+      background-size: 9.5px 9.5px;
+    }
+  }
+
+  &.toggle-menu.active:after {
+    filter: brightness(200%);
+    content: '\00D7';
+    font-size: 1rem;
+    opacity: 0.5;
+    padding: 0px 3px;
+    top: -2px;
+  }
+
+  /* 
+    Nav specific button styles
+  */
+  &.nav {
+    background-size: 16.5px 16.5px;
+    height: 50px;
+    min-width: auto;
+    width: 50px;
+  }
+}

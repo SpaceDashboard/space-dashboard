@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'WorkSans';
+  src: url('/fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'WorkSans Italic';
+  src: url('/fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+  font-style: italic;
+}
+
+:root {
+  --base-blue-hue: var(--index-defined-base-blue-hue);
+  --base-blue-saturation: var(--index-defined-base-blue-saturation);
+  --base-blue-lightness: var(--index-defined-base-blue-lightness);
+  --base-blue: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    var(--base-blue-lightness)
+  );
+  --base-orange-hue: 37;
+  --base-orange-saturation: 76%;
+  --base-orange-lightness: 18%;
+  --base-orange: hsl(
+    var(--base-orange-hue),
+    var(--base-orange-saturation),
+    var(--base-orange-lightness)
+  );
+
+  /* Fonts */
+  --font-size: 16.3px;
+  /* --font: 'WorkSans', Helvetica, Arial, sans-serif;
+  --font-italic: 'WorkSans Italic', Helvetica, Arial, sans-serif; */
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-italic: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --text-color: #fff;
+
+  /* Links */
+  --link-color: hsl(213, 43%, 66%);
+  --link-border-color: hsla(213, 43%, 66%, 0.2);
+  --link-hover-border-color: hsla(213, 43%, 66%, 0.6);
+
+  /* Focus */
+  --focus-visible-box-shadow: 0 0 0 1px hsla(207, 62%, 46%, 0.5);
+}

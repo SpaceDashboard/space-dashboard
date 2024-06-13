@@ -1,0 +1,381 @@
+/*
+  Core styles for Space Dashboard
+*/
+
+:focus-visible {
+  box-shadow: var(--focus-visible-box-shadow);
+  outline: none;
+}
+
+body {
+  font-family: var(--font);
+  overscroll-behavior: none;
+  padding: 0;
+}
+
+input:focus,
+textarea:focus,
+p:focus {
+  box-shadow: 0 0 0 2px rgba(45, 125, 189, 0.9) !important;
+  outline: none;
+  transition: 0.15s all ease;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+.bg-container {
+  animation: 0.5s ease forwards bgContainerFadeIn;
+  opacity: 0;
+
+  &:before {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-image: radial-gradient(
+      ellipse at bottom,
+      hsl(
+          var(--index-defined-base-blue-hue),
+          var(--index-defined-base-blue-saturation),
+          calc(var(--index-defined-base-blue-lightness) - 8%)
+        )
+        0%,
+      transparent 100%
+    );
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  &::after {
+    background-image: url('/img/bg-1.png');
+    background-position: center;
+    background-repeat: repeat;
+    opacity: 0.1;
+    /* background-attachment: fixed;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.07) 2px,
+        transparent 2.5px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.06) 2px,
+        transparent 2.5px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 0.5px, transparent 0),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 0.3px, transparent 0),
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 0.3px, transparent 0),
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+    background-size:
+      auto,
+      auto,
+      50px 50px,
+      50px 50px,
+      50px 50px,
+      50px 50px,
+      80px 80px,
+      50px 50px;
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 10px,
+      0 0,
+      10px 0,
+      0 10px,
+      5px 0; */
+    content: '';
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  max-width: 100%;
+  overflow-y: auto;
+  padding: 25px;
+  width: 100vw;
+
+  .container-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+[class*='col-'] {
+  float: left;
+  margin-right: 1.5%;
+  max-width: 800px; /* default max-width */
+  width: 23.5%; /* default width */
+}
+
+.col-1 {
+  width: 37.5%;
+}
+.col-2 {
+  max-width: 640px;
+  width: 32.5%;
+}
+.col-3 {
+  max-width: 500px;
+  width: 25.5%;
+}
+
+/* Container for blocks/cards */
+.block-container {
+  box-sizing: border-box;
+  padding-left: calc(75px + 1%);
+  width: 100%;
+}
+
+/* Block/card */
+.block {
+  animation: 0.5s ease 0s normal forwards 1 blockIn;
+  box-sizing: border-box;
+  color: #e8f4ff;
+  font-family: Helvetica, sans-serif;
+  font-size: 13px;
+  margin: 15px 0 25px;
+  opacity: 0;
+  overflow: hidden;
+  position: relative;
+  transition: 0.2s all ease;
+  width: 100%;
+}
+
+/* Block header */
+.block-header {
+  align-items: end;
+  box-sizing: border-box;
+  display: flex;
+  height: 40px;
+  margin-top: 40px; /* overridden with class `block-in` */
+  opacity: 0; /* overridden with class `block-in` */
+  position: absolute;
+  transition: 0.2s all ease;
+  width: calc(100% - 10px);
+  z-index: 1;
+}
+
+/* Block header */
+.block-header .header {
+  --background-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) - 4%)
+  );
+  --border-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 9%)
+  );
+  --border-width: 1px;
+  --edge-size: 8px;
+  --clip-path-value: polygon(
+    0 0,
+    calc(100% - var(--edge-size)) 0%,
+    100% var(--edge-size),
+    100% 100%,
+    0 100%
+  );
+  align-items: center;
+  background:
+    linear-gradient(to top right, transparent 50%, var(--border-color) 50%) top
+      right,
+    linear-gradient(to bottom left, transparent 80%, var(--border-color) 50%)
+      bottom left,
+    #fff;
+  background-color: var(--background-color);
+  background-repeat: no-repeat;
+  background-size:
+    7.5px 7.5px,
+    0;
+  border-radius: 4px 0 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom-width: 0px;
+  box-sizing: border-box;
+  clip-path: var(--clip-path-value);
+  display: flex;
+  flex: 1;
+  height: 100%;
+  margin-left: 8px;
+  margin-right: 2.5px;
+  padding: 0 15px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+/* Block content body wrapper */
+.block-body-wrapper {
+  background: hsla(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    var(--base-blue-lightness),
+    0.9
+  );
+  border: 1px solid
+    hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 8%)
+    );
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 40px;
+  min-height: 150px;
+  padding: 12px 12px 15px;
+  position: relative;
+  transition: 0.2s all ease;
+  width: 100%;
+  z-index: 2;
+}
+
+.block-body-wrapper.aspect-16-9 {
+  padding-top: 56.25%;
+  padding-bottom: 9px;
+  width: 100%;
+}
+
+.block-body-wrapper.aspect-16-9 .block-body {
+  bottom: 10px;
+  height: calc(100% - 20px);
+  left: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.block-body-wrapper.aspect-1-1 {
+  padding-top: 100%;
+  padding-bottom: 2px;
+  position: relative;
+  width: 100%;
+}
+
+.block-body-wrapper.aspect-1-1 .block-body {
+  bottom: 10px;
+  height: calc(100% - 30px);
+  left: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#iss-feed-1-wrapper,
+#iss-feed-2-wrapper,
+#iss-tracker-wrapper {
+  background: #000;
+}
+
+#iss-tracker-wrapper iframe {
+  opacity: 0;
+  transition: 2s all ease;
+}
+
+#iss-tracker-wrapper iframe.show {
+  opacity: 1;
+  transition-delay: 1.5s;
+}
+
+/* Block content body */
+.block-body {
+  height: 100%;
+  opacity: 0; /* overridden with class `block-in` */
+  transform: scale(1);
+  transition: 0.35s all ease;
+}
+
+/* Image handling in block body */
+.block-body img {
+  max-width: 100%;
+}
+
+/* Block menu */
+.block-menu {
+  background: hsla(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) - 9%),
+    0.85
+  );
+  backdrop-filter: blur(5px);
+  border: 1px solid
+    hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 8%)
+    );
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  height: calc(100% - 40px);
+  margin-top: 40px;
+  max-width: 100%;
+  opacity: 0;
+  overflow: auto;
+  padding: 0 25px 25px;
+  position: absolute;
+  top: 0;
+  transition: 0.25s all ease;
+  width: 100%;
+  z-index: 3;
+}
+
+/* All elements inside block menu */
+.block-menu * {
+  opacity: 0;
+  transition: 0.25s opacity ease;
+}
+
+/* Block menu when visible */
+.block-menu.show {
+  opacity: 1;
+  padding-top: 25px;
+  transition: 0.25s all ease;
+}
+
+/* All elements inside visible block menu */
+.block-menu.show * {
+  filter: blur(0);
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+/* Targeting block body next to visible menu via body wrapper */
+.block-menu.show + .block-body-wrapper > .block-body {
+  transform: scale(0.98);
+}
+
+/* Block header and body for block that is visible */
+.block.block-in .block-header,
+.block.block-in .block-body {
+  opacity: 1;
+}
+.block.block-in .block-header {
+  margin-top: 0;
+}
+
+/* Dimming animation for block */
+.dim-block {
+  animation: 0.35s ease 0s normal forwards 1 blockOut;
+  animation-delay: 0s !important;
+}
