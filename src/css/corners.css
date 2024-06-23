@@ -4,4 +4,50 @@
 
 .corners-wrapper {
   position: relative;
+  --corner-distance: -3px;
+  --corner-size: 12px;
+
+  .corner-top-left,
+  .corner-top-right,
+  .corner-bottom-left,
+  .corner-bottom-right {
+    border: 1px solid hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 15%)
+    );
+    box-sizing: border-box;
+    height: var(--corner-size);
+    position: absolute;
+    width: var(--corner-size);
+    z-index: 1;
+  }
+
+  .corner-top-left {
+    border-right-width: 0;
+    border-bottom-width: 0;
+    left: var(--corner-distance);
+    top: var(--corner-distance);
+  }
+
+  .corner-top-right {
+    border-left-width: 0;
+    border-bottom-width: 0;
+    right: var(--corner-distance);
+    top: var(--corner-distance);
+  }
+
+  .corner-bottom-left {
+    border-right-width: 0;
+    border-top-width: 0;
+    bottom: var(--corner-distance);
+    left: var(--corner-distance);
+  }
+
+  .corner-bottom-right {
+    border-left-width: 0;
+    border-top-width: 0;
+    bottom: var(--corner-distance);
+    right: var(--corner-distance);
+  }
 }

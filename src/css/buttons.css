@@ -93,6 +93,7 @@
       calc(var(--base-orange-lightness) + 20%)
     );
     font-size: 0.6rem;
+    left: 0;
     opacity: 0.6;
     padding: 0 3px;
     position: absolute;

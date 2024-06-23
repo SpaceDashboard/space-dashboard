@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavBar } from 'src/components/NavBar';
 import { Test } from './components/panels';
+import { Button } from './components/base';
 // import { ContactForm } from 'src/components/ContactForm';
 // import { useAppContext } from 'src/hooks/useAppContext';
 
@@ -14,13 +15,17 @@ export const App: React.FC = () => {
     }, 300);
   }, []);
 
+  const panelComponentsOrderToRender = [Test, Test, Test, Test];
+
   return (
     <>
       <NavBar />
       {/* <ContactForm /> */}
       <main className="container">
         <div className="container-column">
-          <Test />
+          {panelComponentsOrderToRender.map((Component, index) => (
+            <Component key={index} index={index} />
+          ))}
         </div>
       </main>
     </>

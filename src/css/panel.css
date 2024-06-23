@@ -2,33 +2,67 @@
   Panel styles
 */
 .panel {
-  /* align-items: center; */
-  /* animation: 1s ease 0.6s normal forwards 1 panelIn; */
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   background: hsla(
     var(--base-blue-hue),
     var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) - 6%),
-    0.8
+    calc(var(--base-blue-lightness) - 10%),
+    0.7
   );
-  border: 2px solid
-    hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 10%)
-    );
-  border-left-width: 0;
-  border-right-width: 0;
   box-sizing: border-box;
   color: var(--text-color);
   display: flex;
   font: var(--font);
   flex-direction: column;
-  height: 100px;
+  height: 1px;
   justify-content: space-between;
-  /* margin-top: 50vh; */
-  overflow: hidden;
-  padding: 10px 12px 12px;
-  /* transform: scaleX(0); */
-  width: 300px;
+  padding-left: 12px;
+  padding-right: 12px;
+  position: relative;
+  transform: scaleX(0);
+  width: 100%;
+
+  /*
+    Due to inconsistent browser implementation for backdrop-filter, this ensures
+    the background image is rendered with the desired blur effect.
+  */
+  /* &::before {
+    animation: 2s ease 1.4s normal forwards 1 backgroundOpacityIn;
+    background-image: url('/img/bg-1.png');
+    background-attachment: fixed;
+    background-position: 0 0;
+    background-repeat: repeat;
+    content: '';
+    filter: blur(3px);
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  } */
+
+  &::after {
+    border: 1px solid
+      hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 10%)
+      );
+    border-left-width: 0;
+    border-right-width: 0;
+    content: '';
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .panel-inner {
+    height: 100%;
+    overflow: hidden;
+  }
 }

@@ -3,48 +3,72 @@
 */
 
 nav {
-  align-items: center;
-  animation: 1s ease 0.6s normal forwards 1 navBarIn;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   background: hsla(
     var(--base-blue-hue),
     var(--base-blue-saturation),
     calc(var(--base-blue-lightness) - 6%),
     0.8
   );
-  border: 0 solid
-    hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 10%)
-    );
-  border-top-width: 2px;
-  border-bottom-width: 2px;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
   height: 1px;
-  justify-content: space-between;
   margin: 25px;
   margin-right: 10px;
   margin-top: 50vh;
-  overflow: hidden;
   padding: 0;
   transform: scaleX(0);
   width: 85px;
 
-  /* &:before {
+  /*
+    Due to inconsistent browser implementation for backdrop-filter, this ensures
+    the background image is rendered with the desired blur effect.
+  */
+  /* &::before {
+    animation: 2s ease normal forwards 1 backgroundOpacityIn;
+    animation-delay: 1.4s;
+    background-image: url('/img/bg-1.png');
+    background-attachment: fixed;
+    background-position: -25px -27px;
+    background-repeat: repeat;
     content: '';
-    width: 100%;
-    height: 4px;
-    top: 0px;
+    filter: blur(3px);
+    height: 100%;
+    left: 0;
+    opacity: 0;
     position: absolute;
-    background: rgb(54, 77, 99);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 90% 0%, 10% 0%, 5% 100%, 0 100%);
+    top: 0;
+    width: 100%;
   } */
 
+  &::after {
+    border: 2px solid
+      hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 10%)
+      );
+    border-left-width: 0;
+    border-right-width: 0;
+    content: '';
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .nav-inner {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
   .logo {
-    animation: 0.3s ease 1.5s normal forwards 1 opacityIn;
     background: #fff;
     border-radius: 50%;
     display: block;
@@ -61,20 +85,7 @@ nav {
     justify-content: center;
 
     button {
-      animation: 0.3s ease normal forwards 1 opacityIn;
       opacity: 0;
-
-      &:nth-child(1) {
-        animation-delay: 1.7s;
-      }
-
-      &:nth-child(2) {
-        animation-delay: 1.8s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: 1.9s;
-      }
     }
   }
 }

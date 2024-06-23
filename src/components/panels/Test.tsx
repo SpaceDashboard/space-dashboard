@@ -1,12 +1,10 @@
 import React from 'react';
-import { Panel, CornersWrapper } from 'src/components/base';
+import { Panel, PanelProps } from 'src/components/base';
 
-export const Test: React.FC = () => {
+export const Test: React.FC<PanelProps> = ({ ...props }) => {
   return (
-    <CornersWrapper>
-      <Panel>
-        <p>Test</p>
-      </Panel>
-    </CornersWrapper>
+    <Panel height={200} {...props}>
+      <p>Test</p>
+    </Panel>
   );
 };

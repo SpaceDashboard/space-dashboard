@@ -17,7 +17,7 @@
     calc(var(--base-blue-lightness) + 10%),
     0.8
   ) !important;
-  border: 0.25px solid
+  border: 0px solid
     hsl(
       var(--base-blue-hue),
       var(--base-blue-saturation),
