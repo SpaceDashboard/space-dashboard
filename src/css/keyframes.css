@@ -63,29 +63,38 @@
   }
 }
 
-/* @keyframes blockIn {
+@keyframes navBarIn {
   0% {
-    opacity: 0.2;
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(0);
   }
-  40% {
-    opacity: 0.2;
+
+  45%,
+  55% {
+    height: 1px;
+    margin-top: calc(50vh - 2px);
+    padding: 0;
+    transform: scaleX(1);
   }
-  45% {
-    opacity: 0.3;
-  }
-  60% {
-    opacity: 0.2;
-  }
+
   100% {
-    opacity: 1;
+    height: calc(100% - 50px);
+    margin-top: 25px;
+    padding: 15px 0;
+    transform: scaleX(1);
   }
 }
 
-@keyframes blockOut {
+@keyframes navBarAfterIn {
   0% {
-    opacity: 1;
+    height: 0px;
+    top: 0px;
   }
+
   100% {
-    opacity: 0.2;
+    height: calc(100% + 10px);
+    top: -5px;
   }
-} */
+}

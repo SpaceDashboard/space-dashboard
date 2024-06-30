@@ -20,27 +20,6 @@ nav {
   transform: scaleX(0);
   width: 85px;
 
-  /*
-    Due to inconsistent browser implementation for backdrop-filter, this ensures
-    the background image is rendered with the desired blur effect.
-  */
-  /* &::before {
-    animation: 2s ease normal forwards 1 backgroundOpacityIn;
-    animation-delay: 1.4s;
-    background-image: url('/img/bg-1.png');
-    background-attachment: fixed;
-    background-position: -25px -27px;
-    background-repeat: repeat;
-    content: '';
-    filter: blur(3px);
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  } */
-
   &::after {
     border: 2px solid
       hsl(

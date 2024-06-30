@@ -11,11 +11,12 @@
   .corner-top-right,
   .corner-bottom-left,
   .corner-bottom-right {
-    border: 1px solid hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 15%)
-    );
+    border: 1px solid
+      hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 15%)
+      );
     box-sizing: border-box;
     height: var(--corner-size);
     position: absolute;

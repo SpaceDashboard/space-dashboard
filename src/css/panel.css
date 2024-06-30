@@ -1,47 +1,13 @@
 /* 
   Panel styles
 */
-.panel {
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  background: hsla(
-    var(--base-blue-hue),
-    var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) - 10%),
-    0.7
-  );
-  box-sizing: border-box;
-  color: var(--text-color);
+.panel-wrapper {
   display: flex;
-  font: var(--font);
-  flex-direction: column;
-  height: 1px;
-  justify-content: space-between;
-  padding-left: 12px;
-  padding-right: 12px;
   position: relative;
-  transform: scaleX(0);
-  width: 100%;
 
-  /*
-    Due to inconsistent browser implementation for backdrop-filter, this ensures
-    the background image is rendered with the desired blur effect.
-  */
-  /* &::before {
-    animation: 2s ease 1.4s normal forwards 1 backgroundOpacityIn;
-    background-image: url('/img/bg-1.png');
-    background-attachment: fixed;
-    background-position: 0 0;
-    background-repeat: repeat;
-    content: '';
-    filter: blur(3px);
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    top: 0;
+  > div {
     width: 100%;
-  } */
+  }
 
   &::after {
     border: 1px solid
@@ -56,13 +22,160 @@
     height: 0;
     left: 0;
     position: absolute;
-    top: 0;
+    top: -4px;
+    transform: scaleX(0);
+    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
     width: 100%;
     z-index: -1;
   }
 
-  .panel-inner {
-    height: 100%;
+  &.show-panel-borders {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &.show-panel {
+    &::after {
+      height: calc(100% + 8px);
+    }
+  }
+
+  .panel {
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: hsla(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 10%),
+      0.7
+    );
+    box-sizing: border-box;
+    color: var(--text-color);
+    display: flex;
+    font: var(--font);
+    flex-direction: column;
+    max-height: 0%;
+    justify-content: space-between;
     overflow: hidden;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
+    width: 100%;
+
+    .show-panel & {
+      max-height: 100%;
+    }
+  }
+
+  .panel-body {
+    min-height: 100px;
+    opacity: 0;
+    padding-top: 10px;
+    padding-bottom: 12px;
+    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
+    transition-delay: 1s; /* Default value - overridden in Panel.tsx */
+
+    .show-panel & {
+      opacity: 1;
+    }
+  }
+
+  .panel-placeholder {
+    z-index: -1;
   }
 }
+
+/*
+
+.block-header {
+  align-items: end;
+  box-sizing: border-box;
+  display: flex;
+  height: 40px;
+  position: absolute;
+  transition: 0.2s all ease;
+  width: calc(100% - 10px);
+  z-index: 1;
+}
+
+.block-header .header {
+  --background-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) - 4%)
+  );
+  --border-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 9%)
+  );
+  --border-width: 1px;
+  --edge-size: 8px;
+  --clip-path-value: polygon(
+    0 0,
+    calc(100% - var(--edge-size)) 0%,
+    100% var(--edge-size),
+    100% 100%,
+    0 100%
+  );
+  align-items: center;
+  background:
+    linear-gradient(to top right, transparent 50%, var(--border-color) 50%) top
+      right,
+    linear-gradient(to bottom left, transparent 80%, var(--border-color) 50%)
+      bottom left,
+    #fff;
+  background-color: var(--background-color);
+  background-repeat: no-repeat;
+  background-size:
+    7.5px 7.5px,
+    0;
+  border-radius: 4px 0 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom-width: 0px;
+  box-sizing: border-box;
+  clip-path: var(--clip-path-value);
+  display: flex;
+  flex: 1;
+  height: 100%;
+  margin-left: 8px;
+  margin-right: 2.5px;
+  padding: 0 15px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.block-body-wrapper.aspect-16-9 {
+  padding-top: 56.25%;
+  padding-bottom: 9px;
+  width: 100%;
+}
+
+.block-body-wrapper.aspect-16-9 .block-body {
+  bottom: 10px;
+  height: calc(100% - 20px);
+  left: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.block-body-wrapper.aspect-1-1 {
+  padding-top: 100%;
+  padding-bottom: 2px;
+  position: relative;
+  width: 100%;
+}
+
+.block-body-wrapper.aspect-1-1 .block-body {
+  bottom: 10px;
+  height: calc(100% - 30px);
+  left: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+*/

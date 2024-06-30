@@ -1,7 +1,7 @@
 import React, { createContext, PropsWithChildren, useState } from 'react';
 
 interface AppProviderProps {
-  navAnimationDuration: number;
+  navAnimationDurationSeconds: number;
   reduceMotion: boolean;
   setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
   isContactFormOpen: boolean;
@@ -9,7 +9,7 @@ interface AppProviderProps {
 }
 
 export const AppContext = createContext<AppProviderProps>({
-  navAnimationDuration: 0,
+  navAnimationDurationSeconds: 0,
   reduceMotion: false,
   setReduceMotion: () => {},
   isContactFormOpen: false,
@@ -17,14 +17,14 @@ export const AppContext = createContext<AppProviderProps>({
 });
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
-  const navAnimationDuration = 2;
+  const navAnimationDurationSeconds = 1.85;
   const [reduceMotion, setReduceMotion] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
   return (
     <AppContext.Provider
       value={{
-        navAnimationDuration,
+        navAnimationDurationSeconds,
         reduceMotion,
         setReduceMotion,
         isContactFormOpen,
