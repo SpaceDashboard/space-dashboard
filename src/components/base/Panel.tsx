@@ -16,7 +16,7 @@ const panelWrapperCss = (
 
   .panel-body {
     transition: ${reduceMotion ? 0 : animationDuration}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 1}s;
+    transition-delay: ${reduceMotion ? 0 : 0.6}s;
   }
 `;
 
@@ -34,7 +34,7 @@ interface InternalPanelProps extends PanelProps {
 export const Panel = ({
   children,
   className,
-  animationDuration = 0.5,
+  animationDuration = 0.4,
   animationDelay = 0,
   index,
 }: React.PropsWithChildren<InternalPanelProps>) => {
@@ -63,7 +63,7 @@ export const Panel = ({
           () => {
             setShowPanel(true);
           },
-          reduceMotion ? 0 : 600,
+          reduceMotion ? 0 : 500,
         );
       },
       reduceMotion ? 0 : delayedAnimationSeconds * 1000,

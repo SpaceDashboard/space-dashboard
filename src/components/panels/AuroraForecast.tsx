@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel, PanelBody, PanelProps } from 'src/components/base';
 
-export const Test: React.FC<PanelProps> = ({ ...props }) => {
+export const AuroraForecast: React.FC<PanelProps> = ({ ...props }) => {
   return (
     <Panel {...props}>
       <PanelBody>
