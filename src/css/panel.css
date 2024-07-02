@@ -70,12 +70,14 @@
   }
 
   .panel-body {
+    display: flex;
+    justify-content: center;
     min-height: 100px;
     opacity: 0;
-    padding-top: 10px;
     padding-bottom: 12px;
-    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
+    padding-top: 10px;
     transition-delay: 1s; /* Default value - overridden in Panel.tsx */
+    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
 
     .show-panel & {
       opacity: 1;

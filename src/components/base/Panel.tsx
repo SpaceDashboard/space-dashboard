@@ -16,7 +16,7 @@ const panelWrapperCss = (
 
   .panel-body {
     transition: ${reduceMotion ? 0 : animationDuration}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.6}s;
+    transition-delay: ${reduceMotion ? 0 : 0.7}s;
   }
 `;
 

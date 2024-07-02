@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { NavBar } from 'src/components/NavBar';
-import { AuroraForecast } from './components/panels';
+import {
+  IssFeed1,
+  IssFeed2,
+  IssFeedTracker,
+  AuroraForecast,
+  CurrentSolarVisual,
+} from './components/panels';
 // import { ContactForm } from 'src/components/ContactForm';
 // import { useAppContext } from 'src/hooks/useAppContext';
 
@@ -20,12 +26,12 @@ export const App: React.FC = () => {
       {/* <ContactForm /> */}
       <main className="container">
         <div className="container-column">
-          <AuroraForecast index={0} />
-          <AuroraForecast index={1} />
+          <IssFeed1 index={0} />
+          <IssFeed2 index={1} />
         </div>
         <div className="container-column">
-          <AuroraForecast index={2} />
-          <AuroraForecast index={3} />
+          <IssFeedTracker index={2} />
+          <CurrentSolarVisual index={3} />
         </div>
         <div className="container-column">
           <AuroraForecast index={4} />

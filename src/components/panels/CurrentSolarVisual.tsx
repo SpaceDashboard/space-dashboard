@@ -1,14 +1,14 @@
 import React from 'react';
 import { Panel, PanelBody, PanelProps } from 'src/components/base';
 
-export const AuroraForecast: React.FC<PanelProps> = ({ ...props }) => {
+export const CurrentSolarVisual: React.FC<PanelProps> = ({ ...props }) => {
   return (
     <Panel {...props}>
       <PanelBody>
         <img
-          src="http://api.spacedashboard.com/img/aurora-forecast-northern-hemisphere.jpg?lastrefresh=1555873922"
+          src="https://api.spacedashboard.com/img/current-corona.jpg"
           style={{ width: '100%', maxWidth: '400px' }}
-          alt="test"
+          alt="Current visual of the sun"
         />
       </PanelBody>
     </Panel>
