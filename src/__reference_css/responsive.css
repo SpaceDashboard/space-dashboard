@@ -1,0 +1,198 @@
+/**
+ * Space dashboard responsive styles
+ */
+
+/* Basic responsive styles for the site */
+@media screen and (max-width: 1000px) {
+  /*.content-wrapper { padding-top: 0; }*/
+
+  .header-toggle {
+    display: block;
+  }
+
+  .ios .header-toggle {
+    padding-top: 5px;
+  }
+
+  .header-nav {
+    background-color: rgba(0, 0, 0, 0.93);
+    height: calc(100vh - 40px);
+    margin-top: 40px;
+    margin-left: 100%;
+    overflow: auto;
+    position: absolute;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    width: 100vw;
+  }
+
+  .header-nav.visible {
+    margin-left: 0;
+  }
+
+  .header-nav li,
+  .header-nav a {
+    display: block;
+    float: none;
+    font-size: 15px;
+    height: auto;
+    margin: 20px auto 0;
+    max-width: 400px;
+    padding: 15px 25px;
+    text-align: center;
+    width: 95%;
+  }
+
+  .header-nav li .number {
+    font-size: 12px;
+    height: 24px;
+    left: 8px;
+    padding: 4px 0 0;
+    top: calc(50% - 12px);
+    width: 24px;
+  }
+
+  .io .header-nav li .number {
+    padding: 3px 0 0 !important;
+  }
+
+  .grid-row,
+  .grid-row [class*='grid-col'] {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .grid-row.half {
+    height: auto;
+  }
+
+  .col-1,
+  .col-1.col-border,
+  .col-2,
+  .col-2.col-border,
+  .col-3,
+  .col-3.col-border,
+  .col-4,
+  .col-4.col-border,
+  .col-5,
+  .col-5.col-border {
+    width: 100%;
+  }
+
+  .col {
+    margin-top: 60px;
+    padding: 60px 0 0 0;
+  }
+
+  .col:first-child {
+    margin-top: 0;
+  }
+
+  .col:first-child .col-border {
+    border-top: none;
+    margin-left: 0;
+  }
+
+  .col-border {
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-left: none;
+    margin-left: 0;
+  }
+
+  .col-content {
+    min-height: 250px;
+  }
+
+  /*.grid-row [class*="iss-feed"] { min-height: 100px; }*/
+
+  iframe {
+    min-height: 400px;
+  }
+
+  .menu.full-screen {
+    padding: 30px;
+  }
+
+  .col-content.k-index-section {
+    height: 350px;
+  }
+
+  .collapsing-data,
+  .touch .collapsing-data:hover {
+    padding: 12px 10px;
+  }
+
+  .iss-track-col-wrapper .iss-track-outer-wrapper {
+    top: 0;
+    transform: translateY(0%);
+    -ms-transform: translateY(0%);
+  }
+
+  #neo-list {
+    border-top-color: #888;
+    bottom: 0;
+    position: relative;
+    top: 0;
+  }
+
+  #neo-list table {
+    display: none;
+  }
+  #neo-list table:nth-child(2),
+  #neo-list table:nth-child(3),
+  #neo-list table:nth-child(4) {
+    display: block;
+  }
+
+  #people-in-space {
+    bottom: 0;
+    position: relative;
+    top: 0;
+  }
+
+  .astronaut:last-child {
+    margin-bottom: 25px;
+  }
+
+  .people-neo-dragger {
+    cursor: default;
+    position: relative;
+  }
+
+  .people-neo-dragger {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 699px) {
+  /* Deep Space Network */
+  .grid-row.full.dsn-row {
+    height: auto;
+  }
+  #dsn-iframe {
+    min-height: 1500px;
+  }
+}
+
+@media (min-width: 351px) and (max-width: 400px) {
+  #header #title {
+    font-size: 1.2em;
+    font-weight: 400;
+    width: 173px;
+  }
+}
+
+@media (min-width: 311px) and (max-width: 350px) {
+  #header #title {
+    font-size: 1em;
+    font-weight: 400;
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 310px) {
+  #header #title {
+    display: none;
+  }
+}

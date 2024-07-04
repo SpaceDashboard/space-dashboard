@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button } from 'src/components/base/Button';
-import { useToast } from 'src/hooks/useToast';
 import Tooltip from '@mui/material/Tooltip';
 import { Fade } from '@mui/material';
 import { css } from '@emotion/css';
-import { useAppContext } from '../hooks/useAppContext';
+import { useAppContext, useToast } from '../hooks';
 
 const navBarCss = (reduceMotion?: boolean) => css`
   animation: ${reduceMotion ? 0 : 1}s ease normal forwards 1 navBarIn;

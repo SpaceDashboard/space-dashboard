@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren } from 'react';
+import React, { createContext, useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertColor } from '@mui/material/Alert';
 
@@ -16,8 +16,8 @@ interface ToastState {
   severity: AlertColor;
 }
 
-export const ToastProvider = ({ children }: PropsWithChildren) => {
-  const [toast, setToast] = React.useState<ToastState>({
+export const ToastProvider = ({ children }: React.PropsWithChildren) => {
+  const [toast, setToast] = useState<ToastState>({
     open: false,
     message: '',
     severity: 'info',

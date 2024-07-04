@@ -24,7 +24,6 @@
     position: absolute;
     top: -4px;
     transform: scaleX(0);
-    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
     width: 100%;
     z-index: -1;
   }
@@ -61,7 +60,6 @@
     padding-left: 12px;
     padding-right: 12px;
     position: relative;
-    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
     width: 100%;
 
     .show-panel & {
@@ -70,14 +68,15 @@
   }
 
   .panel-body {
-    display: flex;
-    justify-content: center;
     min-height: 100px;
     opacity: 0;
-    padding-bottom: 12px;
     padding-top: 10px;
-    transition-delay: 1s; /* Default value - overridden in Panel.tsx */
-    transition: 0.5s all ease; /* Default value - overridden in Panel.tsx */
+    padding-bottom: 12px;
+
+    .panel-body-content {
+      display: flex;
+      justify-content: center;
+    }
 
     .show-panel & {
       opacity: 1;

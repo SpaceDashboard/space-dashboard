@@ -3,7 +3,7 @@ import { NavBar } from 'src/components/NavBar';
 import {
   IssFeed1,
   IssFeed2,
-  IssFeedTracker,
+  IssTracker,
   AuroraForecast,
   CurrentSolarVisual,
 } from './components/panels';
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
           <IssFeed2 index={1} />
         </div>
         <div className="container-column">
-          <IssFeedTracker index={2} />
+          <IssTracker index={2} />
           <CurrentSolarVisual index={3} />
         </div>
         <div className="container-column">

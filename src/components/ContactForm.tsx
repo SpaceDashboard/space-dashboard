@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { useAppContext } from 'src/hooks/useAppContext';
+import { useAppContext } from 'src/hooks';
 
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
@@ -49,7 +49,7 @@ export const ContactForm: React.FC = () => {
           //   timer: 2500,
           //   title: 'Sent',
           // });
-          setIsContactFormOpen(false);
+          setIsContactFormOpen && setIsContactFormOpen(false);
           resetForm();
         } else {
           response.json().then((data) => {
@@ -82,7 +82,7 @@ export const ContactForm: React.FC = () => {
         ?.focus();
       const handleEscape = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
-          setIsContactFormOpen(false);
+          setIsContactFormOpen && setIsContactFormOpen(false);
           resetForm();
         }
       };
@@ -96,7 +96,7 @@ export const ContactForm: React.FC = () => {
       className={`contact-form-wrapper ${initialHiddenClass} ${isContactFormOpen ? 'show' : 'hide'}`}
       onClick={(event) => {
         if (event.target === event.currentTarget) {
-          setIsContactFormOpen(false);
+          setIsContactFormOpen && setIsContactFormOpen(false);
           resetForm();
         }
       }}
@@ -107,7 +107,7 @@ export const ContactForm: React.FC = () => {
           className="close-contact-form"
           aria-label="Close contact form"
           onClick={() => {
-            setIsContactFormOpen(false);
+            setIsContactFormOpen && setIsContactFormOpen(false);
             resetForm();
           }}
         >

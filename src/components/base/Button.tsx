@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import Tooltip, { TooltipProps } from '@mui/material/Tooltip';
 import { Fade } from '@mui/material';
 
@@ -30,7 +30,7 @@ export const Button = ({
   onClick = () => {},
   tooltipPlacement = 'top',
   tooltipTitle,
-}: PropsWithChildren<ButtonProps>) => {
+}: React.PropsWithChildren<ButtonProps>) => {
   return (
     <Tooltip
       enterDelay={0}

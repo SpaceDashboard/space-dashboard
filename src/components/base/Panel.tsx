@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { useAppContext } from '../../hooks/useAppContext';
+import { useAppContext, usePanelContext } from '../../hooks';
+import { PanelProvider } from 'src/providers';
 
 const panelWrapperCss = (
   animationDuration: number,
@@ -15,8 +16,8 @@ const panelWrapperCss = (
   }
 
   .panel-body {
-    transition: ${reduceMotion ? 0 : animationDuration}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.7}s;
+    transition: ${reduceMotion ? 0 : animationDuration * 2}s all ease;
+    transition-delay: ${reduceMotion ? 0 : 0.6}s;
   }
 `;
 
@@ -24,25 +25,26 @@ export interface PanelProps {
   index: number;
 }
 
-interface InternalPanelProps extends PanelProps {
+interface InnerPanelProps extends PanelProps {
   className?: string;
   animationDuration?: number;
   animationDelay?: number;
   height?: number;
 }
 
-export const Panel = ({
+export const InnerPanel = ({
   children,
   className,
   animationDuration = 0.4,
   animationDelay = 0,
   index,
-}: React.PropsWithChildren<InternalPanelProps>) => {
-  const panelRef = React.useRef<HTMLDivElement>(null);
-  const [showPanelBorders, setShowPanelBorders] =
-    React.useState<boolean>(false);
-  const [showPanel, setShowPanel] = React.useState<boolean>(false);
+}: React.PropsWithChildren<InnerPanelProps>) => {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
+  const [showPanel, setShowPanel] = useState<boolean>(false);
   const { reduceMotion, navAnimationDurationSeconds } = useAppContext();
+  const { setAnimationDurationSeconds, setAnimationDelaySeconds } =
+    usePanelContext();
   const delayedAnimationSeconds =
     navAnimationDurationSeconds + (animationDelay + index * 0.1);
   const panelActionsChild = React.Children.toArray(children).filter(
@@ -55,7 +57,12 @@ export const Panel = ({
     (child) => React.isValidElement(child) && child.type === PanelBody,
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setAnimationDurationSeconds &&
+      setAnimationDurationSeconds(animationDuration);
+    setAnimationDelaySeconds &&
+      setAnimationDelaySeconds(delayedAnimationSeconds + 0.1);
+
     const timer = setTimeout(
       () => {
         setShowPanelBorders(true);
@@ -69,7 +76,13 @@ export const Panel = ({
       reduceMotion ? 0 : delayedAnimationSeconds * 1000,
     );
     return () => clearTimeout(timer);
-  }, [reduceMotion, delayedAnimationSeconds]);
+  }, [
+    reduceMotion,
+    animationDuration,
+    delayedAnimationSeconds,
+    setAnimationDurationSeconds,
+    setAnimationDelaySeconds,
+  ]);
 
   return (
     <div
@@ -91,6 +104,17 @@ export const Panel = ({
   );
 };
 
+export const Panel = ({
+  children,
+  ...props
+}: React.PropsWithChildren<PanelProps>) => {
+  return (
+    <PanelProvider>
+      <InnerPanel {...props}>{children}</InnerPanel>
+    </PanelProvider>
+  );
+};
+
 export const PanelActions = ({ children }: React.PropsWithChildren) => {
   return <div className="panel-header">{children}</div>;
 };
@@ -105,7 +129,7 @@ export const PanelBody = React.forwardRef<
 >(({ children }, ref) => {
   return (
     <div className="panel-body" ref={ref}>
-      {children}
+      <div className="panel-body-content">{children}</div>
     </div>
   );
 });
