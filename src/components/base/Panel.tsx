@@ -2,7 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext } from '../../hooks';
 import { PanelProvider } from 'src/providers';
-import { Button, ButtonProps, Variant } from 'src/components/base';
+import {
+  Button,
+  ButtonProps,
+  Variant,
+  CornersWrapper,
+} from 'src/components/base';
 
 const panelWrapperCss = (
   animationDuration: number,
@@ -161,6 +166,7 @@ export const PanelActions = ({
   reduceMotion,
 }: React.PropsWithChildren<PanelActionsProps>) => {
   const updatedChildren: React.ReactNode[] = [];
+  const { isPanelMenuOpen, setIsPanelMenuOpen } = usePanelContext();
 
   // Child must be a Button
   React.Children.forEach(children, (child) => {
@@ -180,9 +186,15 @@ export const PanelActions = ({
     }
   });
 
-  useEffect(() => {
-    console.log('isMenuRendered', isMenuRendered);
-  }, [isMenuRendered]);
+  const variants = useMemo(() => {
+    const variantsList = ['small', 'toggle-menu'];
+    if (isMenuRendered && isPanelMenuOpen) {
+      variantsList.push('active');
+    } else if (isMenuRendered && !isPanelMenuOpen) {
+      variantsList.push('secondary');
+    }
+    return variantsList;
+  }, [isMenuRendered, isPanelMenuOpen]);
 
   return (
     <div
@@ -194,9 +206,9 @@ export const PanelActions = ({
       {updatedChildren}
       {isMenuRendered && (
         <Button
-          variantsList={['small', 'toggle-menu', 'secondary']}
+          variantsList={variants as Variant[]}
           onClick={() => {
-            console.log('clicked');
+            setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);
           }}
         >
           Menu
@@ -210,7 +222,7 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
   const { isPanelMenuOpen } = usePanelContext();
   return (
     <div className={cx('panel-menu', { open: isPanelMenuOpen })}>
-      {children}
+      <CornersWrapper height="100%">{children}</CornersWrapper>
     </div>
   );
 };

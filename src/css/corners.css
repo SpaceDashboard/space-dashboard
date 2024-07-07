@@ -4,7 +4,7 @@
 
 .corners-wrapper {
   position: relative;
-  --corner-distance: -3px;
+  --corner-distance: -6px;
   --corner-size: 12px;
 
   .corner-top-left,

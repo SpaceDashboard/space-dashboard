@@ -18,7 +18,7 @@ export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
         <FadeFromBlack>
           <iframe
             className="aspect-16-9"
-            src={`https://www.youtube.com/embed/jPTD2gnZFUw?autoplay=${issLiveViewAutoPlay}&mute=${issLiveViewMute}`}
+            src={`https://www.youtube.com/embed/VdFK-xs_r-4?autoplay=${issLiveViewAutoPlay}&mute=${issLiveViewMute}`}
             title="YouTube video player - ISS Live View"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen
@@ -26,7 +26,10 @@ export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
-      <PanelMenu>{'This is a test'}</PanelMenu>
+      <PanelMenu>
+        {'This is a test'}
+        <Button variantsList={['secondary']}>Button</Button>
+      </PanelMenu>
       <PanelActions>
         <Button variantsList={['small', 'secondary']}>Refresh</Button>
       </PanelActions>

@@ -47,7 +47,6 @@
 
     .panel {
       backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
       background: hsla(
         var(--base-blue-hue),
         var(--base-blue-saturation),
@@ -88,6 +87,7 @@
       }
     }
   }
+
   .panel-actions {
     align-items: center;
     display: flex;
@@ -97,6 +97,42 @@
 
     .show-panel + & {
       opacity: 1;
+    }
+  }
+
+  .panel-menu {
+    backdrop-filter: blur(0);
+    background: hsla(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 10%),
+      0.9
+    );
+    box-sizing: border-box;
+    filter: blur(5px);
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    padding: 24px 26px;
+    position: absolute;
+    top: 0;
+    transform: scale(1.05);
+    transition: 0.2s all ease;
+    width: 100%;
+    z-index: 1;
+
+    .corners-wrapper-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 6px 8px;
+    }
+
+    &.open {
+      backdrop-filter: blur(10px);
+      filter: blur(0);
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }
