@@ -66,7 +66,7 @@ export const NavBar: React.FC = () => {
         </span>
         <div className="btn-wrapper">
           <Button
-            className="secondary nav"
+            variantsList={['secondary', 'nav']}
             tooltipTitle="Test 1"
             tooltipPlacement="right"
             onClick={handleClick}
@@ -74,7 +74,7 @@ export const NavBar: React.FC = () => {
             A
           </Button>
           <Button
-            className="secondary nav"
+            variantsList={['secondary', 'nav']}
             tooltipTitle="Test 2"
             tooltipPlacement="right"
             onClick={handleClick}
@@ -82,7 +82,7 @@ export const NavBar: React.FC = () => {
             B
           </Button>
           <Button
-            className="secondary nav"
+            variantsList={['secondary', 'nav']}
             tooltipTitle="Test 3"
             tooltipPlacement="right"
             onClick={handleClick}

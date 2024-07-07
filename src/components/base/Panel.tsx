@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext } from '../../hooks';
 import { PanelProvider } from 'src/providers';
+import { Button, ButtonProps, Variant } from 'src/components/base';
 
 const panelWrapperCss = (
   animationDuration: number,
   reduceMotion?: boolean,
 ) => css`
-  &::after {
+  &::before {
     transition: ${reduceMotion ? 0 : animationDuration}s all ease;
   }
 
@@ -17,45 +18,71 @@ const panelWrapperCss = (
 
   .panel-body {
     transition: ${reduceMotion ? 0 : animationDuration * 2}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.6}s;
+    transition-delay: ${reduceMotion ? 0 : 0.8}s;
   }
 `;
 
-export interface PanelProps {
-  index: number;
-}
+const panelCss = (animationDuration: number, reduceMotion?: boolean) => css`
+  transition: ${reduceMotion ? 0 : animationDuration}s all ease;
+  transition-delay: ${reduceMotion ? 0 : 1}s;
+`;
 
-interface InnerPanelProps extends PanelProps {
-  className?: string;
+export interface PanelProps {
   animationDuration?: number;
   animationDelay?: number;
-  height?: number;
+  className?: string;
+  index: number;
+  isMenuOpen?: boolean;
 }
 
 export const InnerPanel = ({
   children,
-  className,
   animationDuration = 0.4,
   animationDelay = 0,
+  className,
   index,
-}: React.PropsWithChildren<InnerPanelProps>) => {
+  isMenuOpen,
+}: React.PropsWithChildren<PanelProps>) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
   const [showPanel, setShowPanel] = useState<boolean>(false);
-  const { reduceMotion, navAnimationDurationSeconds } = useAppContext();
-  const { setAnimationDurationSeconds, setAnimationDelaySeconds } =
-    usePanelContext();
+  const { reduceMotion, navAnimationSeconds } = useAppContext();
+  const {
+    setAnimationDurationSeconds,
+    setAnimationDelaySeconds,
+    setIsPanelMenuOpen,
+  } = usePanelContext();
   const delayedAnimationSeconds =
-    navAnimationDurationSeconds + (animationDelay + index * 0.1);
-  const panelActionsChild = React.Children.toArray(children).filter(
-    (child) => React.isValidElement(child) && child.type === PanelActions,
-  );
-  const panelMenuChild = React.Children.toArray(children).filter(
-    (child) => React.isValidElement(child) && child.type === PanelMenu,
-  );
-  const panelBodyChild = React.Children.toArray(children).filter(
-    (child) => React.isValidElement(child) && child.type === PanelBody,
-  );
+    navAnimationSeconds + (animationDelay + index * 0.1);
+
+  const panelMenuChild = useMemo(() => {
+    const panelMenu = React.Children.toArray(children).filter(
+      (child) => React.isValidElement(child) && child.type === PanelMenu,
+    );
+    return panelMenu;
+  }, [children]);
+
+  const panelBodyChild = useMemo(() => {
+    const panelBody = React.Children.toArray(children).filter(
+      (child) => React.isValidElement(child) && child.type === PanelBody,
+    );
+    return panelBody;
+  }, [children]);
+
+  const panelActionsChild = useMemo(() => {
+    const panelActions = React.Children.map(
+      children,
+      (child) =>
+        React.isValidElement(child) &&
+        child.type === PanelActions &&
+        React.cloneElement(child, {
+          animationDuration,
+          reduceMotion,
+          isMenuRendered: !!panelMenuChild.length,
+        } as PanelActionsProps),
+    );
+    return panelActions;
+  }, [children, animationDuration, reduceMotion, panelMenuChild]);
 
   useEffect(() => {
     setAnimationDurationSeconds &&
@@ -84,19 +111,25 @@ export const InnerPanel = ({
     setAnimationDelaySeconds,
   ]);
 
+  useEffect(() => {
+    setIsPanelMenuOpen && setIsPanelMenuOpen(isMenuOpen ?? false);
+  }, [isMenuOpen, setIsPanelMenuOpen]);
+
   return (
-    <div
-      className={cx(
-        'panel-wrapper',
-        panelWrapperCss(animationDuration, reduceMotion),
-        showPanelBorders && 'show-panel-borders',
-        showPanel && 'show-panel',
-      )}
-    >
-      <div>
-        <div className={cx('panel', className)} ref={panelRef}>
-          {panelMenuChild}
-          {panelBodyChild}
+    <div className="panel-section-wrapper">
+      <div
+        className={cx(
+          'panel-wrapper',
+          panelWrapperCss(animationDuration, reduceMotion),
+          showPanelBorders && 'show-panel-borders',
+          showPanel && 'show-panel',
+        )}
+      >
+        <div>
+          <div className={cx('panel', className)} ref={panelRef}>
+            {panelMenuChild}
+            {panelBodyChild}
+          </div>
         </div>
       </div>
       {panelActionsChild}
@@ -115,12 +148,71 @@ export const Panel = ({
   );
 };
 
-export const PanelActions = ({ children }: React.PropsWithChildren) => {
-  return <div className="panel-header">{children}</div>;
+interface PanelActionsProps {
+  animationDuration?: number;
+  isMenuRendered?: boolean;
+  reduceMotion?: boolean;
+}
+
+export const PanelActions = ({
+  children,
+  animationDuration,
+  isMenuRendered,
+  reduceMotion,
+}: React.PropsWithChildren<PanelActionsProps>) => {
+  const updatedChildren: React.ReactNode[] = [];
+
+  // Child must be a Button
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.type === Button) {
+      // Child button can't be a toggle menu
+      if (
+        (child.props as ButtonProps).variantsList?.includes(
+          'toggle-menu' as Variant,
+        )
+      ) {
+        console.warn(
+          'Toggle menu button does not need to be included in panel actions.',
+        );
+      } else {
+        updatedChildren.push(child);
+      }
+    }
+  });
+
+  useEffect(() => {
+    console.log('isMenuRendered', isMenuRendered);
+  }, [isMenuRendered]);
+
+  return (
+    <div
+      className={cx(
+        'panel-actions',
+        panelCss(animationDuration ?? 0, reduceMotion),
+      )}
+    >
+      {updatedChildren}
+      {isMenuRendered && (
+        <Button
+          variantsList={['small', 'toggle-menu', 'secondary']}
+          onClick={() => {
+            console.log('clicked');
+          }}
+        >
+          Menu
+        </Button>
+      )}
+    </div>
+  );
 };
 
 export const PanelMenu = ({ children }: React.PropsWithChildren) => {
-  return <div className="panel-menu">{children}</div>;
+  const { isPanelMenuOpen } = usePanelContext();
+  return (
+    <div className={cx('panel-menu', { open: isPanelMenuOpen })}>
+      {children}
+    </div>
+  );
 };
 
 export const PanelBody = React.forwardRef<

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Tooltip, { TooltipProps } from '@mui/material/Tooltip';
 import { Fade } from '@mui/material';
 
@@ -12,25 +12,43 @@ import { Fade } from '@mui/material';
   - active
 */
 
-interface ButtonProps {
-  className?: string;
+export type Variant =
+  | 'flat-bottom'
+  | 'secondary'
+  | 'small'
+  | 'nav'
+  | 'toggle-menu'
+  | 'active';
+
+export interface ButtonProps {
+  children: React.ReactNode;
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';
-  children: React.ReactNode;
+  isActive?: boolean;
   onClick?: () => void;
   tooltipPlacement?: TooltipProps['placement'];
   tooltipTitle?: string;
+  variantsList?: Variant[];
 }
 
 export const Button = ({
-  className = '',
+  children,
   ariaLabel,
   buttonType = 'button',
-  children,
+  isActive = false,
   onClick = () => {},
   tooltipPlacement = 'top',
   tooltipTitle,
+  variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
+  const variantClasses = variantsList.map((variant) => variant).join(' ');
+  const toggleIsActive = useMemo(() => {
+    if (variantsList.includes('toggle-menu')) {
+      return isActive;
+    }
+    return false;
+  }, [isActive, variantsList]);
+
   return (
     <Tooltip
       enterDelay={0}
@@ -40,7 +58,7 @@ export const Button = ({
     >
       <button
         aria-label={ariaLabel}
-        className={`button ${className}`}
+        className={`button ${variantClasses} ${toggleIsActive ? 'active' : ''}`}
         onClick={onClick}
         type={buttonType}
       >

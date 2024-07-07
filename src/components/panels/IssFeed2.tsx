@@ -7,10 +7,10 @@ import {
 } from 'src/components/base';
 import { useAppContext } from '../../hooks';
 
-export const IssFeed2: React.FC<PanelProps> = ({ ...props }) => {
+export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
   const { issLiveHDViewsAutoPlay, issLiveHDViewsMute } = useAppContext();
   return (
-    <Panel {...props}>
+    <Panel index={index}>
       <PanelBody>
         <FadeFromBlack>
           <iframe

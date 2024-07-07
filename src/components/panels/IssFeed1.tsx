@@ -2,15 +2,18 @@ import React from 'react';
 import {
   Panel,
   PanelBody,
+  PanelActions,
   PanelProps,
+  Button,
   FadeFromBlack,
+  PanelMenu,
 } from 'src/components/base';
 import { useAppContext } from '../../hooks';
 
-export const IssFeed1: React.FC<PanelProps> = ({ ...props }) => {
+export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
   const { issLiveViewAutoPlay, issLiveViewMute } = useAppContext();
   return (
-    <Panel {...props}>
+    <Panel index={index}>
       <PanelBody>
         <FadeFromBlack>
           <iframe
@@ -23,6 +26,10 @@ export const IssFeed1: React.FC<PanelProps> = ({ ...props }) => {
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
+      <PanelMenu>{'This is a test'}</PanelMenu>
+      <PanelActions>
+        <Button variantsList={['small', 'secondary']}>Refresh</Button>
+      </PanelActions>
     </Panel>
   );
 };

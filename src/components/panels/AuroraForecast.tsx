@@ -6,9 +6,9 @@ import {
   FadeFromBlack,
 } from 'src/components/base';
 
-export const AuroraForecast: React.FC<PanelProps> = ({ ...props }) => {
+export const AuroraForecast: React.FC<PanelProps> = ({ index }) => {
   return (
-    <Panel {...props}>
+    <Panel index={index}>
       <PanelBody>
         <FadeFromBlack>
           <img

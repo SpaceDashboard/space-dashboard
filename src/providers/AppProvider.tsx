@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 interface AppProviderProps {
-  navAnimationDurationSeconds: number;
+  navAnimationSeconds: number;
   reduceMotion: boolean;
   setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
   issLiveViewAutoPlay?: boolean;
@@ -17,13 +17,13 @@ interface AppProviderProps {
 }
 
 export const AppContext = createContext<AppProviderProps>({
-  navAnimationDurationSeconds: 0,
+  navAnimationSeconds: 0,
   reduceMotion: false,
   setReduceMotion: () => {},
 });
 
 export const AppProvider = ({ children }: React.PropsWithChildren) => {
-  const navAnimationDurationSeconds = 1.55;
+  const navAnimationSeconds = 1.55;
   const [reduceMotion, setReduceMotion] = useState(false);
   const [issLiveViewAutoPlay, setIssLiveViewAutoPlay] = useState(false);
   const [issLiveViewMute, setIssLiveViewMute] = useState(false);
@@ -34,7 +34,7 @@ export const AppProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <AppContext.Provider
       value={{
-        navAnimationDurationSeconds,
+        navAnimationSeconds,
         reduceMotion,
         setReduceMotion,
         issLiveViewAutoPlay,

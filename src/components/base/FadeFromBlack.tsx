@@ -29,42 +29,34 @@ export const FadeFromBlack = ({
   children,
   fadeTime = 4.5,
 }: React.PropsWithChildren<FadeFromBlackProps>) => {
-  const { reduceMotion, navAnimationDurationSeconds } = useAppContext();
+  const { reduceMotion, navAnimationSeconds } = useAppContext();
   const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
   const [isLoading, setIsLoading] = useState(true);
   const delayedAnimationSeconds = useMemo(() => {
-    if (
-      reduceMotion ||
-      !navAnimationDurationSeconds ||
-      !animationDurationSeconds
-    )
+    if (reduceMotion || !navAnimationSeconds || !animationDurationSeconds)
       return 0;
     return (
       (animationDurationSeconds ?? fadeTime) +
       (animationDelaySeconds ?? 0) +
-      navAnimationDurationSeconds
+      navAnimationSeconds
     );
   }, [
     animationDurationSeconds,
     animationDelaySeconds,
-    navAnimationDurationSeconds,
+    navAnimationSeconds,
     fadeTime,
     reduceMotion,
   ]);
 
   useEffect(() => {
-    if (
-      reduceMotion ||
-      !navAnimationDurationSeconds ||
-      !animationDurationSeconds
-    )
+    if (reduceMotion || !navAnimationSeconds || !animationDurationSeconds)
       return;
 
     setIsLoading(false);
   }, [
     animationDurationSeconds,
     animationDelaySeconds,
-    navAnimationDurationSeconds,
+    navAnimationSeconds,
     reduceMotion,
   ]);
 

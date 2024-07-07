@@ -27,7 +27,7 @@ const issTrackerFrameCss = (issTrackerFrameScale: number) => css`
   transition: 0.5s transform ease;
 `;
 
-export const IssTracker: React.FC<PanelProps> = ({ ...props }) => {
+export const IssTracker: React.FC<PanelProps> = ({ index }) => {
   const issTrackerWrapperRef = useRef<HTMLDivElement | null>(null);
   const issTrackerFrameRef = useRef<HTMLIFrameElement | null>(null);
   const [issTrackerFrameScale, setIssTrackerFrameScale] = useState(1);
@@ -69,7 +69,7 @@ export const IssTracker: React.FC<PanelProps> = ({ ...props }) => {
   }, [issTrackerWrapperRef.current]);
 
   return (
-    <Panel {...props}>
+    <Panel index={index}>
       <PanelBody>
         <FadeFromBlack>
           <div className={issTrackerWrapperCss} ref={issTrackerWrapperRef}>
