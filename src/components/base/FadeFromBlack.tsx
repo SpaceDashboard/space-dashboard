@@ -33,8 +33,7 @@ export const FadeFromBlack = ({
   const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
   const [isLoading, setIsLoading] = useState(true);
   const delayedAnimationSeconds = useMemo(() => {
-    if (reduceMotion || !navAnimationSeconds || !animationDurationSeconds)
-      return 0;
+    if (!navAnimationSeconds || !animationDurationSeconds) return 0;
     return (
       (animationDurationSeconds ?? fadeTime) +
       (animationDelaySeconds ?? 0) +
@@ -45,23 +44,22 @@ export const FadeFromBlack = ({
     animationDelaySeconds,
     navAnimationSeconds,
     fadeTime,
-    reduceMotion,
   ]);
 
   useEffect(() => {
-    if (reduceMotion || !navAnimationSeconds || !animationDurationSeconds)
-      return;
+    if (!navAnimationSeconds || !animationDurationSeconds) return;
 
     setIsLoading(false);
-  }, [
-    animationDurationSeconds,
-    animationDelaySeconds,
-    navAnimationSeconds,
-    reduceMotion,
-  ]);
+  }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
 
   return (
-    <span className={fadeInFromBlackCss(isLoading, delayedAnimationSeconds)}>
+    <span
+      className={fadeInFromBlackCss(
+        isLoading,
+        delayedAnimationSeconds,
+        reduceMotion,
+      )}
+    >
       {children}
     </span>
   );

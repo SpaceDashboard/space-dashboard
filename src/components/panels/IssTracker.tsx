@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Panel,
   PanelBody,
+  PanelActions,
   PanelProps,
+  PanelMenu,
+  Button,
   FadeFromBlack,
 } from 'src/components/base';
 import { css } from '@emotion/css';
@@ -12,19 +15,16 @@ const issTrackerWrapperCss = css`
   display: flex;
   height: 100%;
   justify-content: center;
-  overflow: scroll;
   position: relative;
   width: 100%;
 `;
 
 const issTrackerFrameCss = (issTrackerFrameScale: number) => css`
-  border: none;
   max-height: 352px !important;
   min-height: 352px !important;
   max-width: 625px !important;
   min-width: 625px !important;
   transform: scale(${issTrackerFrameScale});
-  transition: 0.5s transform ease;
 `;
 
 export const IssTracker: React.FC<PanelProps> = ({ index }) => {
@@ -77,14 +77,23 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
               className={issTrackerFrameCss(issTrackerFrameScale)}
               ref={issTrackerFrameRef}
               src="https://isstracker.spaceflight.esa.int/"
-              marginWidth={0}
-              marginHeight={0}
-              frameBorder={0}
-              scrolling="no"
+              scrolling="no" // Deprecated but works better than overflow: hidden
             ></iframe>
           </div>
         </FadeFromBlack>
       </PanelBody>
+      <PanelMenu>
+        {'This is a test'}
+        <Button variantsList={['small']}>Button</Button>
+      </PanelMenu>
+      <PanelActions>
+        <Button
+          variantsList={['small', 'secondary']}
+          onClick={() => console.log('Refresh clicked')}
+        >
+          Refresh
+        </Button>
+      </PanelActions>
     </Panel>
   );
 };

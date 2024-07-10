@@ -29,7 +29,7 @@ p {
   animation: 0.5s ease forwards bgContainerFadeIn;
   opacity: 0;
 
-  &:before {
+  &::before {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: auto;
@@ -83,11 +83,11 @@ p {
   width: calc(100vw - 120px);
 
   .container-column {
-    --column-gap: 60px;
+    /* --column-gap: 5px; */
     --column-width: 33.33%;
     display: flex;
     flex-direction: column;
-    gap: var(--column-gap);
+    /* gap: var(--column-gap); */
     width: var(--column-width);
   }
 }
@@ -96,4 +96,10 @@ p {
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
+}
+
+iframe {
+  border: none;
+  margin: 0;
+  overflow: hidden;
 }

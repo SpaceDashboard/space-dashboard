@@ -23,13 +23,17 @@ const panelWrapperCss = (
 
   .panel-body {
     transition: ${reduceMotion ? 0 : animationDuration * 2}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.8}s;
+    transition-delay: ${reduceMotion ? 0 : 0.9}s;
   }
 `;
 
-const panelCss = (animationDuration: number, reduceMotion?: boolean) => css`
+const panelActionsCss = (
+  animationDuration: number,
+  animationDelay: number,
+  reduceMotion?: boolean,
+) => css`
   transition: ${reduceMotion ? 0 : animationDuration}s all ease;
-  transition-delay: ${reduceMotion ? 0 : 1}s;
+  transition-delay: ${reduceMotion ? 0 : animationDelay}s;
 `;
 
 export interface PanelProps {
@@ -81,13 +85,11 @@ export const InnerPanel = ({
         React.isValidElement(child) &&
         child.type === PanelActions &&
         React.cloneElement(child, {
-          animationDuration,
-          reduceMotion,
           isMenuRendered: !!panelMenuChild.length,
         } as PanelActionsProps),
     );
     return panelActions;
-  }, [children, animationDuration, reduceMotion, panelMenuChild]);
+  }, [children, panelMenuChild]);
 
   useEffect(() => {
     setAnimationDurationSeconds &&
@@ -121,7 +123,7 @@ export const InnerPanel = ({
   }, [isMenuOpen, setIsPanelMenuOpen]);
 
   return (
-    <div className="panel-section-wrapper">
+    <div className="panel-section">
       <div
         className={cx(
           'panel-wrapper',
@@ -132,8 +134,8 @@ export const InnerPanel = ({
       >
         <div>
           <div className={cx('panel', className)} ref={panelRef}>
-            {panelMenuChild}
             {panelBodyChild}
+            {panelMenuChild}
           </div>
         </div>
       </div>
@@ -154,19 +156,21 @@ export const Panel = ({
 };
 
 interface PanelActionsProps {
-  animationDuration?: number;
   isMenuRendered?: boolean;
-  reduceMotion?: boolean;
 }
 
 export const PanelActions = ({
   children,
-  animationDuration,
   isMenuRendered,
-  reduceMotion,
 }: React.PropsWithChildren<PanelActionsProps>) => {
   const updatedChildren: React.ReactNode[] = [];
-  const { isPanelMenuOpen, setIsPanelMenuOpen } = usePanelContext();
+  const { reduceMotion } = useAppContext();
+  const {
+    isPanelMenuOpen,
+    setIsPanelMenuOpen,
+    animationDurationSeconds,
+    animationDelaySeconds,
+  } = usePanelContext();
 
   // Child must be a Button
   React.Children.forEach(children, (child) => {
@@ -199,21 +203,36 @@ export const PanelActions = ({
   return (
     <div
       className={cx(
-        'panel-actions',
-        panelCss(animationDuration ?? 0, reduceMotion),
+        'panel-actions-wrapper',
+        panelActionsCss(
+          animationDurationSeconds ?? 0,
+          animationDelaySeconds ?? 0,
+          reduceMotion,
+        ),
       )}
     >
-      {updatedChildren}
-      {isMenuRendered && (
-        <Button
-          variantsList={variants as Variant[]}
-          onClick={() => {
-            setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);
-          }}
-        >
-          Menu
-        </Button>
-      )}
+      <div
+        className={cx(
+          'panel-actions',
+          panelActionsCss(
+            animationDurationSeconds ?? 0,
+            animationDelaySeconds ?? 0,
+            reduceMotion,
+          ),
+        )}
+      >
+        {updatedChildren}
+        {isMenuRendered && (
+          <Button
+            variantsList={variants as Variant[]}
+            onClick={() => {
+              setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);
+            }}
+          >
+            Menu
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

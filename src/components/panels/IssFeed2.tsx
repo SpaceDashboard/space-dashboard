@@ -2,7 +2,10 @@ import React from 'react';
 import {
   Panel,
   PanelBody,
+  PanelActions,
   PanelProps,
+  PanelMenu,
+  Button,
   FadeFromBlack,
 } from 'src/components/base';
 import { useAppContext } from '../../hooks';
@@ -19,10 +22,21 @@ export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
             title="YouTube video player - Live High-Definition Views from ISS"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen
-            frameBorder={0}
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
+      <PanelMenu>
+        {'This is a test'}
+        <Button variantsList={['small']}>Button</Button>
+      </PanelMenu>
+      <PanelActions>
+        <Button
+          variantsList={['small', 'secondary']}
+          onClick={() => console.log('Refresh clicked')}
+        >
+          Refresh
+        </Button>
+      </PanelActions>
     </Panel>
   );
 };

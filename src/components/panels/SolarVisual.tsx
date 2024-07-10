@@ -2,7 +2,10 @@ import React from 'react';
 import {
   Panel,
   PanelBody,
+  PanelActions,
   PanelProps,
+  PanelMenu,
+  Button,
   FadeFromBlack,
 } from 'src/components/base';
 
@@ -18,6 +21,18 @@ export const SolarVisual: React.FC<PanelProps> = ({ index }) => {
           />
         </FadeFromBlack>
       </PanelBody>
+      <PanelMenu>
+        {'This is a test'}
+        <Button variantsList={['small']}>Button</Button>
+      </PanelMenu>
+      <PanelActions>
+        <Button
+          variantsList={['small', 'secondary']}
+          onClick={() => console.log('Refresh clicked')}
+        >
+          Refresh
+        </Button>
+      </PanelActions>
     </Panel>
   );
 };

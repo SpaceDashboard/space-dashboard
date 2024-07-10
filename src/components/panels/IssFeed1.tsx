@@ -4,9 +4,9 @@ import {
   PanelBody,
   PanelActions,
   PanelProps,
+  PanelMenu,
   Button,
   FadeFromBlack,
-  PanelMenu,
 } from 'src/components/base';
 import { useAppContext } from '../../hooks';
 
@@ -22,16 +22,20 @@ export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
             title="YouTube video player - ISS Live View"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen
-            frameBorder={0}
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
       <PanelMenu>
         {'This is a test'}
-        <Button variantsList={['secondary']}>Button</Button>
+        <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
       <PanelActions>
-        <Button variantsList={['small', 'secondary']}>Refresh</Button>
+        <Button
+          variantsList={['small', 'secondary']}
+          onClick={() => console.log('Refresh clicked')}
+        >
+          Refresh
+        </Button>
       </PanelActions>
     </Panel>
   );

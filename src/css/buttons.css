@@ -85,7 +85,7 @@
     );
   }
 
-  &:after {
+  &::after {
     content: '\2022\2022\2022\2022';
     color: hsl(
       var(--base-orange-hue),
@@ -100,9 +100,9 @@
     top: 0px;
   }
 
-  &:hover:after,
-  &:focus-visible:after,
-  &:active:after {
+  &:hover::after,
+  &:focus-visible::after,
+  &:active::after {
     box-shadow: none;
     color: hsl(
       var(--base-orange-hue),
@@ -123,7 +123,7 @@
       calc(var(--base-orange-lightness) + 45%)
     );
 
-    &:after {
+    &::after {
       box-shadow: none;
       color: hsl(
         var(--base-orange-hue),
@@ -196,7 +196,7 @@
     );
   }
 
-  &.secondary:after {
+  &.secondary::after {
     color: hsl(
       var(--base-blue-hue),
       var(--base-blue-saturation),
@@ -204,9 +204,9 @@
     );
   }
 
-  &.secondary:hover:after,
-  &.secondary:focus-visible:after,
-  &.secondary:active:after {
+  &.secondary:hover::after,
+  &.secondary:focus-visible::after,
+  &.secondary:active::after {
     box-shadow: none;
     color: hsl(
       var(--base-blue-hue),
@@ -227,7 +227,7 @@
       calc(var(--base-blue-lightness) + 75%)
     );
 
-    &:after {
+    &::after {
       box-shadow: none;
       color: hsl(
         var(--base-blue-hue),
@@ -293,7 +293,7 @@
     }
   }
 
-  &.toggle-menu.active:after {
+  &.toggle-menu.active::after {
     filter: brightness(200%);
     content: '\00D7';
     font-size: 1rem;
