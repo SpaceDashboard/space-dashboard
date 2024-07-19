@@ -1,105 +1,96 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
+import { Button } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
+import { useForm } from 'react-hook-form';
+import { IconSend, IconRestore } from '@tabler/icons-react';
 
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
-  const [initialHiddenClass, setInitialHiddenClass] =
-    useState<string>('initial-hidden');
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    formState: { errors },
+  } = useForm();
   const [humanTest, setHumanTest] = useState<boolean>(true);
-  const [error, setError] = useState<string>('');
-  const errorDisplayValue = useMemo(() => {
-    return error ? 'block' : 'none';
-  }, [error]);
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
 
   const resetForm = () => {
-    setName('');
-    setEmail('');
-    setMessage('');
+    clearErrors();
+    reset();
     setHumanTest(true);
-    setError('');
   };
 
-  const submitForm = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (humanTest) {
-      return;
-    }
+  // const submitForm = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (humanTest) {
+  //     return;
+  //   }
 
-    const data = new FormData();
-    data.append('name', name);
-    data.append('email', email);
-    data.append('message', message);
+  //   const data = new FormData();
+  //   data.append('name', name);
+  //   data.append('email', email);
+  //   data.append('message', message);
 
-    fetch('https://formspree.io/f/xaygawjb', {
-      method: 'POST',
-      body: data,
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          // alertSW.fire({
-          //   icon: 'success',
-          //   showConfirmButton: false,
-          //   text: 'Thanks for writing!',
-          //   timer: 2500,
-          //   title: 'Sent',
-          // });
-          setIsContactFormOpen && setIsContactFormOpen(false);
-          resetForm();
-        } else {
-          response.json().then((data) => {
-            setError(
-              data.errors
-                .map(
-                  (error: { code: string; message: string }) => error.message,
-                )
-                .join(', '),
-            );
-          });
-        }
-      })
-      .catch((error) => {
-        setError(`Oops! There was a problem submitting your form: ${error}`);
-      });
-  };
+  //   fetch('https://formspree.io/f/xaygawjb', {
+  //     method: 'POST',
+  //     body: data,
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         // alertSW.fire({
+  //         //   icon: 'success',
+  //         //   showConfirmButton: false,
+  //         //   text: 'Thanks for writing!',
+  //         //   timer: 2500,
+  //         //   title: 'Sent',
+  //         // });
+  //         setIsContactFormOpen && setIsContactFormOpen(false);
+  //         resetForm();
+  //       } else {
+  //         response.json().then((data) => {
+  //           setError(
+  //             data.errors
+  //               .map(
+  //                 (error: { code: string; message: string }) => error.message,
+  //               )
+  //               .join(', '),
+  //           );
+  //         });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       setError(`Oops! There was a problem submitting your form: ${error}`);
+  //     });
+  // };
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      setInitialHiddenClass('');
-    }, 500);
-  }, []);
-
-  useEffect(() => {
-    if (isContactFormOpen) {
-      document
-        .querySelector('form#contact-form')
-        ?.querySelector('input')
-        ?.focus();
-      const handleEscape = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          setIsContactFormOpen && setIsContactFormOpen(false);
-          resetForm();
-        }
-      };
-      window.addEventListener('keyup', handleEscape);
-      return () => window.removeEventListener('keyup', handleEscape);
-    }
-  }, [isContactFormOpen, setIsContactFormOpen]);
+  // useEffect(() => {
+  //   if (isContactFormOpen) {
+  //     document
+  //       .querySelector('form#contact-form')
+  //       ?.querySelector('input')
+  //       ?.focus();
+  //     const handleEscape = (event: KeyboardEvent) => {
+  //       if (event.key === 'Escape') {
+  //         setIsContactFormOpen && setIsContactFormOpen(false);
+  //         resetForm();
+  //       }
+  //     };
+  //     window.addEventListener('keyup', handleEscape);
+  //     return () => window.removeEventListener('keyup', handleEscape);
+  //   }
+  // }, [isContactFormOpen, setIsContactFormOpen]);
 
   return (
     <div
-      className={`contact-form-wrapper ${initialHiddenClass} ${isContactFormOpen ? 'show' : 'hide'}`}
-      onClick={(event) => {
-        if (event.target === event.currentTarget) {
-          setIsContactFormOpen && setIsContactFormOpen(false);
-          resetForm();
-        }
-      }}
+      className={`contact-form-wrapper ${isContactFormOpen ? 'show' : 'hide'}`}
     >
       <section className="contact-form-content">
         <button
@@ -116,54 +107,34 @@ export const ContactForm: React.FC = () => {
         </button>
         <h2>{"What's on your mind?"}</h2>
 
-        <p style={{ marginBottom: '18px' }}>
-          {'You can also email me directly: '}
-          <a href="mailto:caleb@calebdudleydesign.com" rel="noreferrer">
-            {'caleb@calebdudleydesign.com'}
-          </a>
-        </p>
-
-        <form id="contact-form">
-          <p
-            className="text-error"
-            style={{ marginBottom: '20px', display: errorDisplayValue }}
-            aria-live="polite"
-          >
-            {error}
-          </p>
-
+        <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="input-wrapper">
             <label htmlFor="name">{'Name'}</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <input type="text" {...register('name', { required: true })} />
+            {errors.name && <p className="text-error">Name is required</p>}
           </div>
 
           <div className="input-wrapper">
             <label htmlFor="email">{'Email'}</label>
             <input
-              type="text"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
             />
+            {errors.email && (
+              <p className="text-error">Email is required and must be valid</p>
+            )}
           </div>
 
           <div className="input-wrapper">
             <label htmlFor="message">{'Message'}</label>
             <textarea
-              name="message"
-              id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              {...register('message', { required: true })}
               rows={5}
               cols={40}
             ></textarea>
+            {errors.message && (
+              <p className="text-error">Message is required</p>
+            )}
           </div>
 
           <div className="input-wrapper">
@@ -179,24 +150,22 @@ export const ContactForm: React.FC = () => {
             </label>
           </div>
 
-          <div className="input-wrapper btns">
-            <button
-              type="submit"
-              className="btn"
-              id="submit-contact-form"
-              onClick={submitForm}
+          <div className="button-row">
+            <Button
+              buttonType="submit"
+              Icon={IconSend}
+              onClick={onSubmit}
               disabled={humanTest}
             >
               {'Send'}
-            </button>
-            <button
-              type="button"
-              className="btn reset"
-              id="reset-contact-form"
+            </Button>
+            <Button
+              Icon={IconRestore}
               onClick={resetForm}
+              variantsList={['secondary']}
             >
               {'Reset'}
-            </button>
+            </Button>
           </div>
         </form>
       </section>

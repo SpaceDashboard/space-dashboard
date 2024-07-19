@@ -20,7 +20,7 @@ nav {
   transform: scaleX(0);
   width: 85px;
 
-  &::after {
+  &::before {
     border: 2px solid
       hsl(
         var(--base-blue-hue),
@@ -36,6 +36,21 @@ nav {
     top: 0;
     width: 100%;
     z-index: -1;
+  }
+
+  &.show-nav-borders {
+    transform: scaleX(1);
+  }
+
+  &.show-nav {
+    height: calc(100% - 50px);
+    margin-top: 25px;
+    padding: 15px 0;
+
+    &::before {
+      height: calc(100% + 10px);
+      top: -5px;
+    }
   }
 
   .nav-inner {
@@ -55,6 +70,10 @@ nav {
     height: 50px;
     opacity: 0;
     width: 50px;
+
+    .show-nav & {
+      opacity: 1;
+    }
   }
 
   .btn-wrapper {

@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-import Tooltip, { TooltipProps } from '@mui/material/Tooltip';
-import { Fade } from '@mui/material';
+import React, { FunctionComponent } from 'react';
+import { Tooltip, TooltipPlacement } from './Tooltip';
+import { IconProps } from '@tabler/icons-react';
 
 /* 
   Available additional style classes:
@@ -21,12 +21,19 @@ export type Variant =
   | 'active';
 
 export interface ButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';
-  isActive?: boolean;
-  onClick?: () => void;
-  tooltipPlacement?: TooltipProps['placement'];
+  disabled?: boolean;
+  Icon?: FunctionComponent<IconProps>;
+  iconSize?: number;
+  iconStrokeWidth?: number;
+  /** Controls Tooltip specific props */
+  isPanelAction?: boolean;
+  onClick?: (p: any) => void;
+  tooltipDelay?: number;
+  tooltipOffset?: [number, number];
+  tooltipPlacement?: TooltipPlacement;
   tooltipTitle?: string;
   variantsList?: Variant[];
 }
@@ -35,34 +42,44 @@ export const Button = ({
   children,
   ariaLabel,
   buttonType = 'button',
-  isActive = false,
+  disabled = false,
+  Icon,
+  iconSize = 18,
+  iconStrokeWidth = 1.5,
+  isPanelAction = false,
   onClick = () => {},
+  tooltipDelay = 0,
+  tooltipOffset = [0, 0],
   tooltipPlacement = 'top',
   tooltipTitle,
   variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
   const variantClasses = variantsList.map((variant) => variant).join(' ');
-  const toggleIsActive = useMemo(() => {
-    if (variantsList.includes('toggle-menu')) {
-      return isActive;
-    }
-    return false;
-  }, [isActive, variantsList]);
 
   return (
     <Tooltip
-      enterDelay={0}
-      placement={tooltipPlacement}
+      delay={isPanelAction ? 600 : tooltipDelay}
+      tooltipOffset={isPanelAction ? [0, 6] : tooltipOffset}
+      placement={isPanelAction ? 'bottom' : tooltipPlacement}
       title={tooltipTitle}
-      TransitionComponent={Fade}
     >
       <button
         aria-label={ariaLabel}
-        className={`button ${variantClasses} ${toggleIsActive ? 'active' : ''}`}
+        className={`button ${variantClasses}`}
+        disabled={disabled}
         onClick={onClick}
         type={buttonType}
       >
-        {children}
+        <span className="button-content-wrapper">
+          {Icon && (
+            <Icon
+              height={iconSize}
+              width={iconSize}
+              strokeWidth={iconStrokeWidth}
+            />
+          )}
+          {children && children}
+        </span>
       </button>
     </Tooltip>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useAppContext } from '../../hooks';
+import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { css } from '@emotion/css';
-import { usePanelContext } from '../../hooks';
 
 const fadeInFromBlackCss = (
   isLoading: boolean,
@@ -20,31 +19,19 @@ const fadeInFromBlackCss = (
   width: 100%;
 `;
 
-interface FadeFromBlackProps {
-  /** Fade time in seconds */
-  fadeTime?: number;
-}
-
-export const FadeFromBlack = ({
-  children,
-  fadeTime = 4.5,
-}: React.PropsWithChildren<FadeFromBlackProps>) => {
-  const { reduceMotion, navAnimationSeconds } = useAppContext();
+export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
+  const { navAnimationSeconds } = useAppContext();
+  const {
+    settings: { reduceMotion, animationSpeedAdjustment },
+  } = useSettingsContext();
   const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
   const [isLoading, setIsLoading] = useState(true);
   const delayedAnimationSeconds = useMemo(() => {
     if (!navAnimationSeconds || !animationDurationSeconds) return 0;
     return (
-      (animationDurationSeconds ?? fadeTime) +
-      (animationDelaySeconds ?? 0) +
-      navAnimationSeconds
+      (animationDurationSeconds ?? 4.5) + (animationDelaySeconds ?? 0) + 1.75
     );
-  }, [
-    animationDurationSeconds,
-    animationDelaySeconds,
-    navAnimationSeconds,
-    fadeTime,
-  ]);
+  }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
 
   useEffect(() => {
     if (!navAnimationSeconds || !animationDurationSeconds) return;
@@ -56,7 +43,7 @@ export const FadeFromBlack = ({
     <span
       className={fadeInFromBlackCss(
         isLoading,
-        delayedAnimationSeconds,
+        delayedAnimationSeconds * animationSpeedAdjustment,
         reduceMotion,
       )}
     >

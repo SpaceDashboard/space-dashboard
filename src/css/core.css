@@ -8,6 +8,11 @@
 }
 
 body {
+  accent-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 20%)
+  );
   font-family: var(--font);
   overscroll-behavior: none;
   padding: 0;
@@ -16,9 +21,9 @@ body {
 input:focus,
 textarea:focus,
 p:focus {
-  box-shadow: 0 0 0 2px rgba(45, 125, 189, 0.9) !important;
+  box-shadow: 0 0 0 1px rgba(45, 125, 189, 0.8) !important;
   outline: none;
-  transition: 0.15s all ease;
+  transition: 0.08s all ease;
 }
 
 p {
@@ -52,7 +57,7 @@ p {
   }
 
   &::after {
-    background-image: url('/img/bg-1.png');
+    background-image: url('/img/bg-dotted.png');
     background-attachment: fixed;
     background-position: 0 0;
     background-repeat: repeat;
@@ -63,6 +68,16 @@ p {
     position: fixed;
     top: 0;
     width: 100%;
+  }
+}
+
+@keyframes bgContainerFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
@@ -102,4 +117,157 @@ iframe {
   border: none;
   margin: 0;
   overflow: hidden;
+}
+
+form {
+  label:has(input),
+  input[type='checkbox'] {
+    cursor: pointer;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .text-error {
+    color: #ff8585;
+    margin: 6px 0;
+  }
+
+  /* .close-contact-form {
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    outline: none;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 30px;
+
+    span {
+      --close-contact-span-bg-color: #000;
+      background: var(--close-contact-span-bg-color);
+      height: 100%;
+      width: 1px;
+
+      body.dark-mode & {
+        --close-contact-span-bg-color: #fff;
+      }
+
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        --close-x-color: #000;
+        span {
+          box-shadow: 0 0 0 1px var(--close-x-color);
+
+          body.dark-mode & {
+            --close-x-color: #fff;
+          }
+        }
+      }
+    }
+  } */
+
+  input[type='text'],
+  input[type='email'],
+  input[type='number'],
+  textarea {
+    --contact-form-input-bg-color: rgba(20, 20, 20, 0.75);
+    /* --contact-form-input-bg-color: rgba(255, 255, 255, 0.08); */
+    --contact-form-input-border-color: rgba(255, 255, 255, 0.15);
+    --contact-form-input-bottom-border-color: rgba(255, 255, 255, 0.8);
+    --contact-form-input-text-color: #fff;
+    background: var(--contact-form-input-bg-color);
+    border: 1px solid var(--contact-form-input-border-color);
+    border-bottom-color: var(--contact-form-input-bottom-border-color);
+    box-sizing: border-box;
+    color: var(--contact-form-input-text-color);
+    font-size: 14px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    outline: 0;
+    padding: 10px;
+    resize: none;
+    width: 100%;
+  }
+
+  input[type='text']:focus,
+  input[type='email']:focus,
+  input[type='number']:focus,
+  textarea:focus {
+    /* --contact-form-input-focus-bg-color: rgba(255, 255, 255, 0.06); */
+    --contact-form-input-bg-color: rgba(20, 20, 20, 0.8);
+    background: var(--contact-form-input-focus-bg-color) !important;
+  }
+
+  @media (hover: hover) {
+    input[type='text']:hover,
+    input[type='email']:hover,
+    input[type='number']:hover,
+    textarea:hover {
+      /* --contact-form-input-hover-bg-color: rgba(255, 255, 255, 0.06); */
+      --contact-form-input-bg-color: rgba(20, 20, 20, 0.8);
+      background: var(--contact-form-input-hover-bg-color) !important;
+    }
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='number'] {
+    max-width: 350px;
+  }
+
+  input[type='checkbox'] {
+    font-size: 16px;
+  }
+
+  textarea {
+    max-width: 600px;
+  }
+
+  /* input:not(:empty),
+  textarea:not(:empty) {
+    background: #ccc !important;
+  }
+
+  @media (hover: hover) {
+    input:not(:empty):hover,
+    textarea:not(:empty):hover {
+      background: #ccc !important;
+    }
+  } */
+
+  label {
+    margin: 0 0 5px;
+    display: inline-block;
+  }
+
+  label:first-child {
+    margin-top: 0;
+  }
+
+  label:has(input) {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+  }
+
+  .button-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 }

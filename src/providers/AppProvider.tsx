@@ -1,50 +1,33 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
+import { useSettingsContext } from 'src/hooks';
 
 interface AppProviderProps {
   navAnimationSeconds: number;
-  reduceMotion: boolean;
-  setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
-  issLiveViewAutoPlay?: boolean;
-  setIssLiveViewAutoPlay?: React.Dispatch<React.SetStateAction<boolean>>;
-  issLiveViewMute?: boolean;
-  setIssLiveViewMute?: React.Dispatch<React.SetStateAction<boolean>>;
-  issLiveHDViewsAutoPlay?: boolean;
-  setIssLiveHDViewsAutoPlay?: React.Dispatch<React.SetStateAction<boolean>>;
-  issLiveHDViewsMute?: boolean;
-  setIssLiveHDViewsMute?: React.Dispatch<React.SetStateAction<boolean>>;
   isContactFormOpen?: boolean;
-  setIsContactFormOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsContactFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext<AppProviderProps>({
   navAnimationSeconds: 0,
-  reduceMotion: false,
-  setReduceMotion: () => {},
+  setIsContactFormOpen: () => {},
 });
 
 export const AppProvider = ({ children }: React.PropsWithChildren) => {
-  const navAnimationSeconds = 1.55;
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [issLiveViewAutoPlay, setIssLiveViewAutoPlay] = useState(false);
-  const [issLiveViewMute, setIssLiveViewMute] = useState(false);
-  const [issLiveHDViewsAutoPlay, setIssLiveHDViewsAutoPlay] = useState(false);
-  const [issLiveHDViewsMute, setIssLiveHDViewsMute] = useState(false);
+  const {
+    settings: { animationSpeedAdjustment },
+  } = useSettingsContext();
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+
+  // Close to the nav animation time, but not exact. This felt right though.
+  const navAnimationSeconds = useMemo(
+    () => 1.75 * animationSpeedAdjustment,
+    [animationSpeedAdjustment],
+  );
 
   return (
     <AppContext.Provider
       value={{
         navAnimationSeconds,
-        reduceMotion,
-        setReduceMotion,
-        issLiveViewAutoPlay,
-        setIssLiveViewAutoPlay,
-        issLiveViewMute,
-        setIssLiveViewMute,
-        issLiveHDViewsAutoPlay,
-        setIssLiveHDViewsAutoPlay,
-        issLiveHDViewsMute,
-        setIssLiveHDViewsMute,
         isContactFormOpen,
         setIsContactFormOpen,
       }}

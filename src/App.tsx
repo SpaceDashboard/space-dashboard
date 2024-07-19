@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { NavBar } from 'src/components/NavBar';
+import { PanelProps } from './components/base';
+import { NavBar } from 'src/components';
 import {
   IssFeed1,
   IssFeed2,
@@ -8,8 +9,39 @@ import {
   SolarVisual,
 } from './components/panels';
 // import { ContactForm } from 'src/components/ContactForm';
+import { useSettingsContext } from 'src/hooks';
+
+type ColumnMap = Record<string, React.FC<PanelProps>>;
+const columnComponentMap: ColumnMap = {
+  IssFeed1,
+  IssFeed2,
+  IssTracker,
+  SolarVisual,
+  AuroraForecast,
+};
 
 export const App: React.FC = () => {
+  const {
+    settings: { columnOneOrder, columnTwoOrder, columnThreeOrder },
+  } = useSettingsContext();
+
+  const renderColumn = (
+    componentOrder?: string[],
+    previousCumulativeComponentCount = 0,
+  ) => (
+    <div>
+      {componentOrder?.map((componentName, index) => {
+        const Component = columnComponentMap[componentName];
+        return (
+          <Component
+            key={index}
+            index={index + previousCumulativeComponentCount}
+          />
+        );
+      })}
+    </div>
+  );
+
   useEffect(() => {
     setTimeout(() => {
       document.body.classList.remove('initial-load');
@@ -20,19 +52,20 @@ export const App: React.FC = () => {
   return (
     <>
       <NavBar />
+      {/* <UserSettings /> */}
       {/* <ContactForm /> */}
       <main className="container">
         <div className="container-column">
-          <IssFeed1 index={0} />
-          <IssFeed2 index={1} />
+          {renderColumn(columnOneOrder, 0)}
         </div>
         <div className="container-column">
-          <IssTracker index={2} />
-          <SolarVisual index={3} />
+          {renderColumn(columnTwoOrder, columnOneOrder?.length)}
         </div>
         <div className="container-column">
-          <AuroraForecast index={4} />
-          <AuroraForecast index={5} />
+          {renderColumn(
+            columnThreeOrder,
+            columnOneOrder?.length + columnTwoOrder?.length,
+          )}
         </div>
       </main>
     </>

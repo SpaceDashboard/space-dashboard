@@ -40,6 +40,7 @@
   background-repeat: no-repeat;
   background-size: 16.5px 16.5px;
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   border: 1px solid var(--border-color);
   border-radius: 3px 0;
   box-sizing: border-box;
@@ -48,41 +49,20 @@
   cursor: pointer;
   display: inline-grid;
   font-size: 0.85rem;
+  justify-content: end;
   min-height: 50px;
-  min-width: 75px;
+  min-width: 50px;
   max-width: 250px;
   padding: 0 12px 6px 20px;
   position: relative;
   text-align: right;
   width: fit-content;
 
-  &:hover,
-  &:focus-visible {
-    --background-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 10%)
-    );
-    --border-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 35%)
-    );
-    box-shadow: none;
-    outline: none;
-  }
-
-  &:active {
-    --background-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 7%)
-    );
-    --border-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 22%)
-    );
+  .button-content-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
   }
 
   &::after {
@@ -100,49 +80,86 @@
     top: 0px;
   }
 
-  &:hover::after,
-  &:focus-visible::after,
-  &:active::after {
-    box-shadow: none;
-    color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 30%)
-    );
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
-  &.active {
-    --background-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 20%)
-    );
-    --border-color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 45%)
-    );
-
-    &::after {
-      box-shadow: none;
-      color: hsl(
-        var(--base-orange-hue),
-        var(--base-orange-saturation),
-        calc(var(--base-orange-lightness) + 40%)
-      );
-    }
-
+  &:not(:disabled, [disabled]) {
+    &:hover,
     &:focus-visible {
       --background-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
-        calc(var(--base-orange-lightness) + 24%)
+        calc(var(--base-orange-lightness) + 10%)
       );
       --border-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
-        calc(var(--base-orange-lightness) + 48%)
+        calc(var(--base-orange-lightness) + 35%)
       );
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:active {
+      --background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 7%)
+      );
+      --border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 22%)
+      );
+    }
+
+    &:hover::after,
+    &:focus-visible::after,
+    &:active::after {
+      box-shadow: none;
+      color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 30%)
+      );
+    }
+
+    &.active {
+      --background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 20%)
+      );
+      --border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 45%)
+      );
+
+      &::after {
+        box-shadow: none;
+        color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 40%)
+        );
+      }
+
+      &:focus-visible {
+        --background-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 24%)
+        );
+        --border-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 48%)
+        );
+      }
     }
   }
 
@@ -168,34 +185,6 @@
     );
   }
 
-  &.secondary:hover,
-  &.secondary:focus-visible {
-    --background-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 20%)
-    );
-    --border-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 65%)
-    );
-    box-shadow: none;
-  }
-
-  &.secondary:active {
-    --background-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 15%)
-    );
-    --border-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 50%)
-    );
-  }
-
   &.secondary::after {
     color: hsl(
       var(--base-blue-hue),
@@ -204,49 +193,79 @@
     );
   }
 
-  &.secondary:hover::after,
-  &.secondary:focus-visible::after,
-  &.secondary:active::after {
-    box-shadow: none;
-    color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 80%)
-    );
-  }
-
-  &.secondary.active {
-    --background-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 25%)
-    );
-    --border-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 75%)
-    );
-
-    &::after {
-      box-shadow: none;
-      color: hsl(
-        var(--base-blue-hue),
-        var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) + 90%)
-      );
-    }
-
-    &:focus-visible {
+  &:not(:disabled, [disabled]) {
+    &.secondary:hover,
+    &.secondary:focus-visible {
       --background-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) + 30%)
+        calc(var(--base-blue-lightness) + 20%)
       );
       --border-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) + 70%)
+        calc(var(--base-blue-lightness) + 65%)
       );
+      box-shadow: none;
+    }
+
+    &.secondary:active {
+      --background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 15%)
+      );
+      --border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 50%)
+      );
+    }
+
+    &.secondary:hover::after,
+    &.secondary:focus-visible::after,
+    &.secondary:active::after {
+      box-shadow: none;
+      color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 80%)
+      );
+    }
+
+    &.secondary.active {
+      --background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 25%)
+      );
+      --border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 75%)
+      );
+
+      &::after {
+        box-shadow: none;
+        color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 90%)
+        );
+      }
+
+      &:focus-visible {
+        --background-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 30%)
+        );
+        --border-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 70%)
+        );
+      }
     }
   }
 

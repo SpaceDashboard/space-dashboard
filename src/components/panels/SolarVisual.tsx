@@ -25,14 +25,9 @@ export const SolarVisual: React.FC<PanelProps> = ({ index }) => {
         {'This is a test'}
         <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
-      <PanelActions>
-        <Button
-          variantsList={['small', 'secondary']}
-          onClick={() => console.log('Refresh clicked')}
-        >
-          Refresh
-        </Button>
-      </PanelActions>
+      <PanelActions
+        refreshData={() => console.log('Refresh clicked')}
+      ></PanelActions>
     </Panel>
   );
 };

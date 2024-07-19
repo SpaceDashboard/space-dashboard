@@ -8,10 +8,12 @@ import {
   Button,
   FadeFromBlack,
 } from 'src/components/base';
-import { useAppContext } from '../../hooks';
+import { useSettingsContext } from 'src/hooks';
 
 export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
-  const { issLiveViewAutoPlay, issLiveViewMute } = useAppContext();
+  const {
+    settings: { issLiveViewAutoPlay, issLiveViewMute },
+  } = useSettingsContext();
   return (
     <Panel index={index}>
       <PanelBody>
@@ -29,14 +31,9 @@ export const IssFeed1: React.FC<PanelProps> = ({ index }) => {
         {'This is a test'}
         <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
-      <PanelActions>
-        <Button
-          variantsList={['small', 'secondary']}
-          onClick={() => console.log('Refresh clicked')}
-        >
-          Refresh
-        </Button>
-      </PanelActions>
+      <PanelActions
+        refreshData={() => console.log('Refresh clicked')}
+      ></PanelActions>
     </Panel>
   );
 };

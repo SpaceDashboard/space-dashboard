@@ -11,48 +11,6 @@
   }
 }
 
-@keyframes tooltipIn {
-  /* For proper tooltip positioning */
-  0% {
-    border-top-width: 0;
-    border-bottom-width: 0;
-    height: 36px;
-    transform: translateY(0) scaleX(1);
-  }
-
-  /* Rest of the animation */
-  1% {
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    height: 0;
-    transform: translateY(18px) scaleX(0);
-  }
-
-  50% {
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    height: 0;
-    transform: translateY(18px) scaleX(1);
-  }
-
-  100% {
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    height: 36px;
-    transform: translateY(0) scaleX(1);
-  }
-}
-
-@keyframes backgroundOpacityIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0.08;
-  }
-}
-
 @keyframes opacityIn {
   0% {
     opacity: 0;
@@ -60,41 +18,5 @@
 
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes navBarIn {
-  0% {
-    height: 1px;
-    margin-top: calc(50vh - 2px);
-    padding: 0;
-    transform: scaleX(0);
-  }
-
-  45%,
-  55% {
-    height: 1px;
-    margin-top: calc(50vh - 2px);
-    padding: 0;
-    transform: scaleX(1);
-  }
-
-  100% {
-    height: calc(100% - 50px);
-    margin-top: 25px;
-    padding: 15px 0;
-    transform: scaleX(1);
-  }
-}
-
-@keyframes navBarAfterIn {
-  0% {
-    height: 0px;
-    top: 0px;
-  }
-
-  100% {
-    height: calc(100% + 10px);
-    top: -5px;
   }
 }

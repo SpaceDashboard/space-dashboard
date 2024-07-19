@@ -15,7 +15,7 @@
       hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) + 15%)
+        calc(var(--base-blue-lightness) + 20%)
       );
     box-sizing: border-box;
     height: var(--corner-size);
@@ -50,5 +50,10 @@
     border-top-width: 0;
     bottom: var(--corner-distance);
     right: var(--corner-distance);
+  }
+
+  .corners-wrapper-content {
+    height: 100%;
+    overflow: auto;
   }
 }

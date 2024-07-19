@@ -10,11 +10,12 @@ import {
 } from 'src/components/base';
 import { css } from '@emotion/css';
 
-const issTrackerWrapperCss = css`
+const issTrackerWrapperCss = (iframeScaledHeight?: number) => css`
   align-items: center;
   display: flex;
   height: 100%;
   justify-content: center;
+  max-height: ${iframeScaledHeight ? `${iframeScaledHeight}px` : '100%'};
   position: relative;
   width: 100%;
 `;
@@ -30,7 +31,10 @@ const issTrackerFrameCss = (issTrackerFrameScale: number) => css`
 export const IssTracker: React.FC<PanelProps> = ({ index }) => {
   const issTrackerWrapperRef = useRef<HTMLDivElement | null>(null);
   const issTrackerFrameRef = useRef<HTMLIFrameElement | null>(null);
-  const [issTrackerFrameScale, setIssTrackerFrameScale] = useState(1);
+  const [issTrackerFrameScale, setIssTrackerFrameScale] = useState<number>(1);
+  const [issTrackerScaleHeight, setIssTrackerScaleHeight] = useState<
+    number | undefined
+  >();
   let resizeIssFrameTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const handleResize = () => {
@@ -55,6 +59,7 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
       }
 
       setIssTrackerFrameScale(scale);
+      setIssTrackerScaleHeight(issTrackerFrame.clientHeight * scale);
     }, 500);
   };
 
@@ -72,7 +77,10 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
     <Panel index={index}>
       <PanelBody>
         <FadeFromBlack>
-          <div className={issTrackerWrapperCss} ref={issTrackerWrapperRef}>
+          <div
+            className={issTrackerWrapperCss(issTrackerScaleHeight)}
+            ref={issTrackerWrapperRef}
+          >
             <iframe
               className={issTrackerFrameCss(issTrackerFrameScale)}
               ref={issTrackerFrameRef}
@@ -86,14 +94,9 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
         {'This is a test'}
         <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
-      <PanelActions>
-        <Button
-          variantsList={['small', 'secondary']}
-          onClick={() => console.log('Refresh clicked')}
-        >
-          Refresh
-        </Button>
-      </PanelActions>
+      <PanelActions
+        refreshData={() => console.log('Refresh clicked')}
+      ></PanelActions>
     </Panel>
   );
 };

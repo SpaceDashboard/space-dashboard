@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { useAppContext, usePanelContext } from '../../hooks';
+import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
 import {
   Button,
@@ -8,32 +8,47 @@ import {
   Variant,
   CornersWrapper,
 } from 'src/components/base';
+import { IconAdjustmentsHorizontal, IconRefresh } from '@tabler/icons-react';
 
 const panelWrapperCss = (
   animationDuration: number,
-  reduceMotion?: boolean,
+  reduceMotion: boolean,
+  speedAdjustment: number,
 ) => css`
   &::before {
-    transition: ${reduceMotion ? 0 : animationDuration}s all ease;
+    transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
+      ease;
   }
 
   .panel {
-    transition: ${reduceMotion ? 0 : animationDuration}s all ease;
+    transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
+      ease;
   }
 
   .panel-body {
-    transition: ${reduceMotion ? 0 : animationDuration * 2}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.9}s;
+    transition: ${reduceMotion ? 0 : animationDuration * 2 * speedAdjustment}s
+      all ease;
+    transition-delay: ${reduceMotion ? 0 : 0.8 * speedAdjustment}s;
+  }
+
+  .panel-menu {
+    .panel-section & {
+      --transition-seconds: ${reduceMotion ? 0 : 0.18 * speedAdjustment}s;
+    }
   }
 `;
 
 const panelActionsCss = (
   animationDuration: number,
   animationDelay: number,
-  reduceMotion?: boolean,
+  reduceMotion: boolean,
+  speedAdjustment: number,
 ) => css`
-  transition: ${reduceMotion ? 0 : animationDuration}s all ease;
-  transition-delay: ${reduceMotion ? 0 : animationDelay}s;
+  transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
+    ease;
+  transition-delay: ${reduceMotion
+    ? 0
+    : (animationDelay - 1) * speedAdjustment}s;
 `;
 
 export interface PanelProps {
@@ -55,14 +70,18 @@ export const InnerPanel = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
   const [showPanel, setShowPanel] = useState<boolean>(false);
-  const { reduceMotion, navAnimationSeconds } = useAppContext();
+  const { navAnimationSeconds } = useAppContext();
   const {
+    settings: { reduceMotion, animationSpeedAdjustment },
+  } = useSettingsContext();
+  const {
+    animationDurationSeconds,
     setAnimationDurationSeconds,
     setAnimationDelaySeconds,
     setIsPanelMenuOpen,
   } = usePanelContext();
   const delayedAnimationSeconds =
-    navAnimationSeconds + (animationDelay + index * 0.1);
+    navAnimationSeconds + (animationDelay + index * 0.06);
 
   const panelMenuChild = useMemo(() => {
     const panelMenu = React.Children.toArray(children).filter(
@@ -104,10 +123,12 @@ export const InnerPanel = ({
           () => {
             setShowPanel(true);
           },
-          reduceMotion ? 0 : 500,
+          reduceMotion ? 0 : 350 * animationSpeedAdjustment,
         );
       },
-      reduceMotion ? 0 : delayedAnimationSeconds * 1000,
+      reduceMotion
+        ? 0
+        : delayedAnimationSeconds * 1000 * animationSpeedAdjustment,
     );
     return () => clearTimeout(timer);
   }, [
@@ -116,6 +137,7 @@ export const InnerPanel = ({
     delayedAnimationSeconds,
     setAnimationDurationSeconds,
     setAnimationDelaySeconds,
+    animationSpeedAdjustment,
   ]);
 
   useEffect(() => {
@@ -127,7 +149,11 @@ export const InnerPanel = ({
       <div
         className={cx(
           'panel-wrapper',
-          panelWrapperCss(animationDuration, reduceMotion),
+          panelWrapperCss(
+            animationDurationSeconds ?? animationDuration,
+            reduceMotion,
+            animationSpeedAdjustment,
+          ),
           showPanelBorders && 'show-panel-borders',
           showPanel && 'show-panel',
         )}
@@ -156,15 +182,20 @@ export const Panel = ({
 };
 
 interface PanelActionsProps {
+  /** Internal prop, please ignore */
   isMenuRendered?: boolean;
+  refreshData?: () => void;
 }
 
 export const PanelActions = ({
   children,
   isMenuRendered,
+  refreshData,
 }: React.PropsWithChildren<PanelActionsProps>) => {
   const updatedChildren: React.ReactNode[] = [];
-  const { reduceMotion } = useAppContext();
+  const {
+    settings: { reduceMotion, animationSpeedAdjustment },
+  } = useSettingsContext();
   const {
     isPanelMenuOpen,
     setIsPanelMenuOpen,
@@ -208,6 +239,7 @@ export const PanelActions = ({
           animationDurationSeconds ?? 0,
           animationDelaySeconds ?? 0,
           reduceMotion,
+          animationSpeedAdjustment,
         ),
       )}
     >
@@ -218,19 +250,30 @@ export const PanelActions = ({
             animationDurationSeconds ?? 0,
             animationDelaySeconds ?? 0,
             reduceMotion,
+            animationSpeedAdjustment,
           ),
         )}
       >
         {updatedChildren}
+        {refreshData && (
+          <Button
+            Icon={IconRefresh}
+            isPanelAction={true}
+            onClick={refreshData}
+            tooltipTitle="Refresh data"
+            variantsList={['small', 'secondary']}
+          ></Button>
+        )}
         {isMenuRendered && (
           <Button
-            variantsList={variants as Variant[]}
+            Icon={IconAdjustmentsHorizontal}
+            isPanelAction={true}
             onClick={() => {
               setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);
             }}
-          >
-            Menu
-          </Button>
+            tooltipTitle={isPanelMenuOpen ? 'Close menu' : 'Open menu'}
+            variantsList={variants as Variant[]}
+          ></Button>
         )}
       </div>
     </div>
