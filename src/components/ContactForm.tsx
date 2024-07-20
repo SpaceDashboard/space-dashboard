@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'src/components/base';
+import { Button, Modal } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 import { useForm } from 'react-hook-form';
 import { IconSend, IconRestore } from '@tabler/icons-react';
@@ -89,86 +89,68 @@ export const ContactForm: React.FC = () => {
   // }, [isContactFormOpen, setIsContactFormOpen]);
 
   return (
-    <div
-      className={`contact-form-wrapper ${isContactFormOpen ? 'show' : 'hide'}`}
-    >
-      <section className="contact-form-content">
-        <button
-          type="button"
-          className="close-contact-form"
-          aria-label="Close contact form"
-          onClick={() => {
-            setIsContactFormOpen && setIsContactFormOpen(false);
-            resetForm();
-          }}
-        >
-          <span></span>
-          <span></span>
-        </button>
-        <h2>{"What's on your mind?"}</h2>
+    <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
+      <h2>{"What's on your mind?"}</h2>
 
-        <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="input-wrapper">
-            <label htmlFor="name">{'Name'}</label>
-            <input type="text" {...register('name', { required: true })} />
-            {errors.name && <p className="text-error">Name is required</p>}
-          </div>
+      <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="input-wrapper">
+          <label htmlFor="name">{'Name'}</label>
+          <input type="text" {...register('name', { required: true })} />
+          {errors.name && <p className="text-error">Name is required</p>}
+        </div>
 
-          <div className="input-wrapper">
-            <label htmlFor="email">{'Email'}</label>
+        <div className="input-wrapper">
+          <label htmlFor="email">{'Email'}</label>
+          <input
+            type="email"
+            {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+          />
+          {errors.email && (
+            <p className="text-error">Email is required and must be valid</p>
+          )}
+        </div>
+
+        <div className="input-wrapper">
+          <label htmlFor="message">{'Message'}</label>
+          <textarea
+            {...register('message', { required: true })}
+            rows={5}
+            cols={40}
+          ></textarea>
+          {errors.message && <p className="text-error">Message is required</p>}
+        </div>
+
+        <div className="input-wrapper">
+          <label htmlFor="human-test">
+            {'Human test - uncheck this:'}
             <input
-              type="email"
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+              type="checkbox"
+              name="human-test"
+              id="human-test"
+              checked={humanTest}
+              onChange={() => setHumanTest(!humanTest)}
             />
-            {errors.email && (
-              <p className="text-error">Email is required and must be valid</p>
-            )}
-          </div>
+          </label>
+        </div>
 
-          <div className="input-wrapper">
-            <label htmlFor="message">{'Message'}</label>
-            <textarea
-              {...register('message', { required: true })}
-              rows={5}
-              cols={40}
-            ></textarea>
-            {errors.message && (
-              <p className="text-error">Message is required</p>
-            )}
-          </div>
-
-          <div className="input-wrapper">
-            <label htmlFor="human-test">
-              {'Human test - uncheck this:'}
-              <input
-                type="checkbox"
-                name="human-test"
-                id="human-test"
-                checked={humanTest}
-                onChange={() => setHumanTest(!humanTest)}
-              />
-            </label>
-          </div>
-
-          <div className="button-row">
-            <Button
-              buttonType="submit"
-              Icon={IconSend}
-              onClick={onSubmit}
-              disabled={humanTest}
-            >
-              {'Send'}
-            </Button>
-            <Button
-              Icon={IconRestore}
-              onClick={resetForm}
-              variantsList={['secondary']}
-            >
-              {'Reset'}
-            </Button>
-          </div>
-        </form>
-      </section>
-    </div>
+        <div className="button-row">
+          <Button
+            buttonType="submit"
+            Icon={IconSend}
+            onClick={onSubmit}
+            disabled={humanTest}
+          >
+            {'Send'}
+          </Button>
+          <Button
+            Icon={IconRestore}
+            onClick={resetForm}
+            variantsList={['secondary']}
+          >
+            {'Reset'}
+          </Button>
+        </div>
+      </form>
+    </Modal>
   );
 };

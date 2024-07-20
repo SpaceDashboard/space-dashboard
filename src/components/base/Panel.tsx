@@ -8,7 +8,7 @@ import {
   Variant,
   CornersWrapper,
 } from 'src/components/base';
-import { IconAdjustmentsHorizontal, IconRefresh } from '@tabler/icons-react';
+import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 
 const panelWrapperCss = (
   animationDuration: number,
@@ -266,7 +266,7 @@ export const PanelActions = ({
         )}
         {isMenuRendered && (
           <Button
-            Icon={IconAdjustmentsHorizontal}
+            Icon={IconLayoutGrid}
             isPanelAction={true}
             onClick={() => {
               setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);

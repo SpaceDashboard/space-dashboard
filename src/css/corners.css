@@ -51,9 +51,4 @@
     bottom: var(--corner-distance);
     right: var(--corner-distance);
   }
-
-  .corners-wrapper-content {
-    height: 100%;
-    overflow: auto;
-  }
 }

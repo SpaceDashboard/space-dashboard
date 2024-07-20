@@ -83,7 +83,7 @@
   &:disabled,
   &[disabled] {
     cursor: not-allowed;
-    opacity: 0.5;
+    filter: brightness(0.65);
   }
 
   &:not(:disabled, [disabled]) {

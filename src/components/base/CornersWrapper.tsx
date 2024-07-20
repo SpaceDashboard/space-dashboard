@@ -1,10 +1,15 @@
 import React from 'react';
-import { cx } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 
 interface CornersWrapperProps {
   className?: string;
   height?: number | string;
 }
+
+const cornersWrapperCss = css`
+  height: 100%;
+  overflow: auto;
+`;
 
 export const CornersWrapper = ({
   children,
@@ -18,7 +23,11 @@ export const CornersWrapper = ({
       <div className="corner-top-right"></div>
       <div className="corner-bottom-left"></div>
       <div className="corner-bottom-right"></div>
-      <div className={cx('corners-wrapper-content', className)}>{children}</div>
+      <div
+        className={cx('corners-wrapper-content', cornersWrapperCss, className)}
+      >
+        {children}
+      </div>
     </div>
   );
 };

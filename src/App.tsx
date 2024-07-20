@@ -8,7 +8,7 @@ import {
   AuroraForecast,
   SolarVisual,
 } from './components/panels';
-// import { ContactForm } from 'src/components/ContactForm';
+import { About, ContactForm, UserSettings } from 'src/components';
 import { useSettingsContext } from 'src/hooks';
 
 type ColumnMap = Record<string, React.FC<PanelProps>>;
@@ -52,8 +52,9 @@ export const App: React.FC = () => {
   return (
     <>
       <NavBar />
-      {/* <UserSettings /> */}
-      {/* <ContactForm /> */}
+      <About />
+      <ContactForm />
+      <UserSettings />
       <main className="container">
         <div className="container-column">
           {renderColumn(columnOneOrder, 0)}

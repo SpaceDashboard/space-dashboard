@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Tooltip } from 'src/components/base';
 import { css, cx } from '@emotion/css';
-import { useSettingsContext, useToastContext } from 'src/hooks';
+import { useAppContext, useSettingsContext, useToastContext } from 'src/hooks';
+import {
+  IconInfoHexagon,
+  IconSend,
+  IconAdjustments,
+} from '@tabler/icons-react';
 
 const navBarCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   transition: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s all ease;
@@ -32,7 +37,37 @@ const navBarCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   }
 `;
 
+const buttonWrapperCss = (
+  reduceMotion: boolean,
+  speedAdjustment: number,
+) => css`
+  button {
+    animation: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s ease normal forwards
+      1 opacityIn;
+  }
+`;
+
+const buttonDelayInCss = (reduceMotion: boolean, speedAdjustment: number) =>
+  Array.from(
+    { length: 3 },
+    (_, i) => css`
+      button:nth-child(${i + 1}) {
+        animation-delay: ${reduceMotion
+          ? 0
+          : (1.5 + (i + 1) * 0.1) * speedAdjustment}s;
+      }
+    `,
+  );
+
 export const NavBar: React.FC = () => {
+  const {
+    isAboutOpen,
+    setIsAboutOpen,
+    isContactFormOpen,
+    setIsContactFormOpen,
+    isUserSettingsOpen,
+    setIsUserSettingsOpen,
+  } = useAppContext();
   const {
     settings: { reduceMotion, animationSpeedAdjustment },
   } = useSettingsContext();
@@ -79,34 +114,40 @@ export const NavBar: React.FC = () => {
             />
           </Tooltip>
         </span>
-        <div className="btn-wrapper">
+        <div
+          className={cx(
+            'btn-wrapper',
+            buttonWrapperCss(reduceMotion, animationSpeedAdjustment),
+            buttonDelayInCss(reduceMotion, animationSpeedAdjustment),
+          )}
+        >
           <Button
             variantsList={['secondary', 'nav']}
-            tooltipTitle="Test 1"
+            tooltipTitle="About"
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
-            onClick={handleClick}
-          >
-            A
-          </Button>
+            onClick={() => setIsAboutOpen(!isAboutOpen)}
+            Icon={IconInfoHexagon}
+            disabled={isContactFormOpen || isUserSettingsOpen}
+          />
           <Button
             variantsList={['secondary', 'nav']}
-            tooltipTitle="Test 2"
+            tooltipTitle="Contact me"
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
-            onClick={handleClick}
-          >
-            B
-          </Button>
+            onClick={() => setIsContactFormOpen(!isContactFormOpen)}
+            Icon={IconSend}
+            disabled={isAboutOpen || isUserSettingsOpen}
+          />
           <Button
             variantsList={['secondary', 'nav']}
-            tooltipTitle="Test 3"
+            tooltipTitle="Settings"
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
-            onClick={handleClick}
-          >
-            C
-          </Button>
+            onClick={() => setIsUserSettingsOpen(!isUserSettingsOpen)}
+            Icon={IconAdjustments}
+            disabled={isAboutOpen || isContactFormOpen}
+          />
         </div>
       </div>
     </nav>

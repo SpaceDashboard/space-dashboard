@@ -1,7 +1,10 @@
 import React from 'react';
+import { Modal } from 'src/components/base';
+import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
 
 export const UserSettings: React.FC = () => {
+  const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
   const {
     settings: { columnOneOrder, columnTwoOrder, columnThreeOrder },
     updateSettings,
@@ -17,7 +20,7 @@ export const UserSettings: React.FC = () => {
   };
 
   return (
-    <div>
+    <Modal isOpen={isUserSettingsOpen} setIsOpen={setIsUserSettingsOpen}>
       <div>
         <label>Column One: </label>
         <select
@@ -60,6 +63,6 @@ export const UserSettings: React.FC = () => {
           <option value="AuroraForecast">AuroraForecast</option>
         </select>
       </div>
-    </div>
+    </Modal>
   );
 };

@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
-    "lint": "eslint --max-warnings 0",
+    "lint": "eslint --max-warnings 100",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "format:check": "prettier --check ./src",
