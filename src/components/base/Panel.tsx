@@ -281,7 +281,20 @@ export const PanelActions = ({
 };
 
 export const PanelMenu = ({ children }: React.PropsWithChildren) => {
-  const { isPanelMenuOpen } = usePanelContext();
+  const { isPanelMenuOpen, setIsPanelMenuOpen } = usePanelContext();
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (isPanelMenuOpen && e.key === 'Escape') {
+        setIsPanelMenuOpen && setIsPanelMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isPanelMenuOpen, setIsPanelMenuOpen]);
+
   return (
     <div className={cx('panel-menu', { open: isPanelMenuOpen })}>
       <CornersWrapper height="100%">{children}</CornersWrapper>

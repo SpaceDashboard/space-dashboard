@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { useAppContext } from 'src/hooks';
 import { CornersWrapper, Tooltip } from 'src/components/base';
 
 interface ModalProps {
@@ -43,6 +42,18 @@ export const Modal = ({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (isOpen && e.key === 'Escape') {
+        setIsOpen && setIsOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen, setIsOpen]);
+
   return (
     <div
       className={cx(
@@ -72,7 +83,7 @@ export const Modal = ({
           <span></span>
         </button>
       </Tooltip>
-      <CornersWrapper height="100%" className={modalInnerCss}>
+      <CornersWrapper size={25} height="100%" className={modalInnerCss}>
         {children}
       </CornersWrapper>
     </div>

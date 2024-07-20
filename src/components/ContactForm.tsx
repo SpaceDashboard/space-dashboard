@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'src/components/base';
-import { useAppContext } from 'src/hooks';
-import { useForm } from 'react-hook-form';
+import { useAppContext, useToastContext } from 'src/hooks';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { IconSend, IconRestore } from '@tabler/icons-react';
+
+interface FormFields {
+  name: string;
+  email: string;
+  message: string;
+}
 
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
+  const { showToast } = useToastContext();
   const {
     register,
     handleSubmit,
     reset,
     clearErrors,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormFields>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [humanTest, setHumanTest] = useState<boolean>(true);
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
 
   const resetForm = () => {
     clearErrors();
@@ -25,88 +29,73 @@ export const ContactForm: React.FC = () => {
     setHumanTest(true);
   };
 
-  // const submitForm = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (humanTest) {
-  //     return;
-  //   }
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    setIsSubmitting(true);
 
-  //   const data = new FormData();
-  //   data.append('name', name);
-  //   data.append('email', email);
-  //   data.append('message', message);
+    try {
+      const response = await fetch('https://formspree.io/f/xkgwonpj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-  //   fetch('https://formspree.io/f/xaygawjb', {
-  //     method: 'POST',
-  //     body: data,
-  //     headers: {
-  //       Accept: 'application/json',
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         // alertSW.fire({
-  //         //   icon: 'success',
-  //         //   showConfirmButton: false,
-  //         //   text: 'Thanks for writing!',
-  //         //   timer: 2500,
-  //         //   title: 'Sent',
-  //         // });
-  //         setIsContactFormOpen && setIsContactFormOpen(false);
-  //         resetForm();
-  //       } else {
-  //         response.json().then((data) => {
-  //           setError(
-  //             data.errors
-  //               .map(
-  //                 (error: { code: string; message: string }) => error.message,
-  //               )
-  //               .join(', '),
-  //           );
-  //         });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       setError(`Oops! There was a problem submitting your form: ${error}`);
-  //     });
-  // };
+      if (response.ok) {
+        resetForm();
+        showToast('Message sent successfully!', 'success');
+        setIsContactFormOpen && setIsContactFormOpen(false);
+      } else {
+        showToast('An unexpected error occurred.', 'error');
+      }
+    } catch (error) {
+      showToast('Failed to send the message. Please try again later.', 'error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   if (isContactFormOpen) {
-  //     document
-  //       .querySelector('form#contact-form')
-  //       ?.querySelector('input')
-  //       ?.focus();
-  //     const handleEscape = (event: KeyboardEvent) => {
-  //       if (event.key === 'Escape') {
-  //         setIsContactFormOpen && setIsContactFormOpen(false);
-  //         resetForm();
-  //       }
-  //     };
-  //     window.addEventListener('keyup', handleEscape);
-  //     return () => window.removeEventListener('keyup', handleEscape);
-  //   }
-  // }, [isContactFormOpen, setIsContactFormOpen]);
+  useEffect(() => {
+    if (!isContactFormOpen) {
+      resetForm();
+    }
+  }, [isContactFormOpen, setIsContactFormOpen]);
 
   return (
     <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
       <h2>{"What's on your mind?"}</h2>
-
       <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="input-wrapper">
           <label htmlFor="name">{'Name'}</label>
-          <input type="text" {...register('name', { required: true })} />
-          {errors.name && <p className="text-error">Name is required</p>}
+          <input
+            type="text"
+            autoComplete="off"
+            data-1p-ignore
+            {...register('name', { required: true })}
+          />
+          {errors.name && (
+            <p className="text-error">
+              {errors.name.message === ''
+                ? 'Name is required'
+                : errors.name.message}
+            </p>
+          )}
         </div>
 
         <div className="input-wrapper">
           <label htmlFor="email">{'Email'}</label>
           <input
             type="email"
+            autoComplete="off"
+            data-1p-ignore
             {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
           />
           {errors.email && (
-            <p className="text-error">Email is required and must be valid</p>
+            <p className="text-error">
+              {errors.email.message === ''
+                ? 'Email is required and must be valid'
+                : errors.email.message}
+            </p>
           )}
         </div>
 
@@ -117,7 +106,13 @@ export const ContactForm: React.FC = () => {
             rows={5}
             cols={40}
           ></textarea>
-          {errors.message && <p className="text-error">Message is required</p>}
+          {errors.message && (
+            <p className="text-error">
+              {errors.message.message === ''
+                ? 'Message is required'
+                : errors.message.message}
+            </p>
+          )}
         </div>
 
         <div className="input-wrapper">
@@ -137,8 +132,7 @@ export const ContactForm: React.FC = () => {
           <Button
             buttonType="submit"
             Icon={IconSend}
-            onClick={onSubmit}
-            disabled={humanTest}
+            disabled={humanTest || isSubmitting}
           >
             {'Send'}
           </Button>

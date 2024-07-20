@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Tooltip } from 'src/components/base';
+import { Button, Tooltip, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
-import { useAppContext, useSettingsContext, useToastContext } from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
 import {
   IconInfoHexagon,
   IconSend,
@@ -71,13 +71,8 @@ export const NavBar: React.FC = () => {
   const {
     settings: { reduceMotion, animationSpeedAdjustment },
   } = useSettingsContext();
-  const { showToast } = useToastContext();
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
-
-  const handleClick = () => {
-    showToast('This is a message!', 'success');
-  };
 
   useEffect(() => {
     const timer = setTimeout(
@@ -122,31 +117,47 @@ export const NavBar: React.FC = () => {
           )}
         >
           <Button
-            variantsList={['secondary', 'nav']}
-            tooltipTitle="About"
-            tooltipOffset={[8, 0]}
-            tooltipPlacement="right"
-            onClick={() => setIsAboutOpen(!isAboutOpen)}
-            Icon={IconInfoHexagon}
             disabled={isContactFormOpen || isUserSettingsOpen}
-          />
-          <Button
-            variantsList={['secondary', 'nav']}
-            tooltipTitle="Contact me"
+            Icon={IconInfoHexagon}
+            onClick={() => setIsAboutOpen(!isAboutOpen)}
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
-            onClick={() => setIsContactFormOpen(!isContactFormOpen)}
-            Icon={IconSend}
+            tooltipTitle="About"
+            variantsList={[
+              'secondary',
+              'nav',
+              ...(isAboutOpen ? (['toggle-menu', 'active'] as Variant[]) : []),
+            ]}
+          />
+          <Button
             disabled={isAboutOpen || isUserSettingsOpen}
-          />
-          <Button
-            variantsList={['secondary', 'nav']}
-            tooltipTitle="Settings"
+            Icon={IconSend}
+            onClick={() => setIsContactFormOpen(!isContactFormOpen)}
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
-            onClick={() => setIsUserSettingsOpen(!isUserSettingsOpen)}
-            Icon={IconAdjustments}
+            tooltipTitle="Contact me"
+            variantsList={[
+              'secondary',
+              'nav',
+              ...(isContactFormOpen
+                ? (['toggle-menu', 'active'] as Variant[])
+                : []),
+            ]}
+          />
+          <Button
             disabled={isAboutOpen || isContactFormOpen}
+            Icon={IconAdjustments}
+            onClick={() => setIsUserSettingsOpen(!isUserSettingsOpen)}
+            tooltipOffset={[8, 0]}
+            tooltipPlacement="right"
+            tooltipTitle="Settings"
+            variantsList={[
+              'secondary',
+              'nav',
+              ...(isUserSettingsOpen
+                ? (['toggle-menu', 'active'] as Variant[])
+                : []),
+            ]}
           />
         </div>
       </div>
