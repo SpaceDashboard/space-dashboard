@@ -74,15 +74,18 @@
     }
 
     .panel-body {
-      min-height: 100px;
       opacity: 0;
-      padding-top: 10px;
       padding-bottom: 12px;
+      padding-top: 10px;
       z-index: 2;
 
       .panel-body-content {
+        align-items: center;
         display: flex;
+        height: 100%;
         justify-content: center;
+        min-height: 200px;
+        width: 100%;
       }
 
       .show-panel & {

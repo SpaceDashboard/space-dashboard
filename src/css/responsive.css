@@ -1,0 +1,37 @@
+/*
+  Core styles for Space Dashboard
+*/
+
+:focus-visible {
+  box-shadow: var(--focus-visible-box-shadow);
+  outline: none;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  accent-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 20%)
+  );
+  font-family: var(--font);
+  overscroll-behavior: none;
+  padding: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    --column-gap: 0px;
+    flex-direction: column;
+
+    .container-column {
+      --column-width: 100%;
+    }
+  }
+}
+/* @media (min-width: 351px) and (max-width: 400px) {}
+@media (min-width: 311px) and (max-width: 350px) {}
+@media screen and (max-width: 310px) {} */

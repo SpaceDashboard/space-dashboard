@@ -10,12 +10,13 @@ import {
 } from 'src/components/base';
 import { css } from '@emotion/css';
 
-const issTrackerWrapperCss = (iframeScaledHeight?: number) => css`
+const issTrackerWrapperCss = css`
   align-items: center;
+  aspect-ratio: 16 / 9;
   display: flex;
-  height: 100%;
+  height: auto;
   justify-content: center;
-  max-height: ${iframeScaledHeight ? `${iframeScaledHeight}px` : '100%'};
+  min-height: 200px;
   position: relative;
   width: 100%;
 `;
@@ -32,9 +33,6 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
   const issTrackerWrapperRef = useRef<HTMLDivElement | null>(null);
   const issTrackerFrameRef = useRef<HTMLIFrameElement | null>(null);
   const [issTrackerFrameScale, setIssTrackerFrameScale] = useState<number>(1);
-  const [issTrackerScaleHeight, setIssTrackerScaleHeight] = useState<
-    number | undefined
-  >();
   let resizeIssFrameTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const handleResize = () => {
@@ -59,7 +57,6 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
       }
 
       setIssTrackerFrameScale(scale);
-      setIssTrackerScaleHeight(issTrackerFrame.clientHeight * scale);
     }, 500);
   };
 
@@ -75,19 +72,16 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
   return (
     <Panel index={index}>
       <PanelBody>
-        <FadeFromBlack>
-          <div
-            className={issTrackerWrapperCss(issTrackerScaleHeight)}
-            ref={issTrackerWrapperRef}
-          >
+        <div className={issTrackerWrapperCss} ref={issTrackerWrapperRef}>
+          <FadeFromBlack>
             <iframe
               className={issTrackerFrameCss(issTrackerFrameScale)}
               ref={issTrackerFrameRef}
               src="https://isstracker.spaceflight.esa.int/"
               scrolling="no" // Deprecated but works better than overflow: hidden
             ></iframe>
-          </div>
-        </FadeFromBlack>
+          </FadeFromBlack>
+        </div>
       </PanelBody>
       <PanelMenu>
         {'This is a test'}

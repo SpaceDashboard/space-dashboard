@@ -7,6 +7,7 @@ const fadeInFromBlackCss = (
   delayedAnimationSeconds: number,
   reduceMotion?: boolean,
 ) => css`
+  align-items: center;
   background-color: ${isLoading ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)'};
   display: flex;
   filter: brightness(${isLoading ? 0 : 1});
