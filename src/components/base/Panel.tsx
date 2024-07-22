@@ -2,12 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
-import {
-  Button,
-  ButtonProps,
-  Variant,
-  CornersWrapper,
-} from 'src/components/base';
+import { Button, Variant, CornersWrapper } from 'src/components/base';
 import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 
 const panelWrapperCss = (
@@ -206,23 +201,12 @@ export const PanelActions = ({
   // Child must be a Button
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child) && child.type === Button) {
-      // Child button can't be a toggle menu
-      if (
-        (child.props as ButtonProps).variantsList?.includes(
-          'toggle-menu' as Variant,
-        )
-      ) {
-        console.warn(
-          'Toggle menu button does not need to be included in panel actions.',
-        );
-      } else {
-        updatedChildren.push(child);
-      }
+      updatedChildren.push(child);
     }
   });
 
   const variants = useMemo(() => {
-    const variantsList = ['small', 'toggle-menu'];
+    const variantsList = ['small'];
     if (isMenuRendered && isPanelMenuOpen) {
       variantsList.push('active');
     } else if (isMenuRendered && !isPanelMenuOpen) {

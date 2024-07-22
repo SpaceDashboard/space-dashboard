@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
+import { css, cx } from '@emotion/css';
 import { Tooltip, TooltipPlacement } from './Tooltip';
+import { useSettingsContext } from 'src/hooks';
 import { IconProps } from '@tabler/icons-react';
 
 /* 
@@ -8,24 +10,17 @@ import { IconProps } from '@tabler/icons-react';
   - secondary
   - small
   - nav
-  - toggle-menu (only used with .active for active state visual difference - showing X)
   - active
 */
 
-export type Variant =
-  | 'flat-bottom'
-  | 'secondary'
-  | 'small'
-  | 'nav'
-  | 'toggle-menu'
-  | 'active';
+export type Variant = 'flat-bottom' | 'secondary' | 'small' | 'nav' | 'active';
 
 export interface ButtonProps {
   children?: React.ReactNode;
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  Icon?: FunctionComponent<IconProps>;
+  Icon?: FC<IconProps>;
   iconSize?: number;
   iconStrokeWidth?: number;
   /** Controls Tooltip specific props */
@@ -37,6 +32,49 @@ export interface ButtonProps {
   tooltipTitle?: string;
   variantsList?: Variant[];
 }
+
+interface PulsingProps {
+  isActive?: boolean;
+  disabled?: boolean;
+}
+
+const Pulsing: FC<PulsingProps> = ({ isActive, disabled }) => {
+  const {
+    settings: { reduceButtonAnimation },
+  } = useSettingsContext();
+  const speeds = [...new Array(3)].map(() => Math.random() * 3 + 1.5);
+
+  return (
+    <>
+      {isActive ? (
+        <div className="close-x">
+          <span></span>
+          <span></span>
+        </div>
+      ) : (
+        <>
+          {speeds.map((speed, i) => (
+            <div
+              key={i}
+              className={cx(
+                'pulses',
+                css`
+                  ${reduceButtonAnimation ||
+                  (disabled &&
+                    `
+                  animation: none !important;
+                  opacity: 0.6;
+                `)}
+                  animation-duration: ${speed}s;
+                `,
+              )}
+            />
+          ))}
+        </>
+      )}
+    </>
+  );
+};
 
 export const Button = ({
   children,
@@ -70,6 +108,12 @@ export const Button = ({
         onClick={onClick}
         type={buttonType}
       >
+        <span className="pulse-wrapper">
+          <Pulsing
+            disabled={disabled}
+            isActive={variantsList?.includes('active')}
+          />
+        </span>
         <span className="button-content-wrapper">
           {Icon && (
             <Icon

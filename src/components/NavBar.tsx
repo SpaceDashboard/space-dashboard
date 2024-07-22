@@ -3,7 +3,7 @@ import { Button, Tooltip, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import {
-  IconInfoHexagon,
+  IconHelpHexagon,
   IconSend,
   IconAdjustments,
 } from '@tabler/icons-react';
@@ -118,7 +118,7 @@ export const NavBar: React.FC = () => {
         >
           <Button
             disabled={isContactFormOpen || isUserSettingsOpen}
-            Icon={IconInfoHexagon}
+            Icon={IconHelpHexagon}
             onClick={() => setIsAboutOpen(!isAboutOpen)}
             tooltipOffset={[8, 0]}
             tooltipPlacement="right"
@@ -126,7 +126,7 @@ export const NavBar: React.FC = () => {
             variantsList={[
               'secondary',
               'nav',
-              ...(isAboutOpen ? (['toggle-menu', 'active'] as Variant[]) : []),
+              ...(isAboutOpen ? (['active'] as Variant[]) : []),
             ]}
           />
           <Button
@@ -139,9 +139,7 @@ export const NavBar: React.FC = () => {
             variantsList={[
               'secondary',
               'nav',
-              ...(isContactFormOpen
-                ? (['toggle-menu', 'active'] as Variant[])
-                : []),
+              ...(isContactFormOpen ? (['active'] as Variant[]) : []),
             ]}
           />
           <Button
@@ -154,9 +152,7 @@ export const NavBar: React.FC = () => {
             variantsList={[
               'secondary',
               'nav',
-              ...(isUserSettingsOpen
-                ? (['toggle-menu', 'active'] as Variant[])
-                : []),
+              ...(isUserSettingsOpen ? (['active'] as Variant[]) : []),
             ]}
           />
         </div>

@@ -4,7 +4,6 @@
   - secondary
   - small
   - nav
-  - toggle-menu (only used with .active for active state visual difference - showing X)
   - active
 */
 
@@ -35,24 +34,24 @@
     linear-gradient(to bottom left, transparent 80%, var(--border-color) 50%)
       bottom left,
     #fff;
-  background-origin: border-box;
-  background-color: var(--background-color);
-  background-repeat: no-repeat;
-  background-size: 16.5px 16.5px;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-size: 16.5px 16.5px;
   border-radius: 3px 0;
+  border: 1px solid var(--border-color);
   box-sizing: border-box;
   clip-path: var(--clip-path-value);
   color: #fff;
   cursor: pointer;
   display: inline-grid;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   justify-content: end;
+  max-width: 250px;
   min-height: 50px;
   min-width: 50px;
-  max-width: 250px;
   padding: 0 12px 6px 20px;
   position: relative;
   text-align: right;
@@ -65,20 +64,42 @@
     gap: 4px;
   }
 
-  &::after {
-    content: '\2022\2022\2022\2022';
+  .pulse-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5px;
+    left: 3px;
+    max-width: 10px;
+    position: absolute;
+    top: 3px;
+
+    .pulses {
+      animation-name: pulse;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      /* animation-duration set in Button.tsx */
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+      height: 3px;
+      width: 2px;
+    }
+  }
+
+  /* &::after {
     color: hsl(
       var(--base-orange-hue),
       var(--base-orange-saturation),
       calc(var(--base-orange-lightness) + 20%)
     );
+    content: '\2022\2022\2022\2022';
     font-size: 0.6rem;
     left: 0;
     opacity: 0.6;
     padding: 0 3px;
     position: absolute;
     top: 0px;
-  }
+  } */
 
   &:disabled,
   &[disabled] {
@@ -116,7 +137,7 @@
       );
     }
 
-    &:hover::after,
+    /* &:hover::after,
     &:focus-visible::after,
     &:active::after {
       box-shadow: none;
@@ -125,7 +146,7 @@
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 30%)
       );
-    }
+    } */
 
     &.active {
       --background-color: hsl(
@@ -139,14 +160,14 @@
         calc(var(--base-orange-lightness) + 45%)
       );
 
-      &::after {
+      /* &::after {
         box-shadow: none;
         color: hsl(
           var(--base-orange-hue),
           var(--base-orange-saturation),
           calc(var(--base-orange-lightness) + 40%)
         );
-      }
+      } */
 
       &:focus-visible {
         --background-color: hsl(
@@ -185,13 +206,13 @@
     );
   }
 
-  &.secondary::after {
+  /* &.secondary::after {
     color: hsl(
       var(--base-blue-hue),
       var(--base-blue-saturation),
       calc(var(--base-blue-lightness) + 50%)
     );
-  }
+  } */
 
   &:not(:disabled, [disabled]) {
     &.secondary:hover,
@@ -222,7 +243,7 @@
       );
     }
 
-    &.secondary:hover::after,
+    /* &.secondary:hover::after,
     &.secondary:focus-visible::after,
     &.secondary:active::after {
       box-shadow: none;
@@ -231,7 +252,7 @@
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 80%)
       );
-    }
+    } */
 
     &.secondary.active {
       --background-color: hsl(
@@ -245,14 +266,14 @@
         calc(var(--base-blue-lightness) + 75%)
       );
 
-      &::after {
+      /* &::after {
         box-shadow: none;
         color: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 90%)
         );
-      }
+      } */
 
       &:focus-visible {
         --background-color: hsl(
@@ -277,7 +298,7 @@
     align-items: end;
     background-size: 11.5px 11.5px;
     min-height: 32px;
-    padding: 0 8px 3px 16px;
+    padding: 0 8px 3px 18px;
   }
 
   /*
@@ -312,13 +333,33 @@
     }
   }
 
-  &.toggle-menu.active::after {
-    filter: brightness(200%);
-    content: '\00D7';
-    font-size: 1rem;
-    opacity: 0.5;
-    padding: 0px 3px;
-    top: -2px;
+  .close-x {
+    align-items: center;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    margin: 1px 0 0 1px;
+    position: relative;
+    width: 5px;
+
+    span {
+      background: #fff;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 1px;
+
+      &:first-child {
+        left: 0;
+        transform: rotate(-45deg);
+        transform-origin: top left;
+      }
+      &:last-child {
+        right: 0;
+        transform: rotate(45deg);
+        transform-origin: top right;
+      }
+    }
   }
 
   /* 
@@ -330,4 +371,10 @@
     min-width: auto;
     width: 50px;
   }
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }

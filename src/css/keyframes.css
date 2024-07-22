@@ -1,7 +1,7 @@
 /*
   Stylesheet for CSS animations
 */
-@keyframes bgContainerFadeIn {
+@keyframes opacityIn {
   0% {
     opacity: 0;
   }
@@ -11,12 +11,20 @@
   }
 }
 
-@keyframes opacityIn {
+@keyframes pulse {
   0% {
-    opacity: 0;
+    opacity: 0.5;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
   }
 
   100% {
-    opacity: 1;
+    opacity: 0.5;
   }
 }
