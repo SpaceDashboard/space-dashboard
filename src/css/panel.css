@@ -1,6 +1,7 @@
 /* 
   Panel styles
 */
+
 .panel-section {
   --panel-border-color: hsl(
     var(--base-blue-hue),
@@ -107,7 +108,9 @@
       left: 0;
       position: absolute;
       top: 0;
-      width: calc(50% - 46px);
+      transition: var(--panel-actions-wrapper--before--transition-duration) all
+        ease;
+      width: calc(40% - 46px);
       z-index: -1;
     }
 
@@ -122,7 +125,9 @@
       right: 47px;
       transform-origin: top;
       transform: skewX(45deg);
-      width: 50%;
+      transition: var(--panel-actions-wrapper--after--transition-duration) all
+        ease;
+      width: 60%;
       z-index: -1;
     }
 
@@ -152,7 +157,11 @@
         right: -32px;
         top: 0;
         transform: skewX(45deg);
-        width: calc(50% + 50px);
+        transition: var(
+            --panel-actions-wrapper--panel-actions--before-transition-duration
+          )
+          all ease;
+        width: calc(60% + 50px);
       }
     }
 
@@ -168,7 +177,6 @@
   }
 
   .panel-menu {
-    --transition-seconds: 0.15s;
     backdrop-filter: blur(0);
     -webkit-backdrop-filter: blur(0);
     background: hsla(
@@ -188,19 +196,20 @@
     top: 0;
     transform: scale(1.05);
     transition:
-      var(--transition-seconds) transform ease,
-      var(--transition-seconds) opacity ease,
-      var(--transition-seconds) backdrop-filter ease,
-      var(--transition-seconds) filter ease,
-      var(--transition-seconds) z-index ease;
+      var(--panel-menu--transition-duration) transform ease,
+      var(--panel-menu--transition-duration) opacity ease,
+      var(--panel-menu--transition-duration) backdrop-filter ease,
+      var(--panel-menu--transition-duration) filter ease,
+      var(--panel-menu--transition-duration) z-index ease;
     width: 100%;
     z-index: 1;
 
     .corners-wrapper-content {
+      background-color: rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 6px 8px;
+      padding: 10px 14px;
     }
 
     &.open {
@@ -210,10 +219,10 @@
       opacity: 1;
       transform: scale(1);
       transition:
-        var(--transition-seconds) transform ease,
-        var(--transition-seconds) opacity ease,
-        var(--transition-seconds) backdrop-filter ease,
-        var(--transition-seconds) filter ease;
+        var(--panel-menu--transition-duration) transform ease,
+        var(--panel-menu--transition-duration) opacity ease,
+        var(--panel-menu--transition-duration) backdrop-filter ease,
+        var(--panel-menu--transition-duration) filter ease;
       z-index: 3;
     }
   }

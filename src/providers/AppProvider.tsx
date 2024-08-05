@@ -18,7 +18,7 @@ export const AppContext = createContext<AppProviderProps>({
   setIsUserSettingsOpen: () => {},
 });
 
-export const AppProvider = ({ children }: React.PropsWithChildren) => {
+const AppProvider = ({ children }: React.PropsWithChildren) => {
   const {
     settings: { animationSpeedAdjustment },
   } = useSettingsContext();
@@ -32,19 +32,28 @@ export const AppProvider = ({ children }: React.PropsWithChildren) => {
     [animationSpeedAdjustment],
   );
 
-  return (
-    <AppContext.Provider
-      value={{
-        navAnimationSeconds,
-        isAboutOpen,
-        setIsAboutOpen,
-        isContactFormOpen,
-        setIsContactFormOpen,
-        isUserSettingsOpen,
-        setIsUserSettingsOpen,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const value = useMemo(
+    () => ({
+      navAnimationSeconds,
+      isAboutOpen,
+      setIsAboutOpen,
+      isContactFormOpen,
+      setIsContactFormOpen,
+      isUserSettingsOpen,
+      setIsUserSettingsOpen,
+    }),
+    [
+      navAnimationSeconds,
+      isAboutOpen,
+      setIsAboutOpen,
+      isContactFormOpen,
+      setIsContactFormOpen,
+      isUserSettingsOpen,
+      setIsUserSettingsOpen,
+    ],
   );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
+
+export default AppProvider;

@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { css, cx } from '@emotion/css';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { PanelProps } from './components/base';
 import { NavBar } from 'src/components';
 import {
@@ -8,8 +10,8 @@ import {
   AuroraForecast,
   SolarVisual,
 } from './components/panels';
-import { About, ContactForm, UserSettings } from 'src/components';
-import { useSettingsContext } from 'src/hooks';
+import { About, ContactForm, UserSettings } from 'src/components/modals';
+import { useSettingsContext, useToast } from 'src/hooks';
 
 type ColumnMap = Record<string, React.FC<PanelProps>>;
 const columnComponentMap: ColumnMap = {
@@ -20,16 +22,27 @@ const columnComponentMap: ColumnMap = {
   AuroraForecast,
 };
 
+const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
+  --content--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
+`;
+
 export const App: React.FC = () => {
   const {
-    settings: { columnOneOrder, columnTwoOrder, columnThreeOrder },
+    settings: {
+      animationSpeedAdjustment,
+      reduceMotion,
+      columnOneOrder,
+      columnTwoOrder,
+      columnThreeOrder,
+    },
   } = useSettingsContext();
+  const { ToastContainer } = useToast();
 
   const renderColumn = (
     componentOrder?: string[],
     previousCumulativeComponentCount = 0,
   ) => (
-    <div>
+    <>
       {componentOrder?.map((componentName, index) => {
         const Component = columnComponentMap[componentName];
         return (
@@ -39,7 +52,7 @@ export const App: React.FC = () => {
           />
         );
       })}
-    </div>
+    </>
   );
 
   useEffect(() => {
@@ -52,23 +65,36 @@ export const App: React.FC = () => {
   return (
     <>
       <NavBar />
-      <About />
-      <ContactForm />
-      <UserSettings />
-      <main className="container">
-        <div className="container-column">
-          {renderColumn(columnOneOrder, 0)}
-        </div>
-        <div className="container-column">
-          {renderColumn(columnTwoOrder, columnOneOrder?.length)}
-        </div>
-        <div className="container-column">
-          {renderColumn(
-            columnThreeOrder,
-            columnOneOrder?.length + columnTwoOrder?.length,
+      <main className="content-wrapper">
+        <About />
+        <ContactForm />
+        <UserSettings />
+        <section
+          className={cx(
+            'content',
+            contentCss(reduceMotion, animationSpeedAdjustment),
           )}
-        </div>
+        >
+          <div className="content-column">
+            {renderColumn(columnOneOrder, 0)}
+          </div>
+          <div className="content-column">
+            {renderColumn(columnTwoOrder, columnOneOrder?.length)}
+          </div>
+          <div className="content-column">
+            {renderColumn(
+              columnThreeOrder,
+              columnOneOrder?.length + columnTwoOrder?.length,
+            )}
+          </div>
+        </section>
       </main>
+      <ReactTooltip
+        id="space-dashboard-tooltip"
+        className="sd-tooltip"
+        classNameArrow="sd-tooltip-arrow"
+      />
+      <ToastContainer />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from 'src/components/base';
+import { Button, Modal, Toggle } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
 import { useForm } from 'react-hook-form';
@@ -8,7 +8,13 @@ import { IconSend, IconRestore } from '@tabler/icons-react';
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
   const {
-    settings: { columnOneOrder, columnTwoOrder, columnThreeOrder },
+    settings: {
+      columnOneOrder,
+      columnTwoOrder,
+      columnThreeOrder,
+      reduceMotion,
+      reduceButtonAnimation,
+    },
     updateSettings,
   } = useSettingsContext();
   const {
@@ -39,6 +45,31 @@ export const UserSettings: React.FC = () => {
 
   return (
     <Modal isOpen={isUserSettingsOpen} setIsOpen={setIsUserSettingsOpen}>
+      <div className="input-wrapper">
+        <label htmlFor="name">{'Name'}</label>
+        <input type="text" {...register('name', { required: true })} />
+        {errors.name && <p className="text-error">Name is required</p>}
+      </div>
+
+      <div className="input-wrapper">
+        <label htmlFor="email">{'Email'}</label>
+        <input
+          type="email"
+          {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+        />
+        {errors.email && (
+          <p className="text-error">Email is required and must be valid</p>
+        )}
+      </div>
+
+      <div className="input-wrapper">
+        <Toggle
+          label="Reduce Motion"
+          checked={reduceMotion}
+          onChange={() => updateSettings({ reduceMotion: !reduceMotion })}
+        />
+      </div>
+
       <div>
         <label>Column One: </label>
         <select
@@ -81,48 +112,6 @@ export const UserSettings: React.FC = () => {
           <option value="AuroraForecast">AuroraForecast</option>
         </select>
       </div>
-
-      <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-wrapper">
-          <label htmlFor="name">{'Name'}</label>
-          <input type="text" {...register('name', { required: true })} />
-          {errors.name && <p className="text-error">Name is required</p>}
-        </div>
-
-        <div className="input-wrapper">
-          <label htmlFor="email">{'Email'}</label>
-          <input
-            type="email"
-            {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-          />
-          {errors.email && (
-            <p className="text-error">Email is required and must be valid</p>
-          )}
-        </div>
-
-        <div className="input-wrapper">
-          <label htmlFor="message">{'Message'}</label>
-          <textarea
-            {...register('message', { required: true })}
-            rows={5}
-            cols={40}
-          ></textarea>
-          {errors.message && <p className="text-error">Message is required</p>}
-        </div>
-
-        <div className="button-row">
-          <Button buttonType="submit" Icon={IconSend} onClick={onSubmit}>
-            {'Send'}
-          </Button>
-          <Button
-            Icon={IconRestore}
-            onClick={resetForm}
-            variantsList={['secondary']}
-          >
-            {'Reset'}
-          </Button>
-        </div>
-      </form>
     </Modal>
   );
 };

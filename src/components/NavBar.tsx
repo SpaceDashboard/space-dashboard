@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Tooltip, Variant } from 'src/components/base';
+import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
-import { useAppContext, useSettingsContext } from 'src/hooks';
+import {
+  useAppContext,
+  useSettingsContext,
+  useToast,
+  Variants,
+} from 'src/hooks';
 import {
   IconHelpHexagon,
   IconSend,
@@ -9,11 +14,11 @@ import {
 } from '@tabler/icons-react';
 
 const navBarCss = (reduceMotion: boolean, speedAdjustment: number) => css`
-  transition: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s all ease;
+  transition: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s height ease;
 
   .logo {
-    transition: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.4 * speedAdjustment}s;
+    transition: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s opacity ease;
+    transition-delay: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s;
   }
 
   .btn-wrapper {
@@ -23,15 +28,15 @@ const navBarCss = (reduceMotion: boolean, speedAdjustment: number) => css`
         forwards 1 opacityIn;
 
       &:nth-child(1) {
-        animation-delay: ${reduceMotion ? 0 : 1.5 * speedAdjustment}s;
-      }
-
-      &:nth-child(2) {
         animation-delay: ${reduceMotion ? 0 : 1.6 * speedAdjustment}s;
       }
 
-      &:nth-child(3) {
+      &:nth-child(2) {
         animation-delay: ${reduceMotion ? 0 : 1.7 * speedAdjustment}s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: ${reduceMotion ? 0 : 1.8 * speedAdjustment}s;
       }
     }
   }
@@ -71,6 +76,7 @@ export const NavBar: React.FC = () => {
   const {
     settings: { reduceMotion, animationSpeedAdjustment },
   } = useSettingsContext();
+  const { showToast } = useToast();
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
 
@@ -100,14 +106,18 @@ export const NavBar: React.FC = () => {
     >
       <div className="nav-inner">
         <span className="logo">
-          <Tooltip placement="right" title="Space Dashboard">
+          <TooltipWrapper
+            placement="right"
+            title="Space Dashboard"
+            tooltipOffset={12}
+          >
             <img
               src="/img/space-dashboard.svg"
               width="50"
               height="50"
               alt="Space Dashboard"
             />
-          </Tooltip>
+          </TooltipWrapper>
         </span>
         <div
           className={cx(
@@ -119,8 +129,16 @@ export const NavBar: React.FC = () => {
           <Button
             disabled={isContactFormOpen || isUserSettingsOpen}
             Icon={IconHelpHexagon}
-            onClick={() => setIsAboutOpen(!isAboutOpen)}
-            tooltipOffset={[8, 0]}
+            onClick={() => {
+              // setIsAboutOpen(!isAboutOpen);
+
+              const variants = ['confirmation', 'warning', 'error'];
+              const variant =
+                variants[Math.floor(Math.random() * variants.length)];
+              showToast('Test', { variant: variant as Variants });
+            }}
+            tooltipOffset={12}
+            tooltipDelay={500}
             tooltipPlacement="right"
             tooltipTitle="About"
             variantsList={[
@@ -133,7 +151,8 @@ export const NavBar: React.FC = () => {
             disabled={isAboutOpen || isUserSettingsOpen}
             Icon={IconSend}
             onClick={() => setIsContactFormOpen(!isContactFormOpen)}
-            tooltipOffset={[8, 0]}
+            tooltipOffset={12}
+            tooltipDelay={500}
             tooltipPlacement="right"
             tooltipTitle="Contact me"
             variantsList={[
@@ -146,7 +165,8 @@ export const NavBar: React.FC = () => {
             disabled={isAboutOpen || isContactFormOpen}
             Icon={IconAdjustments}
             onClick={() => setIsUserSettingsOpen(!isUserSettingsOpen)}
-            tooltipOffset={[8, 0]}
+            tooltipOffset={12}
+            tooltipDelay={500}
             tooltipPlacement="right"
             tooltipTitle="Settings"
             variantsList={[

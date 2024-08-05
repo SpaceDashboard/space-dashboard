@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useMemo } from 'react';
 import { useLocalStorage } from 'src/hooks';
 
 interface Settings {
@@ -37,11 +37,7 @@ export const SettingsContext = createContext<SettingsContextProps | undefined>(
   undefined,
 );
 
-export const SettingsProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
   const [settings, setSettings] = useLocalStorage<Settings>(
     'SpaceDashboard-settings',
     defaultSettings,
@@ -54,15 +50,20 @@ export const SettingsProvider = ({
     });
   };
 
+  const value = useMemo(
+    () => ({
+      settings,
+      updateSettings,
+      resetSettings: () => setSettings(defaultSettings),
+    }),
+    [settings, updateSettings, setSettings, defaultSettings],
+  );
+
   return (
-    <SettingsContext.Provider
-      value={{
-        settings,
-        updateSettings,
-        resetSettings: () => setSettings(defaultSettings),
-      }}
-    >
+    <SettingsContext.Provider value={value}>
       {children}
     </SettingsContext.Provider>
   );
 };
+
+export default SettingsProvider;

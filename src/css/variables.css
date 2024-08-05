@@ -10,6 +10,7 @@
 }
 
 :root {
+  --100-vh: calc(var(--vh, 1vh) * 100);
   --base-blue-hue: var(--index-defined-base-blue-hue);
   --base-blue-saturation: var(--index-defined-base-blue-saturation);
   --base-blue-lightness: var(--index-defined-base-blue-lightness);
@@ -29,8 +30,8 @@
 
   /* Fonts */
   --font-size: 16.3px;
-  /* --font: 'WorkSans', Helvetica, Arial, sans-serif;
-  --font-italic: 'WorkSans Italic', Helvetica, Arial, sans-serif; */
+  /* --font: 'WorkSans', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+  /* --font-italic: 'WorkSans Italic', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
   --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-italic: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --text-color: #fff;
@@ -42,4 +43,13 @@
 
   /* Focus */
   --focus-visible-box-shadow: 0 0 0 1px hsla(207, 62%, 46%, 0.5);
+
+  /* Transition durations, most likely overridden in components */
+  --content--transition-duration: 0.3s;
+  --modal--transition-duration: 0.3s;
+  --modal--close-btn--transition-duration: 0.08s;
+  --panel-menu--transition-duration: 0.15s;
+  --panel-actions-wrapper--before--transition-duration: 0.4s;
+  --panel-actions-wrapper--after--transition-duration: 0.4s;
+  --panel-actions-wrapper--panel-actions--before-transition-duration: 0.4s;
 }

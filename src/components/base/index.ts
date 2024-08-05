@@ -4,3 +4,4 @@ export * from './CornersWrapper';
 export * from './FadeFromBlack';
 export * from './Tooltip';
 export * from './Modal';
+export * from './Toggle';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'src/components/base';
-import { useAppContext, useToastContext } from 'src/hooks';
+import { useAppContext, useToast } from 'src/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { IconSend, IconRestore } from '@tabler/icons-react';
 
@@ -12,7 +12,7 @@ interface FormFields {
 
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
-  const { showToast } = useToastContext();
+  const { showToast } = useToast();
   const {
     register,
     handleSubmit,
@@ -43,13 +43,15 @@ export const ContactForm: React.FC = () => {
 
       if (response.ok) {
         resetForm();
-        showToast('Message sent successfully!', 'success');
+        showToast('Message sent successfully!', { variant: 'confirmation' });
         setIsContactFormOpen && setIsContactFormOpen(false);
       } else {
-        showToast('An unexpected error occurred.', 'error');
+        showToast('An unexpected error occurred.', { variant: 'error' });
       }
     } catch (error) {
-      showToast('Failed to send the message. Please try again later.', 'error');
+      showToast('Failed to send the message. Please try again later.', {
+        variant: 'error',
+      });
     } finally {
       setIsSubmitting(false);
     }

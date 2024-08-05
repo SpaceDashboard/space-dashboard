@@ -36,16 +36,15 @@ export const IssTracker: React.FC<PanelProps> = ({ index }) => {
   let resizeIssFrameTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const handleResize = () => {
-    if (!issTrackerFrameRef.current || !issTrackerWrapperRef.current) return;
-    const issTrackerWrapper = issTrackerWrapperRef.current;
-    const issTrackerFrame = issTrackerFrameRef.current;
-    const scaleForWidth =
-      issTrackerWrapper.clientWidth / issTrackerFrame.clientWidth;
-    const scaleForHeight =
-      issTrackerWrapper.clientHeight / issTrackerFrame.clientHeight;
-
     clearTimeout(resizeIssFrameTimeout);
     resizeIssFrameTimeout = setTimeout(() => {
+      if (!issTrackerFrameRef.current || !issTrackerWrapperRef.current) return;
+      const issTrackerWrapper = issTrackerWrapperRef.current;
+      const issTrackerFrame = issTrackerFrameRef.current;
+      const scaleForWidth =
+        issTrackerWrapper.clientWidth / issTrackerFrame.clientWidth;
+      const scaleForHeight =
+        issTrackerWrapper.clientHeight / issTrackerFrame.clientHeight;
       let scale = scaleForWidth;
 
       if (

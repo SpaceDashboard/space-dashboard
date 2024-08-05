@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { CornersWrapper, Tooltip } from 'src/components/base';
+import { CornersWrapper, TooltipWrapper } from 'src/components/base';
+import { useSettingsContext } from 'src/hooks';
 
 interface ModalProps {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
 }
 
-const modalCss = css`
-  /* transition: 0.3s all ease; */
+const modalCss = (reduceMotion: boolean, speedAdjustment: number) => css`
+  --modal--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
+  --modal--close-btn--transition-duration: ${reduceMotion
+    ? 0
+    : 0.08 * speedAdjustment}s;
 `;
 
 const modalInnerCss = css`
@@ -26,6 +30,9 @@ export const Modal = ({
   isOpen,
   setIsOpen,
 }: React.PropsWithChildren<ModalProps>) => {
+  const {
+    settings: { animationSpeedAdjustment, reduceMotion },
+  } = useSettingsContext();
   const [isContentVisible, setIsContentVisible] = useState<boolean>(true);
 
   useEffect(() => {
@@ -58,18 +65,18 @@ export const Modal = ({
     <div
       className={cx(
         'modal',
-        modalCss,
+        modalCss(reduceMotion, animationSpeedAdjustment),
         { open: isOpen },
         css`
           visibility: ${isContentVisible ? 'visible' : 'hidden'};
         `,
       )}
     >
-      <Tooltip
+      <TooltipWrapper
         title="Close"
         delay={500}
         placement="left"
-        tooltipOffset={[0, 10]}
+        tooltipOffset={10}
       >
         <button
           type="button"
@@ -82,7 +89,7 @@ export const Modal = ({
           <span></span>
           <span></span>
         </button>
-      </Tooltip>
+      </TooltipWrapper>
       <CornersWrapper size={25} height="100%" className={modalInnerCss}>
         {children}
       </CornersWrapper>

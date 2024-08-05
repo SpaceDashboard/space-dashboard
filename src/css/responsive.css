@@ -22,16 +22,112 @@ body {
   padding: 0;
 }
 
-@media screen and (max-width: 1024px) {
-  .container {
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+  .content {
+    --column-gap: 30px;
+    flex-direction: column;
+
+    .content-column {
+      --column-width: 100%;
+      gap: 30px;
+      flex-direction: row;
+
+      .panel-section {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .content {
     --column-gap: 0px;
     flex-direction: column;
 
-    .container-column {
+    .content-column {
       --column-width: 100%;
     }
   }
 }
-/* @media (min-width: 351px) and (max-width: 400px) {}
-@media (min-width: 311px) and (max-width: 350px) {}
-@media screen and (max-width: 310px) {} */
+
+@media screen and (max-width: 540px) {
+  nav.show-nav.show-nav-borders {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: hsla(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 6%),
+      0.92
+    );
+    bottom: 0px;
+    height: 55px;
+    margin: 0;
+    padding: 8px 20px 10px;
+    position: fixed;
+    transition: 0s height ease;
+    width: 100%;
+
+    &::before {
+      top: -2px;
+    }
+
+    .logo,
+    .logo img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .nav-inner,
+    .btn-wrapper {
+      flex-direction: row;
+    }
+  }
+
+  .content-wrapper {
+    padding-bottom: 60px;
+    width: 100vw;
+  }
+
+  .modal {
+    bottom: 80px;
+    left: 25px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .panel-section {
+    .panel-actions-wrapper {
+      &::before {
+        width: calc(20% - 46px);
+      }
+      &::after {
+        width: 80%;
+      }
+
+      .panel-actions {
+        &::before {
+          width: calc(80% + 50px);
+        }
+      }
+    }
+  }
+}
+
+nav {
+  @container (min-height: 201px) and (max-height: 300px) {
+    button.nav {
+      height: 40px !important;
+      min-height: 40px !important;
+    }
+  }
+  @container (max-height: 250px) {
+    button.nav {
+      --edge-size: 10px;
+      background-size: 11.5px 11.5px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+      padding: 0 8px 3px 18px;
+    }
+  }
+}

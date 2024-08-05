@@ -80,26 +80,12 @@
       animation-iteration-count: infinite;
       /* animation-duration set in Button.tsx */
       background-color: rgba(255, 255, 255, 0.4);
-      border-radius: 10px;
-      height: 3px;
+      border-radius: 1px;
+      height: 4px;
+      transition: 0.2s all ease;
       width: 2px;
     }
   }
-
-  /* &::after {
-    color: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 20%)
-    );
-    content: '\2022\2022\2022\2022';
-    font-size: 0.6rem;
-    left: 0;
-    opacity: 0.6;
-    padding: 0 3px;
-    position: absolute;
-    top: 0px;
-  } */
 
   &:disabled,
   &[disabled] {
@@ -108,7 +94,23 @@
   }
 
   &:not(:disabled, [disabled]) {
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        --background-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 10%)
+        );
+        --border-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 35%)
+        );
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
     &:focus-visible {
       --background-color: hsl(
         var(--base-orange-hue),
@@ -137,17 +139,6 @@
       );
     }
 
-    /* &:hover::after,
-    &:focus-visible::after,
-    &:active::after {
-      box-shadow: none;
-      color: hsl(
-        var(--base-orange-hue),
-        var(--base-orange-saturation),
-        calc(var(--base-orange-lightness) + 30%)
-      );
-    } */
-
     &.active {
       --background-color: hsl(
         var(--base-orange-hue),
@@ -159,15 +150,6 @@
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 45%)
       );
-
-      /* &::after {
-        box-shadow: none;
-        color: hsl(
-          var(--base-orange-hue),
-          var(--base-orange-saturation),
-          calc(var(--base-orange-lightness) + 40%)
-        );
-      } */
 
       &:focus-visible {
         --background-color: hsl(
@@ -206,16 +188,23 @@
     );
   }
 
-  /* &.secondary::after {
-    color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 50%)
-    );
-  } */
-
   &:not(:disabled, [disabled]) {
-    &.secondary:hover,
+    @media (hover: hover) {
+      &.secondary:hover {
+        --background-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 20%)
+        );
+        --border-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 65%)
+        );
+        box-shadow: none;
+      }
+    }
+
     &.secondary:focus-visible {
       --background-color: hsl(
         var(--base-blue-hue),
@@ -243,17 +232,6 @@
       );
     }
 
-    /* &.secondary:hover::after,
-    &.secondary:focus-visible::after,
-    &.secondary:active::after {
-      box-shadow: none;
-      color: hsl(
-        var(--base-blue-hue),
-        var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) + 80%)
-      );
-    } */
-
     &.secondary.active {
       --background-color: hsl(
         var(--base-blue-hue),
@@ -265,15 +243,6 @@
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 75%)
       );
-
-      /* &::after {
-        box-shadow: none;
-        color: hsl(
-          var(--base-blue-hue),
-          var(--base-blue-saturation),
-          calc(var(--base-blue-lightness) + 90%)
-        );
-      } */
 
       &:focus-visible {
         --background-color: hsl(

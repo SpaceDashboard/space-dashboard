@@ -3,7 +3,6 @@
 */
 
 .modal {
-  --transition-seconds: 0.15s;
   background-color: rgba(0, 0, 0, 0.3);
   bottom: 26px;
   box-sizing: border-box;
@@ -17,27 +16,28 @@
   top: 26px;
   transform: scale(1.02);
   transition:
-    var(--transition-seconds) transform ease,
-    var(--transition-seconds) opacity ease,
-    var(--transition-seconds) backdrop-filter ease,
-    var(--transition-seconds) filter ease,
-    var(--transition-seconds) z-index ease;
+    var(--modal--transition-duration) transform ease,
+    var(--modal--transition-duration) opacity ease,
+    var(--modal--transition-duration) backdrop-filter ease,
+    var(--modal--transition-duration) filter ease,
+    var(--modal--transition-duration) z-index ease;
   z-index: 0;
 
   &.open {
     opacity: 1;
     transform: scale(1);
     transition:
-      var(--transition-seconds) transform ease,
-      var(--transition-seconds) opacity ease,
-      var(--transition-seconds) backdrop-filter ease,
-      var(--transition-seconds) filter ease;
+      var(--modal--transition-duration) transform ease,
+      var(--modal--transition-duration) opacity ease,
+      var(--modal--transition-duration) backdrop-filter ease,
+      var(--modal--transition-duration) filter ease;
     z-index: 1000;
   }
 
-  &.open ~ .container {
+  &.open ~ .content {
     filter: blur(10px);
-    opacity: 0.08;
+    opacity: 0.1;
+    transform: scale(0.98);
   }
 
   .close-modal {
@@ -55,7 +55,12 @@
     width: 35px;
     z-index: 1;
 
-    &:hover span,
+    @media (hover: hover) {
+      &:hover span {
+        box-shadow: 0 0 0 3px #fff;
+      }
+    }
+
     &:focus-visible span {
       box-shadow: 0 0 0 3px #fff;
     }
@@ -65,7 +70,7 @@
       border-radius: 1px;
       box-shadow: 0 0 0 1px #fff;
       height: 100%;
-      transition: 0.08s all ease;
+      transition: var(--modal--close-btn--transition-duration) all ease;
       width: 1px;
 
       &:first-child {

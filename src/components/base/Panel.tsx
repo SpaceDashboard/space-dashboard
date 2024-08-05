@@ -11,8 +11,9 @@ const panelWrapperCss = (
   speedAdjustment: number,
 ) => css`
   &::before {
-    transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
-      ease;
+    --panel-actions-wrapper--before--transition-duration: ${reduceMotion
+      ? 0
+      : animationDuration * speedAdjustment}s;
   }
 
   .panel {
@@ -28,7 +29,9 @@ const panelWrapperCss = (
 
   .panel-menu {
     .panel-section & {
-      --transition-seconds: ${reduceMotion ? 0 : 0.18 * speedAdjustment}s;
+      --panel-menu--transition-duration: ${reduceMotion
+        ? 0
+        : 0.18 * speedAdjustment}s;
     }
   }
 `;

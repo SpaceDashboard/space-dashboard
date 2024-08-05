@@ -1,38 +1,19 @@
 /*
-  Override styles for MUI tooltip
+  Override styles for tooltip
 */
 
-.MuiTooltip-tooltip {
-  --inset-box-shadow-color: hsla(
-    var(--index-defined-base-blue-hue),
-    var(--index-defined-base-blue-saturation),
-    calc(var(--index-defined-base-blue-lightness) - 10%),
-    0.9
-  );
-  --right-left-border-color: hsl(
+.sd-tooltip {
+  background-color: hsl(
     var(--base-blue-hue),
     var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) + 10%)
-  );
-  align-items: center;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  background: hsla(
-    var(--base-blue-hue),
-    var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) + 1%),
-    0.8
+    calc(var(--base-blue-lightness) + 1%)
   ) !important;
   border-radius: 0 !important;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25) !important;
-  box-sizing: border-box;
-  display: flex;
-  font-size: 0.85rem !important;
-  height: 30px;
-  justify-content: center;
-  line-height: 1;
-  margin: 0 0 0 10px !important;
-  overflow: hidden;
-  padding: 0 8px !important;
-  transform-origin: center !important;
+  opacity: 1 !important;
+  z-index: 1000;
+}
+
+.sd-tooltip-arrow {
+  /* Style? */
+  /* display: none; */
 }

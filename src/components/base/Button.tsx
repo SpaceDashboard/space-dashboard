@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { css, cx } from '@emotion/css';
-import { Tooltip, TooltipPlacement } from './Tooltip';
+import { TooltipWrapper, TooltipPlacement } from './Tooltip';
 import { useSettingsContext } from 'src/hooks';
 import { IconProps } from '@tabler/icons-react';
 
@@ -20,29 +20,41 @@ export interface ButtonProps {
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  Icon?: FC<IconProps>;
+  Icon?: React.FC<IconProps>;
   iconSize?: number;
   iconStrokeWidth?: number;
   /** Controls Tooltip specific props */
   isPanelAction?: boolean;
   onClick?: (p: any) => void;
   tooltipDelay?: number;
-  tooltipOffset?: [number, number];
+  tooltipOffset?: number;
   tooltipPlacement?: TooltipPlacement;
   tooltipTitle?: string;
   variantsList?: Variant[];
 }
 
-interface PulsingProps {
+interface ButtonCornerProps {
   isActive?: boolean;
+  isHovered?: boolean;
+  isLargeButton?: boolean;
   disabled?: boolean;
 }
 
-const Pulsing: FC<PulsingProps> = ({ isActive, disabled }) => {
+const ButtonCorner: React.FC<ButtonCornerProps> = ({
+  isActive,
+  isHovered,
+  isLargeButton,
+  disabled,
+}) => {
   const {
     settings: { reduceButtonAnimation },
   } = useSettingsContext();
-  const speeds = [...new Array(3)].map(() => Math.random() * 3 + 1.5);
+  const speeds = [...new Array(isLargeButton ? 5 : 3)].map(
+    () => Math.random() * 1 + 1.25,
+  );
+  const delays = [...new Array(isLargeButton ? 5 : 3)].map(
+    () => Math.random() * 1.25,
+  );
 
   return (
     <>
@@ -59,13 +71,14 @@ const Pulsing: FC<PulsingProps> = ({ isActive, disabled }) => {
               className={cx(
                 'pulses',
                 css`
-                  ${reduceButtonAnimation ||
-                  (disabled &&
-                    `
-                  animation: none !important;
-                  opacity: 0.6;
-                `)}
+                  ${(reduceButtonAnimation || disabled || !isHovered) &&
+                  `
+                    animation: none !important;
+                    opacity: 0.6;
+                    transition: 0.2s all ease;
+                  `}
                   animation-duration: ${speed}s;
+                  animation-delay: ${delays[i]}s;
                 `,
               )}
             />
@@ -87,17 +100,21 @@ export const Button = ({
   isPanelAction = false,
   onClick = () => {},
   tooltipDelay = 0,
-  tooltipOffset = [0, 0],
+  tooltipOffset = 0,
   tooltipPlacement = 'top',
   tooltipTitle,
   variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
+  const [isHovered, setIsHovered] = React.useState<boolean>(false);
   const variantClasses = variantsList.map((variant) => variant).join(' ');
+  const isActive = variantsList?.includes('active');
+  const isLargeButton =
+    !variantsList?.includes('nav') && !variantsList?.includes('small');
 
   return (
-    <Tooltip
-      delay={isPanelAction ? 600 : tooltipDelay}
-      tooltipOffset={isPanelAction ? [0, 6] : tooltipOffset}
+    <TooltipWrapper
+      delay={isPanelAction ? 500 : tooltipDelay}
+      tooltipOffset={isPanelAction ? 16 : tooltipOffset}
       placement={isPanelAction ? 'bottom' : tooltipPlacement}
       title={tooltipTitle}
     >
@@ -107,11 +124,24 @@ export const Button = ({
         disabled={disabled}
         onClick={onClick}
         type={buttonType}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
       >
-        <span className="pulse-wrapper">
-          <Pulsing
+        <span
+          className={cx(
+            'pulse-wrapper',
+            css`
+              ${isLargeButton && 'max-width: 16px !important'}
+            `,
+          )}
+        >
+          <ButtonCorner
             disabled={disabled}
-            isActive={variantsList?.includes('active')}
+            isActive={isActive}
+            isHovered={isHovered}
+            isLargeButton={isLargeButton}
           />
         </span>
         <span className="button-content-wrapper">
@@ -125,6 +155,6 @@ export const Button = ({
           {children && children}
         </span>
       </button>
-    </Tooltip>
+    </TooltipWrapper>
   );
 };

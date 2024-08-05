@@ -1,4 +1,5 @@
 import React from 'react';
+import { css, cx } from '@emotion/css';
 import {
   Panel,
   PanelBody,
@@ -10,6 +11,10 @@ import {
 } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';
 
+const iframeCss = css`
+  background: #000;
+`;
+
 export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
   const {
     settings: { issLiveHDViewsAutoPlay, issLiveHDViewsMute },
@@ -19,7 +24,7 @@ export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
       <PanelBody>
         <FadeFromBlack>
           <iframe
-            className="aspect-16-9"
+            className={cx('aspect-16-9', iframeCss)}
             src={`https://www.youtube.com/embed/P9C25Un7xaM?autoplay=${issLiveHDViewsAutoPlay}&mute=${issLiveHDViewsMute}`}
             title="YouTube video player - Live High-Definition Views from ISS"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"

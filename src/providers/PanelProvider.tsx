@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 
 interface PanelProviderProps {
   animationDurationSeconds?: number;
@@ -19,18 +19,26 @@ export const PanelProvider = ({
   const [animationDelaySeconds, setAnimationDelaySeconds] = useState(0);
   const [isPanelMenuOpen, setIsPanelMenuOpen] = useState(isMenuOpen ?? false);
 
+  const value = useMemo(
+    () => ({
+      animationDurationSeconds,
+      setAnimationDurationSeconds,
+      animationDelaySeconds,
+      setAnimationDelaySeconds,
+      isPanelMenuOpen,
+      setIsPanelMenuOpen,
+    }),
+    [
+      animationDurationSeconds,
+      setAnimationDurationSeconds,
+      animationDelaySeconds,
+      setAnimationDelaySeconds,
+      isPanelMenuOpen,
+      setIsPanelMenuOpen,
+    ],
+  );
+
   return (
-    <PanelContext.Provider
-      value={{
-        animationDurationSeconds,
-        setAnimationDurationSeconds,
-        animationDelaySeconds,
-        setAnimationDelaySeconds,
-        isPanelMenuOpen,
-        setIsPanelMenuOpen,
-      }}
-    >
-      {children}
-    </PanelContext.Provider>
+    <PanelContext.Provider value={value}>{children}</PanelContext.Provider>
   );
 };

@@ -32,7 +32,7 @@ export default [
       },
     },
     rules: {
-      'react-refresh/only-export-components': ['warn', {
+      'react-refresh/only-export-components': ['error', {
         allowConstantExport: true,
       }],
       'no-empty-function': 'off',
