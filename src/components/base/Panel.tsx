@@ -9,29 +9,65 @@ const panelWrapperCss = (
   animationDuration: number,
   reduceMotion: boolean,
   speedAdjustment: number,
+  reduceTransparency: boolean,
 ) => css`
+  --panel--background-opacity: ${reduceTransparency ? 1 : 0.7} !important;
+  --panel-menu--background-opacity: ${reduceTransparency ? 1 : 0.9} !important;
+
   &::before {
-    --panel-actions-wrapper--before--transition-duration: ${reduceMotion
+    --panel-wrapper--before--transition-duration: ${reduceMotion
       ? 0
-      : animationDuration * speedAdjustment}s;
+      : animationDuration * speedAdjustment}s !important;
   }
 
   .panel {
-    transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
-      ease;
+    --panel--transition-duration: ${reduceMotion
+      ? 0
+      : animationDuration * speedAdjustment}s !important;
   }
 
   .panel-body {
-    transition: ${reduceMotion ? 0 : animationDuration * 2 * speedAdjustment}s
-      all ease;
-    transition-delay: ${reduceMotion ? 0 : 0.8 * speedAdjustment}s;
+    --panel-body--transition-duration: ${reduceMotion
+      ? 0
+      : animationDuration * 2 * speedAdjustment}s !important;
+    --panel-body--transition-delay: ${reduceMotion
+      ? 0
+      : 0.8 * speedAdjustment}s !important;
+  }
+
+  .panel-actions-wrapper {
+    .panel-section & {
+      --panel-menu--transition-duration: ${reduceMotion
+        ? 0
+        : 0.18 * speedAdjustment}s !important;
+
+      &::before {
+        --panel-actions-wrapper--before--transition-duration: ${reduceMotion
+          ? 0
+          : 0.4 * speedAdjustment}s !important;
+      }
+
+      &::after {
+        --panel-actions-wrapper--after--transition-duration: ${reduceMotion
+          ? 0
+          : 0.4 * speedAdjustment}s !important;
+      }
+
+      .panel-actions {
+        &::before {
+          --panel-actions--before-transition-duration: ${reduceMotion
+            ? 0
+            : 0.4 * speedAdjustment}s !important;
+        }
+      }
+    }
   }
 
   .panel-menu {
     .panel-section & {
       --panel-menu--transition-duration: ${reduceMotion
         ? 0
-        : 0.18 * speedAdjustment}s;
+        : 0.18 * speedAdjustment}s !important;
     }
   }
 `;
@@ -70,7 +106,7 @@ export const InnerPanel = ({
   const [showPanel, setShowPanel] = useState<boolean>(false);
   const { navAnimationSeconds } = useAppContext();
   const {
-    settings: { reduceMotion, animationSpeedAdjustment },
+    settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
   } = useSettingsContext();
   const {
     animationDurationSeconds,
@@ -151,6 +187,7 @@ export const InnerPanel = ({
             animationDurationSeconds ?? animationDuration,
             reduceMotion,
             animationSpeedAdjustment,
+            reduceTransparency,
           ),
           showPanelBorders && 'show-panel-borders',
           showPanel && 'show-panel',

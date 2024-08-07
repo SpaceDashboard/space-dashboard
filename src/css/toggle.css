@@ -3,9 +3,6 @@
 */
 
 .toggle-switch {
-  --toggle--transition-duration: 0.08s;
-  --toggle-size: 20px;
-  --toggle-gap: 3px;
   cursor: pointer;
   display: flex;
   position: relative;
@@ -22,29 +19,54 @@
     position: absolute;
     width: 0;
 
-    &:checked ~ .switch {
-      background-color: rgba(43, 106, 0, 0.85);
+    &:checked {
+      /* Disabled and checked */
+      &:disabled ~ .switch {
+        background-color: rgba(69, 84, 58, 0.85);
+        border-color: #ccc;
 
-      .checked {
-        opacity: 1;
-
-        svg {
-          opacity: 1;
+        .checked {
+          opacity: 0.5;
         }
       }
 
-      .unchecked {
-        opacity: 0;
-      }
+      /* Checked */
+      ~ .switch {
+        background-color: rgba(43, 106, 0, 0.85);
 
-      .slider-wrapper {
-        width: 100%;
+        .checked {
+          opacity: 1;
 
-        .slider {
-          background-color: rgba(255, 255, 255, 1);
+          svg {
+            opacity: 1;
+          }
+        }
+
+        .unchecked {
+          opacity: 0;
+        }
+
+        .slider-wrapper {
+          width: 100%;
         }
       }
     }
+
+    /* Regular disabled */
+    &:disabled ~ .switch {
+      cursor: not-allowed;
+
+      .slider {
+        background-color: #a5a5a5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .toggle-label {
+    align-items: center;
+    display: flex;
+    gap: 8px;
   }
 
   .switch {
@@ -54,11 +76,11 @@
     border: 1px solid #fff;
     box-sizing: content-box;
     display: flex;
-    height: calc(var(--toggle-size) + calc(var(--toggle-gap) * 2));
+    height: calc(var(--toggle--size) + calc(var(--toggle--gap) * 2));
     overflow: visible;
     position: relative;
     transition: var(--toggle--transition-duration) all ease;
-    width: calc(var(--toggle-size) + calc(var(--toggle-size) * 1.5));
+    width: calc(var(--toggle--size) + calc(var(--toggle--size) * 1.5));
 
     .checked-unchecked-wrapper {
       display: flex;
@@ -75,7 +97,7 @@
 
         svg {
           --icon-size: calc(
-            var(--toggle-size) - calc(var(--toggle-size) * 0.2)
+            var(--toggle--size) - calc(var(--toggle--size) * 0.2)
           );
           height: var(--icon-size);
           opacity: 0.3;
@@ -97,16 +119,16 @@
       display: flex;
       justify-content: flex-end;
       transition: var(--toggle--transition-duration) all ease;
-      width: calc(var(--toggle-size) + calc(var(--toggle-gap) * 2));
+      width: calc(var(--toggle--size) + calc(var(--toggle--gap) * 2));
 
       .slider {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: #fff;
         border-radius: 100%;
         display: flex;
-        height: var(--toggle-size);
-        margin: 0 var(--toggle-gap);
+        height: var(--toggle--size);
+        margin: 0 var(--toggle--gap);
         transition: var(--toggle--transition-duration) all ease;
-        width: var(--toggle-size);
+        width: var(--toggle--size);
       }
     }
   }

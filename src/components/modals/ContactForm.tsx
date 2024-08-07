@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal } from 'src/components/base';
+import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
 import { useAppContext, useToast } from 'src/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { IconSend, IconRestore } from '@tabler/icons-react';
@@ -65,88 +65,91 @@ export const ContactForm: React.FC = () => {
 
   return (
     <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
-      <h2>{"What's on your mind?"}</h2>
-      <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-wrapper">
-          <label htmlFor="name">{'Name'}</label>
-          <input
-            type="text"
-            autoComplete="off"
-            data-1p-ignore
-            {...register('name', { required: true })}
-          />
-          {errors.name && (
-            <p className="text-error">
-              {errors.name.message === ''
-                ? 'Name is required'
-                : errors.name.message}
-            </p>
-          )}
-        </div>
+      <FlexWrapper gap={20}>
+        <h2>{"What's on your mind?"}</h2>
+        <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
+          <FlexWrapper gap={24}>
+            <FlexWrapper>
+              <label htmlFor="name">{'Name'}</label>
+              <input
+                type="text"
+                autoComplete="off"
+                data-1p-ignore
+                {...register('name', { required: true })}
+              />
+              {errors.name && (
+                <p className="text-error">
+                  {errors.name.message === ''
+                    ? 'Name is required'
+                    : errors.name.message}
+                </p>
+              )}
+            </FlexWrapper>
 
-        <div className="input-wrapper">
-          <label htmlFor="email">{'Email'}</label>
-          <input
-            type="email"
-            autoComplete="off"
-            data-1p-ignore
-            {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-          />
-          {errors.email && (
-            <p className="text-error">
-              {errors.email.message === ''
-                ? 'Email is required and must be valid'
-                : errors.email.message}
-            </p>
-          )}
-        </div>
+            <FlexWrapper>
+              <label htmlFor="email">{'Email'}</label>
+              <input
+                type="email"
+                autoComplete="off"
+                data-1p-ignore
+                {...register('email', {
+                  required: true,
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+              {errors.email && (
+                <p className="text-error">
+                  {errors.email.message === ''
+                    ? 'Email is required and must be valid'
+                    : errors.email.message}
+                </p>
+              )}
+            </FlexWrapper>
 
-        <div className="input-wrapper">
-          <label htmlFor="message">{'Message'}</label>
-          <textarea
-            {...register('message', { required: true })}
-            rows={5}
-            cols={40}
-          ></textarea>
-          {errors.message && (
-            <p className="text-error">
-              {errors.message.message === ''
-                ? 'Message is required'
-                : errors.message.message}
-            </p>
-          )}
-        </div>
+            <FlexWrapper>
+              <label htmlFor="message">{'Message'}</label>
+              <textarea
+                {...register('message', { required: true })}
+                rows={5}
+                cols={40}
+              ></textarea>
+              {errors.message && (
+                <p className="text-error">
+                  {errors.message.message === ''
+                    ? 'Message is required'
+                    : errors.message.message}
+                </p>
+              )}
+            </FlexWrapper>
 
-        <div className="input-wrapper">
-          <label htmlFor="human-test">
-            {'Human test - uncheck this:'}
-            <input
-              type="checkbox"
-              name="human-test"
-              id="human-test"
-              checked={humanTest}
-              onChange={() => setHumanTest(!humanTest)}
-            />
-          </label>
-        </div>
+            <FlexWrapper>
+              <Toggle
+                id="human-test"
+                label="Human test - uncheck this"
+                checked={humanTest}
+                onChange={() => setHumanTest(!humanTest)}
+              />
+            </FlexWrapper>
 
-        <div className="button-row">
-          <Button
-            buttonType="submit"
-            Icon={IconSend}
-            disabled={humanTest || isSubmitting}
-          >
-            {'Send'}
-          </Button>
-          <Button
-            Icon={IconRestore}
-            onClick={resetForm}
-            variantsList={['secondary']}
-          >
-            {'Reset'}
-          </Button>
-        </div>
-      </form>
+            <FlexWrapper flexDirection="row" gap={18}>
+              <Button
+                buttonType="submit"
+                Icon={IconSend}
+                disabled={humanTest || isSubmitting}
+              >
+                {'Send'}
+              </Button>
+              <Button
+                Icon={IconRestore}
+                onClick={resetForm}
+                variantsList={['secondary']}
+              >
+                {'Reset'}
+              </Button>
+            </FlexWrapper>
+          </FlexWrapper>
+        </form>
+      </FlexWrapper>
     </Modal>
   );
 };

@@ -3,7 +3,7 @@
 */
 
 .panel-section {
-  --panel-border-color: hsl(
+  --panel--border-color: hsl(
     var(--base-blue-hue),
     var(--base-blue-saturation),
     calc(var(--base-blue-lightness) + 10%)
@@ -22,7 +22,7 @@
     }
 
     &::before {
-      border: 1px solid var(--panel-border-color);
+      border: 1px solid var(--panel--border-color);
       border-left-width: 0;
       border-right-width: 0;
       content: '';
@@ -30,6 +30,7 @@
       left: 0;
       position: absolute;
       top: -4px;
+      transition: var(--panel-wrapper--before--transition-duration) all ease;
       transform: scaleX(0);
       width: 100%;
       z-index: -1;
@@ -54,7 +55,7 @@
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) - 9%),
-        0.7
+        var(--panel--background-opacity)
       );
       box-sizing: border-box;
       color: var(--text-color);
@@ -67,6 +68,7 @@
       padding-left: 12px;
       padding-right: 12px;
       position: relative;
+      transition: var(--panel--transition-duration) all ease;
       width: 100%;
 
       .show-panel & {
@@ -78,6 +80,8 @@
       opacity: 0;
       padding-bottom: 12px;
       padding-top: 10px;
+      transition: var(--panel-body--transition-duration) all ease;
+      transition-delay: var(--panel-body--transition-delay);
       z-index: 2;
 
       .panel-body-content {
@@ -102,7 +106,7 @@
     position: relative;
 
     &::before {
-      border-top: 1px solid var(--panel-border-color);
+      border-top: 1px solid var(--panel--border-color);
       content: '';
       height: 0;
       left: 0;
@@ -115,8 +119,8 @@
     }
 
     &::after {
-      border-bottom: 1px solid var(--panel-border-color);
-      border-left: 1.8px solid var(--panel-border-color);
+      border-bottom: 1px solid var(--panel--border-color);
+      border-left: 1.8px solid var(--panel--border-color);
       border-radius: 0 0 0 8px;
       bottom: -4px;
       content: '';
@@ -148,7 +152,7 @@
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) - 5%),
-          0.7
+          var(--panel--background-opacity)
         );
         border-radius: 0 0 0 8px;
         content: '';
@@ -157,10 +161,7 @@
         right: -32px;
         top: 0;
         transform: skewX(45deg);
-        transition: var(
-            --panel-actions-wrapper--panel-actions--before-transition-duration
-          )
-          all ease;
+        transition: var(--panel-actions--before-transition-duration) all ease;
         width: calc(60% + 50px);
       }
     }
@@ -183,7 +184,7 @@
       var(--base-blue-hue),
       var(--base-blue-saturation),
       calc(var(--base-blue-lightness) - 10%),
-      0.9
+      var(--panel-menu--background-opacity)
     );
     box-sizing: border-box;
     filter: blur(2px);

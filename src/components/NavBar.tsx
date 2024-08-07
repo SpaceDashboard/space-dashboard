@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
-import {
-  useAppContext,
-  useSettingsContext,
-  useToast,
-  Variants,
-} from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
 import {
   IconHelpHexagon,
   IconSend,
   IconAdjustments,
 } from '@tabler/icons-react';
 
-const navBarCss = (reduceMotion: boolean, speedAdjustment: number) => css`
-  transition: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s height ease;
+const navBarCss = (
+  reduceMotion: boolean,
+  speedAdjustment: number,
+  reduceTransparency: boolean,
+) => css`
+  --navbar--background-opacity: ${reduceTransparency ? 1 : 0.8} !important;
+  --navbar--transition-duration: ${reduceMotion
+    ? 0
+    : 0.5 * speedAdjustment}s !important;
 
   .logo {
-    transition: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s opacity ease;
-    transition-delay: ${reduceMotion ? 0 : 0.5 * speedAdjustment}s;
+    --navbar--logo--transition-duration: ${reduceMotion
+      ? 0
+      : 0.3 * speedAdjustment}s !important;
+    --navbar--logo--transition-delay: ${reduceMotion
+      ? 0
+      : 0.5 * speedAdjustment}s !important;
   }
 
   .btn-wrapper {
@@ -74,9 +80,8 @@ export const NavBar: React.FC = () => {
     setIsUserSettingsOpen,
   } = useAppContext();
   const {
-    settings: { reduceMotion, animationSpeedAdjustment },
+    settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
   } = useSettingsContext();
-  const { showToast } = useToast();
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
 
@@ -99,7 +104,7 @@ export const NavBar: React.FC = () => {
   return (
     <nav
       className={cx(
-        navBarCss(reduceMotion, animationSpeedAdjustment),
+        navBarCss(reduceMotion, animationSpeedAdjustment, reduceTransparency),
         showNavBorders && 'show-nav-borders',
         showNav && 'show-nav',
       )}
@@ -130,12 +135,7 @@ export const NavBar: React.FC = () => {
             disabled={isContactFormOpen || isUserSettingsOpen}
             Icon={IconHelpHexagon}
             onClick={() => {
-              // setIsAboutOpen(!isAboutOpen);
-
-              const variants = ['confirmation', 'warning', 'error'];
-              const variant =
-                variants[Math.floor(Math.random() * variants.length)];
-              showToast('Test', { variant: variant as Variants });
+              setIsAboutOpen(!isAboutOpen);
             }}
             tooltipOffset={12}
             tooltipDelay={500}

@@ -3,7 +3,7 @@
 */
 
 .modal {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, var(--modal--background-opacity));
   bottom: 26px;
   box-sizing: border-box;
   color: #fff;

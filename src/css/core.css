@@ -38,6 +38,16 @@ p {
   max-width: 900px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
 a {
   color: #fff;
   margin-bottom: 8px;
@@ -132,10 +142,9 @@ a {
 }
 
 .content {
-  --column-gap: 30px;
   display: flex;
   flex-direction: row;
-  gap: var(--column-gap);
+  gap: var(--content--gap);
   max-width: 100%;
   position: relative;
   transition:
@@ -145,10 +154,9 @@ a {
   width: 100%;
 
   .content-column {
-    --column-width: 33.33%;
     display: flex;
     flex-direction: column;
-    width: var(--column-width);
+    width: var(--content-column--width);
   }
 }
 
@@ -164,15 +172,14 @@ iframe {
   overflow: hidden;
 }
 
+form {
+  max-width: 500px;
+  width: 100%;
+}
+
 label:has(input),
 input[type='checkbox'] {
   cursor: pointer;
-}
-
-.input-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .text-error {
@@ -184,20 +191,15 @@ input[type='text'],
 input[type='email'],
 input[type='number'],
 textarea {
-  --contact-form-input-bg-color: rgba(20, 20, 20, 0.75);
-  --contact-form-input-border-color: rgba(255, 255, 255, 0.15);
-  --contact-form-input-bottom-border-color: rgba(255, 255, 255, 0.8);
-  --contact-form-input-text-color: #fff;
-  background: var(--contact-form-input-bg-color);
-  border: 1px solid var(--contact-form-input-border-color);
-  border-bottom-color: var(--contact-form-input-bottom-border-color);
+  background: var(--input--bg-color);
+  border-bottom-color: var(--input--bottom-border-color);
+  border: 1px solid var(--input--border-color);
   box-sizing: border-box;
-  color: var(--contact-form-input-text-color);
-  font-size: 14px;
+  color: var(--input--text-color);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
   outline: 0;
   padding: 10px;
-  resize: none;
   width: 100%;
 }
 
@@ -205,8 +207,7 @@ input[type='text']:focus,
 input[type='email']:focus,
 input[type='number']:focus,
 textarea:focus {
-  --contact-form-input-bg-color: rgba(20, 20, 20, 0.8);
-  background: var(--contact-form-input-focus-bg-color) !important;
+  background: var(--input--focus-hover--bg-color) !important;
 }
 
 @media (hover: hover) {
@@ -214,34 +215,30 @@ textarea:focus {
   input[type='email']:hover,
   input[type='number']:hover,
   textarea:hover {
-    --contact-form-input-bg-color: rgba(20, 20, 20, 0.8);
-    background: var(--contact-form-input-hover-bg-color) !important;
+    background: var(--input--focus-hover--bg-color) !important;
   }
 }
 
-input[type='text'],
+/* TODO: ? */
+/* input[type='text'],
 input[type='email'],
 input[type='number'] {
   max-width: 350px;
-}
+} */
 
 input[type='checkbox'] {
   font-size: 16px;
 }
 
 textarea {
-  max-width: 600px;
+  min-height: 200px;
 }
 
 label {
   display: inline-block;
   font-size: 1.1rem;
-  margin: 0 0 5px;
+  margin: 0;
   width: fit-content;
-}
-
-label:first-child {
-  margin-top: 0;
 }
 
 label:has(input) {

@@ -15,7 +15,7 @@ export const TooltipWrapper = ({
   delay = 0,
   title = '',
   placement = 'top',
-  tooltipOffset = 0,
+  tooltipOffset = 8,
 }: React.PropsWithChildren<TooltipWrapperProps>) => {
   return (
     <>

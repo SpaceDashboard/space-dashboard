@@ -24,11 +24,11 @@ body {
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .content {
-    --column-gap: 30px;
+    --content--gap: 30px;
     flex-direction: column;
 
     .content-column {
-      --column-width: 100%;
+      --content-column--width: 100%;
       gap: 30px;
       flex-direction: row;
 
@@ -41,11 +41,11 @@ body {
 
 @media screen and (max-width: 900px) {
   .content {
-    --column-gap: 0px;
+    --content--gap: 0px;
     flex-direction: column;
 
     .content-column {
-      --column-width: 100%;
+      --content-column--width: 100%;
     }
   }
 }
@@ -111,6 +111,22 @@ body {
         }
       }
     }
+  }
+
+  .Toastify__toast-container {
+    left: 0;
+    margin: 0 0 0 1vw;
+    padding: 0;
+    width: 98vw;
+  }
+
+  .Toastify__toast {
+    margin-bottom: 8px;
+  }
+
+  .Toastify__toast-container--top-center {
+    top: 0;
+    transform: translateX(0);
   }
 }
 

@@ -6,7 +6,9 @@ interface Settings {
   columnTwoOrder: string[];
   columnThreeOrder: string[];
   reduceMotion: boolean;
+  reduceTransparency: boolean;
   reduceButtonAnimation: boolean;
+  enableButtonAnimationAlways: boolean;
   animationSpeedAdjustment: number;
   issLiveViewAutoPlay: boolean;
   issLiveViewMute: boolean;
@@ -25,7 +27,9 @@ const defaultSettings: Settings = {
   columnTwoOrder: ['IssTracker', 'SolarVisual'],
   columnThreeOrder: ['AuroraForecast', 'AuroraForecast'],
   reduceMotion: false,
+  reduceTransparency: false,
   reduceButtonAnimation: false,
+  enableButtonAnimationAlways: false,
   animationSpeedAdjustment: 1,
   issLiveViewAutoPlay: false,
   issLiveViewMute: true,

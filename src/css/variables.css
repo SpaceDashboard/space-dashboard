@@ -10,7 +10,10 @@
 }
 
 :root {
+  /* To help viewport size issues */
   --100-vh: calc(var(--vh, 1vh) * 100);
+
+  /* Colors */
   --base-blue-hue: var(--index-defined-base-blue-hue);
   --base-blue-saturation: var(--index-defined-base-blue-saturation);
   --base-blue-lightness: var(--index-defined-base-blue-lightness);
@@ -44,12 +47,64 @@
   /* Focus */
   --focus-visible-box-shadow: 0 0 0 1px hsla(207, 62%, 46%, 0.5);
 
-  /* Transition durations, most likely overridden in components */
+  /*
+    Button variables are solely defined in buttons.css
+  */
+
+  /* Toast colors */
+  --toast--confirmation--bg-color: #223a18;
+  --toast--confirmation--border-color: #628a51;
+  --toast--warning--bg-color: #7d6016;
+  --toast--warning--border-color: #e9ad0a;
+  --toast--error--bg-color: #511010;
+  --toast--error--border-color: #9d2020;
+  /* Default, overridden in useToast */
+  --toast--bg-color: var(--toast--confirmation--bg-color);
+  --toast--border-color: var(--toast--confirmation--border-color);
+
+  /* Structure */
+  --content--gap: 30px;
+  --content-column--width: 33.33%;
+
+  /* Inputs */
+  --input--bg-color: rgba(20, 20, 20, 0.75);
+  --input--focus-hover--bg-color: rgba(20, 20, 20, 0.8);
+  --input--border-color: rgba(255, 255, 255, 0.15);
+  --input--bottom-border-color: rgba(255, 255, 255, 0.8);
+  --input--text-color: #fff;
+
+  /* Toggle checkbox */
+  --toggle--size: 20px;
+  --toggle--gap: 3px;
+
+  /* Corners wrapper */
+  --corners-wrapper--distance: -6px;
+  --corners-wrapper--size: 12px;
+
+  /* Background opacities */
+  --navbar--background-opacity: 0.8;
+  --modal--background-opacity: 0.3;
+  --panel--background-opacity: 0.7;
+  --panel-menu--background-opacity: 0.9;
+
+  /* Transition durations and delays, most likely overridden in components */
+  --navbar--transition-duration: 0.5s;
+  --navbar--logo--transition-duration: 0.3s;
+  --navbar--logo--transition-delay: 0.5s;
+
   --content--transition-duration: 0.3s;
   --modal--transition-duration: 0.3s;
   --modal--close-btn--transition-duration: 0.08s;
+  --panel--transition-duration: 0.4s;
+
+  --panel-body--transition-duration: 0.4s;
+  --panel-body--transition-delay: 0.8s;
+
   --panel-menu--transition-duration: 0.15s;
+  --panel-wrapper--before--transition-duration: 0.4s;
   --panel-actions-wrapper--before--transition-duration: 0.4s;
   --panel-actions-wrapper--after--transition-duration: 0.4s;
-  --panel-actions-wrapper--panel-actions--before-transition-duration: 0.4s;
+  --panel-actions--before-transition-duration: 0.4s;
+  --toggle--transition-duration: 0.08s;
+  --toast--transition-duration: 0.2s;
 }

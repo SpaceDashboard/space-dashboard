@@ -9,11 +9,9 @@
     calc(var(--base-blue-lightness) + 1%)
   ) !important;
   border-radius: 0 !important;
+  line-height: 1.4;
   opacity: 1 !important;
+  max-width: 330px;
+  text-wrap: pretty;
   z-index: 1000;
-}
-
-.sd-tooltip-arrow {
-  /* Style? */
-  /* display: none; */
 }

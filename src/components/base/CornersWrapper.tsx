@@ -8,7 +8,7 @@ interface CornersWrapperProps {
 }
 
 const cornersWrapperCss = (size: number) => css`
-  --corner-size: ${size}px !important;
+  --corners-wrapper--size: ${size}px !important;
 `;
 
 const cornersContentCss = css`

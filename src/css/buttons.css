@@ -11,39 +11,46 @@
   Base button styles
 */
 .button {
-  --border-width: 1px;
-  --edge-size: 15px;
-  --background-color: var(--base-orange);
-  --border-color: hsl(
+  --button--edge-size: 15px;
+  --button--background-color: var(--base-orange);
+  --button--border-color: hsl(
     var(--base-orange-hue),
     var(--base-orange-saturation),
     calc(var(--base-orange-lightness) + 20%)
   );
-  --clip-path-value: polygon(
+  --button--clip-path: polygon(
     0 0,
-    calc(100% - var(--edge-size)) 0%,
-    100% var(--edge-size),
+    calc(100% - var(--button--edge-size)) 0%,
+    100% var(--button--edge-size),
     100% 100%,
-    calc(var(--edge-size) / 3) 100%,
-    0 calc(100% - var(--edge-size) / 3)
+    calc(var(--button--edge-size) / 3) 100%,
+    0 calc(100% - var(--button--edge-size) / 3)
   );
   align-items: end;
   background:
-    linear-gradient(to top right, transparent 50%, var(--border-color) 50%) top
-      right,
-    linear-gradient(to bottom left, transparent 80%, var(--border-color) 50%)
+    linear-gradient(
+        to top right,
+        transparent 50%,
+        var(--button--border-color) 50%
+      )
+      top right,
+    linear-gradient(
+        to bottom left,
+        transparent 80%,
+        var(--button--border-color) 50%
+      )
       bottom left,
     #fff;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  background-color: var(--background-color);
+  background-color: var(--button--background-color);
   background-origin: border-box;
   background-repeat: no-repeat;
   background-size: 16.5px 16.5px;
   border-radius: 3px 0;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--button--border-color);
   box-sizing: border-box;
-  clip-path: var(--clip-path-value);
+  clip-path: var(--button--clip-path);
   color: #fff;
   cursor: pointer;
   display: inline-grid;
@@ -96,12 +103,12 @@
   &:not(:disabled, [disabled]) {
     @media (hover: hover) {
       &:hover {
-        --background-color: hsl(
+        --button--background-color: hsl(
           var(--base-orange-hue),
           var(--base-orange-saturation),
           calc(var(--base-orange-lightness) + 10%)
         );
-        --border-color: hsl(
+        --button--border-color: hsl(
           var(--base-orange-hue),
           var(--base-orange-saturation),
           calc(var(--base-orange-lightness) + 35%)
@@ -112,12 +119,12 @@
     }
 
     &:focus-visible {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 10%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 35%)
@@ -127,12 +134,12 @@
     }
 
     &:active {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 7%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 22%)
@@ -140,24 +147,24 @@
     }
 
     &.active {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 20%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-orange-hue),
         var(--base-orange-saturation),
         calc(var(--base-orange-lightness) + 45%)
       );
 
       &:focus-visible {
-        --background-color: hsl(
+        --button--background-color: hsl(
           var(--base-orange-hue),
           var(--base-orange-saturation),
           calc(var(--base-orange-lightness) + 24%)
         );
-        --border-color: hsl(
+        --button--border-color: hsl(
           var(--base-orange-hue),
           var(--base-orange-saturation),
           calc(var(--base-orange-lightness) + 48%)
@@ -176,12 +183,12 @@
     Secondary button styles
   */
   &.secondary {
-    --background-color: hsl(
+    --button--background-color: hsl(
       var(--base-blue-hue),
       var(--base-blue-saturation),
       calc(var(--base-blue-lightness) + 10%)
     );
-    --border-color: hsl(
+    --button--border-color: hsl(
       var(--base-blue-hue),
       var(--base-blue-saturation),
       calc(var(--base-blue-lightness) + 40%)
@@ -191,12 +198,12 @@
   &:not(:disabled, [disabled]) {
     @media (hover: hover) {
       &.secondary:hover {
-        --background-color: hsl(
+        --button--background-color: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 20%)
         );
-        --border-color: hsl(
+        --button--border-color: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 65%)
@@ -206,12 +213,12 @@
     }
 
     &.secondary:focus-visible {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 20%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 65%)
@@ -220,12 +227,12 @@
     }
 
     &.secondary:active {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 15%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 50%)
@@ -233,24 +240,24 @@
     }
 
     &.secondary.active {
-      --background-color: hsl(
+      --button--background-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 25%)
       );
-      --border-color: hsl(
+      --button--border-color: hsl(
         var(--base-blue-hue),
         var(--base-blue-saturation),
         calc(var(--base-blue-lightness) + 75%)
       );
 
       &:focus-visible {
-        --background-color: hsl(
+        --button--background-color: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 30%)
         );
-        --border-color: hsl(
+        --button--border-color: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 70%)
@@ -263,7 +270,7 @@
     Small button styles
   */
   &.small {
-    --edge-size: 10px;
+    --button--edge-size: 10px;
     align-items: end;
     background-size: 11.5px 11.5px;
     min-height: 32px;
@@ -274,27 +281,31 @@
     Flat bottom button styles
   */
   &.flat-bottom {
-    --clip-path-value: polygon(
+    --button--clip-path: polygon(
       0 0,
-      calc(100% - var(--edge-size)) 0%,
-      100% var(--edge-size),
+      calc(100% - var(--button--edge-size)) 0%,
+      100% var(--button--edge-size),
       100% 100%,
       0 100%
     );
     background:
-      linear-gradient(to top right, transparent 50%, var(--border-color) 50%)
+      linear-gradient(
+          to top right,
+          transparent 50%,
+          var(--button--border-color) 50%
+        )
         top right,
       #fff;
-    background-color: var(--background-color);
+    background-color: var(--button--background-color);
     background-repeat: no-repeat;
     background-size: 14.5px 14.5px;
     border-radius: 3px 0 0 0;
 
     &.small {
-      --clip-path-value: polygon(
+      --button--clip-path: polygon(
         0 0,
-        calc(100% - var(--edge-size)) 0%,
-        100% var(--edge-size),
+        calc(100% - var(--button--edge-size)) 0%,
+        100% var(--button--edge-size),
         100% 100%,
         0 100%
       );
@@ -340,10 +351,4 @@
     min-width: auto;
     width: 50px;
   }
-}
-
-.button-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
 }

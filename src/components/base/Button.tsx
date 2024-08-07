@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { css, cx } from '@emotion/css';
 import { TooltipWrapper, TooltipPlacement } from './Tooltip';
 import { useSettingsContext } from 'src/hooks';
@@ -47,7 +47,7 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
   disabled,
 }) => {
   const {
-    settings: { reduceButtonAnimation },
+    settings: { reduceButtonAnimation, enableButtonAnimationAlways },
   } = useSettingsContext();
   const speeds = [...new Array(isLargeButton ? 5 : 3)].map(
     () => Math.random() * 1 + 1.25,
@@ -55,6 +55,28 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
   const delays = [...new Array(isLargeButton ? 5 : 3)].map(
     () => Math.random() * 1.25,
   );
+
+  const disableAnimation = useMemo(() => {
+    /**
+     * If `reduceButtonAnimation` is true or button is disabled, disable animation.
+     * `reduceButtonAnimation` will override `enableButtonAnimationAlways`.
+     */
+    if (reduceButtonAnimation || disabled) {
+      return true;
+    }
+
+    // On non-hovered state check `enableButtonAnimationAlways`
+    if (!isHovered) {
+      if (enableButtonAnimationAlways) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    // If button is hovered, enable animation
+    return false;
+  }, [reduceButtonAnimation, enableButtonAnimationAlways, disabled, isHovered]);
 
   return (
     <>
@@ -71,7 +93,7 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
               className={cx(
                 'pulses',
                 css`
-                  ${(reduceButtonAnimation || disabled || !isHovered) &&
+                  ${disableAnimation &&
                   `
                     animation: none !important;
                     opacity: 0.6;

@@ -8,11 +8,18 @@ interface ModalProps {
   setIsOpen?: (isOpen: boolean) => void;
 }
 
-const modalCss = (reduceMotion: boolean, speedAdjustment: number) => css`
-  --modal--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
+const modalCss = (
+  reduceMotion: boolean,
+  speedAdjustment: number,
+  reduceTransparency: boolean,
+) => css`
+  --modal--background-opacity: ${reduceTransparency ? 1 : 0.3} !important;
+  --modal--transition-duration: ${reduceMotion
+    ? 0
+    : 0.3 * speedAdjustment}s !important;
   --modal--close-btn--transition-duration: ${reduceMotion
     ? 0
-    : 0.08 * speedAdjustment}s;
+    : 0.08 * speedAdjustment}s !important;
 `;
 
 const modalInnerCss = css`
@@ -31,7 +38,7 @@ export const Modal = ({
   setIsOpen,
 }: React.PropsWithChildren<ModalProps>) => {
   const {
-    settings: { animationSpeedAdjustment, reduceMotion },
+    settings: { animationSpeedAdjustment, reduceMotion, reduceTransparency },
   } = useSettingsContext();
   const [isContentVisible, setIsContentVisible] = useState<boolean>(true);
 
@@ -65,7 +72,7 @@ export const Modal = ({
     <div
       className={cx(
         'modal',
-        modalCss(reduceMotion, animationSpeedAdjustment),
+        modalCss(reduceMotion, animationSpeedAdjustment, reduceTransparency),
         { open: isOpen },
         css`
           visibility: ${isContentVisible ? 'visible' : 'hidden'};

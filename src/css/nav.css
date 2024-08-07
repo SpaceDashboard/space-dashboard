@@ -9,7 +9,7 @@ nav {
     var(--base-blue-hue),
     var(--base-blue-saturation),
     calc(var(--base-blue-lightness) - 6%),
-    0.8
+    var(--navbar--background-opacity)
   );
   box-sizing: border-box;
   container-type: size;
@@ -17,6 +17,7 @@ nav {
   margin-left: 25px;
   padding: 0;
   transform: scaleX(0);
+  transition: var(--navbar--transition-duration) all ease;
   width: 85px;
   z-index: 1;
 
@@ -69,6 +70,8 @@ nav {
     font: 10px sans-serif;
     height: 50px;
     opacity: 0;
+    transition: var(--navbar--logo--transition-duration) all ease;
+    transition-delay: var(--navbar--logo--transition-delay);
     width: 50px;
 
     .show-nav & {

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { css, cx } from '@emotion/css';
+import { useSettingsContext } from 'src/hooks';
 
 type JustifyContent =
   | 'flex-start'
@@ -13,28 +14,36 @@ type JustifyContent =
   | 'inherit';
 
 const toggleSwitchCss = (
+  reduceMotion: boolean,
   width: number | string,
   justifyContent?: string,
 ) => css`
   justify-content: ${justifyContent};
   width: ${typeof width === 'number' ? `${width}px` : width};
+
+  --toggle--transition-duration: ${reduceMotion ? 0 : 0.08}s !important;
 `;
 
 export const Toggle: React.FC<{
   checked?: boolean;
   id?: string;
+  isDisabled?: boolean;
   justifyContent?: JustifyContent;
-  label?: string;
+  label?: string | React.ReactNode;
   onChange?: (checked: boolean) => void;
   width?: number | string;
 }> = ({
   checked,
   id,
+  isDisabled,
   justifyContent = 'space-between',
   label,
   onChange,
   width = 'fit-content',
 }) => {
+  const {
+    settings: { reduceMotion },
+  } = useSettingsContext();
   const toggleId = useMemo(() => id ?? crypto.randomUUID(), [id]);
   const isChecked = useMemo(() => {
     if (checked === undefined) {
@@ -51,19 +60,22 @@ export const Toggle: React.FC<{
   return (
     <label
       htmlFor={toggleId}
-      className={cx('toggle-switch', toggleSwitchCss(width, justifyContent))}
+      className={cx(
+        'toggle-switch',
+        toggleSwitchCss(reduceMotion, width, justifyContent),
+      )}
     >
-      <span>{label}</span>
+      <span className="toggle-label">{label}</span>
       <span>
         <input
           type="checkbox"
           id={toggleId}
+          disabled={isDisabled}
           checked={localIsChecked}
           onChange={() => {
             setLocalIsChecked((prev) => !prev);
             onChange?.(!localIsChecked);
           }}
-          aria-labelledby={`toggle-label-${toggleId}`}
         />
         <span aria-hidden="true" className="switch">
           <div className="checked-unchecked-wrapper">

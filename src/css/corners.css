@@ -4,8 +4,6 @@
 
 .corners-wrapper {
   position: relative;
-  --corner-distance: -6px;
-  --corner-size: 12px;
 
   .corner-top-left,
   .corner-top-right,
@@ -18,37 +16,37 @@
         calc(var(--base-blue-lightness) + 20%)
       );
     box-sizing: border-box;
-    height: var(--corner-size);
+    height: var(--corners-wrapper--size);
     position: absolute;
-    width: var(--corner-size);
+    width: var(--corners-wrapper--size);
     z-index: 1;
   }
 
   .corner-top-left {
     border-right-width: 0;
     border-bottom-width: 0;
-    left: var(--corner-distance);
-    top: var(--corner-distance);
+    left: var(--corners-wrapper--distance);
+    top: var(--corners-wrapper--distance);
   }
 
   .corner-top-right {
     border-left-width: 0;
     border-bottom-width: 0;
-    right: var(--corner-distance);
-    top: var(--corner-distance);
+    right: var(--corners-wrapper--distance);
+    top: var(--corners-wrapper--distance);
   }
 
   .corner-bottom-left {
     border-right-width: 0;
     border-top-width: 0;
-    bottom: var(--corner-distance);
-    left: var(--corner-distance);
+    bottom: var(--corners-wrapper--distance);
+    left: var(--corners-wrapper--distance);
   }
 
   .corner-bottom-right {
     border-left-width: 0;
     border-top-width: 0;
-    bottom: var(--corner-distance);
-    right: var(--corner-distance);
+    bottom: var(--corners-wrapper--distance);
+    right: var(--corners-wrapper--distance);
   }
 }
