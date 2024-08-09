@@ -1,12 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/css';
 import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
 import { useAppContext, useToast } from 'src/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { IconSend, IconRestore } from '@tabler/icons-react';
+import {
+  IconSend,
+  IconRestore,
+  IconRotateClockwise,
+} from '@tabler/icons-react';
+import emailjs from '@emailjs/browser';
+
+const loadingButtonCss = css`
+  .button-content-wrapper > svg {
+    animation: spin 1.5s linear infinite;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 interface FormFields {
-  name: string;
-  email: string;
+  from_name: string;
+  from_email: string;
   message: string;
 }
 
@@ -21,70 +41,47 @@ export const ContactForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormFields>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [humanTest, setHumanTest] = useState<boolean>(true);
+  const [isHuman, setIsHuman] = useState<boolean>(true);
+  const [submitError, setSubmitError] = useState<string>('');
 
   const resetForm = () => {
+    setSubmitError('');
     clearErrors();
     reset();
-    setHumanTest(true);
+    setIsHuman(true);
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    setIsSubmitting(true);
 
-    try {
-      const response = await fetch('https://api.spacedashboard.com/contact.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    const emailParams = {
+      from_name: data.from_name,
+      from_email: data.from_email,
+      message: data.message,
+    };
+
+    emailjs
+      .send('service_ucx3odo', 'template_j221uon', emailParams, {
+        publicKey: 'i8Bd38uDCw48_wzQ-',
+      })
+      .then(
+        () => {
+          resetForm();
+          showToast('Message sent successfully!', { variant: 'confirmation' });
+          setIsContactFormOpen && setIsContactFormOpen(false);
         },
-        body: JSON.stringify(data),
-        mode: 'cors',
+        (err) => {
+          showToast('Failed to send the message.', {
+            variant: 'error',
+          });
+          setSubmitError(err.text);
+          console.error('Error:', err);
+        },
+      )
+      .finally(() => {
+        setIsSubmitting(false);
       });
-  
-      if (response.ok) {
-        resetForm();
-        showToast('Message sent successfully!', { variant: 'confirmation' });
-        setIsContactFormOpen && setIsContactFormOpen(false);
-      } else {
-        showToast('An unexpected error occurred.', { variant: 'error' });
-      }
-    } catch (error) {
-      showToast('Failed to send the message. Please try again later.', {
-        variant: 'error',
-      });
-      console.error('Error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
   };
-
-  // const onSubmit: SubmitHandler<FormFields> = async (data) => {
-  //   setIsSubmitting(true);
-
-  //   try {
-  //     const response = await fetch('https://formspree.io/f/xkgwonpj', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (response.ok) {
-  //       resetForm();
-  //       showToast('Message sent successfully!', { variant: 'confirmation' });
-  //       setIsContactFormOpen && setIsContactFormOpen(false);
-  //     } else {
-  //       showToast('An unexpected error occurred.', { variant: 'error' });
-  //     }
-  //   } catch (error) {
-  //     showToast('Failed to send the message. Please try again later.', {
-  //       variant: 'error',
-  //     });
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
 
   useEffect(() => {
     if (!isContactFormOpen) {
@@ -96,41 +93,51 @@ export const ContactForm: React.FC = () => {
     <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
       <FlexWrapper gap={20}>
         <h2>{"What's on your mind?"}</h2>
+        {submitError && (
+          <p className="text-error">
+            {'Error submitting the form.'}
+            <br />
+            {'You can also email me directly at:'}{' '}
+            <a href="mailto:caleb@spacedashboard.com">
+              caleb@spacedashboard.com
+            </a>
+          </p>
+        )}
         <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
           <FlexWrapper gap={24}>
             <FlexWrapper>
-              <label htmlFor="name">{'Name'}</label>
+              <label htmlFor="from_name">{'Name'}</label>
               <input
                 type="text"
                 autoComplete="off"
                 data-1p-ignore
-                {...register('name', { required: true })}
+                {...register('from_name', { required: true })}
               />
-              {errors.name && (
+              {errors.from_name && (
                 <p className="text-error">
-                  {errors.name.message === ''
+                  {errors.from_name.message === ''
                     ? 'Name is required'
-                    : errors.name.message}
+                    : errors.from_name.message}
                 </p>
               )}
             </FlexWrapper>
 
             <FlexWrapper>
-              <label htmlFor="email">{'Email'}</label>
+              <label htmlFor="from_email">{'Email'}</label>
               <input
                 type="email"
                 autoComplete="off"
                 data-1p-ignore
-                {...register('email', {
+                {...register('from_email', {
                   required: true,
                   pattern: /^\S+@\S+$/i,
                 })}
               />
-              {errors.email && (
+              {errors.from_email && (
                 <p className="text-error">
-                  {errors.email.message === ''
+                  {errors.from_email.message === ''
                     ? 'Email is required and must be valid'
-                    : errors.email.message}
+                    : errors.from_email.message}
                 </p>
               )}
             </FlexWrapper>
@@ -155,16 +162,17 @@ export const ContactForm: React.FC = () => {
               <Toggle
                 id="human-test"
                 label="Human test - uncheck this"
-                checked={humanTest}
-                onChange={() => setHumanTest(!humanTest)}
+                checked={isHuman}
+                onChange={() => setIsHuman(!isHuman)}
               />
             </FlexWrapper>
 
             <FlexWrapper flexDirection="row" gap={18}>
               <Button
                 buttonType="submit"
-                Icon={IconSend}
-                disabled={humanTest || isSubmitting}
+                Icon={isSubmitting ? IconRotateClockwise : IconSend}
+                disabled={isHuman || isSubmitting}
+                className={isSubmitting ? loadingButtonCss : ''}
               >
                 {'Send'}
               </Button>

@@ -17,6 +17,7 @@ export type Variant = 'flat-bottom' | 'secondary' | 'small' | 'nav' | 'active';
 
 export interface ButtonProps {
   children?: React.ReactNode;
+  className?: string;
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
@@ -113,6 +114,7 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
 
 export const Button = ({
   children,
+  className,
   ariaLabel,
   buttonType = 'button',
   disabled = false,
@@ -142,7 +144,7 @@ export const Button = ({
     >
       <button
         aria-label={ariaLabel}
-        className={`button ${variantClasses}`}
+        className={cx('button', variantClasses, className)}
         disabled={disabled}
         onClick={onClick}
         type={buttonType}

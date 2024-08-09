@@ -45,7 +45,7 @@ export const Toggle: React.FC<{
     settings: { reduceMotion },
   } = useSettingsContext();
   const toggleId = useMemo(() => {
-    const randomId = Math.random().toString(36).substring(2, 8)
+    const randomId = Math.random().toString(36).substring(2, 8);
     return id ?? randomId;
   }, [id]);
   const isChecked = useMemo(() => {

@@ -33,6 +33,7 @@ p:focus {
 p {
   font-size: 1.2rem;
   font-weight: 300;
+  letter-spacing: 0.25px;
   line-height: 1.4;
   margin: 0 0 14px;
   max-width: 900px;
