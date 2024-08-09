@@ -1,26 +1,6 @@
 /*
-  Core styles for Space Dashboard
+  Responsive styles for Space Dashboard
 */
-
-:focus-visible {
-  box-shadow: var(--focus-visible-box-shadow);
-  outline: none;
-}
-
-html {
-  font-size: 16px;
-}
-
-body {
-  accent-color: hsl(
-    var(--base-blue-hue),
-    var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) + 20%)
-  );
-  font-family: var(--font);
-  overscroll-behavior: none;
-  padding: 0;
-}
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .content {

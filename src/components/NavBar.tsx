@@ -85,6 +85,12 @@ export const NavBar: React.FC = () => {
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
 
+  const closeAllModals = () => {
+    setIsAboutOpen(false);
+    setIsContactFormOpen(false);
+    setIsUserSettingsOpen(false);
+  };
+
   useEffect(() => {
     const timer = setTimeout(
       () => {
@@ -132,9 +138,9 @@ export const NavBar: React.FC = () => {
           )}
         >
           <Button
-            disabled={isContactFormOpen || isUserSettingsOpen}
             Icon={IconHelpHexagon}
             onClick={() => {
+              closeAllModals();
               setIsAboutOpen(!isAboutOpen);
             }}
             tooltipOffset={12}
@@ -148,9 +154,11 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
-            disabled={isAboutOpen || isUserSettingsOpen}
             Icon={IconSend}
-            onClick={() => setIsContactFormOpen(!isContactFormOpen)}
+            onClick={() => {
+              closeAllModals();
+              setIsContactFormOpen(!isContactFormOpen);
+            }}
             tooltipOffset={12}
             tooltipDelay={500}
             tooltipPlacement="right"
@@ -162,9 +170,11 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
-            disabled={isAboutOpen || isContactFormOpen}
             Icon={IconAdjustments}
-            onClick={() => setIsUserSettingsOpen(!isUserSettingsOpen)}
+            onClick={() => {
+              closeAllModals();
+              setIsUserSettingsOpen(!isUserSettingsOpen);
+            }}
             tooltipOffset={12}
             tooltipDelay={500}
             tooltipPlacement="right"
