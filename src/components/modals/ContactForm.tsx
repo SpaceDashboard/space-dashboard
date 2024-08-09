@@ -30,17 +30,17 @@ export const ContactForm: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://formspree.io/f/xkgwonpj', {
+      const response = await fetch('https://api.spacedashboard.com/contact.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+        mode: 'cors',
       });
-
+  
       if (response.ok) {
         resetForm();
         showToast('Message sent successfully!', { variant: 'confirmation' });
@@ -52,10 +52,39 @@ export const ContactForm: React.FC = () => {
       showToast('Failed to send the message. Please try again later.', {
         variant: 'error',
       });
+      console.error('Error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // const onSubmit: SubmitHandler<FormFields> = async (data) => {
+  //   setIsSubmitting(true);
+
+  //   try {
+  //     const response = await fetch('https://formspree.io/f/xkgwonpj', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (response.ok) {
+  //       resetForm();
+  //       showToast('Message sent successfully!', { variant: 'confirmation' });
+  //       setIsContactFormOpen && setIsContactFormOpen(false);
+  //     } else {
+  //       showToast('An unexpected error occurred.', { variant: 'error' });
+  //     }
+  //   } catch (error) {
+  //     showToast('Failed to send the message. Please try again later.', {
+  //       variant: 'error',
+  //     });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (!isContactFormOpen) {

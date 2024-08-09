@@ -61,7 +61,7 @@ export const UserSettings: React.FC = () => {
             label={
               <>
                 {'Reduce transparency'}
-                <TooltipWrapper title="Reduces transparency of background colors and elements">
+                <TooltipWrapper title="Reduces transparency of background colors and elements" delay={300}>
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
               </>
@@ -78,7 +78,7 @@ export const UserSettings: React.FC = () => {
             label={
               <>
                 {'Reduce motion'}
-                <TooltipWrapper title="Reduces panel, modal, and toggle animations (anything that animates smoothly)">
+                <TooltipWrapper title="Reduces panel, modal, and toggle animations (anything that animates smoothly)" delay={300}>
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
               </>
@@ -93,7 +93,7 @@ export const UserSettings: React.FC = () => {
             label={
               <>
                 {'Reduce button animation'}
-                <TooltipWrapper title="Reduces the corner animations on buttons when hovered">
+                <TooltipWrapper title="Reduces the corner animations on buttons when hovered" delay={300}>
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
               </>
@@ -110,7 +110,7 @@ export const UserSettings: React.FC = () => {
             label={
               <>
                 {'Always render button animations'}
-                <TooltipWrapper title="Always animates the corner animations on buttons, except when disabled">
+                <TooltipWrapper title="Always animates the corner animations on buttons, except when disabled" delay={300}>
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
               </>
