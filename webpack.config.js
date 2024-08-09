@@ -102,7 +102,6 @@ module.exports = {
                     { source: './dev/error.html', destination: './build/' },
                     { source: './dev/api', destination: './build/api' },
                     { source: './dev/img', destination: './build/img' },
-                    { source: './dev/contact', destination: './build/contact' },
                     { source: './node_modules/font-awesome/fonts/*', destination: './build/css/fonts/' },
                     { source: './dev/fonts', destination: './build/fonts' },
                     { source: './dev/other', destination: './build/other' },
