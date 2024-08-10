@@ -13,6 +13,7 @@
     "type-check": "tsc --noEmit",
     "format:check": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
+    "bundle-visualizer": "npx vite-bundle-visualizer -c vite.config.ts",
     "prepare": "husky",
     "checks-before-push": "yarn lint && yarn format:check && yarn type-check"
   },
@@ -45,7 +46,8 @@
     "prettier": "3.3.3",
     "process": "^0.11.10",
     "typescript": "^5.5.3",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "vite-bundle-visualizer": "^1.2.1"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

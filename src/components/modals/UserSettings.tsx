@@ -8,7 +8,6 @@ import {
 } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
-import { useForm } from 'react-hook-form';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
 
 export const UserSettings: React.FC = () => {
@@ -25,22 +24,6 @@ export const UserSettings: React.FC = () => {
     },
     updateSettings,
   } = useSettingsContext();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    clearErrors,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
-  const resetForm = () => {
-    clearErrors();
-    reset();
-  };
 
   const handleColumnChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
