@@ -17,7 +17,7 @@ const modalCss = (
   --modal--transition-duration: ${reduceMotion
     ? 0
     : 0.3 * speedAdjustment}s !important;
-  --modal--close-btn--transition-duration: ${reduceMotion
+  --modal--close-button--transition-duration: ${reduceMotion
     ? 0
     : 0.08 * speedAdjustment}s !important;
 `;
@@ -26,7 +26,7 @@ const modalInnerCss = css`
   bottom: 20px;
   height: auto;
   left: 0;
-  padding: 0 40px;
+  padding: 0 70px 0 40px;
   position: absolute;
   right: 0;
   top: 20px;

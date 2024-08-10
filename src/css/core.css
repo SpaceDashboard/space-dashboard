@@ -9,6 +9,7 @@
 
 html {
   font-size: 16px;
+  overscroll-behavior: none;
 }
 
 body {
@@ -175,6 +176,7 @@ iframe {
 
 form {
   max-width: 500px;
+  padding-right: 30px;
   width: 100%;
 }
 

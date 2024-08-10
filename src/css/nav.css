@@ -70,7 +70,7 @@ nav {
     font: 10px sans-serif;
     height: 50px;
     opacity: 0;
-    transition: var(--navbar--logo--transition-duration) all ease;
+    transition: var(--navbar--logo--transition-duration) opacity ease;
     transition-delay: var(--navbar--logo--transition-delay);
     width: 50px;
 

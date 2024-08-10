@@ -7,6 +7,7 @@
   bottom: 26px;
   box-sizing: border-box;
   color: #fff;
+  container-type: size;
   display: flex;
   flex-direction: column;
   left: 145px;
@@ -46,13 +47,13 @@
     border: none;
     cursor: pointer;
     display: flex;
-    height: 35px;
+    height: var(--modal--close-button--size);
     justify-content: center;
     outline: none;
     position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 35px;
+    right: var(--modal--close-button--distance);
+    top: var(--modal--close-button--distance);
+    width: var(--modal--close-button--size);
     z-index: 1;
 
     @media (hover: hover) {
@@ -70,7 +71,7 @@
       border-radius: 1px;
       box-shadow: 0 0 0 1px #fff;
       height: 100%;
-      transition: var(--modal--close-btn--transition-duration) all ease;
+      transition: var(--modal--close-button--transition-duration) all ease;
       width: 1px;
 
       &:first-child {

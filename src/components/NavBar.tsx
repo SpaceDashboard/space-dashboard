@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
 import { useAppContext, useSettingsContext } from 'src/hooks';
@@ -91,6 +91,21 @@ export const NavBar: React.FC = () => {
     setIsUserSettingsOpen(false);
   };
 
+  // get current viewport width
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const tooltipPlacement = useMemo(() => {
+    if (viewportWidth < 540) {
+      return 'top';
+    }
+    return 'right';
+  }, [viewportWidth]);
+
   useEffect(() => {
     const timer = setTimeout(
       () => {
@@ -118,9 +133,10 @@ export const NavBar: React.FC = () => {
       <div className="nav-inner">
         <span className="logo">
           <TooltipWrapper
-            placement="right"
+            placement={tooltipPlacement}
             title="Space Dashboard"
             tooltipOffset={12}
+            hideOnTouchDevice={true}
           >
             <img
               src="/img/space-dashboard.svg"
@@ -145,7 +161,7 @@ export const NavBar: React.FC = () => {
             }}
             tooltipOffset={12}
             tooltipDelay={500}
-            tooltipPlacement="right"
+            tooltipPlacement={tooltipPlacement}
             tooltipTitle="About"
             variantsList={[
               'secondary',
@@ -161,7 +177,7 @@ export const NavBar: React.FC = () => {
             }}
             tooltipOffset={12}
             tooltipDelay={500}
-            tooltipPlacement="right"
+            tooltipPlacement={tooltipPlacement}
             tooltipTitle="Contact me"
             variantsList={[
               'secondary',
@@ -177,7 +193,7 @@ export const NavBar: React.FC = () => {
             }}
             tooltipOffset={12}
             tooltipDelay={500}
-            tooltipPlacement="right"
+            tooltipPlacement={tooltipPlacement}
             tooltipTitle="Settings"
             variantsList={[
               'secondary',

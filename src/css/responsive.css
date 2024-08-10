@@ -2,6 +2,10 @@
   Responsive styles for Space Dashboard
 */
 
+/* --------------------- */
+/* Media queries, screen */
+/* --------------------- */
+
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .content {
     --content--gap: 30px;
@@ -77,6 +81,8 @@
 
 @media screen and (max-width: 420px) {
   .panel-section {
+    padding-bottom: 20px;
+
     .panel-actions-wrapper {
       &::before {
         width: calc(20% - 46px);
@@ -110,6 +116,10 @@
   }
 }
 
+/* ----------------- */
+/* Container queries */
+/* ----------------- */
+
 nav {
   @container (min-height: 201px) and (max-height: 300px) {
     button.nav {
@@ -119,11 +129,30 @@ nav {
   }
   @container (max-height: 250px) {
     button.nav {
-      --edge-size: 10px;
+      --button--edge-size: 10px !important;
       background-size: 11.5px 11.5px !important;
       height: 32px !important;
       min-height: 32px !important;
       padding: 0 8px 3px 18px;
+    }
+  }
+}
+
+.modal {
+  @container (max-height: 400px) {
+    .close-modal {
+      --modal--close-button--distance: 10px;
+    }
+  }
+  @container (min-width: 401px) and (max-width: 600px) {
+    .close-modal {
+      --modal--close-button--distance: 10px;
+    }
+  }
+  @container (max-width: 400px) {
+    .close-modal {
+      --modal--close-button--distance: 5px;
+      --modal--close-button--size: 20px;
     }
   }
 }

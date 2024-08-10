@@ -28,6 +28,7 @@ export interface ButtonProps {
   isPanelAction?: boolean;
   onClick?: (p: any) => void;
   tooltipDelay?: number;
+  tooltipHideOnTouchDevice?: boolean;
   tooltipOffset?: number;
   tooltipPlacement?: TooltipPlacement;
   tooltipTitle?: string;
@@ -124,6 +125,7 @@ export const Button = ({
   isPanelAction = false,
   onClick = () => {},
   tooltipDelay = 0,
+  tooltipHideOnTouchDevice = true,
   tooltipOffset = 0,
   tooltipPlacement = 'top',
   tooltipTitle,
@@ -138,6 +140,7 @@ export const Button = ({
   return (
     <TooltipWrapper
       delay={isPanelAction ? 500 : tooltipDelay}
+      hideOnTouchDevice={tooltipHideOnTouchDevice}
       tooltipOffset={isPanelAction ? 16 : tooltipOffset}
       placement={isPanelAction ? 'bottom' : tooltipPlacement}
       title={tooltipTitle}

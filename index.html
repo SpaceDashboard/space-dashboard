@@ -73,13 +73,14 @@
     }
   </style>
   <script>
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    window.addEventListener('resize', () => {
-      let vh = window.innerHeight * 0.01;
+    // To help viewport size issues, see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
+    };
+
+    setVh();
+    window.addEventListener('resize', setVh);
   </script>
 </head>
 
