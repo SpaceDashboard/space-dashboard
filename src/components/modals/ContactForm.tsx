@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/css';
+import { usePostHog } from 'posthog-js/react'
 import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
 import { useAppContext, useToast } from 'src/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -33,6 +34,7 @@ interface FormFields {
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
   const { showToast } = useToast();
+  const posthog = usePostHog()
   const {
     register,
     handleSubmit,
@@ -66,6 +68,14 @@ export const ContactForm: React.FC = () => {
       })
       .then(
         () => {
+          try {
+            posthog?.identify(emailParams.from_email, {
+              email: emailParams.from_email,
+              name: emailParams.from_name
+            })
+          } catch (error) {
+            console.error(error);
+          }
           resetForm();
           showToast('Message sent successfully!', { variant: 'confirmation' });
           setIsContactFormOpen && setIsContactFormOpen(false);
