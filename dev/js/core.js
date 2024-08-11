@@ -534,6 +534,9 @@ $(function() {
 
     $('#submit-contact-form').on('click', function(){
         $('#contact-form .text-error').text("").hide();
+        const formDataArray = $('#contact-form').serialize();
+        const userName = formDataArray.find(obj => obj.name === 'name').value || new Date().toISOString();
+        const userEmail = formDataArray.find(obj => obj.name === 'email').value || "";
 
         $.ajax({
             type: 'POST',
@@ -545,6 +548,14 @@ $(function() {
                 } else if (xhr === "success" && data === "Email is required") {
                     $('#contact-form .text-error').text("Sorry, an email is required.").show();
                 } else if (xhr === "success" && data === "") {
+                    try {
+                        posthog.identify(userEmail !== "" ? userEmail : userName, {
+                            name: userName,
+                            email: userEmail
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
                     Swal.fire({
                         title: "Sent!",
                         text: "Thanks for writing!",
