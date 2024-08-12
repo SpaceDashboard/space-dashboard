@@ -90,6 +90,18 @@ a {
   animation: 0.5s ease forwards opacityIn;
   opacity: 0;
 
+  /* 
+  <<<<< Very close to being able to use only this: https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style >>>>>
+  opacity: 1;
+  transition: 1s opacity ease;
+
+  @starting-style {
+    .bg-container {
+      opacity: 0;
+    }
+  }
+  */
+
   &::before {
     background-attachment: fixed;
     background-repeat: no-repeat;

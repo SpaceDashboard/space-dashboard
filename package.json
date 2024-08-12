@@ -18,7 +18,6 @@
     "checks-before-push": "yarn lint && yarn format:check && yarn type-check"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@emotion/css": "^11.11.2",
     "@tabler/icons-react": "^3.11.0",
     "posthog-js": "^1.155.0",

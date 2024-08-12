@@ -9,7 +9,6 @@ import {
   IconRestore,
   IconRotateClockwise,
 } from '@tabler/icons-react';
-import emailjs from '@emailjs/browser';
 
 const loadingButtonCss = css`
   .button-content-wrapper > svg {
@@ -26,8 +25,8 @@ const loadingButtonCss = css`
 `;
 
 interface FormFields {
-  from_name: string;
-  from_email: string;
+  name: string;
+  email: string;
   message: string;
 }
 
@@ -56,41 +55,39 @@ export const ContactForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setIsSubmitting(true);
 
-    const emailParams = {
-      from_name: data.from_name,
-      from_email: data.from_email,
-      message: data.message,
-    };
-
-    emailjs
-      .send('service_ucx3odo', 'template_j221uon', emailParams, {
-        publicKey: 'i8Bd38uDCw48_wzQ-',
-      })
-      .then(
-        () => {
-          try {
-            posthog?.identify(emailParams.from_email, {
-              email: emailParams.from_email,
-              name: emailParams.from_name
-            })
-          } catch (error) {
-            console.error(error);
-          }
-          resetForm();
-          showToast('Message sent successfully!', { variant: 'confirmation' });
-          setIsContactFormOpen && setIsContactFormOpen(false);
+    try {
+      const response = await fetch('https://api.spacedashboard.com/contact/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        (err) => {
-          showToast('Failed to send the message.', {
-            variant: 'error',
-          });
-          setSubmitError(err.text);
-          console.error('Error:', err);
-        },
-      )
-      .finally(() => {
-        setIsSubmitting(false);
+        body: JSON.stringify(data),
       });
+
+      if (response.ok) {
+        try {
+          posthog?.identify(data.email, {
+            email: data.email,
+            name: data.name
+          })
+        } catch (error) {
+          console.error(error);
+        }
+        resetForm();
+        showToast('Message sent successfully!', { variant: 'confirmation' });
+        setIsContactFormOpen && setIsContactFormOpen(false);
+      } else {
+        showToast('An unexpected error occurred.', { variant: 'error' });
+      }
+    } catch (error: any) {
+      showToast('Failed to send the message.', {
+        variant: 'error',
+      });
+      setSubmitError(error);
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -116,38 +113,38 @@ export const ContactForm: React.FC = () => {
         <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
           <FlexWrapper gap={24}>
             <FlexWrapper>
-              <label htmlFor="from_name">{'Name'}</label>
+              <label htmlFor="name">{'Name'}</label>
               <input
                 type="text"
                 autoComplete="off"
                 data-1p-ignore
-                {...register('from_name', { required: true })}
+                {...register('name', { required: true })}
               />
-              {errors.from_name && (
+              {errors.name && (
                 <p className="text-error">
-                  {errors.from_name.message === ''
+                  {errors.name.message === ''
                     ? 'Name is required'
-                    : errors.from_name.message}
+                    : errors.name.message}
                 </p>
               )}
             </FlexWrapper>
 
             <FlexWrapper>
-              <label htmlFor="from_email">{'Email'}</label>
+              <label htmlFor="email">{'Email'}</label>
               <input
                 type="email"
                 autoComplete="off"
                 data-1p-ignore
-                {...register('from_email', {
+                {...register('email', {
                   required: true,
                   pattern: /^\S+@\S+$/i,
                 })}
               />
-              {errors.from_email && (
+              {errors.email && (
                 <p className="text-error">
-                  {errors.from_email.message === ''
+                  {errors.email.message === ''
                     ? 'Email is required and must be valid'
-                    : errors.from_email.message}
+                    : errors.email.message}
                 </p>
               )}
             </FlexWrapper>
