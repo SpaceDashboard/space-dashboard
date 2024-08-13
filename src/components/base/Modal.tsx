@@ -3,11 +3,6 @@ import { css, cx } from '@emotion/css';
 import { CornersWrapper, TooltipWrapper } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';
 
-interface ModalProps {
-  isOpen?: boolean;
-  setIsOpen?: (isOpen: boolean) => void;
-}
-
 const modalCss = (
   reduceMotion: boolean,
   speedAdjustment: number,
@@ -31,6 +26,11 @@ const modalInnerCss = css`
   right: 0;
   top: 20px;
 `;
+
+interface ModalProps {
+  isOpen?: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
+}
 
 export const Modal = ({
   children,

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 interface TooltipWrapperProps {
-  children: React.ReactElement;
+  children: React.ReactElement | string;
   delay?: number;
   hideOnTouchDevice?: boolean;
   placement?: TooltipPlacement;
@@ -19,6 +19,10 @@ export const TooltipWrapper = ({
   placement = 'top',
   tooltipOffset = 8,
 }: React.PropsWithChildren<TooltipWrapperProps>) => {
+  const child =
+    typeof children === 'string'
+      ? (React.createElement('span', {}, children) as React.ReactElement)
+      : children;
   const isTouchDevice = useMemo(() => {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }, []);
@@ -29,7 +33,7 @@ export const TooltipWrapper = ({
         <>{children}</>
       ) : (
         <>
-          {React.cloneElement(children, {
+          {React.cloneElement(child, {
             'data-tooltip-id': 'space-dashboard-tooltip',
             'data-tooltip-content': title,
             'data-tooltip-delay-show': delay,

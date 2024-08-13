@@ -16,7 +16,6 @@ import { IconProps } from '@tabler/icons-react';
 export type Variant = 'flat-bottom' | 'secondary' | 'small' | 'nav' | 'active';
 
 export interface ButtonProps {
-  children?: React.ReactNode;
   className?: string;
   ariaLabel?: string;
   buttonType?: 'button' | 'submit' | 'reset';

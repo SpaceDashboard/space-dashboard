@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import * as Sentry from '@sentry/react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
@@ -180,27 +181,29 @@ export const InnerPanel = ({
 
   return (
     <div className="panel-section">
-      <div
-        className={cx(
-          'panel-wrapper',
-          panelWrapperCss(
-            animationDurationSeconds ?? animationDuration,
-            reduceMotion,
-            animationSpeedAdjustment,
-            reduceTransparency,
-          ),
-          showPanelBorders && 'show-panel-borders',
-          showPanel && 'show-panel',
-        )}
-      >
-        <div>
-          <div className={cx('panel', className)} ref={panelRef}>
-            {panelBodyChild}
-            {panelMenuChild}
+      <Sentry.ErrorBoundary fallback={<p>Something went wrong</p>}>
+        <div
+          className={cx(
+            'panel-wrapper',
+            panelWrapperCss(
+              animationDurationSeconds ?? animationDuration,
+              reduceMotion,
+              animationSpeedAdjustment,
+              reduceTransparency,
+            ),
+            showPanelBorders && 'show-panel-borders',
+            showPanel && 'show-panel',
+          )}
+        >
+          <div>
+            <div className={cx('panel', className)} ref={panelRef}>
+              {panelBodyChild}
+              {panelMenuChild}
+            </div>
           </div>
         </div>
-      </div>
-      {panelActionsChild}
+        {panelActionsChild}
+      </Sentry.ErrorBoundary>
     </div>
   );
 };
