@@ -16,9 +16,11 @@ jobs:
       with:
         node-version: 16.20.0
     - name: Build Project
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       run: |
-        npm install
-        npm run build
+        yarn install
+        yarn build
     - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
@@ -26,4 +28,4 @@ jobs:
         username: ${{ secrets.BETA_FTP_USERNAME }}
         password: ${{ secrets.BETA_FTP_PASSWORD }}
         server-dir: public_html/
-        local-dir: ./build/
+        local-dir: ./dist/
