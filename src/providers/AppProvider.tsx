@@ -9,6 +9,8 @@ interface AppProviderProps {
   setIsContactFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isUserSettingsOpen?: boolean;
   setIsUserSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  issLiveFeedVideoId1?: string;
+  issLiveFeedVideoId2?: string;
 }
 
 export const AppContext = createContext<AppProviderProps>({
@@ -41,6 +43,8 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       setIsContactFormOpen,
       isUserSettingsOpen,
       setIsUserSettingsOpen,
+      issLiveFeedVideoId1: 'nEC3xRSSc3k',
+      issLiveFeedVideoId2: 'x2gpcch6NmI',
     }),
     [
       navAnimationSeconds,
@@ -49,7 +53,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       isContactFormOpen,
       setIsContactFormOpen,
       isUserSettingsOpen,
-      setIsUserSettingsOpen,
+      setIsUserSettingsOpen
     ],
   );
 

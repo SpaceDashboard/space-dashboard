@@ -7,7 +7,7 @@
 /* --------------------- */
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
-  .content {
+  .content-column-wrapper {
     --content--gap: 30px;
     flex-direction: column;
 
@@ -24,7 +24,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .content {
+  .content-column-wrapper {
     --content--gap: 0px;
     flex-direction: column;
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { css, cx } from '@emotion/css';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import { PanelProps } from './components/base';
+import { PanelProps, FlexWrapper } from './components/base';
 import { NavBar } from 'src/components';
 import {
   IssFeed1,
@@ -9,6 +9,7 @@ import {
   IssTracker,
   AuroraForecast,
   SolarVisual,
+  DeepSpaceNetwork
 } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { useSettingsContext, useToast } from 'src/hooks';
@@ -75,18 +76,23 @@ export const App: React.FC = () => {
             contentCss(reduceMotion, animationSpeedAdjustment),
           )}
         >
-          <div className="content-column">
-            {renderColumn(columnOneOrder, 0)}
-          </div>
-          <div className="content-column">
-            {renderColumn(columnTwoOrder, columnOneOrder?.length)}
-          </div>
-          <div className="content-column">
-            {renderColumn(
-              columnThreeOrder,
-              columnOneOrder?.length + columnTwoOrder?.length,
-            )}
-          </div>
+          <FlexWrapper gap={20}>
+            <div className="content-column-wrapper">
+              <div className="content-column">
+                {renderColumn(columnOneOrder, 0)}
+              </div>
+              <div className="content-column">
+                {renderColumn(columnTwoOrder, columnOneOrder?.length)}
+              </div>
+              <div className="content-column">
+                {renderColumn(
+                  columnThreeOrder,
+                  columnOneOrder?.length + columnTwoOrder?.length,
+                )}
+              </div>
+            </div>
+            <DeepSpaceNetwork index={0} />
+          </FlexWrapper>
         </section>
       </main>
       <ReactTooltip

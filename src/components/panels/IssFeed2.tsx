@@ -9,13 +9,14 @@ import {
   Button,
   FadeFromBlack,
 } from 'src/components/base';
-import { useSettingsContext } from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
 
 const iframeCss = css`
   background: #000;
 `;
 
 export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
+  const { issLiveFeedVideoId2 } = useAppContext();
   const {
     settings: { issLiveHDViewsAutoPlay, issLiveHDViewsMute },
   } = useSettingsContext();
@@ -25,7 +26,7 @@ export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
         <FadeFromBlack>
           <iframe
             className={cx('aspect-16-9', iframeCss)}
-            src={`https://www.youtube.com/embed/P9C25Un7xaM?autoplay=${issLiveHDViewsAutoPlay}&mute=${issLiveHDViewsMute}`}
+            src={`https://www.youtube.com/embed/${issLiveFeedVideoId2}?autoplay=${issLiveHDViewsAutoPlay}&mute=${issLiveHDViewsMute}`}
             title="YouTube video player - Live High-Definition Views from ISS"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen

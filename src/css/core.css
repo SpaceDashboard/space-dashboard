@@ -156,15 +156,18 @@ a {
 }
 
 .content {
+  transition:
+    var(--content--transition-duration) opacity ease,
+    var(--content--transition-duration) transform ease,
+    var(--content--transition-duration) filter ease;
+}
+
+.content-column-wrapper {
   display: flex;
   flex-direction: row;
   gap: var(--content--gap);
   max-width: 100%;
   position: relative;
-  transition:
-    var(--content--transition-duration) opacity ease,
-    var(--content--transition-duration) transform ease,
-    var(--content--transition-duration) filter ease;
   width: 100%;
 
   .content-column {

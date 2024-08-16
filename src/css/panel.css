@@ -12,6 +12,7 @@
   flex-direction: column;
   gap: 7px;
   padding-bottom: 40px;
+  width: 100%;
 
   .panel-wrapper {
     display: flex;

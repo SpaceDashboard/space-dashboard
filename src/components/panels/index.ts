@@ -3,3 +3,4 @@ export * from './IssFeed2';
 export * from './IssTracker';
 export * from './AuroraForecast';
 export * from './SolarVisual';
+export * from './DeepSpaceNetwork';
