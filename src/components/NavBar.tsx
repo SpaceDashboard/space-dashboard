@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useLayoutEffect, useState } from 'react';
 import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
 import { useAppContext, useSettingsContext } from 'src/hooks';
@@ -32,18 +32,6 @@ const navBarCss = (
     button {
       animation: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s ease normal
         forwards 1 opacityIn;
-
-      &:nth-child(1) {
-        animation-delay: ${reduceMotion ? 0 : 1.6 * speedAdjustment}s;
-      }
-
-      &:nth-child(2) {
-        animation-delay: ${reduceMotion ? 0 : 1.7 * speedAdjustment}s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: ${reduceMotion ? 0 : 1.8 * speedAdjustment}s;
-      }
     }
   }
 `;
@@ -58,9 +46,13 @@ const buttonWrapperCss = (
   }
 `;
 
-const buttonDelayInCss = (reduceMotion: boolean, speedAdjustment: number) =>
+const buttonDelayInCss = (
+  buttonCount: number,
+  reduceMotion: boolean,
+  speedAdjustment: number,
+) =>
   Array.from(
-    { length: 3 },
+    { length: buttonCount },
     (_, i) => css`
       button:nth-child(${i + 1}) {
         animation-delay: ${reduceMotion
@@ -69,6 +61,31 @@ const buttonDelayInCss = (reduceMotion: boolean, speedAdjustment: number) =>
       }
     `,
   );
+
+const NavButtonContainer: React.FC<{
+  children: React.ReactNode;
+  reduceMotion: boolean;
+  animationSpeedAdjustment: number;
+}> = ({ children, reduceMotion, animationSpeedAdjustment }) => {
+  const [buttonCount, setButtonCount] = useState(0);
+
+  useLayoutEffect(() => {
+    const count = React.Children.toArray(children).length;
+    setButtonCount(count);
+  }, [children]);
+
+  return (
+    <div
+      className={cx(
+        'btn-wrapper',
+        buttonWrapperCss(reduceMotion, animationSpeedAdjustment),
+        buttonDelayInCss(buttonCount, reduceMotion, animationSpeedAdjustment),
+      )}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const NavBar: React.FC = () => {
   const {
@@ -84,6 +101,7 @@ export const NavBar: React.FC = () => {
   } = useSettingsContext();
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
+  // const navButtonCount = 3;
 
   const closeAllModals = () => {
     setIsAboutOpen(false);
@@ -146,12 +164,9 @@ export const NavBar: React.FC = () => {
             />
           </TooltipWrapper>
         </span>
-        <div
-          className={cx(
-            'btn-wrapper',
-            buttonWrapperCss(reduceMotion, animationSpeedAdjustment),
-            buttonDelayInCss(reduceMotion, animationSpeedAdjustment),
-          )}
+        <NavButtonContainer
+          reduceMotion={reduceMotion}
+          animationSpeedAdjustment={animationSpeedAdjustment}
         >
           <Button
             Icon={IconHelpHexagon}
@@ -201,7 +216,7 @@ export const NavBar: React.FC = () => {
               ...(isUserSettingsOpen ? (['active'] as Variant[]) : []),
             ]}
           />
-        </div>
+        </NavButtonContainer>
       </div>
     </nav>
   );

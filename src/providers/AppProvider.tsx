@@ -53,7 +53,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       isContactFormOpen,
       setIsContactFormOpen,
       isUserSettingsOpen,
-      setIsUserSettingsOpen
+      setIsUserSettingsOpen,
     ],
   );
 

@@ -9,7 +9,7 @@ import {
   IssTracker,
   AuroraForecast,
   SolarVisual,
-  DeepSpaceNetwork
+  DeepSpaceNetwork,
 } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { useSettingsContext, useToast } from 'src/hooks';

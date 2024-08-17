@@ -133,6 +133,9 @@ export const UserSettings: React.FC = () => {
           <FlexWrapper alignItems="flex-end" flexDirection="row">
             <Button variantsList={['small']}>{'Button'}</Button>
             <Button variantsList={['secondary', 'small']}>{'Button'}</Button>
+            <Button variantsList={['secondary', 'small']} disabled={true}>
+              {'Button'}
+            </Button>
           </FlexWrapper>
         </FlexWrapper>
 

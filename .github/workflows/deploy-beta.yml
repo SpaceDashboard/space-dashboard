@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - beta
+      - beta
 
 name: Deploy beta site
 jobs:
@@ -9,23 +9,25 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Get latest code
-      uses: actions/checkout@v3
-    - name: Use Node.js 16.20.0
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.20.0
-    - name: Build Project
-      env:
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      run: |
-        yarn install
-        yarn build
-    - name: Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: srv89116145.ultasrv.net
-        username: ${{ secrets.BETA_FTP_USERNAME }}
-        password: ${{ secrets.BETA_FTP_PASSWORD }}
-        server-dir: public_html/
-        local-dir: ./dist/
+      - name: Get latest code
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.12.2
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+      - name: Build and Upload Source Maps
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: space-dashboard
+          SENTRY_PROJECT: space-dashboard-js
+        run: |
+          yarn install
+          yarn build
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: srv89116145.ultasrv.net
+          username: ${{ secrets.BETA_FTP_USERNAME }}
+          password: ${{ secrets.BETA_FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist/
