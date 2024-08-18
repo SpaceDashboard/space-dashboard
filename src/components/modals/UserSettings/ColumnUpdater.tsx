@@ -1,32 +1,41 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSettingsContext } from 'src/hooks';
-import { Button, FlexWrapper } from 'src/components/base';
+import { Button, CornersWrapper, FlexWrapper } from 'src/components/base';
 import { columnPanelMap } from 'src/shared/ColumnPanelMap';
 import { css } from '@emotion/css';
 
 const CARD_HEIGHT = 100;
 const CARD_WIDTH = 200;
 const COLUMN_GAP = 20;
-const ROW_GAP = 10;
+const ROW_GAP = 20;
 
 const wrapperCss = css`
-  border-radius: 6px;
-  border: 1px solid #666;
+  background-color: rgba(0, 0, 0, 0.4);
   position: relative;
   transition: 0.4s all ease;
-  width: calc(3 * ${CARD_WIDTH}px + 2 * ${COLUMN_GAP}px + 20px);
+  width: calc(3 * ${CARD_WIDTH}px + 2 * ${COLUMN_GAP}px + 30px);
+`;
+
+const columnHeadersCss = css`
+  height: 50px;
+
+  h4 {
+    margin: 0;
+  }
 `;
 
 const columnWrapperCss = css`
-  margin-left: ${COLUMN_GAP}px;
+  margin-left: calc(${COLUMN_GAP}px / 1.25);
   position: relative;
 `;
 
 const columnCardCss = css`
   align-items: center;
-  background-color: #111;
-  border: 1px solid #666;
-  border-radius: 4px;
+  background: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) - 12%)
+  );
   color: white;
   display: flex;
   height: ${CARD_HEIGHT}px;
@@ -34,6 +43,27 @@ const columnCardCss = css`
   position: absolute;
   transition: 0.4s all ease;
   width: ${CARD_WIDTH}px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 10%)
+    );
+  }
+
+  &::before {
+    top: -3px;
+  }
+
+  &::after {
+    bottom: -3px;
+  }
 `;
 
 interface PanelPosition {
@@ -129,7 +159,6 @@ export const ColumnUpdater: React.FC = () => {
     resetPositionsHelper(column1Order, 0);
     resetPositionsHelper(column2Order, 1);
     resetPositionsHelper(column3Order, 2);
-
     setPanelPositions(resetPositions);
   };
 
@@ -267,19 +296,25 @@ export const ColumnUpdater: React.FC = () => {
   return (
     <FlexWrapper gap={18}>
       <h2>Column Order</h2>
-      <div className={wrapperCss} style={{ height: `${wrapperHeight + 40}px` }}>
-        <FlexWrapper
-          alignItems="center"
-          flexDirection="row"
-          justifyContent="space-around"
-          style={{ padding: '8px 0 4px', height: '40px' }}
+      <CornersWrapper height="100%">
+        {/* Plus 60px for the header height and 10px of space */}
+        <div
+          className={wrapperCss}
+          style={{ height: `${wrapperHeight + 60}px` }}
         >
-          <h4>Column One</h4>
-          <h4>Column Two</h4>
-          <h4>Column Three</h4>
-        </FlexWrapper>
-        <div className={columnWrapperCss}>{renderItems()}</div>
-      </div>
+          <FlexWrapper
+            alignItems="center"
+            flexDirection="row"
+            justifyContent="space-around"
+            className={columnHeadersCss}
+          >
+            <h4>Column One</h4>
+            <h4>Column Two</h4>
+            <h4>Column Three</h4>
+          </FlexWrapper>
+          <div className={columnWrapperCss}>{renderItems()}</div>
+        </div>
+      </CornersWrapper>
       <FlexWrapper flexDirection="row" gap={18}>
         <Button onClick={applyChanges}>Apply changes</Button>
         <Button onClick={resetChanges} variantsList={['secondary']}>

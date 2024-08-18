@@ -151,10 +151,6 @@ export const InnerPanel = ({
   }, [children, panelMenuChild]);
 
   useEffect(() => {
-    console.log('delayedAnimationSeconds: ', delayedAnimationSeconds);
-  }, [delayedAnimationSeconds]);
-
-  useEffect(() => {
     setAnimationDurationSeconds?.(animationDuration);
     setAnimationDelaySeconds?.(delayedAnimationSeconds + 0.1);
 

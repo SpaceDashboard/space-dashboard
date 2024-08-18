@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 
 type AlignItems = React.CSSProperties['alignItems'];
 type Flex = React.CSSProperties['flex'];
@@ -26,6 +26,7 @@ const flexWrapperCss = (
 
 interface FlexWrapperProps {
   alignItems?: AlignItems;
+  className?: string;
   flex?: Flex;
   flexDirection?: FlexDirection;
   gap?: number;
@@ -37,6 +38,7 @@ interface FlexWrapperProps {
 export const FlexWrapper = ({
   children,
   alignItems = 'flex-start',
+  className,
   flex,
   flexDirection = 'column',
   gap = 12,
@@ -46,13 +48,16 @@ export const FlexWrapper = ({
 }: React.PropsWithChildren<FlexWrapperProps>) => {
   return (
     <div
-      className={flexWrapperCss(
-        alignItems,
-        flexDirection,
-        gap,
-        flex,
-        justifyContent,
-        marginBottom,
+      className={cx(
+        flexWrapperCss(
+          alignItems,
+          flexDirection,
+          gap,
+          flex,
+          justifyContent,
+          marginBottom,
+        ),
+        className,
       )}
       style={style}
     >
