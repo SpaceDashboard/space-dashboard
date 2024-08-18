@@ -29,6 +29,7 @@ export default defineConfig(() => {
       sourcemap: true,
       cssTarget: ['edge112', 'firefox117', 'chrome112', 'safari17'],
       cssMinify: true,
+      chunkSizeWarningLimit: 1000,
     },
     css: {
       devSourcemap: true,

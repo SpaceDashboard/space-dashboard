@@ -2,9 +2,9 @@ import React, { createContext, useMemo } from 'react';
 import { useLocalStorage } from 'src/hooks';
 
 interface Settings {
-  columnOneOrder: string[];
-  columnTwoOrder: string[];
-  columnThreeOrder: string[];
+  column1Order: string[];
+  column2Order: string[];
+  column3Order: string[];
   reduceMotion: boolean;
   reduceTransparency: boolean;
   reduceButtonAnimation: boolean;
@@ -23,9 +23,9 @@ export interface SettingsContextProps {
 }
 
 const defaultSettings: Settings = {
-  columnOneOrder: ['IssFeed1', 'IssFeed2'],
-  columnTwoOrder: ['IssTracker', 'SolarVisual'],
-  columnThreeOrder: ['AuroraForecast', 'AuroraForecast'],
+  column1Order: ['IssFeed1', 'IssFeed2'],
+  column2Order: ['IssTracker', 'SolarVisual'],
+  column3Order: ['AuroraForecast'],
   reduceMotion: false,
   reduceTransparency: false,
   reduceButtonAnimation: false,

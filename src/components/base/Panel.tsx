@@ -105,7 +105,7 @@ export const InnerPanel = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
   const [showPanel, setShowPanel] = useState<boolean>(false);
-  const { navAnimationSeconds } = useAppContext();
+  const { navAnimationSeconds, allPanelsLoaded } = useAppContext();
   const {
     settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
   } = useSettingsContext();
@@ -115,8 +115,13 @@ export const InnerPanel = ({
     setAnimationDelaySeconds,
     setIsPanelMenuOpen,
   } = usePanelContext();
-  const delayedAnimationSeconds =
-    navAnimationSeconds + (animationDelay + index * 0.06);
+  const delayedAnimationSeconds = useMemo(() => {
+    if (allPanelsLoaded) {
+      return navAnimationSeconds - 1 + animationDelay + index * 0.1;
+    } else {
+      return navAnimationSeconds + animationDelay + index * 0.06;
+    }
+  }, [allPanelsLoaded, animationDelay, index, navAnimationSeconds]);
 
   const panelMenuChild = useMemo(() => {
     const panelMenu = React.Children.toArray(children).filter(
@@ -146,10 +151,12 @@ export const InnerPanel = ({
   }, [children, panelMenuChild]);
 
   useEffect(() => {
-    setAnimationDurationSeconds &&
-      setAnimationDurationSeconds(animationDuration);
-    setAnimationDelaySeconds &&
-      setAnimationDelaySeconds(delayedAnimationSeconds + 0.1);
+    console.log('delayedAnimationSeconds: ', delayedAnimationSeconds);
+  }, [delayedAnimationSeconds]);
+
+  useEffect(() => {
+    setAnimationDurationSeconds?.(animationDuration);
+    setAnimationDelaySeconds?.(delayedAnimationSeconds + 0.1);
 
     const timer = setTimeout(
       () => {

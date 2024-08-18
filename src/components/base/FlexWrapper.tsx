@@ -31,6 +31,7 @@ interface FlexWrapperProps {
   gap?: number;
   justifyContent?: JustifyContent;
   marginBottom?: number;
+  style?: React.CSSProperties;
 }
 
 export const FlexWrapper = ({
@@ -41,6 +42,7 @@ export const FlexWrapper = ({
   gap = 12,
   justifyContent,
   marginBottom,
+  style,
 }: React.PropsWithChildren<FlexWrapperProps>) => {
   return (
     <div
@@ -52,6 +54,7 @@ export const FlexWrapper = ({
         justifyContent,
         marginBottom,
       )}
+      style={style}
     >
       {children}
     </div>

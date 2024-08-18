@@ -3,6 +3,7 @@ import { useSettingsContext } from 'src/hooks';
 
 interface AppProviderProps {
   navAnimationSeconds: number;
+  allPanelsLoaded: boolean;
   isAboutOpen?: boolean;
   setIsAboutOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isContactFormOpen?: boolean;
@@ -15,6 +16,7 @@ interface AppProviderProps {
 
 export const AppContext = createContext<AppProviderProps>({
   navAnimationSeconds: 0,
+  allPanelsLoaded: false,
   setIsAboutOpen: () => {},
   setIsContactFormOpen: () => {},
   setIsUserSettingsOpen: () => {},
@@ -27,6 +29,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
+  const [allPanelsLoaded, setAllPanelsLoaded] = useState(false);
 
   // Close to the nav animation time, but not exact. This felt right though.
   const navAnimationSeconds = useMemo(
@@ -34,9 +37,17 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
     [animationSpeedAdjustment],
   );
 
+  // After 8 seconds consider all panels loaded - easier than actually calculating it
+  setTimeout(() => {
+    if (!allPanelsLoaded) {
+      setAllPanelsLoaded(true);
+    }
+  }, 8000);
+
   const value = useMemo(
     () => ({
       navAnimationSeconds,
+      allPanelsLoaded,
       isAboutOpen,
       setIsAboutOpen,
       isContactFormOpen,
@@ -48,6 +59,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
     }),
     [
       navAnimationSeconds,
+      allPanelsLoaded,
       isAboutOpen,
       setIsAboutOpen,
       isContactFormOpen,
