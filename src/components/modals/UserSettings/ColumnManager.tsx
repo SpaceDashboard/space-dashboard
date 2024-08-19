@@ -137,7 +137,7 @@ const getMaxPanelsInColumn = (panelPositions: {
   return Math.max(...columnCounts);
 };
 
-export const ColumnUpdater: React.FC = () => {
+export const ColumnManager: React.FC = () => {
   const {
     settings: { column1Order, column2Order, column3Order },
     updateSettings,
@@ -408,7 +408,7 @@ export const ColumnUpdater: React.FC = () => {
   };
 
   return (
-    <FlexWrapper gap={24}>
+    <FlexWrapper gap={24} style={{ marginBottom: '30px' }}>
       <h2>Panel Arrangement</h2>
       <CornersWrapper height="100%" size={20}>
         {/* Plus 60px for the header height and 10px of space */}

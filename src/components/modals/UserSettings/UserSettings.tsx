@@ -9,7 +9,7 @@ import {
 import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
-import { ColumnUpdater } from './ColumnUpdater';
+import { ColumnManager } from './ColumnManager';
 
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
@@ -26,7 +26,7 @@ export const UserSettings: React.FC = () => {
   return (
     <Modal isOpen={isUserSettingsOpen} setIsOpen={setIsUserSettingsOpen}>
       <FlexWrapper gap={42}>
-        <FlexWrapper>
+        <FlexWrapper gap={8}>
           <h2>Motion &amp; Accessibility</h2>
 
           <FlexWrapper>
@@ -132,7 +132,7 @@ export const UserSettings: React.FC = () => {
           </FlexWrapper>
         </FlexWrapper>
 
-        <ColumnUpdater />
+        <ColumnManager />
       </FlexWrapper>
     </Modal>
   );
