@@ -15,3 +15,11 @@ export const columnPanelMap: PanelMapType = {
   SolarVisual,
   AuroraForecast,
 };
+
+export const panelLabelByComponentName: Record<string, string> = {
+  IssFeed1: 'Live Video from the ISS',
+  IssFeed2: 'Live HD Views from the ISS',
+  IssTracker: 'ISS Tracker',
+  SolarVisual: 'The Sun Now',
+  AuroraForecast: 'Aurora Forecast',
+};

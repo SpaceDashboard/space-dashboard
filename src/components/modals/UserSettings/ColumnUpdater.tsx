@@ -1,19 +1,27 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { css, cx } from '@emotion/css';
+import {
+  IconChevronCompactUp,
+  IconChevronCompactRight,
+  IconChevronCompactDown,
+  IconChevronCompactLeft,
+} from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
 import { Button, CornersWrapper, FlexWrapper } from 'src/components/base';
-import { columnPanelMap } from 'src/shared/ColumnPanelMap';
-import { css } from '@emotion/css';
+import {
+  columnPanelMap,
+  panelLabelByComponentName,
+} from 'src/shared/ColumnPanelMap';
 
-const CARD_HEIGHT = 100;
-const CARD_WIDTH = 200;
+const CARD_HEIGHT = 160;
+const DEFAULT_CARD_WIDTH = 300;
 const COLUMN_GAP = 20;
 const ROW_GAP = 20;
 
 const wrapperCss = css`
   background-color: rgba(0, 0, 0, 0.4);
   position: relative;
-  transition: 0.4s all ease;
-  width: calc(3 * ${CARD_WIDTH}px + 2 * ${COLUMN_GAP}px + 30px);
+  transition: 0.3s all ease;
 `;
 
 const columnHeadersCss = css`
@@ -37,12 +45,15 @@ const columnCardCss = css`
     calc(var(--base-blue-lightness) - 12%)
   );
   color: white;
+  container-type: size;
   display: flex;
   height: ${CARD_HEIGHT}px;
   justify-content: center;
   position: absolute;
-  transition: 0.4s all ease;
-  width: ${CARD_WIDTH}px;
+  text-align: center;
+  transition:
+    0.3s top ease,
+    0.3s left ease;
 
   &::before,
   &::after {
@@ -63,6 +74,51 @@ const columnCardCss = css`
 
   &::after {
     bottom: -3px;
+  }
+`;
+
+const modifiedCardCss = css`
+  background: hsl(
+    var(--base-orange-hue),
+    var(--base-orange-saturation),
+    calc(var(--base-orange-lightness) - 12%)
+  );
+
+  &::before,
+  &::after {
+    background: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 10%)
+    );
+  }
+`;
+
+const arrowButtonCss = (location: 'topBottom' | 'leftRight') => css`
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  height: ${location === 'topBottom' ? 25 : CARD_HEIGHT - 30}px;
+  justify-content: center;
+  outline: none;
+  padding: 0;
+  width: ${location === 'topBottom' ? '100%' : '25px'};
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.15;
+  }
+
+  @media (hover: hover) {
+    &:not(:disabled):hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
   }
 `;
 
@@ -87,9 +143,36 @@ export const ColumnUpdater: React.FC = () => {
     updateSettings,
   } = useSettingsContext();
 
+  const [cardWidth, setCardWidth] = useState<number>(200);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // if (window.innerWidth < 576) setCardWidth(100);
+      // else if (window.innerWidth < 640) setCardWidth(80);
+      // else if (window.innerWidth < 740) setCardWidth(100);
+      if (window.innerWidth < 840) setCardWidth(130);
+      else if (window.innerWidth < 900) setCardWidth(160);
+      else if (window.innerWidth < 960) setCardWidth(180);
+      else if (window.innerWidth < 1100) setCardWidth(200);
+      else if (window.innerWidth < 1245) setCardWidth(250);
+      else setCardWidth(DEFAULT_CARD_WIDTH);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const [panelPositions, setPanelPositions] = useState<{
     [key: string]: PanelPosition;
   }>({});
+
+  const [originalPositions, setOriginalPositions] = useState<{
+    [key: string]: PanelPosition;
+  }>({});
+
+  const [modified, setModified] = useState<boolean>(false);
 
   const maxPanelsInColumn = useMemo(
     () => getMaxPanelsInColumn(panelPositions),
@@ -122,7 +205,22 @@ export const ColumnUpdater: React.FC = () => {
     });
 
     setPanelPositions(initialPositions);
+    setOriginalPositions(initialPositions);
   }, [column1Order, column2Order, column3Order]);
+
+  const checkIfModified = () => {
+    const isModified = Object.keys(panelPositions).some(
+      (panel) =>
+        panelPositions[panel].columnIndex !==
+          originalPositions[panel].columnIndex ||
+        panelPositions[panel].rowIndex !== originalPositions[panel].rowIndex,
+    );
+    setModified(isModified);
+  };
+
+  useEffect(() => {
+    checkIfModified();
+  }, [panelPositions]);
 
   const applyChanges = () => {
     const newColumn1Order = Object.keys(panelPositions)
@@ -145,21 +243,8 @@ export const ColumnUpdater: React.FC = () => {
   };
 
   const resetChanges = () => {
-    const resetPositions: { [key: string]: PanelPosition } = {};
-
-    const resetPositionsHelper = (
-      columnOrder: string[],
-      columnIndex: number,
-    ) => {
-      columnOrder.forEach((panel, rowIndex) => {
-        resetPositions[panel] = { columnIndex, rowIndex };
-      });
-    };
-
-    resetPositionsHelper(column1Order, 0);
-    resetPositionsHelper(column2Order, 1);
-    resetPositionsHelper(column3Order, 2);
-    setPanelPositions(resetPositions);
+    setPanelPositions(originalPositions);
+    setModified(false);
   };
 
   const movePanel = (
@@ -223,7 +308,6 @@ export const ColumnUpdater: React.FC = () => {
       [panel]: { columnIndex: newColumnIndex, rowIndex: panelsInNewColumn },
     }));
 
-    // Shift up all items below the moved item in the old column
     Object.entries(panelPositions).forEach(([key, pos]) => {
       if (
         pos.columnIndex === oldPosition.columnIndex &&
@@ -249,43 +333,73 @@ export const ColumnUpdater: React.FC = () => {
 
         const { columnIndex, rowIndex } = position;
         const top = rowIndex * (CARD_HEIGHT + ROW_GAP);
-        const left = columnIndex * (CARD_WIDTH + COLUMN_GAP);
+        const left = columnIndex * (cardWidth + COLUMN_GAP);
+
+        const isModified =
+          columnIndex !== originalPositions[panel].columnIndex ||
+          rowIndex !== originalPositions[panel].rowIndex;
 
         return (
-          <div key={panel} className={columnCardCss} style={{ top, left }}>
-            <FlexWrapper gap={18} alignItems="center">
+          <div
+            key={panel}
+            className={cx('column-manager-card', columnCardCss, {
+              [modifiedCardCss]: isModified,
+            })}
+            style={{ top, left, width: cardWidth }}
+          >
+            <FlexWrapper
+              gap={0}
+              alignItems="center"
+              flexDirection="row"
+              style={{ height: '100%', padding: '0 5px' }}
+            >
               <button
-                onClick={() => movePanel(panel, 'up')}
-                disabled={rowIndex === 0}
-              >
-                ↑
-              </button>
-              <button
-                onClick={() => movePanel(panel, 'down')}
-                disabled={
-                  rowIndex ===
-                  Object.keys(panelPositions).filter(
-                    (key) => panelPositions[key].columnIndex === columnIndex,
-                  ).length -
-                    1
-                }
-              >
-                ↓
-              </button>
-            </FlexWrapper>
-            <div style={{ marginLeft: '8px' }}>{panel}</div>
-            <FlexWrapper gap={18} alignItems="center">
-              <button
+                className={arrowButtonCss('leftRight')}
                 onClick={() => movePanel(panel, 'left')}
                 disabled={columnIndex === 0}
               >
-                ←
+                <IconChevronCompactLeft />
               </button>
+
+              <FlexWrapper
+                gap={4}
+                alignItems="center"
+                justifyContent="space-between"
+                style={{ height: 'calc(100% - 10px)' }}
+              >
+                <button
+                  className={arrowButtonCss('topBottom')}
+                  onClick={() => movePanel(panel, 'up')}
+                  disabled={rowIndex === 0}
+                >
+                  <IconChevronCompactUp />
+                </button>
+
+                <div style={{ padding: '0 8px' }}>
+                  {panelLabelByComponentName[panel]}
+                </div>
+
+                <button
+                  className={arrowButtonCss('topBottom')}
+                  onClick={() => movePanel(panel, 'down')}
+                  disabled={
+                    rowIndex ===
+                    Object.keys(panelPositions).filter(
+                      (key) => panelPositions[key].columnIndex === columnIndex,
+                    ).length -
+                      1
+                  }
+                >
+                  <IconChevronCompactDown />
+                </button>
+              </FlexWrapper>
+
               <button
+                className={arrowButtonCss('leftRight')}
                 onClick={() => movePanel(panel, 'right')}
                 disabled={columnIndex === 2}
               >
-                →
+                <IconChevronCompactRight />
               </button>
             </FlexWrapper>
           </div>
@@ -294,13 +408,16 @@ export const ColumnUpdater: React.FC = () => {
   };
 
   return (
-    <FlexWrapper gap={18}>
-      <h2>Column Order</h2>
-      <CornersWrapper height="100%">
+    <FlexWrapper gap={24}>
+      <h2>Panel Arrangement</h2>
+      <CornersWrapper height="100%" size={20}>
         {/* Plus 60px for the header height and 10px of space */}
         <div
           className={wrapperCss}
-          style={{ height: `${wrapperHeight + 60}px` }}
+          style={{
+            height: `${wrapperHeight + 60}px`,
+            width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
+          }}
         >
           <FlexWrapper
             alignItems="center"
@@ -316,7 +433,9 @@ export const ColumnUpdater: React.FC = () => {
         </div>
       </CornersWrapper>
       <FlexWrapper flexDirection="row" gap={18}>
-        <Button onClick={applyChanges}>Apply changes</Button>
+        <Button onClick={applyChanges} disabled={!modified}>
+          Apply changes
+        </Button>
         <Button onClick={resetChanges} variantsList={['secondary']}>
           Reset
         </Button>
