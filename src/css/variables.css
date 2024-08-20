@@ -108,4 +108,8 @@
   /* -- Defaults, overridden in useToast -- */
   --toast--bg-color: var(--toast--confirmation--bg-color);
   --toast--border-color: var(--toast--confirmation--border-color);
+
+  /* Column manager */
+  --column-manager--transition-duration: 0.3s;
+  --column-manager--background-opacity: 0.4;
 }

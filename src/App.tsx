@@ -6,7 +6,7 @@ import { NavBar } from 'src/components';
 import { DeepSpaceNetwork } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { useSettingsContext, useToast } from 'src/hooks';
-import { columnPanelMap } from 'src/shared/ColumnPanelMap';
+import { columnPanelMap } from 'src/shared/ColumnPanelConfig';
 
 const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   --content--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;

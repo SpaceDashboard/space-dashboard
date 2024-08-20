@@ -11,115 +11,31 @@ import { Button, CornersWrapper, FlexWrapper } from 'src/components/base';
 import {
   columnPanelMap,
   panelLabelByComponentName,
-} from 'src/shared/ColumnPanelMap';
+} from 'src/shared/ColumnPanelConfig';
 
 const CARD_HEIGHT = 160;
 const DEFAULT_CARD_WIDTH = 300;
 const COLUMN_GAP = 20;
 const ROW_GAP = 20;
 
-const wrapperCss = css`
-  background-color: rgba(0, 0, 0, 0.4);
-  position: relative;
-  transition: 0.3s all ease;
-`;
-
-const columnHeadersCss = css`
-  height: 50px;
-
-  h4 {
-    margin: 0;
-  }
+const wrapperCss = (reduceMotion: boolean, reduceTransparency: boolean) => css`
+  --column-manager--background-opacity: ${reduceTransparency
+    ? 1
+    : 0.4} !important;
+  --column-manager--transition-duration: ${reduceMotion ? 0 : 0.3}s !important;
 `;
 
 const columnWrapperCss = css`
   margin-left: calc(${COLUMN_GAP}px / 1.25);
-  position: relative;
 `;
 
 const columnCardCss = css`
-  align-items: center;
-  background: hsl(
-    var(--base-blue-hue),
-    var(--base-blue-saturation),
-    calc(var(--base-blue-lightness) - 12%)
-  );
-  color: white;
-  container-type: size;
-  display: flex;
   height: ${CARD_HEIGHT}px;
-  justify-content: center;
-  position: absolute;
-  text-align: center;
-  transition:
-    0.3s top ease,
-    0.3s left ease;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 10%)
-    );
-  }
-
-  &::before {
-    top: -3px;
-  }
-
-  &::after {
-    bottom: -3px;
-  }
-`;
-
-const modifiedCardCss = css`
-  background: hsl(
-    var(--base-orange-hue),
-    var(--base-orange-saturation),
-    calc(var(--base-orange-lightness) - 12%)
-  );
-
-  &::before,
-  &::after {
-    background: hsl(
-      var(--base-orange-hue),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 10%)
-    );
-  }
 `;
 
 const arrowButtonCss = (location: 'topBottom' | 'leftRight') => css`
-  align-items: center;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 50px;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
   height: ${location === 'topBottom' ? 25 : CARD_HEIGHT - 30}px;
-  justify-content: center;
-  outline: none;
-  padding: 0;
   width: ${location === 'topBottom' ? '100%' : '25px'};
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.15;
-  }
-
-  @media (hover: hover) {
-    &:not(:disabled):hover {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.08);
-    }
-  }
 `;
 
 interface PanelPosition {
@@ -139,7 +55,18 @@ const getMaxPanelsInColumn = (panelPositions: {
 
 export const ColumnManager: React.FC = () => {
   const {
-    settings: { column1Order, column2Order, column3Order },
+    settings: {
+      column1Order,
+      column2Order,
+      column3Order,
+      reduceMotion,
+      reduceTransparency,
+    },
+    defaultSettings: {
+      column1Order: defaultColumn1Order,
+      column2Order: defaultColumn2Order,
+      column3Order: defaultColumn3Order,
+    },
     updateSettings,
   } = useSettingsContext();
 
@@ -147,9 +74,6 @@ export const ColumnManager: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      // if (window.innerWidth < 576) setCardWidth(100);
-      // else if (window.innerWidth < 640) setCardWidth(80);
-      // else if (window.innerWidth < 740) setCardWidth(100);
       if (window.innerWidth < 840) setCardWidth(130);
       else if (window.innerWidth < 900) setCardWidth(160);
       else if (window.innerWidth < 960) setCardWidth(180);
@@ -244,6 +168,15 @@ export const ColumnManager: React.FC = () => {
 
   const resetChanges = () => {
     setPanelPositions(originalPositions);
+    setModified(false);
+  };
+
+  const resetToDefaults = () => {
+    updateSettings({
+      column1Order: defaultColumn1Order,
+      column2Order: defaultColumn2Order,
+      column3Order: defaultColumn3Order,
+    });
     setModified(false);
   };
 
@@ -342,9 +275,11 @@ export const ColumnManager: React.FC = () => {
         return (
           <div
             key={panel}
-            className={cx('column-manager-card', columnCardCss, {
-              [modifiedCardCss]: isModified,
-            })}
+            className={cx(
+              'column-manager-card',
+              columnCardCss,
+              isModified && 'modified',
+            )}
             style={{ top, left, width: cardWidth }}
           >
             <FlexWrapper
@@ -354,7 +289,7 @@ export const ColumnManager: React.FC = () => {
               style={{ height: '100%', padding: '0 5px' }}
             >
               <button
-                className={arrowButtonCss('leftRight')}
+                className={cx('card-arrow-button', arrowButtonCss('leftRight'))}
                 onClick={() => movePanel(panel, 'left')}
                 disabled={columnIndex === 0}
               >
@@ -368,7 +303,10 @@ export const ColumnManager: React.FC = () => {
                 style={{ height: 'calc(100% - 10px)' }}
               >
                 <button
-                  className={arrowButtonCss('topBottom')}
+                  className={cx(
+                    'card-arrow-button',
+                    arrowButtonCss('topBottom'),
+                  )}
                   onClick={() => movePanel(panel, 'up')}
                   disabled={rowIndex === 0}
                 >
@@ -380,7 +318,10 @@ export const ColumnManager: React.FC = () => {
                 </div>
 
                 <button
-                  className={arrowButtonCss('topBottom')}
+                  className={cx(
+                    'card-arrow-button',
+                    arrowButtonCss('topBottom'),
+                  )}
                   onClick={() => movePanel(panel, 'down')}
                   disabled={
                     rowIndex ===
@@ -395,7 +336,7 @@ export const ColumnManager: React.FC = () => {
               </FlexWrapper>
 
               <button
-                className={arrowButtonCss('leftRight')}
+                className={cx('card-arrow-button', arrowButtonCss('leftRight'))}
                 onClick={() => movePanel(panel, 'right')}
                 disabled={columnIndex === 2}
               >
@@ -409,36 +350,56 @@ export const ColumnManager: React.FC = () => {
 
   return (
     <FlexWrapper gap={24} style={{ marginBottom: '30px' }}>
-      <h2>Panel Arrangement</h2>
-      <CornersWrapper height="100%" size={20}>
-        {/* Plus 60px for the header height and 10px of space */}
-        <div
-          className={wrapperCss}
-          style={{
-            height: `${wrapperHeight + 60}px`,
-            width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
-          }}
-        >
-          <FlexWrapper
-            alignItems="center"
-            flexDirection="row"
-            justifyContent="space-around"
-            className={columnHeadersCss}
+      <div>
+        <h2>Panel Arrangement</h2>
+        <p>Rearrange the panels by changing which column they are in.</p>
+      </div>
+      <FlexWrapper gap={32} flexDirection="row">
+        <CornersWrapper height="100%" size={20}>
+          {/* Plus 60px for the header height and 10px of space */}
+          <div
+            className={cx(
+              'column-manager',
+              wrapperCss(reduceMotion, reduceTransparency),
+            )}
+            style={{
+              height: `${wrapperHeight + 60}px`,
+              width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
+            }}
           >
-            <h4>Column One</h4>
-            <h4>Column Two</h4>
-            <h4>Column Three</h4>
-          </FlexWrapper>
-          <div className={columnWrapperCss}>{renderItems()}</div>
-        </div>
-      </CornersWrapper>
-      <FlexWrapper flexDirection="row" gap={18}>
-        <Button onClick={applyChanges} disabled={!modified}>
-          Apply changes
-        </Button>
-        <Button onClick={resetChanges} variantsList={['secondary']}>
-          Reset
-        </Button>
+            <FlexWrapper
+              alignItems="center"
+              flexDirection="row"
+              justifyContent="space-around"
+              className="column-headers"
+            >
+              <h4>Column One</h4>
+              <h4>Column Two</h4>
+              <h4>Column Three</h4>
+            </FlexWrapper>
+            <div className={cx('column-wrapper', columnWrapperCss)}>
+              {renderItems()}
+            </div>
+          </div>
+        </CornersWrapper>
+        <FlexWrapper gap={18}>
+          <Button onClick={applyChanges} disabled={!modified}>
+            Apply changes
+          </Button>
+          <Button
+            onClick={resetChanges}
+            disabled={!modified}
+            variantsList={['secondary']}
+          >
+            Reset changes
+          </Button>
+          <Button
+            onClick={resetToDefaults}
+            variantsList={['secondary', 'small']}
+          >
+            Reset to default
+          </Button>
+        </FlexWrapper>
       </FlexWrapper>
     </FlexWrapper>
   );

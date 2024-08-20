@@ -1,5 +1,10 @@
 import React, { createContext, useMemo } from 'react';
 import { useLocalStorage } from 'src/hooks';
+import {
+  defaultColumn1Order,
+  defaultColumn2Order,
+  defaultColumn3Order,
+} from 'src/shared/ColumnPanelConfig';
 
 interface Settings {
   column1Order: string[];
@@ -18,30 +23,31 @@ interface Settings {
 
 export interface SettingsContextProps {
   settings: Settings;
+  defaultSettings: Settings;
   updateSettings: (newSettings: Partial<Settings>) => void;
   resetSettings: () => void;
 }
-
-const defaultSettings: Settings = {
-  column1Order: ['IssFeed1', 'IssFeed2'],
-  column2Order: ['IssTracker', 'SolarVisual'],
-  column3Order: ['AuroraForecast'],
-  reduceMotion: false,
-  reduceTransparency: false,
-  reduceButtonAnimation: false,
-  enableButtonAnimationAlways: false,
-  animationSpeedAdjustment: 1,
-  issLiveViewAutoPlay: false,
-  issLiveViewMute: true,
-  issLiveHDViewsAutoPlay: false,
-  issLiveHDViewsMute: true,
-};
 
 export const SettingsContext = createContext<SettingsContextProps | undefined>(
   undefined,
 );
 
 const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
+  const defaultSettings: Settings = {
+    column1Order: defaultColumn1Order,
+    column2Order: defaultColumn2Order,
+    column3Order: defaultColumn3Order,
+    reduceMotion: false,
+    reduceTransparency: false,
+    reduceButtonAnimation: false,
+    enableButtonAnimationAlways: false,
+    animationSpeedAdjustment: 1,
+    issLiveViewAutoPlay: false,
+    issLiveViewMute: true,
+    issLiveHDViewsAutoPlay: false,
+    issLiveHDViewsMute: true,
+  };
+
   const [settings, setSettings] = useLocalStorage<Settings>(
     'SpaceDashboard-settings',
     defaultSettings,
@@ -57,6 +63,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
   const value = useMemo(
     () => ({
       settings,
+      defaultSettings,
       updateSettings,
       resetSettings: () => setSettings(defaultSettings),
     }),

@@ -16,6 +16,10 @@ export const columnPanelMap: PanelMapType = {
   AuroraForecast,
 };
 
+export const defaultColumn1Order = ['IssFeed1', 'IssFeed2'];
+export const defaultColumn2Order = ['IssTracker', 'SolarVisual'];
+export const defaultColumn3Order = ['AuroraForecast'];
+
 export const panelLabelByComponentName: Record<string, string> = {
   IssFeed1: 'Live Video from the ISS',
   IssFeed2: 'Live HD Views from the ISS',
