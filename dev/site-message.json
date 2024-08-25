@@ -1,19 +1,19 @@
 {
-    "site_message_details" : {
-        "show_message": false,
-        "title": "Apollo 11 Moon Landing \n50th Anniversary",
-        "message": "<div style='text-align:left; padding: 0 15px;'>Today is the anniversary of when human exploration reached new heights. Please join the world in celebrating this monumental achievement as we reflect on the Apollo 11 Moon landing that happened 50 years ago on this day, July 20, 1969.<br><br><img src='http://spacedashboard.com/apollo-moon.jpg' style='width:100%;min-height:150px;'></div>",
-        "type" : {
-            "error" : false
+    "site_message_details": {
+        "show_message": true,
+        "title": "Space Station Live Feeds",
+        "message": "I am aware of the issues for the live feeds from the Space Station, and as of right now I cannot find new NASA streams for these feeds. If you are able to find the real (Official NASA Stream) feeds for live videos from the Space Station, please contact me using the contact form on this site, or email me directly at <a href='mailto:caleb@spacedashboard.com'>caleb@spacedashboard.com</a>.<br><br>Sorry for the disruption, and thank you for your patience. Please keep enjoying Space Dashboard!",
+        "type": {
+            "error": true
         }
     },
-    "webcast_details" : {
+    "webcast_details": {
         "title": "Title",
         "message": "Message. <br><br>T-0 scheduled for 15:22 EDT (19:22 UTC)",
         "use_NASA_TV": true,
-        "custom_embed_code" : "",
-        "NASA_TV_embed_code" : "<iframe width='560' height='315' src='https://www.youtube.com/embed/21X5lGlDOfg?autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
-        "start_time_UTC" : "2022-08-29 11:00",
-        "end_time_UTC" : "2022-08-29 13:30"
+        "custom_embed_code": "",
+        "NASA_TV_embed_code": "<iframe width='560' height='315' src='https://www.youtube.com/embed/21X5lGlDOfg?autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
+        "start_time_UTC": "2022-08-29 11:00",
+        "end_time_UTC": "2022-08-29 13:30"
     }
 }
