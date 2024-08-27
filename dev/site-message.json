@@ -1,6 +1,6 @@
 {
     "site_message_details": {
-        "show_message": true,
+        "show_message": false,
         "title": "Space Station Live Feeds",
         "message": "I am aware of the issues for the live feeds from the Space Station, and as of right now I cannot find new NASA streams for these feeds. If you are able to find the real (Official NASA Stream) feeds for live videos from the Space Station, please contact me using the contact form on this site, or email me directly at <a href='mailto:caleb@spacedashboard.com'>caleb@spacedashboard.com</a>.<br><br>Sorry for the disruption, and thank you for your patience. Please keep enjoying Space Dashboard!",
         "type": {
