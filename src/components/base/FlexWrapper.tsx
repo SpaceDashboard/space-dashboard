@@ -13,6 +13,7 @@ const flexWrapperCss = (
   flex?: Flex,
   justifyContent?: JustifyContent,
   marginBottom?: number,
+  marginTop?: number,
 ) => css`
   align-items: ${alignItems};
   display: flex;
@@ -22,6 +23,7 @@ const flexWrapperCss = (
   ${flex && `flex: ${flex}`};
   ${justifyContent && `justify-content: ${justifyContent}`};
   ${marginBottom && `margin-bottom: ${marginBottom}px`};
+  ${marginTop && `margin-top: ${marginTop}px`};
 `;
 
 interface FlexWrapperProps {
@@ -32,6 +34,7 @@ interface FlexWrapperProps {
   gap?: number;
   justifyContent?: JustifyContent;
   marginBottom?: number;
+  marginTop?: number;
   style?: React.CSSProperties;
 }
 
@@ -41,9 +44,10 @@ export const FlexWrapper = ({
   className,
   flex,
   flexDirection = 'column',
-  gap = 12,
+  gap = 8,
   justifyContent,
   marginBottom,
+  marginTop,
   style,
 }: React.PropsWithChildren<FlexWrapperProps>) => {
   return (
@@ -56,6 +60,7 @@ export const FlexWrapper = ({
           flex,
           justifyContent,
           marginBottom,
+          marginTop,
         ),
         className,
       )}
