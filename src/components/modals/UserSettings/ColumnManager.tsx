@@ -71,31 +71,12 @@ export const ColumnManager: React.FC = () => {
   } = useSettingsContext();
 
   const [cardWidth, setCardWidth] = useState<number>(200);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 840) setCardWidth(130);
-      else if (window.innerWidth < 900) setCardWidth(160);
-      else if (window.innerWidth < 960) setCardWidth(180);
-      else if (window.innerWidth < 1100) setCardWidth(200);
-      else if (window.innerWidth < 1245) setCardWidth(250);
-      else setCardWidth(DEFAULT_CARD_WIDTH);
-    };
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const [panelPositions, setPanelPositions] = useState<{
     [key: string]: PanelPosition;
   }>({});
-
   const [originalPositions, setOriginalPositions] = useState<{
     [key: string]: PanelPosition;
   }>({});
-
   const [modified, setModified] = useState<boolean>(false);
 
   const maxPanelsInColumn = useMemo(
@@ -107,6 +88,22 @@ export const ColumnManager: React.FC = () => {
     () => maxPanelsInColumn * (CARD_HEIGHT + ROW_GAP),
     [maxPanelsInColumn],
   );
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1000) setCardWidth(130);
+      else if (window.innerWidth < 1060) setCardWidth(160);
+      else if (window.innerWidth < 1120) setCardWidth(180);
+      else if (window.innerWidth < 1270) setCardWidth(200);
+      else if (window.innerWidth < 1420) setCardWidth(250);
+      else setCardWidth(DEFAULT_CARD_WIDTH);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const initialPositions: { [key: string]: PanelPosition } = {};
@@ -166,11 +163,13 @@ export const ColumnManager: React.FC = () => {
     });
   };
 
+  // Reset any changes made
   const resetChanges = () => {
     setPanelPositions(originalPositions);
     setModified(false);
   };
 
+  // Reset to default column settings
   const resetToDefaults = () => {
     updateSettings({
       column1Order: defaultColumn1Order,
@@ -180,6 +179,7 @@ export const ColumnManager: React.FC = () => {
     setModified(false);
   };
 
+  // High level function to move a panel
   const movePanel = (
     panel: string,
     direction: 'up' | 'down' | 'left' | 'right',
@@ -208,6 +208,7 @@ export const ColumnManager: React.FC = () => {
     }
   };
 
+  // Function to swap two panels
   const swapPanels = (
     panel1: string,
     columnIndex1: number,
@@ -230,6 +231,7 @@ export const ColumnManager: React.FC = () => {
     }));
   };
 
+  // Function to move a panel to a new column
   const movePanelToColumn = (panel: string, newColumnIndex: number) => {
     const oldPosition = panelPositions[panel];
     const panelsInNewColumn = Object.entries(panelPositions).filter(
@@ -254,6 +256,7 @@ export const ColumnManager: React.FC = () => {
     });
   };
 
+  // Function to render the panels, specifying top/left positions via row and column index
   const renderItems = () => {
     return Object.keys(columnPanelMap)
       .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
