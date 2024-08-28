@@ -23,6 +23,7 @@ export const App: React.FC = () => {
     },
   } = useSettingsContext();
   const { ToastContainer } = useToast();
+  const [isViewportLarge, setIsViewportLarge] = React.useState(true);
 
   const renderColumn = (
     componentOrder?: string[],
@@ -48,6 +49,17 @@ export const App: React.FC = () => {
     }, 300);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsViewportLarge(window.innerWidth >= 1200);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
       <NavBar />
@@ -63,18 +75,31 @@ export const App: React.FC = () => {
         >
           <FlexWrapper gap={20}>
             <div className="content-column-wrapper">
-              <div className="content-column">
-                {renderColumn(column1Order, 0)}
-              </div>
-              <div className="content-column">
-                {renderColumn(column2Order, column1Order?.length)}
-              </div>
-              <div className="content-column">
-                {renderColumn(
-                  column3Order,
-                  column1Order?.length + column2Order?.length,
-                )}
-              </div>
+              {isViewportLarge ? (
+                <>
+                  <div className="content-column">
+                    {renderColumn(column1Order, 0)}
+                  </div>
+                  <div className="content-column">
+                    {renderColumn(column2Order, column1Order?.length)}
+                  </div>
+                  <div className="content-column">
+                    {renderColumn(
+                      column3Order,
+                      column1Order?.length + column2Order?.length,
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="content-column">
+                  {renderColumn(column1Order, 0)}
+                  {renderColumn(column2Order, column1Order?.length)}
+                  {renderColumn(
+                    column3Order,
+                    column1Order?.length + column2Order?.length,
+                  )}
+                </div>
+              )}
             </div>
             <DeepSpaceNetwork index={0} />
           </FlexWrapper>

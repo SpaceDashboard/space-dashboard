@@ -177,6 +177,34 @@ a {
   }
 }
 
+.content-two-up {
+  container-type: inline-size;
+  gap: var(--content-two-up--gap);
+  width: 100%;
+
+  > div {
+    width: calc((100% - var(--content-two-up--gap)) / 2);
+
+    &:first-child {
+      float: left;
+      position: relative;
+
+      &::before {
+        background-color: rgba(255, 255, 255, 0.15);
+        content: '';
+        height: 100%;
+        position: absolute;
+        right: calc(-1 * var(--content-two-up--gap) / 2);
+        width: 1px;
+      }
+    }
+
+    &:last-child {
+      float: right;
+    }
+  }
+}
+
 .aspect-16-9 {
   width: 100%;
   height: auto;

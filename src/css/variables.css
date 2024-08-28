@@ -55,6 +55,7 @@
   --content--gap: 30px;
   --content--transition-duration: 0.3s;
   --content-column--width: 33.33%;
+  --content-two-up--gap: 80px;
 
   /* Nav */
   --navbar--background-opacity: 0.8;

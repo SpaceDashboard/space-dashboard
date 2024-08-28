@@ -3,6 +3,7 @@
 */
 
 .sd-tooltip {
+  animation: 0.15s ease forwards opacityIn !important;
   background-color: hsl(
     var(--base-blue-hue),
     var(--base-blue-saturation),
@@ -10,7 +11,6 @@
   ) !important;
   border-radius: 0 !important;
   line-height: 1.4;
-  opacity: 1 !important;
   max-width: 330px;
   text-wrap: pretty;
   z-index: 1000;

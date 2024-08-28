@@ -15,9 +15,10 @@
       --content-column--width: 100%;
       gap: 30px;
       flex-direction: row;
+      flex-wrap: wrap;
 
       .panel-section {
-        width: 50%;
+        width: calc(50% - 15px);
       }
     }
   }
@@ -153,6 +154,28 @@ nav {
     .close-modal {
       --modal--close-button--distance: 5px;
       --modal--close-button--size: 20px;
+    }
+  }
+}
+
+.content-two-up {
+  @container (min-width: 701px) and (max-width: 1000px) {
+    --content-two-up--gap: 40px;
+  }
+  @container (max-width: 700px) {
+    --content-two-up--gap: 20px;
+
+    > div {
+      width: 100%;
+
+      &:first-child::before {
+        background-color: transparent;
+      }
+
+      &:first-child,
+      &:last-child {
+        margin-bottom: var(--content-two-up--gap);
+      }
     }
   }
 }
