@@ -10,11 +10,8 @@ import 'src/css/index.css';
 
 Sentry.init({
   dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',
-  integrations: [Sentry.replayIntegration()],
   tracesSampleRate: 1.0,
   tracePropagationTargets: [/^\//, /^https:\/\/api\.spacedashboard\.com/],
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0,
 });
 
 posthog.init('phc_9c7D91ze1wShYC4X83jlsYBnNvqDMSaOOyeJEm418hK', {
