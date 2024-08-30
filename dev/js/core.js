@@ -69,11 +69,7 @@ function loadIssFeed1(autoplay) {
     $('.iss1-player-type').removeClass('active');
     $('.iss1-player-type[data-type="' + localStorage.iss1Type + '"]').addClass('active');
 
-    var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" width="560" height="315" src="https://www.youtube.com/embed/6g1IMx-iIRY?&autoplay=1" title="YouTube video player - ISS Live View" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
-
-    // var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" ' +
-    // 'src="https://www.ustream.tv/embed/9408562?html5ui=' + playerFormat + '&autoplay=' + autoplay + '&volume=0&muted=1&wmode" ' +
-    // 'scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen" frameborder="0"></iframe>';
+    var $iss1 = '<iframe class="iss-feed-1" id="iss-feed-1" width="560" height="315" src="https://www.youtube.com/embed/HJWCleOaUV8?&autoplay=1" title="YouTube video player - ISS Live View" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
     $('.iss-feed-1-wrapper').find('.col-content').empty().append($iss1);
 
@@ -84,20 +80,6 @@ function loadIssFeed1(autoplay) {
             issFeed1UstreamObj.callMethod('play');
         }
     });
-
-    // Trying to play videos on render for Chrome
-
-    // var checkISSframe1 = setInterval(function(){
-    //    if ($('#iss-feed-1').contents().find('*')!='undefined') {
-    //         issFeed1UstreamObj = UstreamEmbed('iss-feed-1');
-
-    //         if (autoPlayFeeds) {
-    //             issFeed1UstreamObj.callMethod('play');
-    //         }
-
-    //         clearInterval(checkISSframe1);
-    //     }
-    // }, 200);
 }
 
 function loadIssFeed2(html5, autoplay) {
@@ -107,11 +89,7 @@ function loadIssFeed2(html5, autoplay) {
         issFeed2UstreamObj = null;
     }
 
-    var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" src="https://www.youtube.com/embed/NlBLeMiRKT4?&autoplay=1" title="YouTube video player - Live High-Definition Views from ISS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
-
-    // var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" ' +
-    // 'src="https://www.ustream.tv/embed/17074538?html5ui=' + html5 + '&autoplay=' + autoplay + '&volume=0&muted=1" ' +
-    // 'scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen" frameborder="0"></iframe>';
+    var $iss2 = '<iframe class="iss-feed-2" id="iss-feed-2" src="https://www.youtube.com/embed/HA1OeAU0vsk?&autoplay=1" title="YouTube video player - Live High-Definition Views from ISS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 
     $('.iss-feed-2-wrapper').find('.col-content').empty().append($iss2);
 
@@ -120,42 +98,6 @@ function loadIssFeed2(html5, autoplay) {
 
         if (autoPlayFeeds) {
             issFeed2UstreamObj.callMethod('play');
-        }
-    });
-
-    // var checkISSframe2 = setInterval(function(){
-    //    if ($('#iss-feed-2').contents().find('*')!='undefined') {
-    //         issFeed2UstreamObj = UstreamEmbed('iss-feed-2');
-
-    //         if (autoPlayFeeds) {
-    //             issFeed2UstreamObj.callMethod('play');
-    //         }
-
-    //         clearInterval(checkISSframe2);
-    //     }
-    // }, 200);
-}
-
-function loadNASATV(html5, autoplay) {
-    issFeed2UstreamObj = null;
-
-    if (nasaTVUstreamObj) {
-        nasaTVUstreamObj = null;
-    }
-
-    var $NASATV = '<iframe class="iss-feed-2" id="iss-feed-2" src="https://www.youtube.com/embed/21X5lGlDOfg?&autoplay=1" title="YouTube video player - NASA TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
-
-    // var $NASATV = '<iframe class="iss-feed-2" id="iss-feed-2" ' +
-    // 'src="https://www.ustream.tv/embed/6540154?html5ui=' + html5 + '&autoplay=' + autoPlayFeeds + '&volume=50" ' +
-    // 'scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" frameborder="0"></iframe>';
-
-    $('.iss-feed-2-wrapper').find('.col-content').empty().append($NASATV);
-
-    $('#iss-feed-2').load(function(){
-        nasaTVUstreamObj = UstreamEmbed('iss-feed-2');
-
-        if (autoPlayFeeds) {
-            nasaTVUstreamObj.callMethod('play');
         }
     });
 }
@@ -177,36 +119,6 @@ function fetchNewData(targetClass, Callbacks) {
                     $(this).attr('src', '' + elementSrcReference + '?lastrefresh=' + seconds_since_epoch() + ''); // new src using remembered src
                 }
             }
-
-            // var elementSrcReference = $(this).attr('src').replace(/\?lastrefresh=.*/,''),
-            //     self = $(this);
-
-            // var xhr = new XMLHttpRequest();
-            // xhr.open('GET', elementSrcReference);
-            // xhr.onload = function (e) {
-            //     if (xhr.status === 200) {
-            //         $(this).attr('src', ''); // clear src
-            //         self.attr('src', '' + xhr.responseURL + '?lastrefresh=' + seconds_since_epoch() + ''); // new src using remembered src
-            //     }
-            // };
-            // xhr.onerror = function (e) {
-            //     self.parent().parent().find('.refresh-overlay').removeClass('visible');
-            //     Swal.fire({
-            //         title: "Oops",
-            //         text: "Something went wrong, try again in a minute.",
-            //         timer: 5000,
-            //         type: 'error',
-            //         confirmButtonColor: '#222',
-            //         padding: '0.5em'
-            //     });
-            // };
-            // xhr.send();
-
-            // // abort request after 20 seconds
-            // setTimeout(function(){
-            //     xhr.abort();
-            //     self.parent().parent().find('.refresh-overlay').removeClass('visible');
-            // }, 20000);
         }
 
         if (Callbacks) {
@@ -385,36 +297,13 @@ $(function() {
     fetchNEOs();
     fetchAuroraForecast();
     loadIssFeed1(autoPlayFeeds);
+    loadIssFeed2(1, autoPlayFeeds);
     resizeIssTrackerFrame();
-
-    if (window.INIT_FEED_2 === "ISS") {
-        loadIssFeed2(1, autoPlayFeeds);
-        $('.toggle-iss-feed-2[data-video-feed="nasa-tv"]').show();
-    }
-
-    if (window.INIT_FEED_2 === "NASA") {
-        loadNASATV(1, autoPlayFeeds);
-        $('.toggle-iss-feed-2[data-video-feed="iss-feed-2"]').show();
-    }
 
     $('.iss1-player-type').on('click', function(){
         var playerType = $(this).data('type');
         localStorage.iss1Type = playerType;
         loadIssFeed1(autoPlayFeeds);
-    });
-
-    // toggle ISS feed 2 pane
-    $('.toggle-iss-feed-2').on('click', function(){
-        var videoFeed = $(this).data('video-feed');
-
-        if (videoFeed === "nasa-tv") {
-            loadNASATV(1, autoPlayFeeds);
-        } else {
-            loadIssFeed2(1, autoPlayFeeds);
-        }
-
-        $('.toggle-iss-feed-2[data-video-feed]').show();
-        $('.toggle-iss-feed-2[data-video-feed="' + videoFeed + '"]').hide();
     });
 
 
