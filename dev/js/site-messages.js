@@ -151,17 +151,6 @@ $(function() {
                 var template = Handlebars.compile(templateSource);
                 var html = template(webcastObj);
                 $('#webcast-wrapper').empty().append(html);
-
-                issFeed1UstreamObj.callMethod('pause');
-
-                if (issFeed2UstreamObj) {
-                    issFeed2UstreamObj.callMethod('pause');
-                }
-
-                if (nasaTVUstreamObj) {
-                    nasaTVUstreamObj.callMethod('pause');
-                }
-
                 $('.webcast').show().addClass('visible');
                 $('body').addClass('no-scroll');
             }
@@ -170,15 +159,6 @@ $(function() {
 
     $(document).on('click', '.close-webcast', function(e){
         $('#webcast-wrapper').empty();
-        issFeed1UstreamObj.callMethod('play');
-
-        if (issFeed2UstreamObj) {
-            issFeed2UstreamObj.callMethod('play');
-        }
-
-        if (nasaTVUstreamObj) {
-            nasaTVUstreamObj.callMethod('play');
-        }
     });
 
     $(document).on('keyup', function(e) {
@@ -186,15 +166,6 @@ $(function() {
             $('.menu.visible').hide().removeClass('visible');
             $('body.no-scroll').removeClass('no-scroll');
             $('#webcast-wrapper').empty();
-            issFeed1UstreamObj.callMethod('play');
-
-            if (issFeed2UstreamObj) {
-                issFeed2UstreamObj.callMethod('play');
-            }
-
-            if (nasaTVUstreamObj) {
-                nasaTVUstreamObj.callMethod('play');
-            }
         }
     });
 });
