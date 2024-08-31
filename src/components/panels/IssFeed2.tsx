@@ -20,6 +20,7 @@ export const IssFeed2: React.FC<PanelProps> = ({ index }) => {
   const {
     settings: { issLiveHDViewsAutoPlay, issLiveHDViewsMute },
   } = useSettingsContext();
+
   return (
     <Panel index={index}>
       <PanelBody>
