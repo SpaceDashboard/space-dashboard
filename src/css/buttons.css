@@ -2,6 +2,7 @@
   Available additional style classes:
   - flat-bottom
   - secondary
+  - danger
   - small
   - nav
   - active
@@ -261,6 +262,93 @@
           var(--base-blue-hue),
           var(--base-blue-saturation),
           calc(var(--base-blue-lightness) + 70%)
+        );
+      }
+    }
+  }
+
+  /*
+    Danger button styles
+  */
+  &.danger {
+    --button--background-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 10%)
+    );
+    --button--border-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 40%)
+    );
+  }
+
+  &:not(:disabled, [disabled]) {
+    @media (hover: hover) {
+      &.danger:hover {
+        --button--background-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 20%)
+        );
+        --button--border-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 55%)
+        );
+        box-shadow: none;
+      }
+    }
+
+    &.danger:focus-visible {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 20%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 50%)
+      );
+      box-shadow: none;
+    }
+
+    &.danger:active {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 15%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 45%)
+      );
+    }
+
+    &.danger.active {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 25%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 65%)
+      );
+
+      &:focus-visible {
+        --button--background-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 30%)
+        );
+        --button--border-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 70%)
         );
       }
     }

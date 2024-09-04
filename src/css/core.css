@@ -228,6 +228,10 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
+input::placeholder {
+  font-style: italic;
+}
+
 .text-error {
   color: #ff8585;
   margin: 6px 0;

@@ -13,7 +13,13 @@ import { IconProps } from '@tabler/icons-react';
   - active
 */
 
-export type Variant = 'flat-bottom' | 'secondary' | 'small' | 'nav' | 'active';
+export type Variant =
+  | 'flat-bottom'
+  | 'secondary'
+  | 'danger'
+  | 'small'
+  | 'nav'
+  | 'active';
 
 export interface ButtonProps {
   className?: string;

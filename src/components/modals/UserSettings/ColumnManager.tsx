@@ -473,7 +473,7 @@ export const ColumnManager: React.FC = () => {
           </Button>
           <Button
             onClick={resetToDefaults}
-            variantsList={['secondary', 'small']}
+            variantsList={['secondary', 'danger', 'small']}
           >
             {'Reset to default'}
           </Button>

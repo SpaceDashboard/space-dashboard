@@ -164,16 +164,18 @@ export const UserSettings: React.FC = () => {
               }
             />
             <FlexWrapper maxWidth={200}>
-              <label htmlFor="IssFeed1-id-override">
-                {'Video ID Override'}
-              </label>
+              <label htmlFor="issFeed1IdOverride">{'Video ID Override'}</label>
               <input
                 type="text"
                 placeholder={issLiveFeedVideoId1}
                 autoComplete="off"
                 data-1p-ignore
                 {...register('issFeed1IdOverride', {
-                  value: panelConfigs.IssFeed1.videoIdOverride,
+                  value:
+                    panelConfigs.IssFeed1.videoIdOverride !==
+                    issLiveFeedVideoId1
+                      ? panelConfigs.IssFeed1.videoIdOverride
+                      : '',
                 })}
               />
               <FlexWrapper flexDirection="row" alignItems="center" gap={12}>
@@ -240,16 +242,18 @@ export const UserSettings: React.FC = () => {
               }
             />
             <FlexWrapper maxWidth={200}>
-              <label htmlFor="IssFeed2-id-override">
-                {'Video ID Override'}
-              </label>
+              <label htmlFor="issFeed2IdOverride">{'Video ID Override'}</label>
               <input
                 type="text"
                 placeholder={issLiveFeedVideoId2}
                 autoComplete="off"
                 data-1p-ignore
                 {...register('issFeed2IdOverride', {
-                  value: panelConfigs.IssFeed2.videoIdOverride,
+                  value:
+                    panelConfigs.IssFeed2.videoIdOverride !==
+                    issLiveFeedVideoId2
+                      ? panelConfigs.IssFeed2.videoIdOverride
+                      : '',
                 })}
               />
               <FlexWrapper flexDirection="row" alignItems="center" gap={12}>
@@ -277,7 +281,7 @@ export const UserSettings: React.FC = () => {
                     updatePanelConfigs({
                       ['IssFeed2']: {
                         ...panelConfigs.IssFeed2,
-                        videoIdOverride: issLiveFeedVideoId1,
+                        videoIdOverride: issLiveFeedVideoId2,
                       },
                     });
                     setValue('issFeed2IdOverride', '');
