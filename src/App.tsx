@@ -105,7 +105,7 @@ export const App: React.FC = () => {
                 </div>
               )}
             </div>
-            {panelConfigs['DeepSpaceNetwork'].enabled && (
+            {panelConfigs.DeepSpaceNetwork.enabled && (
               <DeepSpaceNetwork index={0} componentKey="DeepSpaceNetwork" />
             )}
           </FlexWrapper>

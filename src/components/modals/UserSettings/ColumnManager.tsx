@@ -442,15 +442,15 @@ export const ColumnManager: React.FC = () => {
                     top: '20px',
                   }}
                 >
-                  {defaultPanelConfigs['DeepSpaceNetwork'].label}
+                  {defaultPanelConfigs.DeepSpaceNetwork.label}
                   <Toggle
                     ariaLabel="Enable panel"
-                    checked={panelConfigs['DeepSpaceNetwork']?.enabled}
+                    checked={panelConfigs.DeepSpaceNetwork?.enabled}
                     onChange={() =>
                       updatePanelConfigs({
-                        ['DeepSpaceNetwork']: {
-                          ...panelConfigs['DeepSpaceNetwork'],
-                          enabled: !panelConfigs['DeepSpaceNetwork'].enabled,
+                        DeepSpaceNetwork: {
+                          ...panelConfigs.DeepSpaceNetwork,
+                          enabled: !panelConfigs.DeepSpaceNetwork.enabled,
                         },
                       })
                     }

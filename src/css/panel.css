@@ -179,6 +179,7 @@
   }
 
   .panel-menu {
+    --toggle--size: 14px;
     backdrop-filter: blur(0);
     -webkit-backdrop-filter: blur(0);
     background: hsla(
@@ -205,6 +206,11 @@
       var(--panel-menu--transition-duration) z-index ease;
     width: 100%;
     z-index: 1;
+
+    p,
+    label {
+      font-size: 0.9rem;
+    }
 
     .corners-wrapper-content {
       background-color: rgba(0, 0, 0, 0.4);

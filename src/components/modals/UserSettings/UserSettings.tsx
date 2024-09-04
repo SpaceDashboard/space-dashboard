@@ -141,22 +141,22 @@ export const UserSettings: React.FC = () => {
             <h3>{'Live Video from the ISS'}</h3>
             <Toggle
               label="Auto Play Video"
-              checked={panelConfigs['IssFeed1'].autoPlay}
+              checked={panelConfigs.IssFeed1.autoPlay}
               onChange={() =>
                 updatePanelConfigs({
-                  ['IssFeed1']: {
-                    ...panelConfigs['IssFeed1'],
-                    autoPlay: !panelConfigs['IssFeed1'].autoPlay,
+                  IssFeed1: {
+                    ...panelConfigs.IssFeed1,
+                    autoPlay: !panelConfigs.IssFeed1.autoPlay,
                   },
                 })
               }
             />
             <Toggle
               label="Start Video Muted"
-              checked={panelConfigs['IssFeed1'].mute}
+              checked={panelConfigs.IssFeed1.mute}
               onChange={() =>
                 updatePanelConfigs({
-                  ['IssFeed1']: {
+                  IssFeed1: {
                     ...panelConfigs.IssFeed1,
                     mute: !panelConfigs.IssFeed1.mute,
                   },
@@ -188,7 +188,7 @@ export const UserSettings: React.FC = () => {
                   }
                   onClick={() => {
                     updatePanelConfigs({
-                      ['IssFeed1']: {
+                      IssFeed1: {
                         ...panelConfigs.IssFeed1,
                         videoIdOverride: watch('issFeed1IdOverride'),
                       },
@@ -201,7 +201,7 @@ export const UserSettings: React.FC = () => {
                   variantsList={['secondary', 'small']}
                   onClick={() => {
                     updatePanelConfigs({
-                      ['IssFeed1']: {
+                      IssFeed1: {
                         ...panelConfigs.IssFeed1,
                         videoIdOverride: issLiveFeedVideoId1,
                       },
@@ -219,24 +219,24 @@ export const UserSettings: React.FC = () => {
             <h3>{'Live HD Views from the ISS'}</h3>
             <Toggle
               label="Auto Play Video"
-              checked={panelConfigs['IssFeed2'].autoPlay}
+              checked={panelConfigs.IssFeed2.autoPlay}
               onChange={() =>
                 updatePanelConfigs({
-                  ['IssFeed2']: {
-                    ...panelConfigs['IssFeed2'],
-                    autoPlay: !panelConfigs['IssFeed2'].autoPlay,
+                  IssFeed2: {
+                    ...panelConfigs.IssFeed2,
+                    autoPlay: !panelConfigs.IssFeed2.autoPlay,
                   },
                 })
               }
             />
             <Toggle
               label="Start Video Muted"
-              checked={panelConfigs['IssFeed2'].mute}
+              checked={panelConfigs.IssFeed2.mute}
               onChange={() =>
                 updatePanelConfigs({
-                  ['IssFeed2']: {
-                    ...panelConfigs['IssFeed2'],
-                    mute: !panelConfigs['IssFeed2'].mute,
+                  IssFeed2: {
+                    ...panelConfigs.IssFeed2,
+                    mute: !panelConfigs.IssFeed2.mute,
                   },
                 })
               }
@@ -266,7 +266,7 @@ export const UserSettings: React.FC = () => {
                   }
                   onClick={() => {
                     updatePanelConfigs({
-                      ['IssFeed2']: {
+                      IssFeed2: {
                         ...panelConfigs.IssFeed2,
                         videoIdOverride: watch('issFeed2IdOverride'),
                       },
@@ -279,7 +279,7 @@ export const UserSettings: React.FC = () => {
                   variantsList={['secondary', 'small']}
                   onClick={() => {
                     updatePanelConfigs({
-                      ['IssFeed2']: {
+                      IssFeed2: {
                         ...panelConfigs.IssFeed2,
                         videoIdOverride: issLiveFeedVideoId2,
                       },
