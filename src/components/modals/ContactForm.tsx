@@ -106,7 +106,7 @@ export const ContactForm: React.FC = () => {
             <br />
             {'You can also email me directly at:'}{' '}
             <a href="mailto:caleb@spacedashboard.com">
-              caleb@spacedashboard.com
+              {'caleb@spacedashboard.com'}
             </a>
           </p>
         )}

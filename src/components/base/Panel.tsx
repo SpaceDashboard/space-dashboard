@@ -4,6 +4,7 @@ import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
 import { Button, Variant, CornersWrapper } from 'src/components/base';
+import { AvailablePanels } from 'src/shared/PanelConfigs';
 import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 
 const panelWrapperCss = (
@@ -90,6 +91,7 @@ export interface PanelProps {
   animationDuration?: number;
   animationDelay?: number;
   className?: string;
+  componentKey: string;
   index: number;
   isMenuOpen?: boolean;
 }
@@ -99,6 +101,7 @@ export const InnerPanel = ({
   animationDuration = 0.4,
   animationDelay = 0,
   className,
+  componentKey,
   index,
   isMenuOpen,
 }: React.PropsWithChildren<PanelProps>) => {
@@ -114,6 +117,7 @@ export const InnerPanel = ({
     setAnimationDurationSeconds,
     setAnimationDelaySeconds,
     setIsPanelMenuOpen,
+    setComponentKey,
   } = usePanelContext();
   const delayedAnimationSeconds = useMemo(() => {
     if (allPanelsLoaded) {
@@ -181,6 +185,10 @@ export const InnerPanel = ({
   useEffect(() => {
     setIsPanelMenuOpen && setIsPanelMenuOpen(isMenuOpen ?? false);
   }, [isMenuOpen, setIsPanelMenuOpen]);
+
+  useEffect(() => {
+    setComponentKey?.(componentKey);
+  });
 
   return (
     <div className="panel-section">
@@ -311,7 +319,11 @@ export const PanelActions = ({
 };
 
 export const PanelMenu = ({ children }: React.PropsWithChildren) => {
-  const { isPanelMenuOpen, setIsPanelMenuOpen } = usePanelContext();
+  const { isPanelMenuOpen, setIsPanelMenuOpen, componentKey } =
+    usePanelContext();
+  const {
+    settings: { panelConfigs },
+  } = useSettingsContext();
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -327,7 +339,12 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
 
   return (
     <div className={cx('panel-menu', { open: isPanelMenuOpen })}>
-      <CornersWrapper height="100%">{children}</CornersWrapper>
+      <CornersWrapper height="100%">
+        {componentKey && (
+          <h3>{panelConfigs[componentKey as AvailablePanels].label}</h3>
+        )}
+        {children}
+      </CornersWrapper>
     </div>
   );
 };

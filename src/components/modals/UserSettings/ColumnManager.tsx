@@ -7,11 +7,18 @@ import {
   IconChevronCompactLeft,
 } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
-import { Button, CornersWrapper, FlexWrapper } from 'src/components/base';
+import {
+  Button,
+  CornersWrapper,
+  FlexWrapper,
+  Toggle,
+} from 'src/components/base';
 import {
   columnPanelMap,
-  panelLabelByComponentName,
-} from 'src/shared/ColumnPanelConfig';
+  defaultPanelConfigs,
+  AvailablePanels,
+  MoveablePanels,
+} from 'src/shared/PanelConfigs';
 
 const CARD_HEIGHT = 160;
 const DEFAULT_CARD_WIDTH = 300;
@@ -59,6 +66,7 @@ export const ColumnManager: React.FC = () => {
       column1Order,
       column2Order,
       column3Order,
+      panelConfigs,
       reduceMotion,
       reduceTransparency,
     },
@@ -68,6 +76,7 @@ export const ColumnManager: React.FC = () => {
       column3Order: defaultColumn3Order,
     },
     updateSettings,
+    updatePanelConfigs,
   } = useSettingsContext();
 
   const [cardWidth, setCardWidth] = useState<number>(200);
@@ -146,15 +155,21 @@ export const ColumnManager: React.FC = () => {
   const applyChanges = () => {
     const newColumn1Order = Object.keys(panelPositions)
       .filter((panel) => panelPositions[panel].columnIndex === 0)
-      .sort((a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex);
+      .sort(
+        (a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex,
+      ) as MoveablePanels[];
 
     const newColumn2Order = Object.keys(panelPositions)
       .filter((panel) => panelPositions[panel].columnIndex === 1)
-      .sort((a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex);
+      .sort(
+        (a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex,
+      ) as MoveablePanels[];
 
     const newColumn3Order = Object.keys(panelPositions)
       .filter((panel) => panelPositions[panel].columnIndex === 2)
-      .sort((a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex);
+      .sort(
+        (a, b) => panelPositions[a].rowIndex - panelPositions[b].rowIndex,
+      ) as MoveablePanels[];
 
     updateSettings({
       column1Order: newColumn1Order,
@@ -171,10 +186,12 @@ export const ColumnManager: React.FC = () => {
 
   // Reset to default column settings
   const resetToDefaults = () => {
+    setPanelPositions(originalPositions);
     updateSettings({
       column1Order: defaultColumn1Order,
       column2Order: defaultColumn2Order,
       column3Order: defaultColumn3Order,
+      panelConfigs: defaultPanelConfigs,
     });
     setModified(false);
   };
@@ -317,7 +334,22 @@ export const ColumnManager: React.FC = () => {
                 </button>
 
                 <div style={{ padding: '0 8px' }}>
-                  {panelLabelByComponentName[panel]}
+                  <FlexWrapper gap={8} alignItems="center">
+                    {defaultPanelConfigs[panel as AvailablePanels].label}
+                    <Toggle
+                      ariaLabel="Enable panel"
+                      checked={panelConfigs[panel as AvailablePanels].enabled}
+                      onChange={() =>
+                        updatePanelConfigs({
+                          [panel as AvailablePanels]: {
+                            ...panelConfigs[panel as AvailablePanels],
+                            enabled:
+                              !panelConfigs[panel as AvailablePanels].enabled,
+                          },
+                        })
+                      }
+                    />
+                  </FlexWrapper>
                 </div>
 
                 <button
@@ -354,53 +386,96 @@ export const ColumnManager: React.FC = () => {
   return (
     <FlexWrapper gap={24} style={{ marginBottom: '30px' }}>
       <div>
-        <h2>Panel Arrangement</h2>
-        <p>Rearrange the panels by changing which column they are in.</p>
+        <h2>{'Panel Arrangement'}</h2>
+        <p>
+          {'Rearrange the panels by changing which column they are in.'}
+          <br />
+          {'Enabling or disabling panels takes effect immediately.'}
+        </p>
       </div>
       <FlexWrapper gap={32} flexDirection="row">
-        <CornersWrapper height="100%" size={20}>
-          {/* Plus 60px for the header height and 10px of space */}
-          <div
-            className={cx(
-              'column-manager',
-              wrapperCss(reduceMotion, reduceTransparency),
-            )}
-            style={{
-              height: `${wrapperHeight + 60}px`,
-              width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
-            }}
-          >
-            <FlexWrapper
-              alignItems="center"
-              flexDirection="row"
-              justifyContent="space-around"
-              className="column-headers"
+        <FlexWrapper gap={38}>
+          <CornersWrapper height="100%" size={20}>
+            {/* Plus 60px for the header height and 10px of space */}
+            <div
+              className={cx(
+                'column-manager',
+                wrapperCss(reduceMotion, reduceTransparency),
+              )}
+              style={{
+                height: `${wrapperHeight + 60}px`,
+                width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
+              }}
             >
-              <h4>Column One</h4>
-              <h4>Column Two</h4>
-              <h4>Column Three</h4>
-            </FlexWrapper>
-            <div className={cx('column-wrapper', columnWrapperCss)}>
-              {renderItems()}
+              <FlexWrapper
+                alignItems="center"
+                flexDirection="row"
+                justifyContent="space-around"
+                className="column-headers"
+              >
+                <h4>{'Column One'}</h4>
+                <h4>{'Column Two'}</h4>
+                <h4>{'Column Three'}</h4>
+              </FlexWrapper>
+              <div className={cx('column-wrapper', columnWrapperCss)}>
+                {renderItems()}
+              </div>
             </div>
-          </div>
-        </CornersWrapper>
+          </CornersWrapper>
+          {/* Deep Space Network - cannot be rearranged, only enabled or disabled */}
+          <CornersWrapper height="100%" size={20}>
+            <div
+              className={cx(
+                'column-manager',
+                wrapperCss(reduceMotion, reduceTransparency),
+              )}
+              style={{
+                height: '200px',
+                width: `calc(3 * ${cardWidth}px + 2 * ${COLUMN_GAP}px + 30px)`,
+              }}
+            >
+              <div className={cx('column-wrapper', columnWrapperCss)}>
+                <FlexWrapper
+                  className={cx('column-manager-card', columnCardCss)}
+                  style={{
+                    width: `calc(${cardWidth * 3}px + ${COLUMN_GAP * 2}px)`,
+                    top: '20px',
+                  }}
+                >
+                  {defaultPanelConfigs['DeepSpaceNetwork'].label}
+                  <Toggle
+                    ariaLabel="Enable panel"
+                    checked={panelConfigs['DeepSpaceNetwork']?.enabled}
+                    onChange={() =>
+                      updatePanelConfigs({
+                        ['DeepSpaceNetwork']: {
+                          ...panelConfigs['DeepSpaceNetwork'],
+                          enabled: !panelConfigs['DeepSpaceNetwork'].enabled,
+                        },
+                      })
+                    }
+                  />
+                </FlexWrapper>
+              </div>
+            </div>
+          </CornersWrapper>
+        </FlexWrapper>
         <FlexWrapper gap={18}>
           <Button onClick={applyChanges} disabled={!modified}>
-            Apply changes
+            {'Apply changes'}
           </Button>
           <Button
             onClick={resetChanges}
             disabled={!modified}
             variantsList={['secondary']}
           >
-            Reset changes
+            {'Reset changes'}
           </Button>
           <Button
             onClick={resetToDefaults}
             variantsList={['secondary', 'small']}
           >
-            Reset to default
+            {'Reset to default'}
           </Button>
         </FlexWrapper>
       </FlexWrapper>

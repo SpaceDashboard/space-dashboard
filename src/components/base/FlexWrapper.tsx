@@ -14,6 +14,7 @@ const flexWrapperCss = (
   justifyContent?: JustifyContent,
   marginBottom?: number,
   marginTop?: number,
+  maxWidth?: number,
 ) => css`
   align-items: ${alignItems};
   display: flex;
@@ -24,6 +25,7 @@ const flexWrapperCss = (
   ${justifyContent && `justify-content: ${justifyContent}`};
   ${marginBottom && `margin-bottom: ${marginBottom}px`};
   ${marginTop && `margin-top: ${marginTop}px`};
+  ${maxWidth && `max-width: ${maxWidth}px`};
 `;
 
 interface FlexWrapperProps {
@@ -35,6 +37,7 @@ interface FlexWrapperProps {
   justifyContent?: JustifyContent;
   marginBottom?: number;
   marginTop?: number;
+  maxWidth?: number;
   style?: React.CSSProperties;
 }
 
@@ -48,6 +51,7 @@ export const FlexWrapper = ({
   justifyContent,
   marginBottom,
   marginTop,
+  maxWidth,
   style,
 }: React.PropsWithChildren<FlexWrapperProps>) => {
   return (
@@ -61,6 +65,7 @@ export const FlexWrapper = ({
           justifyContent,
           marginBottom,
           marginTop,
+          maxWidth,
         ),
         className,
       )}

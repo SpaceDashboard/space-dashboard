@@ -9,9 +9,9 @@ import {
   FadeFromBlack,
 } from 'src/components/base';
 
-export const SolarVisual: React.FC<PanelProps> = ({ index }) => {
+export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   return (
-    <Panel index={index}>
+    <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
           <img

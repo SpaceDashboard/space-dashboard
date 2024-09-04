@@ -9,29 +9,39 @@ import {
 import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
+import { useForm } from 'react-hook-form';
 import { ColumnManager } from './ColumnManager';
 
+interface FormFields {
+  issFeed1IdOverride?: string;
+  issFeed2IdOverride?: string;
+}
+
 export const UserSettings: React.FC = () => {
-  const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
+  const {
+    isUserSettingsOpen,
+    setIsUserSettingsOpen,
+    issLiveFeedVideoId1,
+    issLiveFeedVideoId2,
+  } = useAppContext();
   const {
     settings: {
       reduceMotion,
       reduceTransparency,
       reduceButtonAnimation,
       enableButtonAnimationAlways,
-      issLiveViewAutoPlay,
-      issLiveViewMute,
-      issLiveHDViewsAutoPlay,
-      issLiveHDViewsMute,
+      panelConfigs,
     },
     updateSettings,
+    updatePanelConfigs,
   } = useSettingsContext();
+  const { register, setValue, watch } = useForm<FormFields>();
 
   return (
     <Modal isOpen={isUserSettingsOpen} setIsOpen={setIsUserSettingsOpen}>
       <FlexWrapper gap={50}>
         <FlexWrapper>
-          <h2>Motion &amp; Accessibility</h2>
+          <h2>{'Motion & Accessibility'}</h2>
           <Toggle
             label={
               <>
@@ -108,13 +118,13 @@ export const UserSettings: React.FC = () => {
               <>
                 <IconAlertTriangle color="#CA8300" size={20} />
                 <small style={{ color: '#e9c27b' }}>
-                  "Reduce button animation" overrides this setting
+                  {'"Reduce button animation" overrides this setting'}
                 </small>
               </>
             )}
           </FlexWrapper>
           <FlexWrapper gap={4} marginTop={8}>
-            <h3>Example Buttons</h3>
+            <h3>{'Example Buttons'}</h3>
             <FlexWrapper alignItems="flex-end" flexDirection="row">
               <Button variantsList={['small']}>{'Button'}</Button>
               <Button variantsList={['secondary', 'small']}>{'Button'}</Button>
@@ -126,49 +136,157 @@ export const UserSettings: React.FC = () => {
         </FlexWrapper>
 
         <FlexWrapper gap={28}>
-          <h2>Panel Specific Settings</h2>
+          <h2>{'Panel Specific Settings'}</h2>
           <FlexWrapper>
-            <h3>Live Video from the ISS</h3>
+            <h3>{'Live Video from the ISS'}</h3>
             <Toggle
               label="Auto Play Video"
-              checked={issLiveViewAutoPlay}
+              checked={panelConfigs['IssFeed1'].autoPlay}
               onChange={() =>
-                updateSettings({
-                  issLiveViewAutoPlay: !issLiveViewAutoPlay,
+                updatePanelConfigs({
+                  ['IssFeed1']: {
+                    ...panelConfigs['IssFeed1'],
+                    autoPlay: !panelConfigs['IssFeed1'].autoPlay,
+                  },
                 })
               }
             />
             <Toggle
               label="Start Video Muted"
-              checked={issLiveViewMute}
+              checked={panelConfigs['IssFeed1'].mute}
               onChange={() =>
-                updateSettings({
-                  issLiveViewMute: !issLiveViewMute,
+                updatePanelConfigs({
+                  ['IssFeed1']: {
+                    ...panelConfigs.IssFeed1,
+                    mute: !panelConfigs.IssFeed1.mute,
+                  },
                 })
               }
             />
+            <FlexWrapper maxWidth={200}>
+              <label htmlFor="IssFeed1-id-override">
+                {'Video ID Override'}
+              </label>
+              <input
+                type="text"
+                placeholder={issLiveFeedVideoId1}
+                autoComplete="off"
+                data-1p-ignore
+                {...register('issFeed1IdOverride', {
+                  value: panelConfigs.IssFeed1.videoIdOverride,
+                })}
+              />
+              <FlexWrapper flexDirection="row" alignItems="center" gap={12}>
+                <Button
+                  variantsList={['small']}
+                  disabled={
+                    watch('issFeed1IdOverride') === '' ||
+                    watch('issFeed1IdOverride') ===
+                      panelConfigs.IssFeed1.videoIdOverride
+                  }
+                  onClick={() => {
+                    updatePanelConfigs({
+                      ['IssFeed1']: {
+                        ...panelConfigs.IssFeed1,
+                        videoIdOverride: watch('issFeed1IdOverride'),
+                      },
+                    });
+                  }}
+                >
+                  {'Apply'}
+                </Button>
+                <Button
+                  variantsList={['secondary', 'small']}
+                  onClick={() => {
+                    updatePanelConfigs({
+                      ['IssFeed1']: {
+                        ...panelConfigs.IssFeed1,
+                        videoIdOverride: issLiveFeedVideoId1,
+                      },
+                    });
+                    setValue('issFeed1IdOverride', '');
+                  }}
+                >
+                  {'Reset'}
+                </Button>
+              </FlexWrapper>
+            </FlexWrapper>
           </FlexWrapper>
 
           <FlexWrapper>
-            <h3>Live HD Views from the ISS</h3>
+            <h3>{'Live HD Views from the ISS'}</h3>
             <Toggle
               label="Auto Play Video"
-              checked={issLiveHDViewsAutoPlay}
+              checked={panelConfigs['IssFeed2'].autoPlay}
               onChange={() =>
-                updateSettings({
-                  issLiveHDViewsAutoPlay: !issLiveHDViewsAutoPlay,
+                updatePanelConfigs({
+                  ['IssFeed2']: {
+                    ...panelConfigs['IssFeed2'],
+                    autoPlay: !panelConfigs['IssFeed2'].autoPlay,
+                  },
                 })
               }
             />
             <Toggle
               label="Start Video Muted"
-              checked={issLiveHDViewsMute}
+              checked={panelConfigs['IssFeed2'].mute}
               onChange={() =>
-                updateSettings({
-                  issLiveHDViewsMute: !issLiveHDViewsMute,
+                updatePanelConfigs({
+                  ['IssFeed2']: {
+                    ...panelConfigs['IssFeed2'],
+                    mute: !panelConfigs['IssFeed2'].mute,
+                  },
                 })
               }
             />
+            <FlexWrapper maxWidth={200}>
+              <label htmlFor="IssFeed2-id-override">
+                {'Video ID Override'}
+              </label>
+              <input
+                type="text"
+                placeholder={issLiveFeedVideoId2}
+                autoComplete="off"
+                data-1p-ignore
+                {...register('issFeed2IdOverride', {
+                  value: panelConfigs.IssFeed2.videoIdOverride,
+                })}
+              />
+              <FlexWrapper flexDirection="row" alignItems="center" gap={12}>
+                <Button
+                  variantsList={['small']}
+                  disabled={
+                    watch('issFeed2IdOverride') === '' ||
+                    watch('issFeed2IdOverride') ===
+                      panelConfigs.IssFeed2.videoIdOverride
+                  }
+                  onClick={() => {
+                    updatePanelConfigs({
+                      ['IssFeed2']: {
+                        ...panelConfigs.IssFeed2,
+                        videoIdOverride: watch('issFeed2IdOverride'),
+                      },
+                    });
+                  }}
+                >
+                  {'Apply'}
+                </Button>
+                <Button
+                  variantsList={['secondary', 'small']}
+                  onClick={() => {
+                    updatePanelConfigs({
+                      ['IssFeed2']: {
+                        ...panelConfigs.IssFeed2,
+                        videoIdOverride: issLiveFeedVideoId1,
+                      },
+                    });
+                    setValue('issFeed2IdOverride', '');
+                  }}
+                >
+                  {'Reset'}
+                </Button>
+              </FlexWrapper>
+            </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>
 

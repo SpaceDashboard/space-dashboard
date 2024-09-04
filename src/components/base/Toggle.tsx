@@ -25,6 +25,7 @@ const toggleSwitchCss = (
 `;
 
 export const Toggle: React.FC<{
+  ariaLabel?: string;
   checked?: boolean;
   id?: string;
   isDisabled?: boolean;
@@ -33,6 +34,7 @@ export const Toggle: React.FC<{
   onChange?: (checked: boolean) => void;
   width?: number | string;
 }> = ({
+  ariaLabel = 'Toggle',
   checked,
   id,
   isDisabled,
@@ -71,6 +73,7 @@ export const Toggle: React.FC<{
       <span className="toggle-label">{label}</span>
       <span>
         <input
+          aria-label={ariaLabel}
           type="checkbox"
           id={toggleId}
           disabled={isDisabled}

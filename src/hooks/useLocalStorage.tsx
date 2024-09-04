@@ -14,17 +14,26 @@ const isLocalStorageAvailable = () => {
   }
 };
 
-const validateSettings = <T,>(settings: any, defaultSettings: T): T => {
-  const validatedSettings: any = { ...defaultSettings };
+const validateSettings = <T extends Record<string, any>>(
+  settings: any,
+  defaultSettings: T,
+): T => {
+  const validatedSettings: T = { ...defaultSettings };
 
   for (const key in defaultSettings) {
-    const hasKey = key in settings;
-    if (hasKey) {
-      const defaultType = typeof defaultSettings[key];
-      const actualType = typeof settings[key];
+    if (key in settings) {
+      const defaultValue = defaultSettings[key];
+      const settingValue = settings[key];
+      const defaultType = typeof defaultValue;
+      const actualType = typeof settingValue;
 
       if (defaultType === actualType) {
-        validatedSettings[key] = settings[key];
+        if (defaultType === 'object' && !Array.isArray(defaultValue)) {
+          // Recursively validate nested objects
+          validatedSettings[key] = validateSettings(settingValue, defaultValue);
+        } else {
+          validatedSettings[key] = settingValue;
+        }
       }
     }
   }
@@ -32,11 +41,35 @@ const validateSettings = <T,>(settings: any, defaultSettings: T): T => {
   return validatedSettings;
 };
 
-const mergeWithDefaults = <T,>(settings: any, defaultSettings: T): T => {
-  return { ...defaultSettings, ...settings };
+const mergeWithDefaults = <T extends Record<string, any>>(
+  settings: any,
+  defaultSettings: T,
+): T => {
+  const mergedSettings: T = { ...defaultSettings };
+
+  for (const key in settings) {
+    const defaultValue = defaultSettings[key];
+    const settingValue = settings[key];
+
+    if (
+      defaultValue &&
+      typeof settingValue === 'object' &&
+      !Array.isArray(settingValue)
+    ) {
+      // Recursively merge nested objects
+      (mergedSettings[key] as T[Extract<keyof T, string>]) = mergeWithDefaults(
+        settingValue,
+        defaultValue,
+      );
+    } else {
+      (mergedSettings[key] as T) = settingValue as T[Extract<keyof T, string>]; // Cast to the appropriate type
+    }
+  }
+
+  return mergedSettings;
 };
 
-export const useLocalStorage = <T,>(
+export const useLocalStorage = <T extends Record<string, any>>(
   key: string,
   defaultValue: T,
 ): [T, (value: T | ((prev: T) => T)) => void] => {

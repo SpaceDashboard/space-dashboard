@@ -15,7 +15,10 @@ const iframeCss = css`
   background: #000;
 `;
 
-export const DeepSpaceNetwork: React.FC<PanelProps> = ({ index }) => {
+export const DeepSpaceNetwork: React.FC<PanelProps> = ({
+  index,
+  componentKey,
+}) => {
   const { navAnimationSeconds } = useAppContext();
   const [iframeSrc, setIframeSrc] = React.useState('');
 
@@ -31,7 +34,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({ index }) => {
   }, []);
 
   return (
-    <Panel index={index}>
+    <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
           <iframe

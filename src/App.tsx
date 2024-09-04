@@ -6,7 +6,7 @@ import { NavBar } from 'src/components';
 import { DeepSpaceNetwork } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { useSettingsContext, useToast } from 'src/hooks';
-import { columnPanelMap } from 'src/shared/ColumnPanelConfig';
+import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
 
 const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   --content--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
@@ -20,22 +20,26 @@ export const App: React.FC = () => {
       column1Order,
       column2Order,
       column3Order,
+      panelConfigs,
     },
   } = useSettingsContext();
   const { ToastContainer } = useToast();
   const [isViewportLarge, setIsViewportLarge] = React.useState(true);
 
   const renderColumn = (
-    componentOrder?: string[],
+    componentOrder?: MoveablePanels[],
     previousCumulativeComponentCount = 0,
   ) => (
     <>
       {componentOrder?.map((componentName, index) => {
         const Component = columnPanelMap[componentName];
+        const enabled = panelConfigs[componentName].enabled;
+        if (!enabled) return null;
         return (
           <Component
             key={index}
             index={index + previousCumulativeComponentCount}
+            componentKey={componentName}
           />
         );
       })}
@@ -101,7 +105,9 @@ export const App: React.FC = () => {
                 </div>
               )}
             </div>
-            <DeepSpaceNetwork index={0} />
+            {panelConfigs['DeepSpaceNetwork'].enabled && (
+              <DeepSpaceNetwork index={0} componentKey="DeepSpaceNetwork" />
+            )}
           </FlexWrapper>
         </section>
       </main>

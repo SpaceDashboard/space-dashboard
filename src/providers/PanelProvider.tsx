@@ -7,17 +7,17 @@ interface PanelProviderProps {
   setAnimationDelaySeconds?: React.Dispatch<React.SetStateAction<number>>;
   isPanelMenuOpen?: boolean;
   setIsPanelMenuOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  componentKey?: string;
+  setComponentKey?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const PanelContext = createContext<PanelProviderProps>({});
 
-export const PanelProvider = ({
-  children,
-  isMenuOpen,
-}: React.PropsWithChildren<{ isMenuOpen?: boolean }>) => {
+export const PanelProvider = ({ children }: React.PropsWithChildren) => {
   const [animationDurationSeconds, setAnimationDurationSeconds] = useState(0);
   const [animationDelaySeconds, setAnimationDelaySeconds] = useState(0);
-  const [isPanelMenuOpen, setIsPanelMenuOpen] = useState(isMenuOpen ?? false);
+  const [isPanelMenuOpen, setIsPanelMenuOpen] = useState(false);
+  const [componentKey, setComponentKey] = useState('');
 
   const value = useMemo(
     () => ({
@@ -27,6 +27,8 @@ export const PanelProvider = ({
       setAnimationDelaySeconds,
       isPanelMenuOpen,
       setIsPanelMenuOpen,
+      componentKey,
+      setComponentKey,
     }),
     [
       animationDurationSeconds,
@@ -35,6 +37,8 @@ export const PanelProvider = ({
       setAnimationDelaySeconds,
       isPanelMenuOpen,
       setIsPanelMenuOpen,
+      componentKey,
+      setComponentKey,
     ],
   );
 

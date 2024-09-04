@@ -4,12 +4,17 @@ import {
   defaultColumn1Order,
   defaultColumn2Order,
   defaultColumn3Order,
-} from 'src/shared/ColumnPanelConfig';
+  AvailablePanels,
+  MoveablePanels,
+  PanelConfig,
+  defaultPanelConfigs,
+} from 'src/shared/PanelConfigs';
 
 interface Settings {
-  column1Order: string[];
-  column2Order: string[];
-  column3Order: string[];
+  column1Order: MoveablePanels[];
+  column2Order: MoveablePanels[];
+  column3Order: MoveablePanels[];
+  panelConfigs: { [key in AvailablePanels]: PanelConfig };
   reduceMotion: boolean;
   reduceTransparency: boolean;
   reduceButtonAnimation: boolean;
@@ -25,6 +30,9 @@ export interface SettingsContextProps {
   settings: Settings;
   defaultSettings: Settings;
   updateSettings: (newSettings: Partial<Settings>) => void;
+  updatePanelConfigs: (
+    newPanelConfigs: Partial<Record<AvailablePanels, PanelConfig>>,
+  ) => void;
   resetSettings: () => void;
 }
 
@@ -37,6 +45,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     column1Order: defaultColumn1Order,
     column2Order: defaultColumn2Order,
     column3Order: defaultColumn3Order,
+    panelConfigs: defaultPanelConfigs,
     reduceMotion: false,
     reduceTransparency: false,
     reduceButtonAnimation: false,
@@ -60,14 +69,29 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
+  const updatePanelConfigs = (
+    newPanelConfigs: Partial<Record<AvailablePanels, PanelConfig>>,
+  ) => {
+    updateSettings({
+      panelConfigs: { ...settings.panelConfigs, ...newPanelConfigs },
+    });
+  };
+
   const value = useMemo(
     () => ({
       settings,
       defaultSettings,
       updateSettings,
+      updatePanelConfigs,
       resetSettings: () => setSettings(defaultSettings),
     }),
-    [settings, updateSettings, setSettings, defaultSettings],
+    [
+      settings,
+      updateSettings,
+      updatePanelConfigs,
+      setSettings,
+      defaultSettings,
+    ],
   );
 
   return (
