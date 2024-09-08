@@ -246,6 +246,7 @@ textarea {
   border: 1px solid var(--input--border-color);
   box-sizing: border-box;
   color: var(--input--text-color);
+  flex-shrink: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   outline: 0;

@@ -5,7 +5,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  Button,
   FadeFromBlack,
 } from 'src/components/base';
 import { css } from '@emotion/css';
@@ -83,12 +82,18 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
         </div>
       </PanelBody>
       <PanelMenu>
-        {'This is a test'}
-        <Button variantsList={['small']}>Button</Button>
+        <p>
+          {'Credit: '}
+          <a
+            href="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/International_Space_Station/Where_is_the_International_Space_Station"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {'ESA: Where is the International Space Station'}
+          </a>
+        </p>
       </PanelMenu>
-      <PanelActions
-        refreshData={() => console.log('Refresh clicked')}
-      ></PanelActions>
+      <PanelActions />
     </Panel>
   );
 };
