@@ -33,13 +33,23 @@ export const defaultColumn2Order: MoveablePanels[] = [
 ];
 export const defaultColumn3Order: MoveablePanels[] = ['AuroraForecast'];
 
-export interface PanelConfig {
+interface BasePanelConfig {
   label: string;
   enabled: boolean;
+}
+
+interface IssFeedConfig {
   autoPlay?: boolean;
   mute?: boolean;
   videoIdOverride?: string;
 }
+
+interface SolarVisualConfig {
+  startWithVideo?: boolean;
+}
+
+// TODO: clean up types
+export type PanelConfig = BasePanelConfig & IssFeedConfig & SolarVisualConfig;
 
 export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   IssFeed1: {
@@ -63,6 +73,7 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   SolarVisual: {
     label: 'The Sun Now',
     enabled: true,
+    startWithVideo: false,
   },
   AuroraForecast: {
     label: 'Aurora Forecast',

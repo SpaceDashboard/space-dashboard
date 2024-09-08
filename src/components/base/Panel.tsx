@@ -299,7 +299,7 @@ export const PanelActions = ({
             isPanelAction={true}
             onClick={refreshData}
             tooltipTitle="Refresh data"
-            variantsList={['small', 'secondary']}
+            variantsList={['secondary']}
           ></Button>
         )}
         {isMenuRendered && (

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { css } from '@emotion/css';
 import {
   Panel,
   PanelBody,
@@ -7,7 +8,6 @@ import {
   PanelMenu,
   FadeFromBlack,
 } from 'src/components/base';
-import { css } from '@emotion/css';
 
 const issTrackerWrapperCss = css`
   align-items: center;

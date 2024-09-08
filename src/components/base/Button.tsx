@@ -136,6 +136,9 @@ export const Button = ({
   tooltipTitle,
   variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
+  if (isPanelAction) {
+    variantsList.push('small');
+  }
   const [isHovered, setIsHovered] = React.useState<boolean>(false);
   const variantClasses = variantsList.map((variant) => variant).join(' ');
   const isActive = variantsList?.includes('active');

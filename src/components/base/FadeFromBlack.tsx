@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { css } from '@emotion/css';
+import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 
 const fadeInFromBlackCss = (
   isLoading: boolean,

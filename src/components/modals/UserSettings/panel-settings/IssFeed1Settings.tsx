@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
-import { Button, Toggle, FlexWrapper } from 'src/components/base';
+import {
+  Button,
+  Toggle,
+  FlexWrapper,
+  TooltipWrapper,
+} from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import { useForm } from 'react-hook-form';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 export const IssFeed1Settings: React.FC = () => {
   const { issLiveFeedVideoId1 } = useAppContext();
@@ -52,7 +58,12 @@ export const IssFeed1Settings: React.FC = () => {
       />
       <FlexWrapper flexDirection="row" alignItems="flex-end">
         <FlexWrapper maxWidth={200}>
-          <label htmlFor="issFeed1IdOverride">{'Video ID Override'}</label>
+          <FlexWrapper flexDirection="row" alignItems="center" gap={6}>
+            <label htmlFor="issFeed1IdOverride">{'Video ID Override'}</label>
+            <TooltipWrapper title="Override the YouTube video ID" delay={100}>
+              <IconInfoCircle color="#CCC" size={20} />
+            </TooltipWrapper>
+          </FlexWrapper>
           <FlexWrapper flexDirection="row" alignItems="center" gap={12}>
             <input
               type="text"
@@ -91,6 +102,8 @@ export const IssFeed1Settings: React.FC = () => {
                 });
                 setValue('issFeed1IdOverride', '');
               }}
+              tooltipTitle="Resets video ID to default value"
+              tooltipOffset={10}
             >
               {'Reset'}
             </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { IconCheck, IconX } from '@tabler/icons-react';
 import { css, cx } from '@emotion/css';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
 
 type JustifyContent =

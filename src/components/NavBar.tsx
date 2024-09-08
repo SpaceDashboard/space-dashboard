@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useLayoutEffect, useState } from 'react';
-import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { css, cx } from '@emotion/css';
+import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import {
   IconHelpHexagon,
