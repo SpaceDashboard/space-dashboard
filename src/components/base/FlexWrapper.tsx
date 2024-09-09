@@ -41,37 +41,46 @@ interface FlexWrapperProps {
   style?: React.CSSProperties;
 }
 
-export const FlexWrapper = ({
-  children,
-  alignItems = 'flex-start',
-  className,
-  flex,
-  flexDirection = 'column',
-  gap = 8,
-  justifyContent,
-  marginBottom,
-  marginTop,
-  maxWidth,
-  style,
-}: React.PropsWithChildren<FlexWrapperProps>) => {
-  return (
-    <div
-      className={cx(
-        flexWrapperCss(
-          alignItems,
-          flexDirection,
-          gap,
-          flex,
-          justifyContent,
-          marginBottom,
-          marginTop,
-          maxWidth,
-        ),
-        className,
-      )}
-      style={style}
-    >
-      {children}
-    </div>
-  );
-};
+export const FlexWrapper = React.forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<FlexWrapperProps>
+>(
+  (
+    {
+      children,
+      alignItems = 'flex-start',
+      className,
+      flex,
+      flexDirection = 'column',
+      gap = 8,
+      justifyContent,
+      marginBottom,
+      marginTop,
+      maxWidth,
+      style,
+    },
+    ref,
+  ) => {
+    return (
+      <div
+        className={cx(
+          flexWrapperCss(
+            alignItems,
+            flexDirection,
+            gap,
+            flex,
+            justifyContent,
+            marginBottom,
+            marginTop,
+            maxWidth,
+          ),
+          className,
+        )}
+        style={style}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  },
+);

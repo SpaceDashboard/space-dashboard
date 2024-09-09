@@ -78,7 +78,7 @@ export const ColumnManager: React.FC = () => {
     updateSettings,
     updatePanelConfigs,
   } = useSettingsContext();
-
+  const managerRef = React.useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState<number>(200);
   const [panelPositions, setPanelPositions] = useState<{
     [key: string]: PanelPosition;
@@ -100,11 +100,12 @@ export const ColumnManager: React.FC = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1000) setCardWidth(130);
-      else if (window.innerWidth < 1060) setCardWidth(160);
-      else if (window.innerWidth < 1120) setCardWidth(180);
-      else if (window.innerWidth < 1270) setCardWidth(200);
-      else if (window.innerWidth < 1420) setCardWidth(250);
+      if (!managerRef.current) return;
+      if (managerRef.current?.offsetWidth < 780) setCardWidth(160);
+      else if (managerRef.current?.offsetWidth < 870) setCardWidth(180);
+      else if (managerRef.current?.offsetWidth < 960) setCardWidth(210);
+      else if (managerRef.current?.offsetWidth < 1050) setCardWidth(240);
+      else if (managerRef.current?.offsetWidth < 1140) setCardWidth(270);
       else setCardWidth(DEFAULT_CARD_WIDTH);
     };
 
@@ -384,7 +385,7 @@ export const ColumnManager: React.FC = () => {
   };
 
   return (
-    <FlexWrapper gap={24} style={{ marginBottom: '30px' }}>
+    <FlexWrapper gap={24} style={{ marginBottom: '30px' }} ref={managerRef}>
       <div>
         <h2>{'Panel Arrangement'}</h2>
         <p>
