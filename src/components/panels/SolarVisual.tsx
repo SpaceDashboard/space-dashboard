@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { css } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 import {
   Panel,
   PanelBody,
@@ -13,8 +13,8 @@ import { IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
 import { SolarVisualSettings } from '../modals/UserSettings/panel-settings';
 
-const solarVisualWrapperCss = css`
-  height: 500px;
+const wrapperCss = (height?: number) => css`
+  ${height && height > 500 && 'padding-bottom: 500px !important;'}
 `;
 
 export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
@@ -24,6 +24,11 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     },
   } = useSettingsContext();
   const [showVideo, setShowVideo] = React.useState(false);
+  const [wrapperHeight, setWrapperHeight] = React.useState<number | undefined>(
+    undefined,
+  );
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+  let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
   useEffect(() => {
     if (SolarVisual.startWithVideo) {
@@ -31,17 +36,36 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     }
   }, [SolarVisual.startWithVideo]);
 
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (!wrapperRef.current) return;
+      setWrapperHeight(wrapperRef.current.offsetHeight);
+    }, 500);
+  };
+
+  useEffect(() => {
+    if (wrapperRef.current) {
+      window.addEventListener('resize', handleResize);
+    }
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
-          <div className={solarVisualWrapperCss}>
+          <div
+            className={cx('data-img-wrapper', wrapperCss(wrapperHeight))}
+            ref={wrapperRef}
+          >
             {showVideo ? (
-              <video
-                autoPlay
-                loop={true}
-                style={{ width: '100%', maxWidth: '500px' }}
-              >
+              <video autoPlay loop={true}>
                 <source
                   src="https://api.spacedashboard.com/vid/current-corona.mp4"
                   type="video/mp4"
@@ -50,7 +74,6 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
             ) : (
               <img
                 src="https://api.spacedashboard.com/img/current-corona.jpg"
-                style={{ width: '100%', maxWidth: '500px' }}
                 alt="Current visual of the sun"
               />
             )}
@@ -60,7 +83,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       <PanelMenu>
         <SolarVisualSettings />
       </PanelMenu>
-      <PanelActions refreshData={() => console.log('Refresh clicked')}>
+      <PanelActions refreshData={() => console.log('TODO: Refresh clicked')}>
         <Button
           onClick={() => setShowVideo(!showVideo)}
           tooltipTitle={showVideo ? 'Switch to image' : 'Switch to video'}

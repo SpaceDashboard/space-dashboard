@@ -211,6 +211,26 @@ a {
   aspect-ratio: 16/9;
 }
 
+.data-img-wrapper {
+  background-color: #000;
+  max-height: 500px;
+  max-width: 500px;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+  width: 100%;
+
+  img,
+  video {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 iframe {
   border: none;
   margin: 0;

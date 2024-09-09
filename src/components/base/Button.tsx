@@ -137,7 +137,7 @@ export const Button = ({
   variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
   if (isPanelAction) {
-    variantsList.push('small');
+    !variantsList?.includes('small') && variantsList.push('small');
   }
   const [isHovered, setIsHovered] = React.useState<boolean>(false);
   const variantClasses = variantsList.map((variant) => variant).join(' ');
