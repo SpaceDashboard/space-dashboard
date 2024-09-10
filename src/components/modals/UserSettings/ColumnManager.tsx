@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import {
   IconChevronCompactUp,
@@ -78,7 +78,7 @@ export const ColumnManager: React.FC = () => {
     updateSettings,
     updatePanelConfigs,
   } = useSettingsContext();
-  const managerRef = React.useRef<HTMLDivElement>(null);
+  const managerRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState<number>(200);
   const [panelPositions, setPanelPositions] = useState<{
     [key: string]: PanelPosition;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { FlexWrapper } from './components/base';
@@ -24,7 +24,7 @@ export const App: React.FC = () => {
     },
   } = useSettingsContext();
   const { ToastContainer } = useToast();
-  const [isViewportLarge, setIsViewportLarge] = React.useState(true);
+  const [isViewportLarge, setIsViewportLarge] = useState(true);
 
   const renderColumn = (
     componentOrder?: MoveablePanels[],

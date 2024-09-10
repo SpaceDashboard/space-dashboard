@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import {
   Panel,
@@ -6,29 +6,42 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  Button,
   FadeFromBlack,
 } from 'src/components/base';
 
-const wrapperCss = (height?: number) => css`
-  ${height && height > 500 && 'padding-bottom: 500px !important;'}
+const wrapperCss = (width?: number, height?: number) => css`
+  ${width &&
+  height &&
+  width >= 500 &&
+  height >= 500 &&
+  'padding-bottom: 500px !important;'}
 `;
 
 export const AuroraForecast: React.FC<PanelProps> = ({
   index,
   componentKey,
 }) => {
-  const [wrapperHeight, setWrapperHeight] = React.useState<number | undefined>(
+  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
     undefined,
   );
-  const wrapperRef = React.useRef<HTMLDivElement>(null);
+  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(
+    undefined,
+  );
+  const wrapperRef = useRef<HTMLDivElement>(null);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       if (!wrapperRef.current) return;
-      setWrapperHeight(wrapperRef.current.offsetHeight);
+      setWrapperWidth(
+        (wrapperRef.current.children[0] as HTMLElement).getBoundingClientRect()
+          .width,
+      );
+      setWrapperHeight(
+        (wrapperRef.current.children[0] as HTMLElement).getBoundingClientRect()
+          .height,
+      );
     }, 500);
   };
 
@@ -49,7 +62,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       <PanelBody>
         <FadeFromBlack>
           <div
-            className={cx('data-img-wrapper', wrapperCss(wrapperHeight))}
+            className={cx(
+              'data-img-wrapper',
+              wrapperCss(wrapperWidth, wrapperHeight),
+            )}
             ref={wrapperRef}
           >
             <img
@@ -61,8 +77,19 @@ export const AuroraForecast: React.FC<PanelProps> = ({
         </FadeFromBlack>
       </PanelBody>
       <PanelMenu>
-        {'This is a test'}
-        <Button variantsList={['small']}>Button</Button>
+        <p>
+          {'Credit: '}
+          <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noreferrer">
+            {'Space Weather Prediction Center (SWPC)'}
+          </a>
+        </p>
+        <p>
+          {'From SWPC:'}
+          <br />
+          {
+            'Space Weather impacts numerous facets of everyday life, from where airplanes can safely fly, to how accurately a farmer plows his field. In addition, there are a large variety of phenomena that are driven by the variability of the sun over periods ranging from hours to years. SWPC provides information for novices and experts alike about the impacts and phenomena of Space Weather'
+          }
+        </p>
       </PanelMenu>
       <PanelActions
         refreshData={() => console.log('TODO: Refresh clicked')}

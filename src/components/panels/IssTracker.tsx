@@ -92,6 +92,13 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
             {'ESA: Where is the International Space Station'}
           </a>
         </p>
+        <p>
+          {'From ESA about this tracker:'}
+          <br />
+          {
+            "Developed by ESA, [this tracker] shows where the Space Station is right now and its path 90 minutes ago and 90 minutes ahead. Due to the Station's orbit it appears to travel from west to east over our planet, and due to Earth's own rotation the Space Station's moves 2200 km to the west on each orbit."
+          }
+        </p>
       </PanelMenu>
       <PanelActions />
     </Panel>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Toggle } from 'src/components/base';
+import { Toggle, TooltipWrapper } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 export const SolarVisualSettings: React.FC = () => {
   const {
@@ -13,7 +14,17 @@ export const SolarVisualSettings: React.FC = () => {
   return (
     <>
       <Toggle
-        label="Show video by default"
+        label={
+          <>
+            {'Show video by default'}
+            <TooltipWrapper
+              title="When enabled, a video of the last 48 hours of solar activity on loop will be shown by default"
+              delay={300}
+            >
+              <IconInfoCircle color="#CCC" size={20} />
+            </TooltipWrapper>
+          </>
+        }
         checked={SolarVisual.startWithVideo}
         onChange={() =>
           updatePanelConfigs({

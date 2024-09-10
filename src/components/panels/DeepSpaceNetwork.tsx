@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import {
   Panel,
@@ -20,7 +20,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   componentKey,
 }) => {
   const { navAnimationSeconds } = useAppContext();
-  const [iframeSrc, setIframeSrc] = React.useState('');
+  const [iframeSrc, setIframeSrc] = useState('');
 
   // Delaying the iframe load to allow for smoother animation
   // of other panels, attempting to improve visual performance

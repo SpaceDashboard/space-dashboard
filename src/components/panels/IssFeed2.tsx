@@ -48,7 +48,7 @@ export const IssFeed2: React.FC<PanelProps> = ({ index, componentKey }) => {
             target="_blank"
             rel="noreferrer"
           >
-            {'Live High-Definition Views from the International Space Station'}
+            {'Live HD Views from the ISS'}
           </a>
         </p>
         <p>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   Modal,
@@ -10,7 +10,11 @@ import { useAppContext } from 'src/hooks';
 import { useSettingsContext } from 'src/hooks';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
 import { ColumnManager } from './ColumnManager';
-import { IssFeed1Settings, IssFeed2Settings } from './panel-settings';
+import {
+  IssFeed1Settings,
+  IssFeed2Settings,
+  SolarVisualSettings,
+} from './panel-settings';
 
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
@@ -23,8 +27,8 @@ export const UserSettings: React.FC = () => {
     },
     updateSettings,
   } = useSettingsContext();
-  const modalContentWrapperRef = React.useRef<HTMLDivElement>(null);
-  const [modalContentDirection, setModalContentDirection] = React.useState<
+  const modalContentWrapperRef = useRef<HTMLDivElement>(null);
+  const [modalContentDirection, setModalContentDirection] = useState<
     'row' | 'column'
   >('row');
 
@@ -159,6 +163,11 @@ export const UserSettings: React.FC = () => {
             <FlexWrapper>
               <h3>{'Live HD Views from the ISS'}</h3>
               <IssFeed2Settings />
+            </FlexWrapper>
+
+            <FlexWrapper>
+              <h3>{'The Sun Now'}</h3>
+              <SolarVisualSettings />
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>

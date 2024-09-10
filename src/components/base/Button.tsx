@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { TooltipWrapper, TooltipPlacement } from './Tooltip';
 import { useSettingsContext } from 'src/hooks';
@@ -139,7 +139,7 @@ export const Button = ({
   if (isPanelAction) {
     !variantsList?.includes('small') && variantsList.push('small');
   }
-  const [isHovered, setIsHovered] = React.useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
   const variantClasses = variantsList.map((variant) => variant).join(' ');
   const isActive = variantsList?.includes('active');
   const isLargeButton =
