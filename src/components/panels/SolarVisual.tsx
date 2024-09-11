@@ -8,6 +8,7 @@ import {
   PanelMenu,
   Button,
   FadeFromBlack,
+  PlanetsLoader,
 } from 'src/components/base';
 import { IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
@@ -49,6 +50,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const refreshImageVideo = () => {
+    setIsLoading(true);
     setImageSrc(`${coronaImage}?updated=${getCurrentTimestamp()}`);
     setVideoSrc(`${coronaVideo}?updated=${getCurrentTimestamp()}`);
   };
@@ -90,6 +92,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
+          <PlanetsLoader showLoader={isLoading} />
           <div
             className={cx(
               'data-img-wrapper',
@@ -97,13 +100,11 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
             )}
             ref={wrapperRef}
           >
-            {/* TODO: POC, now do loading graphic */}
-            {isLoading ? <p>Loading...</p> : null}
-
             {showVideo ? (
               <video
                 autoPlay
                 loop={true}
+                key={videoSrc}
                 onLoadedData={() => setIsLoading(false)}
               >
                 <source src={videoSrc} type="video/mp4"></source>
@@ -111,8 +112,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
             ) : (
               <img
                 src={imageSrc}
+                key={imageSrc}
                 alt="Current visual of the sun"
-                onLoadedData={() => setIsLoading(false)}
                 onLoad={() => setIsLoading(false)}
               />
             )}

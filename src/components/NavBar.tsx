@@ -62,11 +62,17 @@ const buttonDelayInCss = (
     `,
   );
 
-const NavButtonContainer: React.FC<{
+interface NavButtonProps {
   children: React.ReactNode;
   reduceMotion: boolean;
   animationSpeedAdjustment: number;
-}> = ({ children, reduceMotion, animationSpeedAdjustment }) => {
+}
+
+const NavButtonContainer: React.FC<NavButtonProps> = ({
+  children,
+  reduceMotion,
+  animationSpeedAdjustment,
+}) => {
   const [buttonCount, setButtonCount] = useState(0);
 
   useLayoutEffect(() => {

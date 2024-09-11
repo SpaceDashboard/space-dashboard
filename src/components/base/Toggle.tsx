@@ -24,7 +24,7 @@ const toggleSwitchCss = (
   --toggle--transition-duration: ${reduceMotion ? 0 : 0.08}s !important;
 `;
 
-export const Toggle: React.FC<{
+interface ToggleProps {
   ariaLabel?: string;
   checked?: boolean;
   id?: string;
@@ -33,7 +33,9 @@ export const Toggle: React.FC<{
   label?: string | React.ReactNode;
   onChange?: (checked: boolean) => void;
   width?: number | string;
-}> = ({
+}
+
+export const Toggle: React.FC<ToggleProps> = ({
   ariaLabel = 'Toggle',
   checked,
   id,
