@@ -48,8 +48,15 @@ interface SolarVisualConfig {
   startWithVideo?: boolean;
 }
 
+interface AuroraForecastConfig {
+  startWithSouthernHemisphere?: boolean;
+}
+
 // TODO: clean up types
-export type PanelConfig = BasePanelConfig & IssFeedConfig & SolarVisualConfig;
+export type PanelConfig = BasePanelConfig &
+  IssFeedConfig &
+  SolarVisualConfig &
+  AuroraForecastConfig;
 
 export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   IssFeed1: {
@@ -78,6 +85,7 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   AuroraForecast: {
     label: 'Aurora Forecast',
     enabled: true,
+    startWithSouthernHemisphere: false,
   },
   DeepSpaceNetwork: {
     label: 'Deep Space Network',

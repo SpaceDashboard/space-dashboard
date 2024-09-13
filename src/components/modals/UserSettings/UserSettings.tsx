@@ -14,6 +14,7 @@ import {
   IssFeed1Settings,
   IssFeed2Settings,
   SolarVisualSettings,
+  AuroraForecastSettings,
 } from './panel-settings';
 
 export const UserSettings: React.FC = () => {
@@ -168,6 +169,11 @@ export const UserSettings: React.FC = () => {
             <FlexWrapper>
               <h3>{'The Sun Now'}</h3>
               <SolarVisualSettings />
+            </FlexWrapper>
+
+            <FlexWrapper>
+              <h3>{'Aurora Forecast'}</h3>
+              <AuroraForecastSettings />
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>

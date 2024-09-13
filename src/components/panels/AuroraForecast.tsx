@@ -7,7 +7,12 @@ import {
   PanelProps,
   PanelMenu,
   FadeFromBlack,
+  Button,
+  PlanetsLoader,
 } from 'src/components/base';
+import { IconSphere } from '@tabler/icons-react';
+import { useSettingsContext, useAutoRefresh } from 'src/hooks';
+import { AuroraForecastSettings } from '../modals/UserSettings/panel-settings';
 
 const wrapperCss = (width?: number, height?: number) => css`
   ${width &&
@@ -17,10 +22,35 @@ const wrapperCss = (width?: number, height?: number) => css`
   'padding-bottom: 500px !important;'}
 `;
 
+const iconOrientationCss = (showSouthernHemisphere: boolean) => css`
+  svg {
+    transition: transform 0.2s ease-in-out;
+    transform: rotate(${showSouthernHemisphere ? 180 : 0}deg);
+  }
+`;
+
 export const AuroraForecast: React.FC<PanelProps> = ({
   index,
   componentKey,
 }) => {
+  const {
+    settings: {
+      panelConfigs: { AuroraForecast },
+    },
+  } = useSettingsContext();
+  const getCurrentTimestamp = () => new Date().getTime();
+  const northernHemisphere =
+    'http://api.spacedashboard.com/img/aurora-forecast-northern-hemisphere.jpg';
+  const southernHemisphere =
+    'https://api.spacedashboard.com/img/aurora-forecast-southern-hemisphere.jpg';
+  const [northernSrc, setNorthernSrc] = useState(
+    `${northernHemisphere}?updated=${getCurrentTimestamp()}`,
+  );
+  const [southernSrc, setSouthernSrc] = useState(
+    `${southernHemisphere}?updated=${getCurrentTimestamp()}`,
+  );
+  const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
     undefined,
   );
@@ -29,6 +59,14 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   );
   const wrapperRef = useRef<HTMLDivElement>(null);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
+
+  const refreshImages = () => {
+    setIsLoading(true);
+    setNorthernSrc(`${northernHemisphere}?updated=${getCurrentTimestamp()}`);
+    setSouthernSrc(`${southernHemisphere}?updated=${getCurrentTimestamp()}`);
+  };
+
+  const { resetTimer } = useAutoRefresh(refreshImages, 60000 * 5);
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);
@@ -57,10 +95,17 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (AuroraForecast.startWithSouthernHemisphere) {
+      setShowSouthernHemisphere(true);
+    }
+  }, [AuroraForecast.startWithSouthernHemisphere]);
+
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
+          <PlanetsLoader showLoader={isLoading} />
           <div
             className={cx(
               'data-img-wrapper',
@@ -68,11 +113,19 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             )}
             ref={wrapperRef}
           >
-            <img
-              src="http://api.spacedashboard.com/img/aurora-forecast-northern-hemisphere.jpg"
-              style={{ width: '100%', maxWidth: '500px' }}
-              alt="test"
-            />
+            {showSouthernHemisphere ? (
+              <img
+                src={southernSrc}
+                alt="Aurora Forecast Southern Hemisphere"
+                onLoad={() => setIsLoading(false)}
+              />
+            ) : (
+              <img
+                src={northernSrc}
+                alt="Aurora Forecast Northern Hemisphere"
+                onLoad={() => setIsLoading(false)}
+              />
+            )}
           </div>
         </FadeFromBlack>
       </PanelBody>
@@ -90,10 +143,30 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             'Space Weather impacts numerous facets of everyday life, from where airplanes can safely fly, to how accurately a farmer plows his field. In addition, there are a large variety of phenomena that are driven by the variability of the sun over periods ranging from hours to years. SWPC provides information for novices and experts alike about the impacts and phenomena of Space Weather'
           }
         </p>
+        <AuroraForecastSettings />
       </PanelMenu>
       <PanelActions
-        refreshData={() => console.log('TODO: Refresh clicked')}
-      ></PanelActions>
+        refreshData={() => {
+          resetTimer();
+          refreshImages();
+        }}
+      >
+        <Button
+          onClick={() => {
+            setIsLoading(true);
+            setShowSouthernHemisphere(!showSouthernHemisphere);
+          }}
+          className={iconOrientationCss(showSouthernHemisphere)}
+          tooltipTitle={
+            showSouthernHemisphere
+              ? 'Show Northern Hemisphere'
+              : 'Show Southern Hemisphere'
+          }
+          Icon={IconSphere}
+          isPanelAction={true}
+          variantsList={['secondary']}
+        />
+      </PanelActions>
     </Panel>
   );
 };

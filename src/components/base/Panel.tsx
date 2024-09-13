@@ -251,6 +251,7 @@ export const PanelActions = ({
     animationDurationSeconds,
     animationDelaySeconds,
   } = usePanelContext();
+  const [spinIcon, setSpinIcon] = useState<boolean>(false);
 
   // Child must be a Button
   React.Children.forEach(children, (child) => {
@@ -297,7 +298,11 @@ export const PanelActions = ({
           <Button
             Icon={IconRefresh}
             isPanelAction={true}
-            onClick={refreshData}
+            className={spinIcon ? 'spin-icon' : ''}
+            onClick={() => {
+              setSpinIcon(true);
+              refreshData();
+            }}
             tooltipTitle="Refresh data"
             variantsList={['secondary']}
           ></Button>

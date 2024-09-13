@@ -11,7 +11,7 @@ import {
   PlanetsLoader,
 } from 'src/components/base';
 import { IconVideo, IconVideoOff } from '@tabler/icons-react';
-import { useSettingsContext } from 'src/hooks';
+import { useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { SolarVisualSettings } from '../modals/UserSettings/panel-settings';
 
 // TODO: consider making a wrapper component for `.data-img-wrapper`
@@ -54,6 +54,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     setImageSrc(`${coronaImage}?updated=${getCurrentTimestamp()}`);
     setVideoSrc(`${coronaVideo}?updated=${getCurrentTimestamp()}`);
   };
+
+  const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 5);
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);
@@ -102,6 +104,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
           >
             {showVideo ? (
               <video
+                muted
                 autoPlay
                 loop={true}
                 key={videoSrc}
@@ -136,7 +139,12 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
         </p>
         <SolarVisualSettings />
       </PanelMenu>
-      <PanelActions refreshData={refreshImageVideo}>
+      <PanelActions
+        refreshData={() => {
+          resetTimer();
+          refreshImageVideo();
+        }}
+      >
         <Button
           onClick={() => {
             setIsLoading(true);
