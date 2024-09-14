@@ -6,20 +6,6 @@ interface PlanetsLoaderProps {
 }
 
 export const PlanetsLoader: React.FC<PlanetsLoaderProps> = ({ showLoader }) => {
-  // const [isVisible, setIsVisible] = useState(false);
-
-  // useEffect(() => {
-  //   if (showLoader) {
-  //     setIsVisible(true);
-  //   } else {
-  //     const timer = setTimeout(() => {
-  //       setIsVisible(false);
-  //     }, 150);
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [showLoader]);
-
   return (
     <div className={cx('refresh-overlay', { visible: showLoader })}>
       <div className="refresh-system">

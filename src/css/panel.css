@@ -165,6 +165,12 @@
         transition: var(--panel-actions--before-transition-duration) all ease;
         width: calc(60% + 50px);
       }
+
+      button.spin-icon {
+        svg {
+          animation: spinRefreshIcon 1s ease-in-out 1;
+        }
+      }
     }
 
     .show-panel + & {

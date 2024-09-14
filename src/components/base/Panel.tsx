@@ -270,6 +270,14 @@ export const PanelActions = ({
     return variantsList;
   }, [isMenuRendered, isPanelMenuOpen]);
 
+  useEffect(() => {
+    if (spinIcon) {
+      setTimeout(() => {
+        setSpinIcon(false);
+      }, 1000);
+    }
+  }, [spinIcon]);
+
   return (
     <div
       className={cx(
