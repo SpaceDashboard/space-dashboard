@@ -168,7 +168,7 @@
 
       button.spin-icon {
         svg {
-          animation: spinRefreshIcon 1s ease-in-out 1;
+          animation: spinCounterClockwise 1s ease-out 1;
         }
       }
     }

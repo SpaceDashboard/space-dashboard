@@ -20,10 +20,7 @@ interface Settings {
   reduceButtonAnimation: boolean;
   enableButtonAnimationAlways: boolean;
   animationSpeedAdjustment: number;
-  issLiveViewAutoPlay: boolean;
-  issLiveViewMute: boolean;
-  issLiveHDViewsAutoPlay: boolean;
-  issLiveHDViewsMute: boolean;
+  disableButtonTooltips: boolean;
 }
 
 export interface SettingsContextProps {
@@ -51,10 +48,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     reduceButtonAnimation: false,
     enableButtonAnimationAlways: false,
     animationSpeedAdjustment: 1,
-    issLiveViewAutoPlay: false,
-    issLiveViewMute: true,
-    issLiveHDViewsAutoPlay: false,
-    issLiveHDViewsMute: true,
+    disableButtonTooltips: false,
   };
 
   const [settings, setSettings] = useLocalStorage<Settings>(

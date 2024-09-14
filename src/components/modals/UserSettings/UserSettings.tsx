@@ -11,11 +11,25 @@ import { useSettingsContext } from 'src/hooks';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
 import { ColumnManager } from './ColumnManager';
 import {
-  IssFeed1Settings,
-  IssFeed2Settings,
+  IssFeedSettings,
   SolarVisualSettings,
   AuroraForecastSettings,
 } from './panel-settings';
+import { css } from '@emotion/css';
+
+const settingsSectionHeaderCss = css`
+  position: relative;
+  width: 90%;
+
+  &::before {
+    border-bottom: 1px solid #333;
+    bottom: -6px;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+  }
+`;
 
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
@@ -25,6 +39,7 @@ export const UserSettings: React.FC = () => {
       reduceTransparency,
       reduceButtonAnimation,
       enableButtonAnimationAlways,
+      disableButtonTooltips,
     },
     updateSettings,
   } = useSettingsContext();
@@ -54,9 +69,12 @@ export const UserSettings: React.FC = () => {
         flexDirection={modalContentDirection}
         ref={modalContentWrapperRef}
       >
-        <FlexWrapper gap={50} style={{ maxWidth: '440px', minWidth: '380px' }}>
+        {/* Start toggle wrapper */}
+        <FlexWrapper gap={50} style={{ maxWidth: '440px', minWidth: '265px' }}>
           <FlexWrapper gap={28}>
-            <h2>{'Motion & Accessibility'}</h2>
+            <h2 className={settingsSectionHeaderCss}>
+              {'Motion & Accessibility'}
+            </h2>
             <FlexWrapper>
               <Toggle
                 label={
@@ -155,15 +173,17 @@ export const UserSettings: React.FC = () => {
           </FlexWrapper>
 
           <FlexWrapper gap={28}>
-            <h2>{'Panel Specific Settings'}</h2>
+            <h2 className={settingsSectionHeaderCss}>
+              {'Panel Specific Settings'}
+            </h2>
             <FlexWrapper>
               <h3>{'Live Video from the ISS'}</h3>
-              <IssFeed1Settings />
+              <IssFeedSettings feedName="IssFeed1" />
             </FlexWrapper>
 
             <FlexWrapper>
               <h3>{'Live HD Views from the ISS'}</h3>
-              <IssFeed2Settings />
+              <IssFeedSettings feedName="IssFeed2" />
             </FlexWrapper>
 
             <FlexWrapper>
@@ -176,7 +196,35 @@ export const UserSettings: React.FC = () => {
               <AuroraForecastSettings />
             </FlexWrapper>
           </FlexWrapper>
+
+          <FlexWrapper gap={28}>
+            <h2 className={settingsSectionHeaderCss}>
+              {'Additional Settings'}
+            </h2>
+            <FlexWrapper>
+              <Toggle
+                label={
+                  <>
+                    {'Disable icon button tooltips'}
+                    <TooltipWrapper
+                      title="Disables tooltips for any button that only renders an icon. This is not recommended but allows for fewer visual interruptions when using the dashboard."
+                      delay={300}
+                    >
+                      <IconInfoCircle color="#CCC" size={20} />
+                    </TooltipWrapper>
+                  </>
+                }
+                checked={disableButtonTooltips}
+                onChange={() =>
+                  updateSettings({
+                    disableButtonTooltips: !disableButtonTooltips,
+                  })
+                }
+              />
+            </FlexWrapper>
+          </FlexWrapper>
         </FlexWrapper>
+        {/* End toggle wrapper */}
 
         <ColumnManager />
       </FlexWrapper>

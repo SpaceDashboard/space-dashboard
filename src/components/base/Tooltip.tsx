@@ -4,6 +4,7 @@ export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 interface TooltipWrapperProps {
   children: React.ReactElement | string;
+  enabled?: boolean;
   delay?: number;
   hideOnTouchDevice?: boolean;
   placement?: TooltipPlacement;
@@ -13,6 +14,7 @@ interface TooltipWrapperProps {
 
 export const TooltipWrapper = ({
   children,
+  enabled = true,
   delay = 0,
   hideOnTouchDevice = false,
   title = '',
@@ -29,7 +31,7 @@ export const TooltipWrapper = ({
 
   return (
     <>
-      {isTouchDevice && hideOnTouchDevice ? (
+      {(isTouchDevice && hideOnTouchDevice) || !enabled ? (
         <>{children}</>
       ) : (
         <>

@@ -12,15 +12,13 @@ import {
 
 const loadingButtonCss = css`
   .button-content-wrapper > svg {
-    animation: spin 1.5s linear infinite;
+    animation: spinClockwise 1.5s linear infinite;
   }
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+`;
+
+const resetButtonCss = css`
+  .button-content-wrapper > svg {
+    animation: spinCounterClockwise 0.75s ease-out 1;
   }
 `;
 
@@ -44,6 +42,7 @@ export const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHuman, setIsHuman] = useState<boolean>(true);
   const [submitError, setSubmitError] = useState<string>('');
+  const [spinIcon, setSpinIcon] = useState<boolean>(false);
 
   const resetForm = () => {
     setSubmitError('');
@@ -95,6 +94,14 @@ export const ContactForm: React.FC = () => {
       resetForm();
     }
   }, [isContactFormOpen, setIsContactFormOpen]);
+
+  useEffect(() => {
+    if (spinIcon) {
+      setTimeout(() => {
+        setSpinIcon(false);
+      }, 1000);
+    }
+  }, [spinIcon]);
 
   return (
     <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
@@ -185,8 +192,12 @@ export const ContactForm: React.FC = () => {
               </Button>
               <Button
                 Icon={IconRestore}
-                onClick={resetForm}
+                onClick={() => {
+                  setSpinIcon(true);
+                  resetForm();
+                }}
                 variantsList={['secondary']}
+                className={spinIcon ? resetButtonCss : ''}
               >
                 {'Reset'}
               </Button>

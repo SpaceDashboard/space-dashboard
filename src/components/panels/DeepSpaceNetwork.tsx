@@ -8,6 +8,7 @@ import {
   PanelMenu,
   Button,
   FadeFromBlack,
+  PlanetsLoader,
 } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 
@@ -20,14 +21,22 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   componentKey,
 }) => {
   const { navAnimationSeconds } = useAppContext();
+  const getCurrentTimestamp = () => new Date().getTime();
+  const dsnSource = 'https://eyes.nasa.gov/dsn/dsn.html';
   const [iframeSrc, setIframeSrc] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const refreshIframe = () => {
+    setIsLoading(true);
+    setIframeSrc(`${dsnSource}?updated=${getCurrentTimestamp()}`);
+  };
 
   // Delaying the iframe load to allow for smoother animation
   // of other panels, attempting to improve visual performance
   useEffect(() => {
     setTimeout(
       () => {
-        setIframeSrc('https://eyes.nasa.gov/dsn/dsn.html');
+        setIframeSrc(`${dsnSource}?updated=${getCurrentTimestamp()}`);
       },
       navAnimationSeconds * 1000 + 3000,
     );
@@ -37,10 +46,11 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <FadeFromBlack>
+          <PlanetsLoader showLoader={isLoading} />
           <iframe
             className={cx('aspect-16-9', iframeCss)}
             src={iframeSrc}
-            scrolling="no"
+            onLoad={() => setIsLoading(false)}
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
@@ -48,9 +58,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
         {'This is a test'}
         <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
-      <PanelActions
-        refreshData={() => console.log('Refresh clicked')}
-      ></PanelActions>
+      <PanelActions refreshData={() => refreshIframe()} />
     </Panel>
   );
 };

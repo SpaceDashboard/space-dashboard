@@ -16,7 +16,7 @@ export const AuroraForecastSettings: React.FC = () => {
       <Toggle
         label={
           <>
-            {'Show southern hemisphere by default'}
+            {'Start with southern hemisphere'}
             <TooltipWrapper
               title="When enabled, the aurora forecast for the southern hemisphere will be shown by default"
               delay={300}

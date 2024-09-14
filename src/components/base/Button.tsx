@@ -136,6 +136,9 @@ export const Button = ({
   tooltipTitle,
   variantsList = [],
 }: React.PropsWithChildren<ButtonProps>) => {
+  const {
+    settings: { disableButtonTooltips },
+  } = useSettingsContext();
   if (isPanelAction) {
     !variantsList?.includes('small') && variantsList.push('small');
   }
@@ -149,6 +152,7 @@ export const Button = ({
     <TooltipWrapper
       delay={isPanelAction ? 500 : tooltipDelay}
       hideOnTouchDevice={tooltipHideOnTouchDevice}
+      enabled={!disableButtonTooltips}
       tooltipOffset={isPanelAction ? 16 : tooltipOffset}
       placement={isPanelAction ? 'bottom' : tooltipPlacement}
       title={tooltipTitle}
