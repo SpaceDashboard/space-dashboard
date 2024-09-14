@@ -18,10 +18,12 @@
     "checks-before-push": "yarn lint && yarn format:check && yarn type-check"
   },
   "dependencies": {
+    "@date-fns/utc": "^2.1.0",
     "@emotion/css": "^11.11.2",
     "@sentry/react": "^8.25.0",
     "@sentry/vite-plugin": "^2.22.0",
     "@tabler/icons-react": "^3.11.0",
+    "date-fns": "^4.0.0-beta.1",
     "posthog-js": "^1.155.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

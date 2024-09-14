@@ -1,4 +1,5 @@
 import React, { createContext, useMemo } from 'react';
+import { UTCDate } from '@date-fns/utc';
 import { useLocalStorage } from 'src/hooks';
 import {
   defaultColumn1Order,
@@ -21,6 +22,7 @@ interface Settings {
   enableButtonAnimationAlways: boolean;
   animationSpeedAdjustment: number;
   disableButtonTooltips: boolean;
+  lastUpdated?: Date | string;
 }
 
 export interface SettingsContextProps {
@@ -49,6 +51,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     enableButtonAnimationAlways: false,
     animationSpeedAdjustment: 1,
     disableButtonTooltips: false,
+    lastUpdated: '',
   };
 
   const [settings, setSettings] = useLocalStorage<Settings>(
@@ -60,6 +63,8 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     setSettings({
       ...settings,
       ...newSettings,
+      lastUpdated:
+        newSettings === defaultSettings ? '' : new UTCDate().toISOString(),
     });
   };
 

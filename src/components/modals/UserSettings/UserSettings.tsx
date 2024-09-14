@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { format } from 'date-fns';
+import { UTCDate } from '@date-fns/utc';
 import {
   Button,
   Modal,
@@ -40,13 +42,19 @@ export const UserSettings: React.FC = () => {
       reduceButtonAnimation,
       enableButtonAnimationAlways,
       disableButtonTooltips,
+      lastUpdated,
     },
+    defaultSettings,
     updateSettings,
   } = useSettingsContext();
   const modalContentWrapperRef = useRef<HTMLDivElement>(null);
   const [modalContentDirection, setModalContentDirection] = useState<
     'row' | 'column'
   >('row');
+
+  const resetAllSettings = () => {
+    updateSettings(defaultSettings);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -222,6 +230,22 @@ export const UserSettings: React.FC = () => {
                 }
               />
             </FlexWrapper>
+          </FlexWrapper>
+
+          <FlexWrapper marginBottom={30} gap={16}>
+            <FlexWrapper gap={2}>
+              <p>
+                <strong>{'Settings last updated: '}</strong>
+              </p>
+              <p>
+                {lastUpdated
+                  ? `${format(new UTCDate(lastUpdated), 'd MMM yyyy @ HH:mm:ss')} (UTC)`
+                  : '--'}
+              </p>
+            </FlexWrapper>
+            <Button variantsList={['danger']} onClick={resetAllSettings}>
+              {'Reset All Settings'}
+            </Button>
           </FlexWrapper>
         </FlexWrapper>
         {/* End toggle wrapper */}
