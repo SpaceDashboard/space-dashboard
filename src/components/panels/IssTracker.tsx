@@ -7,6 +7,7 @@ import {
   PanelProps,
   PanelMenu,
   FadeFromBlack,
+  PlanetsLoader,
 } from 'src/components/base';
 
 const issTrackerWrapperCss = css`
@@ -32,7 +33,18 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
   const issTrackerWrapperRef = useRef<HTMLDivElement | null>(null);
   const issTrackerFrameRef = useRef<HTMLIFrameElement | null>(null);
   const [issTrackerFrameScale, setIssTrackerFrameScale] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState(false);
   let resizeIssFrameTimeout: ReturnType<typeof setTimeout> | undefined;
+  const getCurrentTimestamp = () => new Date().getTime();
+  const iframeBase = 'https://isstracker.spaceflight.esa.int/';
+  const [iframeSrc, setIframeSrc] = useState(`
+    ${iframeBase}?updated=${getCurrentTimestamp()}
+  `);
+
+  const refreshIframe = () => {
+    setIsLoading(true);
+    setIframeSrc(`${iframeBase}?updated=${getCurrentTimestamp()}`);
+  };
 
   const handleResize = () => {
     clearTimeout(resizeIssFrameTimeout);
@@ -72,10 +84,12 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
       <PanelBody>
         <div className={issTrackerWrapperCss} ref={issTrackerWrapperRef}>
           <FadeFromBlack>
+            <PlanetsLoader showLoader={isLoading} />
             <iframe
               className={issTrackerFrameCss(issTrackerFrameScale)}
               ref={issTrackerFrameRef}
-              src="https://isstracker.spaceflight.esa.int/"
+              src={iframeSrc}
+              onLoad={() => setIsLoading(false)}
               scrolling="no" // Deprecated but works better than overflow: hidden
             ></iframe>
           </FadeFromBlack>
@@ -100,7 +114,10 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
           }
         </p>
       </PanelMenu>
-      <PanelActions />
+      <PanelActions
+        refreshData={() => refreshIframe()}
+        refreshTooltip="Reload iframe"
+      />
     </Panel>
   );
 };

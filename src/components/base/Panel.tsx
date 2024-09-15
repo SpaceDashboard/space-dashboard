@@ -234,12 +234,14 @@ interface PanelActionsProps {
   /** Internal prop, please ignore */
   isMenuRendered?: boolean;
   refreshData?: () => void;
+  refreshTooltip?: string;
 }
 
 export const PanelActions = ({
   children,
   isMenuRendered,
   refreshData,
+  refreshTooltip = 'Refresh data',
 }: React.PropsWithChildren<PanelActionsProps>) => {
   const updatedChildren: React.ReactNode[] = [];
   const {
@@ -311,7 +313,7 @@ export const PanelActions = ({
               setSpinIcon(true);
               refreshData();
             }}
-            tooltipTitle="Refresh data"
+            tooltipTitle={refreshTooltip}
             variantsList={['secondary']}
           ></Button>
         )}

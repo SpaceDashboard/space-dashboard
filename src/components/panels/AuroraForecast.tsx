@@ -150,6 +150,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
           resetTimer();
           refreshImages();
         }}
+        refreshTooltip="Reload image"
       >
         <Button
           onClick={() => {

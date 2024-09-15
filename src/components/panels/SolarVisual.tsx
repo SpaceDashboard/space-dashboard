@@ -144,6 +144,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
           resetTimer();
           refreshImageVideo();
         }}
+        refreshTooltip={`Reload ${showVideo ? 'video' : 'image'}`}
       >
         <Button
           onClick={() => {

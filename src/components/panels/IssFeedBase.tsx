@@ -75,7 +75,10 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
         {menuContent}
         <IssFeedSettings feedName={feedName} />
       </PanelMenu>
-      <PanelActions refreshData={() => refreshIframe()} />
+      <PanelActions
+        refreshData={() => refreshIframe()}
+        refreshTooltip="Reload video"
+      />
     </Panel>
   );
 };

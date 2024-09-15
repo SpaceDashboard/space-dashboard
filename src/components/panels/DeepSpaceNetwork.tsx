@@ -59,7 +59,10 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
         {'This is a test'}
         <Button variantsList={['small']}>Button</Button>
       </PanelMenu>
-      <PanelActions refreshData={() => refreshIframe()} />
+      <PanelActions
+        refreshData={() => refreshIframe()}
+        refreshTooltip="Reload iframe"
+      />
     </Panel>
   );
 };
