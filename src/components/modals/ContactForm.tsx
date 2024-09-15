@@ -58,7 +58,7 @@ export const ContactForm: React.FC = () => {
     try {
       const response = await axios.post(
         'https://api.spacedashboard.com/contact/',
-        data
+        data,
       );
 
       if (response.status === 200) {

@@ -27,8 +27,8 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
 
   const getData = async (): Promise<any> => {
     const response = await axios
-      .get('https://api.spacedashboard.com/json/noaa-planetary-k-index.json', {
-        timeout: 1000 * 10
+      .get('/api/json/noaa-planetary-k-index.json', {
+        timeout: 1000 * 10,
       })
       .then((res) => res.data);
     return response;
@@ -36,8 +36,8 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
 
   const { data, error, isFetching, refetch } = useQuery({
     queryKey: ['hourly-planetary-k-index'],
-    queryFn: getData
-  })
+    queryFn: getData,
+  });
 
   return (
     <Panel index={index} componentKey={componentKey}>
@@ -68,9 +68,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
         </p>
         <AuroraForecastSettings />
       </PanelMenu>
-      <PanelActions
-        refreshData={refetch}
-      />
+      <PanelActions refreshData={refetch} />
     </Panel>
   );
 };

@@ -34,7 +34,10 @@ export const defaultColumn2Order: MoveablePanels[] = [
   'IssTracker',
   'SolarVisual',
 ];
-export const defaultColumn3Order: MoveablePanels[] = ['PlanetaryKIndex','AuroraForecast'];
+export const defaultColumn3Order: MoveablePanels[] = [
+  'PlanetaryKIndex',
+  'AuroraForecast',
+];
 
 interface BasePanelConfig {
   label: string;
