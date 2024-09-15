@@ -54,6 +54,12 @@ export default defineConfig(() => {
                   return 'vendor_tabler_icons_react';
                 case id.includes('@emotion'):
                   return 'vendor_emotion_css';
+                case id.includes('@date-fns'):
+                  return 'vendor_date_fns';
+                case id.includes('@tanstack'):
+                  return 'vendor_tanstack';
+                case id.includes('axios'):
+                  return 'vendor_axios';
                 default:
                   return 'vendor';
               }
