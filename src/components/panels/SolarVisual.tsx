@@ -12,7 +12,7 @@ import {
 } from 'src/components/base';
 import { IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useSettingsContext, useAutoRefresh } from 'src/hooks';
-import { SolarVisualSettings } from '../modals/UserSettings/panel-settings';
+import { SolarVisualSettings } from 'src/components/modals/UserSettings/panel-settings';
 
 // TODO: consider making a wrapper component for `.data-img-wrapper`
 const wrapperCss = (width?: number, height?: number) => css`
@@ -55,7 +55,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     setVideoSrc(`${coronaVideo}?updated=${getCurrentTimestamp()}`);
   };
 
-  const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 5);
+  const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 10);
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);

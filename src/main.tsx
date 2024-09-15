@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { App } from 'src/App';
 import AppProvider from './providers/AppProvider';
 import SettingsProvider from './providers/SettingsProvider';
@@ -33,16 +38,31 @@ const root = ReactDOM.createRoot(document.getElementById('app')!, {
 root.render(...);
 */
 
+const sharedInterval = 60000 * 10; // 10 minutes
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: sharedInterval,
+      gcTime: sharedInterval,
+      refetchInterval: sharedInterval,
+    },
+  },
+});
+
 ReactDOM.createRoot(document.getElementById('app')!).render(
   <React.StrictMode>
     <PostHogProvider client={posthog}>
-      <SettingsProvider>
-        <AppProvider>
-          <Sentry.ErrorBoundary fallback={<p>Something went wrong</p>}>
-            <App />
-          </Sentry.ErrorBoundary>
-        </AppProvider>
-      </SettingsProvider>
+      <QueryClientProvider client={queryClient}>
+        <SettingsProvider>
+          <AppProvider>
+            <Sentry.ErrorBoundary fallback={<p>Something went wrong</p>}>
+              <App />
+            </Sentry.ErrorBoundary>
+          </AppProvider>
+        </SettingsProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </PostHogProvider>
   </React.StrictMode>,
 );

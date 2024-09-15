@@ -15,6 +15,7 @@ import { useAppContext } from 'src/hooks';
 const iframeCss = css`
   background: #000;
   min-height: 500px;
+  max-height: 88vh;
 `;
 
 export const DeepSpaceNetwork: React.FC<PanelProps> = ({

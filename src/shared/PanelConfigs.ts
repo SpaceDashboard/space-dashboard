@@ -1,17 +1,19 @@
-import { PanelProps } from '../components/base';
+import { PanelProps } from 'src/components/base';
 import {
   IssFeed1,
   IssFeed2,
   IssTracker,
+  PlanetaryKIndex,
   AuroraForecast,
   SolarVisual,
-} from '../components/panels';
+} from 'src/components/panels';
 
 export type AvailablePanels =
   | 'IssFeed1'
   | 'IssFeed2'
   | 'IssTracker'
   | 'SolarVisual'
+  | 'PlanetaryKIndex'
   | 'AuroraForecast'
   | 'DeepSpaceNetwork';
 
@@ -23,6 +25,7 @@ export const columnPanelMap: PanelMapType = {
   IssFeed2,
   IssTracker,
   SolarVisual,
+  PlanetaryKIndex,
   AuroraForecast,
 };
 
@@ -31,7 +34,7 @@ export const defaultColumn2Order: MoveablePanels[] = [
   'IssTracker',
   'SolarVisual',
 ];
-export const defaultColumn3Order: MoveablePanels[] = ['AuroraForecast'];
+export const defaultColumn3Order: MoveablePanels[] = ['PlanetaryKIndex','AuroraForecast'];
 
 interface BasePanelConfig {
   label: string;
@@ -81,6 +84,10 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
     label: 'The Sun Now',
     enabled: true,
     startWithVideo: false,
+  },
+  PlanetaryKIndex: {
+    label: 'Planetary K-Index',
+    enabled: true,
   },
   AuroraForecast: {
     label: 'Aurora Forecast',

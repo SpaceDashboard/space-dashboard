@@ -23,46 +23,6 @@ export const About: React.FC = () => {
             }
           </p>
 
-          <p>{"I'm also available via email, Facebook, or Twitter."}</p>
-
-          <p>
-            <a href="mailto:caleb@spacedashboard.com">
-              {'caleb@spacedashboard.com'}
-            </a>
-          </p>
-
-          <p>
-            <a
-              href="https://www.facebook.com/SpaceDashboard"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {'@SpaceDashboard'}
-            </a>
-          </p>
-
-          <p>
-            <a
-              href="https://twitter.com/SpaceDashboard"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {'@SpaceDashboard'}
-            </a>
-          </p>
-
-          <p>
-            {'If you like this, you may like my other project on Twitter:'}{' '}
-            <a
-              href="https://twitter.com/closeapproaches"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {'@CloseApproaches'}
-            </a>{' '}
-            &ndash; {'basically, I tweet near-Earth objects for the day.'}
-          </p>
-
           <p>{'Thanks for visiting!'}</p>
 
           <Button
@@ -75,7 +35,9 @@ export const About: React.FC = () => {
           </Button>
         </FlexWrapper>
 
-        <FlexWrapper>{'This is a test!'}</FlexWrapper>
+        <FlexWrapper>
+          <p>{'<Info about how the settings data is saved>'}</p>
+        </FlexWrapper>
       </div>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PanelContext } from '../providers/PanelProvider';
+import { PanelContext } from 'src/providers/PanelProvider';
 
 export const usePanelContext = () => {
   return useContext(PanelContext);

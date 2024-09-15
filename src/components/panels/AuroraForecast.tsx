@@ -12,7 +12,7 @@ import {
 } from 'src/components/base';
 import { IconSphere } from '@tabler/icons-react';
 import { useSettingsContext, useAutoRefresh } from 'src/hooks';
-import { AuroraForecastSettings } from '../modals/UserSettings/panel-settings';
+import { AuroraForecastSettings } from 'src/components/modals/UserSettings/panel-settings';
 
 const wrapperCss = (width?: number, height?: number) => css`
   ${width &&
@@ -66,7 +66,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     setSouthernSrc(`${southernHemisphere}?updated=${getCurrentTimestamp()}`);
   };
 
-  const { resetTimer } = useAutoRefresh(refreshImages, 60000 * 5);
+  const { resetTimer } = useAutoRefresh(refreshImages, 60000 * 10);
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);

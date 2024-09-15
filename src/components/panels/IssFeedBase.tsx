@@ -10,7 +10,7 @@ import {
   PlanetsLoader,
 } from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
-import { IssFeedSettings } from '../modals/UserSettings/panel-settings';
+import { IssFeedSettings } from 'src/components/modals/UserSettings/panel-settings';
 
 const iframeCss = css`
   background: #000;
