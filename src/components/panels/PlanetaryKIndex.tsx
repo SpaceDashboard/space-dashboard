@@ -26,8 +26,13 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   } = useSettingsContext();
 
   const getData = async (): Promise<any> => {
+    // const response = await axios
+    //   .get('/api/json/noaa-planetary-k-index.json', {
+    //     timeout: 1000 * 10,
+    //   })
+    //   .then((res) => res.data);
     const response = await axios
-      .get('/api/json/noaa-planetary-k-index.json', {
+      .get('/api/json/planetary-k-index-dst.json', {
         timeout: 1000 * 10,
       })
       .then((res) => res.data);
@@ -46,8 +51,8 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
           <PlanetsLoader showLoader={isFetching} />
           {data && !error && !isFetching && (
             <div>
-              <p>{data[1][0]}</p>
-              <p>{data[1][1]}</p>
+              <p>{data[data.length - 1].time_tag}</p>
+              <p>{data[data.length - 1].estimated_kp}</p>
             </div>
           )}
         </FadeFromBlack>

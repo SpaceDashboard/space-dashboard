@@ -56,6 +56,7 @@ interface SolarVisualConfig {
 
 interface AuroraForecastConfig {
   startWithSouthernHemisphere?: boolean;
+  startWithVideo?: boolean;
 }
 
 // TODO: clean up types
@@ -96,6 +97,7 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
     label: 'Aurora Forecast',
     enabled: true,
     startWithSouthernHemisphere: false,
+    startWithVideo: false,
   },
   DeepSpaceNetwork: {
     label: 'Deep Space Network',

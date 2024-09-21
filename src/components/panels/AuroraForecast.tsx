@@ -10,7 +10,7 @@ import {
   Button,
   PlanetsLoader,
 } from 'src/components/base';
-import { IconSphere } from '@tabler/icons-react';
+import { IconSphere, IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { AuroraForecastSettings } from 'src/components/modals/UserSettings/panel-settings';
 
@@ -39,18 +39,22 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     },
   } = useSettingsContext();
   const getCurrentTimestamp = () => new Date().getTime();
-  const northernHemisphere =
-    'http://api.spacedashboard.com/img/aurora-forecast-northern-hemisphere.jpg';
-  const southernHemisphere =
-    'https://api.spacedashboard.com/img/aurora-forecast-southern-hemisphere.jpg';
-  const [northernSrc, setNorthernSrc] = useState(
-    `${northernHemisphere}?updated=${getCurrentTimestamp()}`,
-  );
-  const [southernSrc, setSouthernSrc] = useState(
-    `${southernHemisphere}?updated=${getCurrentTimestamp()}`,
-  );
   const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const getHemisphereMedia = () => {
+    const hemisphere = showSouthernHemisphere ? 'southern' : 'northern';
+    return {
+      img: `https://api.spacedashboard.com/img/aurora-forecast-${hemisphere}-hemisphere.jpg`,
+      vid: `https://api.spacedashboard.com/vid/${hemisphere}_hemisphere_forecast.mp4`,
+    };
+  };
+  const [imageSrc, setImageSrc] = useState(
+    `${getHemisphereMedia()['img']}?updated=${getCurrentTimestamp()}`,
+  );
+  const [videoSrc, setVideoSrc] = useState(
+    `${getHemisphereMedia()['vid']}?updated=${getCurrentTimestamp()}`,
+  );
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
     undefined,
   );
@@ -60,13 +64,17 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
-  const refreshImages = () => {
+  const refreshMedia = () => {
     setIsLoading(true);
-    setNorthernSrc(`${northernHemisphere}?updated=${getCurrentTimestamp()}`);
-    setSouthernSrc(`${southernHemisphere}?updated=${getCurrentTimestamp()}`);
+    setImageSrc(
+      `${getHemisphereMedia()['img']}?updated=${getCurrentTimestamp()}`,
+    );
+    setVideoSrc(
+      `${getHemisphereMedia()['vid']}?updated=${getCurrentTimestamp()}`,
+    );
   };
 
-  const { resetTimer } = useAutoRefresh(refreshImages, 60000 * 10);
+  const { resetTimer } = useAutoRefresh(refreshMedia, 60000 * 10);
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);
@@ -96,10 +104,15 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   }, []);
 
   useEffect(() => {
-    if (AuroraForecast.startWithSouthernHemisphere) {
-      setShowSouthernHemisphere(true);
-    }
-  }, [AuroraForecast.startWithSouthernHemisphere]);
+    setShowSouthernHemisphere(
+      AuroraForecast.startWithSouthernHemisphere ?? false,
+    );
+    setShowVideo(AuroraForecast.startWithVideo ?? false);
+  }, [AuroraForecast]);
+
+  useEffect(() => {
+    refreshMedia();
+  }, [showSouthernHemisphere]);
 
   return (
     <Panel index={index} componentKey={componentKey}>
@@ -113,16 +126,21 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             )}
             ref={wrapperRef}
           >
-            {showSouthernHemisphere ? (
-              <img
-                src={southernSrc}
-                alt="Aurora Forecast Southern Hemisphere"
-                onLoad={() => setIsLoading(false)}
-              />
+            {showVideo ? (
+              <video
+                muted
+                autoPlay
+                loop={true}
+                key={videoSrc}
+                onLoadedData={() => setIsLoading(false)}
+              >
+                <source src={videoSrc} type="video/mp4"></source>
+              </video>
             ) : (
               <img
-                src={northernSrc}
-                alt="Aurora Forecast Northern Hemisphere"
+                src={imageSrc}
+                key={imageSrc}
+                alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
                 onLoad={() => setIsLoading(false)}
               />
             )}
@@ -130,6 +148,11 @@ export const AuroraForecast: React.FC<PanelProps> = ({
         </FadeFromBlack>
       </PanelBody>
       <PanelMenu>
+        <h4>
+          {showSouthernHemisphere
+            ? 'Southern Hemisphere'
+            : 'Northern Hemisphere'}
+        </h4>
         <p>
           {'Credit: '}
           <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noreferrer">
@@ -148,21 +171,27 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       <PanelActions
         refreshData={() => {
           resetTimer();
-          refreshImages();
+          refreshMedia();
         }}
         refreshTooltip="Reload image"
       >
         <Button
           onClick={() => {
             setIsLoading(true);
+            setShowVideo(!showVideo);
+          }}
+          tooltipTitle={showVideo ? 'Switch to image' : 'Switch to video'}
+          Icon={showVideo ? IconVideoOff : IconVideo}
+          isPanelAction={true}
+          variantsList={['secondary']}
+        />
+        <Button
+          onClick={() => {
+            setIsLoading(true);
             setShowSouthernHemisphere(!showSouthernHemisphere);
           }}
           className={iconOrientationCss(showSouthernHemisphere)}
-          tooltipTitle={
-            showSouthernHemisphere
-              ? 'Show Northern Hemisphere'
-              : 'Show Southern Hemisphere'
-          }
+          tooltipTitle={`Show ${showSouthernHemisphere ? 'Northern' : 'Southern'} Hemisphere`}
           Icon={IconSphere}
           isPanelAction={true}
           variantsList={['secondary']}

@@ -16,7 +16,7 @@ export const AuroraForecastSettings: React.FC = () => {
       <Toggle
         label={
           <>
-            {'Start with southern hemisphere'}
+            {'Show southern hemisphere by default'}
             <TooltipWrapper
               title="When enabled, the aurora forecast for the southern hemisphere will be shown by default"
               delay={300}
@@ -32,6 +32,28 @@ export const AuroraForecastSettings: React.FC = () => {
               ...AuroraForecast,
               startWithSouthernHemisphere:
                 !AuroraForecast.startWithSouthernHemisphere,
+            },
+          })
+        }
+      />
+      <Toggle
+        label={
+          <>
+            {'Show video by default'}
+            <TooltipWrapper
+              title="When enabled, a video of the aurora forecast for the selected hemisphere will be shown on loop by default"
+              delay={300}
+            >
+              <IconInfoCircle color="#CCC" size={20} />
+            </TooltipWrapper>
+          </>
+        }
+        checked={AuroraForecast.startWithVideo}
+        onChange={() =>
+          updatePanelConfigs({
+            AuroraForecast: {
+              ...AuroraForecast,
+              startWithVideo: !AuroraForecast.startWithVideo,
             },
           })
         }

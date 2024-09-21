@@ -85,10 +85,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   }, []);
 
   useEffect(() => {
-    if (SolarVisual.startWithVideo) {
-      setShowVideo(true);
-    }
-  }, [SolarVisual.startWithVideo]);
+    setShowVideo(SolarVisual.startWithVideo ?? false);
+  }, [SolarVisual]);
 
   return (
     <Panel index={index} componentKey={componentKey}>
