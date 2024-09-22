@@ -50,10 +50,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     };
   };
   const [imageSrc, setImageSrc] = useState(
-    `${getHemisphereMedia()['img']}?updated=${getCurrentTimestamp()}`,
+    `${getHemisphereMedia()['img']}?u=${getCurrentTimestamp()}`,
   );
   const [videoSrc, setVideoSrc] = useState(
-    `${getHemisphereMedia()['vid']}?updated=${getCurrentTimestamp()}`,
+    `${getHemisphereMedia()['vid']}?u=${getCurrentTimestamp()}`,
   );
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
     undefined,
@@ -66,12 +66,8 @@ export const AuroraForecast: React.FC<PanelProps> = ({
 
   const refreshMedia = () => {
     setIsLoading(true);
-    setImageSrc(
-      `${getHemisphereMedia()['img']}?updated=${getCurrentTimestamp()}`,
-    );
-    setVideoSrc(
-      `${getHemisphereMedia()['vid']}?updated=${getCurrentTimestamp()}`,
-    );
+    setImageSrc(`${getHemisphereMedia()['img']}?u=${getCurrentTimestamp()}`);
+    setVideoSrc(`${getHemisphereMedia()['vid']}?u=${getCurrentTimestamp()}`);
   };
 
   const { resetTimer } = useAutoRefresh(refreshMedia, 60000 * 10);

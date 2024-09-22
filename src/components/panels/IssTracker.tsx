@@ -38,12 +38,12 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
   const getCurrentTimestamp = () => new Date().getTime();
   const iframeBase = 'https://isstracker.spaceflight.esa.int/';
   const [iframeSrc, setIframeSrc] = useState(`
-    ${iframeBase}?updated=${getCurrentTimestamp()}
+    ${iframeBase}?u=${getCurrentTimestamp()}
   `);
 
   const refreshIframe = () => {
     setIsLoading(true);
-    setIframeSrc(`${iframeBase}?updated=${getCurrentTimestamp()}`);
+    setIframeSrc(`${iframeBase}?u=${getCurrentTimestamp()}`);
   };
 
   const handleResize = () => {

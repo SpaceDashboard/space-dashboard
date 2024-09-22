@@ -30,7 +30,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
 
   const refreshIframe = () => {
     setIsLoading(true);
-    setIframeSrc(`${dsnSource}?updated=${getCurrentTimestamp()}`);
+    setIframeSrc(`${dsnSource}?u=${getCurrentTimestamp()}`);
   };
 
   // Delaying the iframe load to allow for smoother animation
@@ -38,7 +38,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   useEffect(() => {
     setTimeout(
       () => {
-        setIframeSrc(`${dsnSource}?updated=${getCurrentTimestamp()}`);
+        setIframeSrc(`${dsnSource}?u=${getCurrentTimestamp()}`);
       },
       navAnimationSeconds * 1000 + 3000,
     );

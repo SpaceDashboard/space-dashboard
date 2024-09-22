@@ -33,6 +33,31 @@ const settingsSectionHeaderCss = css`
   }
 `;
 
+const animationSpeedAdjustmentSelectCss = css`
+  appearance: none;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 100px;
+  border: 1px solid #fff;
+  box-sizing: content-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  height: 20px;
+  padding: 0 7px;
+  text-align: center;
+  width: 45px;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &:focus-visible {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+`;
+
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
   const {
@@ -43,6 +68,7 @@ export const UserSettings: React.FC = () => {
       enableButtonAnimationAlways,
       disableButtonTooltips,
       lastUpdated,
+      animationSpeedAdjustment,
     },
     defaultSettings,
     updateSettings,
@@ -116,6 +142,35 @@ export const UserSettings: React.FC = () => {
                 checked={reduceMotion}
                 onChange={() => updateSettings({ reduceMotion: !reduceMotion })}
               />
+              <FlexWrapper
+                alignItems="center"
+                flexDirection="row"
+                marginBottom={3}
+              >
+                <label>{'Animation speed adjustment: '}</label>
+                <TooltipWrapper
+                  title="Adjusts the speed of animations by the selected adjustment value (lower = faster)"
+                  delay={300}
+                >
+                  <IconInfoCircle color="#CCC" size={20} />
+                </TooltipWrapper>
+                <select
+                  className={animationSpeedAdjustmentSelectCss}
+                  onChange={(e) =>
+                    updateSettings({
+                      animationSpeedAdjustment: Number(e.target.value),
+                    })
+                  }
+                  value={animationSpeedAdjustment}
+                >
+                  <option value={0.5}>0.5x</option>
+                  <option value={0.75}>0.75x</option>
+                  <option value={1}>1x</option>
+                  <option value={1.25}>1.25x</option>
+                  <option value={1.5}>1.5x</option>
+                  <option value={2}>2x</option>
+                </select>
+              </FlexWrapper>
               <Toggle
                 label={
                   <>

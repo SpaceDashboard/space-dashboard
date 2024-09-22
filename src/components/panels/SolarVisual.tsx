@@ -33,10 +33,10 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   const coronaImage = 'https://api.spacedashboard.com/img/current-corona.jpg';
   const coronaVideo = 'https://api.spacedashboard.com/vid/current-corona.mp4';
   const [imageSrc, setImageSrc] = useState(
-    `${coronaImage}?updated=${getCurrentTimestamp()}`,
+    `${coronaImage}?u=${getCurrentTimestamp()}`,
   );
   const [videoSrc, setVideoSrc] = useState(
-    `${coronaVideo}?updated=${getCurrentTimestamp()}`,
+    `${coronaVideo}?u=${getCurrentTimestamp()}`,
   );
   const [showVideo, setShowVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,8 +51,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
 
   const refreshImageVideo = () => {
     setIsLoading(true);
-    setImageSrc(`${coronaImage}?updated=${getCurrentTimestamp()}`);
-    setVideoSrc(`${coronaVideo}?updated=${getCurrentTimestamp()}`);
+    setImageSrc(`${coronaImage}?u=${getCurrentTimestamp()}`);
+    setVideoSrc(`${coronaVideo}?u=${getCurrentTimestamp()}`);
   };
 
   const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 10);
