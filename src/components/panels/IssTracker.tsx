@@ -91,6 +91,7 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
               src={iframeSrc}
               onLoad={() => setIsLoading(false)}
               scrolling="no" // Deprecated but works better than overflow: hidden
+              tabIndex={-1}
             ></iframe>
           </FadeFromBlack>
         </div>

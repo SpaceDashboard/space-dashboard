@@ -337,8 +337,11 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
   const { isPanelMenuOpen, setIsPanelMenuOpen, componentKey } =
     usePanelContext();
   const {
-    settings: { panelConfigs },
+    settings: { panelConfigs, reduceMotion, animationSpeedAdjustment },
   } = useSettingsContext();
+  // CSS variable reference: --panel-menu--transition-duration
+  const animationDuration = reduceMotion ? 0 : 0.18 * animationSpeedAdjustment;
+  const [isMenuFullyHidden, setIsMenuFullyHidden] = useState<boolean>(true);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -352,8 +355,24 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
     };
   }, [isPanelMenuOpen, setIsPanelMenuOpen]);
 
+  useEffect(() => {
+    if (isPanelMenuOpen) {
+      setIsMenuFullyHidden(false);
+    } else {
+      const timeoutId = setTimeout(() => {
+        setIsMenuFullyHidden(true);
+      }, animationDuration * 1000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [isPanelMenuOpen, animationDuration]);
+
   return (
-    <div className={cx('panel-menu', { open: isPanelMenuOpen })}>
+    <div
+      className={cx('panel-menu', { open: isPanelMenuOpen })}
+      style={{ visibility: isMenuFullyHidden ? 'hidden' : 'visible' }}
+    >
       <CornersWrapper height="100%">
         {componentKey && (
           <h3>{panelConfigs[componentKey as AvailablePanels].label}</h3>

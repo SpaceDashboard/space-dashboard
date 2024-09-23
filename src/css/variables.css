@@ -80,7 +80,7 @@
   --panel-actions-wrapper--after--transition-duration: 0.4s;
   --panel-actions--before-transition-duration: 0.4s;
   --panel-menu--background-opacity: 0.9;
-  --panel-menu--transition-duration: 0.15s;
+  --panel-menu--transition-duration: 0.18s;
 
   /* Inputs */
   --input--bg-color: rgba(20, 20, 20, 0.75);

@@ -68,6 +68,7 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
             title={iframeTitle}
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
             allowFullScreen
+            tabIndex={-1}
           />
         </FadeFromBlack>
       </PanelBody>

@@ -53,6 +53,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
             className={cx('aspect-16-9', iframeCss)}
             src={iframeSrc}
             onLoad={() => setIsLoading(false)}
+            tabIndex={-1}
           ></iframe>
         </FadeFromBlack>
       </PanelBody>
