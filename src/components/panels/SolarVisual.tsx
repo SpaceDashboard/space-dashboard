@@ -55,7 +55,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     setVideoSrc(`${coronaVideo}?u=${getCurrentTimestamp()}`);
   };
 
-  const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 10);
+  const { resetTimer } = useAutoRefresh(refreshImageVideo, 60000 * 10); // 10 minutes
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);

@@ -70,7 +70,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     setVideoSrc(`${getHemisphereMedia()['vid']}?u=${getCurrentTimestamp()}`);
   };
 
-  const { resetTimer } = useAutoRefresh(refreshMedia, 60000 * 10);
+  const { resetTimer } = useAutoRefresh(refreshMedia, 60000 * 10); // 10 minutes
 
   const handleResize = () => {
     clearTimeout(resizeTimeout);

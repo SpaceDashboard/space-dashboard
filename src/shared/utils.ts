@@ -13,10 +13,11 @@ export const geoStormByKIndex = (index: number) => {
   } else {
     return 'G0';
   }
-}
+};
 
 export const colorByGeoStorm = (storm: string) => {
   const colorMap: { [key: string]: string } = {
+    G0: '#92D050',
     G1: '#F6EB14',
     G2: '#FFC800',
     G3: '#FF9600',
@@ -25,4 +26,4 @@ export const colorByGeoStorm = (storm: string) => {
   };
 
   return colorMap[storm];
-}
+};

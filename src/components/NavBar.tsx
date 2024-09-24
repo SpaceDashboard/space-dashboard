@@ -4,7 +4,7 @@ import { Button, TooltipWrapper, Variant } from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import {
   IconHelpHexagon,
-  IconSend,
+  IconSocial,
   IconAdjustments,
 } from '@tabler/icons-react';
 
@@ -191,7 +191,7 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
-            Icon={IconSend}
+            Icon={IconSocial}
             onClick={() => {
               closeAllModals();
               setIsContactFormOpen(!isContactFormOpen);
@@ -199,7 +199,7 @@ export const NavBar: React.FC = () => {
             tooltipOffset={12}
             tooltipDelay={500}
             tooltipPlacement={tooltipPlacement}
-            tooltipTitle="Contact me"
+            tooltipTitle="Connect with me"
             variantsList={[
               'secondary',
               'nav',

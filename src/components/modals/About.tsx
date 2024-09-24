@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, FlexWrapper, Modal } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
+import { IconCoffee, IconSend } from '@tabler/icons-react';
 
 export const About: React.FC = () => {
   const { isAboutOpen, setIsAboutOpen, setIsContactFormOpen } = useAppContext();
@@ -8,7 +9,7 @@ export const About: React.FC = () => {
   return (
     <Modal isOpen={isAboutOpen} setIsOpen={setIsAboutOpen}>
       <div className="content-two-up">
-        <FlexWrapper>
+        <FlexWrapper gap={20}>
           <h2>{"Hello! I'm Caleb."}</h2>
 
           <p>
@@ -26,12 +27,12 @@ export const About: React.FC = () => {
           <p>{'Thanks for visiting!'}</p>
 
           <Button
+            Icon={IconCoffee}
             onClick={() => {
-              setIsAboutOpen(false);
-              setIsContactFormOpen(true);
+              window.open('https://ko-fi.com/spacedashboard', '_blank');
             }}
           >
-            {'Contact me'}
+            {'Buy me a coffee'}
           </Button>
         </FlexWrapper>
 
