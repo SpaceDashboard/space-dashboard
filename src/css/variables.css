@@ -1,12 +1,7 @@
 @font-face {
-  font-family: 'WorkSans';
-  src: url('/fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'WorkSans Italic';
-  src: url('/fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
-  font-style: italic;
+  font-family: 'Roboto Flex';
+  src: url('/fonts/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf')
+    format('truetype');
 }
 
 :root {
@@ -32,11 +27,8 @@
   );
 
   /* Fonts */
-  --font-size: 16.3px;
-  /* --font: 'WorkSans', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
-  /* --font-italic: 'WorkSans Italic', 'Helvetica Neue', Helvetica, Arial, sans-serif; */
-  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-italic: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-size: 16px;
+  --font: 'Roboto Flex', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --text-color: #fff;
 
   /* Links */

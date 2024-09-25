@@ -57,6 +57,11 @@
   display: inline-grid;
   flex-shrink: 0;
   font-size: 0.9rem;
+  font-variation-settings:
+    'wdth' 100,
+    'wght' 200,
+    'GRAD' 50,
+    'YTLC' 520;
   justify-content: end;
   max-width: 250px;
   min-height: 50px;

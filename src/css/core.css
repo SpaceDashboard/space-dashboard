@@ -8,7 +8,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: var(--font-size);
   overscroll-behavior: none;
 }
 
@@ -19,6 +19,13 @@ body {
     calc(var(--base-blue-lightness) + 20%)
   );
   font-family: var(--font);
+  font-variation-settings:
+    'wdth' 140,
+    'wght' 200,
+    'GRAD' 10,
+    'XTRA' 380,
+    'opsz' 14,
+    'YTLC' 530;
   overscroll-behavior: none;
   padding: 0;
 }
@@ -33,7 +40,6 @@ p:focus {
 
 p {
   font-size: 1.2rem;
-  font-weight: 300;
   letter-spacing: 0.25px;
   line-height: 1.4;
   margin: 0;
@@ -46,6 +52,11 @@ h3,
 h4,
 h5,
 h6 {
+  font-variation-settings:
+    'wdth' 130,
+    'wght' 600,
+    'GRAD' 0,
+    'XTRA' 400;
   line-height: 1.2;
   margin: 0 0 4px;
 }
@@ -239,7 +250,7 @@ input[type='checkbox'] {
 }
 
 input::placeholder {
-  font-style: italic;
+  font-variation-settings: 'slnt' -10;
 }
 
 .text-error {
@@ -257,8 +268,7 @@ textarea {
   box-sizing: border-box;
   color: var(--input--text-color);
   flex-shrink: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 0.95rem;
   outline: 0;
   padding: 10px;
   width: 100%;

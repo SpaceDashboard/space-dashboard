@@ -41,7 +41,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: sharedInterval,
+      staleTime: 0,
       gcTime: sharedInterval,
       refetchInterval: sharedInterval,
     },
@@ -59,7 +59,7 @@ ReactDOM.createRoot(document.getElementById('app')!).render(
             </Sentry.ErrorBoundary>
           </AppProvider>
         </SettingsProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </PostHogProvider>
   </React.StrictMode>,

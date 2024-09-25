@@ -53,7 +53,7 @@ const utcClockCss = css`
   );
   border-radius: 4px;
   font-size: 0.8rem;
-  font-weight: 100;
+  font-variation-settings: 'wght' 100;
   letter-spacing: 0.8px;
   padding: 6px;
 `;
@@ -78,7 +78,9 @@ const titleCss = css`
   display: flex;
   flex-wrap: wrap;
   font-size: 1.5rem;
-  font-weight: 200;
+  font-variation-settings:
+    'wght' 300,
+    'wdth' 110;
   line-height: 0.95;
 
   span:first-of-type {
@@ -94,7 +96,9 @@ const kpValueCss = css`
   align-items: center;
   display: flex;
   font-size: 2.5rem;
-  font-weight: 300;
+  font-variation-settings:
+    'wght' 500,
+    'GRAD' -50;
   line-height: 0.8;
   opacity: 0.7;
   text-wrap: nowrap;
@@ -103,7 +107,7 @@ const kpValueCss = css`
 const chartCss = css`
   border-radius: 0 0 8px 8px;
   font-size: 0.8rem;
-  font-weight: 100;
+  font-variation-settings: 'wght' 200;
   letter-spacing: 0.8px;
   padding: 6px;
 `;
@@ -115,7 +119,7 @@ const kpChartTooltipCss = css`
 
   .time,
   .value {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 `;
 
@@ -127,9 +131,11 @@ const geoStormCss = (geoStormColor: string, size: 'small' | 'large') => css`
   color: ${geoStormColor};
   display: inline-block;
   font-size: ${size === 'small' ? '80%' : '64%'};
-  font-weight: 400;
+  font-variation-settings:
+    'wght' 400,
+    'wdth' 110;
   margin: ${size === 'large' ? '2px' : '0px'} 10px 0;
-  padding: ${size === 'small' ? '1px 3px' : '4px 6px'};
+  padding: ${size === 'small' ? '1px 3px' : '6px 6px 4px'};
 `;
 
 const getBarColor = (kp: string) => {
