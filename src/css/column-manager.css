@@ -34,6 +34,7 @@
       transition:
         var(--column-manager--transition-duration) top ease,
         var(--column-manager--transition-duration) left ease;
+      user-select: none;
 
       &::before,
       &::after {

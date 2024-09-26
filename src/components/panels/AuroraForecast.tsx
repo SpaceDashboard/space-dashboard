@@ -11,7 +11,7 @@ import {
   PlanetsLoader,
 } from 'src/components/base';
 import { IconSphere, IconVideo, IconVideoOff } from '@tabler/icons-react';
-import { useSettingsContext, useAutoRefresh } from 'src/hooks';
+import { useAppContext, useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { AuroraForecastSettings } from 'src/components/modals/UserSettings/panel-settings';
 
 const wrapperCss = (width?: number, height?: number) => css`
@@ -33,6 +33,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   index,
   componentKey,
 }) => {
+  const { navAnimationSeconds } = useAppContext();
   const {
     settings: {
       panelConfigs: { AuroraForecast },
@@ -94,6 +95,13 @@ export const AuroraForecast: React.FC<PanelProps> = ({
 
     handleResize();
 
+    setTimeout(
+      () => {
+        handleResize();
+      },
+      (navAnimationSeconds + 1) * 1000,
+    );
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -128,7 +136,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
                 autoPlay
                 loop={true}
                 key={videoSrc}
-                onLoadedData={() => setIsLoading(false)}
+                onLoadedData={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
               >
                 <source src={videoSrc} type="video/mp4"></source>
               </video>
@@ -137,7 +148,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
                 src={imageSrc}
                 key={imageSrc}
                 alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
-                onLoad={() => setIsLoading(false)}
+                onLoad={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
               />
             )}
           </div>

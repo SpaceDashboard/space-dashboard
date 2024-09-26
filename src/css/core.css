@@ -93,6 +93,12 @@ a {
 .bg-container {
   animation: 0.5s ease forwards opacityIn;
   opacity: 0;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   /* 
   <<<<< Very close to being able to use only this: https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style >>>>>

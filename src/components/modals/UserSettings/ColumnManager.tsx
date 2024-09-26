@@ -45,6 +45,13 @@ const arrowButtonCss = (location: 'topBottom' | 'leftRight') => css`
   width: ${location === 'topBottom' ? '100%' : '25px'};
 `;
 
+const columnManagerButtonWrapperCss = css`
+  > button {
+    max-width: 150px;
+    width: 100%;
+  }
+`;
+
 interface PanelPosition {
   columnIndex: number;
   rowIndex: number;
@@ -461,7 +468,7 @@ export const ColumnManager: React.FC = () => {
             </div>
           </CornersWrapper>
         </FlexWrapper>
-        <FlexWrapper gap={18}>
+        <FlexWrapper gap={18} className={columnManagerButtonWrapperCss}>
           <Button onClick={applyChanges} disabled={!modified}>
             {'Apply changes'}
           </Button>

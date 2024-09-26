@@ -11,7 +11,7 @@ import {
   PlanetsLoader,
 } from 'src/components/base';
 import { IconVideo, IconVideoOff } from '@tabler/icons-react';
-import { useSettingsContext, useAutoRefresh } from 'src/hooks';
+import { useAppContext, useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { SolarVisualSettings } from 'src/components/modals/UserSettings/panel-settings';
 
 // TODO: consider making a wrapper component for `.data-img-wrapper`
@@ -24,6 +24,7 @@ const wrapperCss = (width?: number, height?: number) => css`
 `;
 
 export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
+  const { navAnimationSeconds } = useAppContext();
   const {
     settings: {
       panelConfigs: { SolarVisual },
@@ -79,6 +80,13 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
 
     handleResize();
 
+    setTimeout(
+      () => {
+        handleResize();
+      },
+      (navAnimationSeconds + 1) * 1000,
+    );
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -106,7 +114,10 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
                 autoPlay
                 loop={true}
                 key={videoSrc}
-                onLoadedData={() => setIsLoading(false)}
+                onLoadedData={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
               >
                 <source src={videoSrc} type="video/mp4"></source>
               </video>
@@ -115,7 +126,10 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
                 src={imageSrc}
                 key={imageSrc}
                 alt="Current visual of the sun"
-                onLoad={() => setIsLoading(false)}
+                onLoad={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
               />
             )}
           </div>
