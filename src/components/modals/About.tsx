@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, FlexWrapper, Modal } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
-import { IconCoffee, IconSend } from '@tabler/icons-react';
+import { IconCoffee } from '@tabler/icons-react';
 
 export const About: React.FC = () => {
-  const { isAboutOpen, setIsAboutOpen, setIsContactFormOpen } = useAppContext();
+  const { isAboutOpen, setIsAboutOpen } = useAppContext();
 
   return (
     <Modal isOpen={isAboutOpen} setIsOpen={setIsAboutOpen}>

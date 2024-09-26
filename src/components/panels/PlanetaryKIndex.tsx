@@ -24,7 +24,7 @@ import {
   TooltipWrapper,
 } from 'src/components/base';
 import { UtcClock } from 'src/components';
-import { useSettingsContext, useAutoRefresh } from 'src/hooks';
+import { useAutoRefresh } from 'src/hooks';
 import { geoStormByKIndex, colorByGeoStorm } from 'src/shared/utils';
 
 const planetaryKIndexCss = css`
