@@ -46,6 +46,10 @@ p {
   max-width: 900px;
 }
 
+strong {
+  font-variation-settings: 'wght' 500;
+}
+
 h1,
 h2,
 h3,

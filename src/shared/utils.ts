@@ -1,14 +1,14 @@
 export const geoStormByKIndex = (index: number) => {
-  const kpNum = Math.floor(index);
-  if (kpNum === 5) {
+  const kpFloor = Math.floor(index);
+  if (kpFloor === 5) {
     return 'G1';
-  } else if (kpNum === 6) {
+  } else if (kpFloor === 6) {
     return 'G2';
-  } else if (kpNum === 7) {
+  } else if (kpFloor === 7) {
     return 'G3';
-  } else if (kpNum === 8) {
+  } else if (kpFloor === 8) {
     return 'G4';
-  } else if (kpNum >= 9) {
+  } else if (kpFloor === 9) {
     return 'G5';
   } else {
     return 'G0';

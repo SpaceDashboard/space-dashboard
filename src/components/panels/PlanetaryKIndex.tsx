@@ -90,6 +90,7 @@ const titleCss = css`
 
 const updatedTimeCss = css`
   font-size: 0.8rem;
+  font-variation-settings: 'wght' 100;
 `;
 
 const kpValueCss = css`
@@ -123,8 +124,12 @@ const kpChartTooltipCss = css`
   }
 `;
 
-const geoStormCss = (geoStormColor: string, size: 'small' | 'large') => css`
-  background-color: #222;
+const geoStormCss = (
+  geoStormColor: string,
+  size: 'small' | 'large',
+  kpIndex: number,
+) => css`
+  background-color: ${kpIndex >= 9 ? '#101010' : '#222'};
   border-radius: ${size === 'small' ? '3px' : '8px'};
   border: 1px solid ${geoStormColor};
   box-sizing: border-box;
@@ -139,20 +144,23 @@ const geoStormCss = (geoStormColor: string, size: 'small' | 'large') => css`
 `;
 
 const getBarColor = (kp: string) => {
-  const green = '#1DFF00';
-  const yellow = '#FFDD00';
-  const red = '#FF381F';
-  const kpNum = Math.floor(Number(kp));
-  if (kpNum < 4) {
-    return green;
-  } else if (kpNum === 4) {
-    return yellow;
-  } else {
-    return red;
+  const kpIndex = Number(kp);
+  if (kpIndex <= 4.33) {
+    return '#92D050'; // green
+  } else if (kpIndex <= 5.33) {
+    return '#F6EB14'; // yellow
+  } else if (kpIndex <= 6.33) {
+    return '#FFC800'; // light orange
+  } else if (kpIndex <= 7.33) {
+    return '#FF9600'; // international orange
+  } else if (kpIndex <= 8.67) {
+    return '#FF0000'; // red
+  } else if (kpIndex <= 9.0) {
+    return '#C80000'; // dark red
   }
 };
 
-const KIndexChart = ({ data = [] }) => {
+const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
   const chartData = data.slice(1).map((item) => ({
     time: item[0],
     kp: item[1],
@@ -189,7 +197,8 @@ const KIndexChart = ({ data = [] }) => {
                 <div className={kpChartTooltipCss}>
                   <p className="time">{`${format(payload[0].payload.time, 'd MMM yyyy @ HH:mm:ss')} UTC`}</p>
                   <p className="value">
-                    {`Estimated K-index: ${payload[0].payload.kp}`}
+                    {'Estimated K-index: '}
+                    <strong>{payload[0].payload.kp}</strong>
                     {Number(payload[0].payload.kp) >= 5 && (
                       <GeoStorm kpIndex={payload[0].payload.kp} size="small" />
                     )}
@@ -220,7 +229,9 @@ const GeoStorm: React.FC<{
   const stormColor = colorByGeoStorm(storm);
   return (
     <TooltipWrapper title="Geomagnetic storm value" placement="bottom">
-      <div className={geoStormCss(stormColor, size)}>{storm}</div>
+      <div className={geoStormCss(stormColor, size, Number(kpIndex))}>
+        {storm}
+      </div>
     </TooltipWrapper>
   );
 };
@@ -229,11 +240,11 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   index,
   componentKey,
 }) => {
-  const {
-    settings: {
-      panelConfigs: { PlanetaryKIndex },
-    },
-  } = useSettingsContext();
+  // const {
+  //   settings: {
+  //     panelConfigs: { PlanetaryKIndex },
+  //   },
+  // } = useSettingsContext();
 
   const getLiveData = async (): Promise<any> => {
     const response = await axios
@@ -363,6 +374,14 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
               </a>
             </p>
           </div>
+
+          <p>
+            {'From SWPC:'}
+            <br />
+            {
+              'Space Weather impacts numerous facets of everyday life, from where airplanes can safely fly, to how accurately a farmer plows his field. In addition, there are a large variety of phenomena that are driven by the variability of the sun over periods ranging from hours to years. SWPC provides information for novices and experts alike about the impacts and phenomena of Space Weather'
+            }
+          </p>
 
           <div>
             <h4>{'Geomagnetic storms by K-index'}</h4>

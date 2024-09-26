@@ -14,7 +14,6 @@ Sentry.init({
   dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',
   tracesSampleRate: 1.0,
   tracePropagationTargets: [/^\//, /^https:\/\/api\.spacedashboard\.com/],
-  ignoreErrors: [/tooltipPayload/i, /tooltipPosition/i, /dataKey/i],
 });
 
 posthog.init('phc_9c7D91ze1wShYC4X83jlsYBnNvqDMSaOOyeJEm418hK', {
@@ -59,7 +58,7 @@ ReactDOM.createRoot(document.getElementById('app')!).render(
             </Sentry.ErrorBoundary>
           </AppProvider>
         </SettingsProvider>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </PostHogProvider>
   </React.StrictMode>,

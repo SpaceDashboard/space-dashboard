@@ -155,13 +155,6 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             {'Space Weather Prediction Center (SWPC)'}
           </a>
         </p>
-        <p>
-          {'From SWPC:'}
-          <br />
-          {
-            'Space Weather impacts numerous facets of everyday life, from where airplanes can safely fly, to how accurately a farmer plows his field. In addition, there are a large variety of phenomena that are driven by the variability of the sun over periods ranging from hours to years. SWPC provides information for novices and experts alike about the impacts and phenomena of Space Weather'
-          }
-        </p>
         <AuroraForecastSettings />
       </PanelMenu>
       <PanelActions
