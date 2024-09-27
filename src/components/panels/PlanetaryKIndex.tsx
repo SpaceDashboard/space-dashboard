@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { css } from '@emotion/css';
 import { format } from 'date-fns';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   BarChart,
   Bar,
@@ -240,12 +240,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   index,
   componentKey,
 }) => {
-  // const {
-  //   settings: {
-  //     panelConfigs: { PlanetaryKIndex },
-  //   },
-  // } = useSettingsContext();
-
+  const queryClient = useQueryClient();
   const getLiveData = async (): Promise<any> => {
     const response = await axios
       .get('/api/json/planetary-k-index-dst.json', {
@@ -293,14 +288,16 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
         };
   }, [liveData]);
 
-  const { resetTimer: resetLiveDataTimer } = useAutoRefresh(
-    refetchLiveData,
-    60000 * 5,
-  ); // 5 minutes
-  const { resetTimer: resetChartDataTimer } = useAutoRefresh(
-    refetchChartData,
-    60000 * 10,
-  ); // 10 minutes
+  const { resetTimer } = useAutoRefresh(
+    () => {
+      queryClient.invalidateQueries({
+        queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
+      });
+      refetchLiveData();
+      refetchChartData();
+    },
+    1000 * 60 * 5, // 5 minutes
+  );
 
   return (
     <Panel
@@ -419,10 +416,12 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
       </PanelMenu>
       <PanelActions
         refreshData={() => {
+          queryClient.invalidateQueries({
+            queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
+          });
+          resetTimer();
           refetchLiveData();
-          resetLiveDataTimer();
           refetchChartData();
-          resetChartDataTimer();
         }}
       />
     </Panel>
