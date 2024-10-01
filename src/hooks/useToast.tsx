@@ -9,12 +9,13 @@ import {
 import {
   IconX,
   IconCheck,
+  IconInfoCircle,
   IconAlertTriangle,
   IconExclamationCircle,
 } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
 
-export type Variants = 'confirmation' | 'warning' | 'error';
+export type Variants = 'confirmation' | 'warning' | 'error' | 'info';
 
 interface ToastOptionsProps {
   showIcon?: boolean;
@@ -75,6 +76,10 @@ export const useToast = () => {
         return <IconAlertTriangle color="white" />;
       case 'error':
         return <IconExclamationCircle color="white" />;
+      case 'info':
+        return <IconInfoCircle color="white" />;
+      default:
+        return <IconCheck color="white" />;
     }
   };
 

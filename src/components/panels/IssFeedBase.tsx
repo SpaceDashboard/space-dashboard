@@ -11,6 +11,7 @@ import {
 } from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import { IssFeedSettings } from 'src/components/modals/UserSettings/panel-settings';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 const iframeCss = css`
   background: #000;
@@ -41,7 +42,6 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
     [panelConfig, videoId],
   );
   const [isLoading, setIsLoading] = useState(false);
-  const getCurrentTimestamp = () => new Date().getTime();
   const iframeBase = `https://www.youtube.com/embed/${feedId}?autoplay=${panelConfig.autoPlay}&mute=${panelConfig.mute}`;
   const [iframeSrc, setIframeSrc] = useState(`
     ${iframeBase}&updated=${getCurrentTimestamp()}

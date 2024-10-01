@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { css } from '@emotion/css';
 import { usePostHog } from 'posthog-js/react';
-import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
-import { useAppContext, useToast } from 'src/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   IconSend,
   IconRestore,
   IconRotateClockwise,
 } from '@tabler/icons-react';
+import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
+import { useAppContext } from 'src/hooks';
+import { showToast } from 'src/shared/utils';
 
 const loadingButtonCss = css`
   .button-content-wrapper > svg {
@@ -31,7 +32,6 @@ interface FormFields {
 
 export const ContactForm: React.FC = () => {
   const { isContactFormOpen, setIsContactFormOpen } = useAppContext();
-  const { showToast } = useToast();
   const posthog = usePostHog();
   const {
     register,

@@ -98,7 +98,9 @@
   --toast--warning--border-color: #e9ad0a;
   --toast--error--bg-color: #511010;
   --toast--error--border-color: #9d2020;
-  /* -- Defaults, overridden in useToast -- */
+  --toast--info--bg-color: #143257;
+  --toast--info--border-color: #335681;
+  /* -- Defaults, overridden in ToastContent.tsx -- */
   --toast--bg-color: var(--toast--confirmation--bg-color);
   --toast--border-color: var(--toast--confirmation--border-color);
 

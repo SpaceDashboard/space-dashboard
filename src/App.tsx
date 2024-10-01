@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
+import { NavBar, SiteMonitors } from 'src/components';
 import { FlexWrapper } from './components/base';
-import { NavBar } from 'src/components';
 import { DeepSpaceNetwork } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
-import { useSettingsContext, useToast } from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
 import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
+import { ToastContainer, PersistentToastContainer } from 'src/shared/utils';
 
 const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   --content--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
 `;
 
 export const App: React.FC = () => {
+  const { allPanelsLoaded } = useAppContext();
   const {
     settings: {
       animationSpeedAdjustment,
@@ -23,7 +25,6 @@ export const App: React.FC = () => {
       panelConfigs,
     },
   } = useSettingsContext();
-  const { ToastContainer } = useToast();
   const [isViewportLarge, setIsViewportLarge] = useState(true);
 
   const renderColumn = (
@@ -117,6 +118,8 @@ export const App: React.FC = () => {
         classNameArrow="sd-tooltip-arrow"
       />
       <ToastContainer />
+      <PersistentToastContainer />
+      {allPanelsLoaded && <SiteMonitors />}
     </>
   );
 };

@@ -13,6 +13,7 @@ import {
 import { IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useAppContext, useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { SolarVisualSettings } from 'src/components/modals/UserSettings/panel-settings';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 // TODO: consider making a wrapper component for `.data-img-wrapper`
 const wrapperCss = (width?: number, height?: number) => css`
@@ -30,7 +31,6 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       panelConfigs: { SolarVisual },
     },
   } = useSettingsContext();
-  const getCurrentTimestamp = () => new Date().getTime();
   const coronaImage = 'https://api.spacedashboard.com/img/current-corona.jpg';
   const coronaVideo = 'https://api.spacedashboard.com/vid/current-corona.mp4';
   const [imageSrc, setImageSrc] = useState(

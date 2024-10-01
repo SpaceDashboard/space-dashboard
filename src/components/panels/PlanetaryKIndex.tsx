@@ -25,7 +25,11 @@ import {
 } from 'src/components/base';
 import { UtcClock } from 'src/components';
 import { useAutoRefresh } from 'src/hooks';
-import { geoStormByKIndex, colorByGeoStorm } from 'src/shared/utils';
+import {
+  geoStormByKIndex,
+  colorByGeoStorm,
+  getCurrentTimestamp,
+} from 'src/shared/utils';
 
 const planetaryKIndexCss = css`
   .corners-wrapper-content {
@@ -243,7 +247,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   const queryClient = useQueryClient();
   const getLiveData = async (): Promise<any> => {
     const response = await axios
-      .get('/api/json/planetary-k-index-dst.json', {
+      .get(`/api/json/planetary-k-index-dst.json?u=${getCurrentTimestamp()}`, {
         timeout: 1000 * 10,
       })
       .then((res) => res.data);
@@ -252,7 +256,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
 
   const getHourlyData = async (): Promise<any> => {
     const response = await axios
-      .get('/api/json/noaa-planetary-k-index.json', {
+      .get(`/api/json/noaa-planetary-k-index.json?u=${getCurrentTimestamp()}`, {
         timeout: 1000 * 10,
       })
       .then((res) => res.data);

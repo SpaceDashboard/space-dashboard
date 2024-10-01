@@ -11,6 +11,7 @@ import {
   PlanetsLoader,
 } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 const iframeCss = css`
   background: #000;
@@ -23,7 +24,6 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   componentKey,
 }) => {
   const { navAnimationSeconds } = useAppContext();
-  const getCurrentTimestamp = () => new Date().getTime();
   const dsnSource = 'https://eyes.nasa.gov/dsn/dsn.html';
   const [iframeSrc, setIframeSrc] = useState('');
   const [isLoading, setIsLoading] = useState(false);

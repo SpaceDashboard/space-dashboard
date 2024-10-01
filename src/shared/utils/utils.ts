@@ -27,3 +27,5 @@ export const colorByGeoStorm = (storm: string) => {
 
   return colorMap[storm];
 };
+
+export const getCurrentTimestamp = () => new Date().getTime();

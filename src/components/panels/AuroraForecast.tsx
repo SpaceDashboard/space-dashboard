@@ -13,6 +13,7 @@ import {
 import { IconSphere, IconVideo, IconVideoOff } from '@tabler/icons-react';
 import { useAppContext, useSettingsContext, useAutoRefresh } from 'src/hooks';
 import { AuroraForecastSettings } from 'src/components/modals/UserSettings/panel-settings';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 const wrapperCss = (width?: number, height?: number) => css`
   ${width &&
@@ -39,7 +40,6 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       panelConfigs: { AuroraForecast },
     },
   } = useSettingsContext();
-  const getCurrentTimestamp = () => new Date().getTime();
   const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

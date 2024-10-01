@@ -9,6 +9,7 @@ import {
   FadeFromBlack,
   PlanetsLoader,
 } from 'src/components/base';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 const issTrackerWrapperCss = css`
   align-items: center;
@@ -35,7 +36,6 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
   const [issTrackerFrameScale, setIssTrackerFrameScale] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
   let resizeIssFrameTimeout: ReturnType<typeof setTimeout> | undefined;
-  const getCurrentTimestamp = () => new Date().getTime();
   const iframeBase = 'https://isstracker.spaceflight.esa.int/';
   const [iframeSrc, setIframeSrc] = useState(`
     ${iframeBase}?u=${getCurrentTimestamp()}

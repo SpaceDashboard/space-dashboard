@@ -5,6 +5,7 @@ import {
   IssTracker,
   PlanetaryKIndex,
   AuroraForecast,
+  NearEarthObjects,
   SolarVisual,
 } from 'src/components/panels';
 
@@ -12,9 +13,10 @@ export type AvailablePanels =
   | 'IssFeed1'
   | 'IssFeed2'
   | 'IssTracker'
-  | 'SolarVisual'
   | 'PlanetaryKIndex'
   | 'AuroraForecast'
+  | 'NearEarthObjects'
+  | 'SolarVisual'
   | 'DeepSpaceNetwork';
 
 export type MoveablePanels = Exclude<AvailablePanels, 'DeepSpaceNetwork'>;
@@ -24,12 +26,17 @@ export const columnPanelMap: PanelMapType = {
   IssFeed1,
   IssFeed2,
   IssTracker,
-  SolarVisual,
   PlanetaryKIndex,
   AuroraForecast,
+  NearEarthObjects,
+  SolarVisual,
 };
 
-export const defaultColumn1Order: MoveablePanels[] = ['IssFeed1', 'IssFeed2'];
+export const defaultColumn1Order: MoveablePanels[] = [
+  'IssFeed1',
+  'IssFeed2',
+  'NearEarthObjects',
+];
 export const defaultColumn2Order: MoveablePanels[] = [
   'IssTracker',
   'SolarVisual',
@@ -84,11 +91,6 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
     label: 'ISS Tracker',
     enabled: true,
   },
-  SolarVisual: {
-    label: 'The Sun Now',
-    enabled: true,
-    startWithVideo: false,
-  },
   PlanetaryKIndex: {
     label: 'Planetary K-Index',
     enabled: true,
@@ -97,6 +99,15 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
     label: 'Aurora Forecast',
     enabled: true,
     startWithSouthernHemisphere: false,
+    startWithVideo: false,
+  },
+  NearEarthObjects: {
+    label: 'Near-Earth Objects',
+    enabled: true,
+  },
+  SolarVisual: {
+    label: 'The Sun Now',
+    enabled: true,
     startWithVideo: false,
   },
   DeepSpaceNetwork: {
