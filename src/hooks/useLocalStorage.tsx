@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { showToast } from 'src/shared/utils';
 
 // Fallback in-memory storage
 const memoryStorage: Record<string, any> = {};
@@ -62,11 +63,77 @@ const mergeWithDefaults = <T extends Record<string, any>>(
         defaultValue,
       );
     } else {
-      (mergedSettings[key] as T) = settingValue as T[Extract<keyof T, string>]; // Cast to the appropriate type
+      // Always pull default panel label, in case it's been updated by the author
+      if (key === 'label') {
+        (mergedSettings[key] as T) = defaultValue;
+      } else {
+        (mergedSettings[key] as T) = settingValue as T[Extract<
+          keyof T,
+          string
+        >];
+      }
     }
   }
 
   return mergedSettings;
+};
+
+const getSettingWithUpdatedPanels = <T extends Record<string, any>>(
+  settings: T,
+  defaultSettings: T,
+): T => {
+  const defaultPanels = [
+    ...defaultSettings.column1Order,
+    ...defaultSettings.column2Order,
+    ...defaultSettings.column3Order,
+  ];
+  const savedPanels = [
+    ...settings.column1Order,
+    ...settings.column2Order,
+    ...settings.column3Order,
+  ];
+  const newDefaultPanels = defaultPanels.filter(
+    (panel) => !savedPanels.includes(panel),
+  );
+  const deletedDefaultPanels = savedPanels.filter(
+    (panel) => !defaultPanels.includes(panel),
+  );
+
+  for (const panel of newDefaultPanels) {
+    for (const column of [
+      'column1Order',
+      'column2Order',
+      'column3Order',
+    ] as const) {
+      if (defaultSettings[column].includes(panel)) {
+        settings[column].push(panel);
+      }
+    }
+  }
+
+  for (const panel of deletedDefaultPanels) {
+    for (const column of [
+      'column1Order',
+      'column2Order',
+      'column3Order',
+    ] as const) {
+      if (settings[column].includes(panel)) {
+        settings[column].splice(settings[column].indexOf(panel), 1);
+      }
+    }
+  }
+
+  if (newDefaultPanels.length > 0) {
+    setTimeout(() => {
+      showToast(
+        'New panels or settings have been added. Check them out!',
+        { variant: 'info' },
+        true,
+      );
+    }, 6000);
+  }
+
+  return { ...settings };
 };
 
 export const useLocalStorage = <T extends Record<string, any>>(
@@ -84,7 +151,12 @@ export const useLocalStorage = <T extends Record<string, any>>(
             validatedSettings,
             defaultValue,
           );
-          localStorage.setItem(key, JSON.stringify(mergedSettings));
+          localStorage.setItem(
+            key,
+            JSON.stringify(
+              getSettingWithUpdatedPanels(mergedSettings, defaultValue),
+            ),
+          );
           return mergedSettings;
         } else {
           localStorage.setItem(key, JSON.stringify(defaultValue));
