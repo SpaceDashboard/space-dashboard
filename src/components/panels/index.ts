@@ -7,4 +7,3 @@ export * from './AuroraForecast';
 export * from './SolarVisual';
 export * from './NearEarthObjects';
 export * from './DeepSpaceNetwork';
-export * from './TestPanel';

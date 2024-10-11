@@ -1,5 +1,5 @@
-export const geoStormByKIndex = (index: number) => {
-  const kpFloor = Math.floor(index);
+export const geoStormByKIndex = (kp: number) => {
+  const kpFloor = Math.floor(kp);
   if (kpFloor === 5) {
     return 'G1';
   } else if (kpFloor === 6) {
@@ -15,17 +15,27 @@ export const geoStormByKIndex = (index: number) => {
   }
 };
 
-export const colorByGeoStorm = (storm: string) => {
-  const colorMap: { [key: string]: string } = {
-    G0: '#92D050',
-    G1: '#F6EB14',
-    G2: '#FFC800',
-    G3: '#FF9600',
-    G4: '#FF0000',
-    G5: '#C80000',
-  };
-
-  return colorMap[storm];
+/**
+ * NOAA colors by K index - they don't match geo storm values exactly.
+ * Noticed when rendering bars in "Estimated Planetary K index (3 hour)" chart
+ */
+export const colorByKIndex = (kp: number) => {
+  const kpIndex = Number(kp);
+  if (kpIndex <= 4.33) {
+    return '#92D050'; // green
+  } else if (kpIndex <= 5.33) {
+    return '#F6EB14'; // yellow
+  } else if (kpIndex <= 6.33) {
+    return '#FFC800'; // light orange
+  } else if (kpIndex <= 7.33) {
+    return '#FF9600'; // international orange
+  } else if (kpIndex <= 8.67) {
+    return '#FF0000'; // red
+  } else if (kpIndex <= 9.0) {
+    return '#C80000'; // dark red
+  } else {
+    return '#92D050'; // default to green
+  }
 };
 
 export const getCurrentTimestamp = () => new Date().getTime();

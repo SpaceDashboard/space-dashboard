@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { css } from '@emotion/css';
 import { format } from 'date-fns';
 import axios from 'axios';
@@ -13,9 +13,16 @@ import {
   PlanetsLoader,
   FlexWrapper,
   TooltipWrapper,
+  ListDetails,
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
+
+const items = [
+  { id: '1', name: 'Item 1', details: 'Details for item 1...' },
+  { id: '2', name: 'Item 2', details: 'Details for item 2...' },
+  { id: '3', name: 'Item 3', details: 'Details for item 3...' },
+];
 
 export const NearEarthObjects: React.FC<PanelProps> = ({
   index,
@@ -30,15 +37,6 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
       .then((res) => res.data);
     return response;
   };
-
-  // const getHourlyData = async (): Promise<any> => {
-  //   const response = await axios
-  //     .get('/api/json/noaa-planetary-k-index.json', {
-  //       timeout: 1000 * 10,
-  //     })
-  //     .then((res) => res.data);
-  //   return response;
-  // };
 
   const {
     data: neoData,
@@ -75,15 +73,6 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
     }
   }, [neoData]);
 
-  // const {
-  //   data: chartData,
-  //   isFetching: isFetchingChartData,
-  //   refetch: refetchChartData,
-  // } = useQuery({
-  //   queryKey: ['hourly-planetary-k-index'],
-  //   queryFn: getHourlyData,
-  // });
-
   const { resetTimer } = useAutoRefresh(
     () => {
       queryClient.invalidateQueries({
@@ -100,6 +89,9 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
         <FadeFromBlack>
           <PlanetsLoader showLoader={isFetchingNeoData} />
           <FlexWrapper>
+            {/* TEST */}
+            <ListDetails items={items} />
+
             {nearEarthObjects &&
               nearEarthObjects.map((obj: any) => (
                 <div key={obj.date}>

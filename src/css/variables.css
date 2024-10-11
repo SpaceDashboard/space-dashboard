@@ -56,8 +56,8 @@
   --navbar--logo--transition-delay: 0.5s;
 
   /* Modal */
-  --modal--background-opacity: 0.3;
-  --modal--transition-duration: 0.3s;
+  --modal--background-opacity: 0.4;
+  --modal--transition-duration: 0.2s;
   --modal--close-button--distance: 20px;
   --modal--close-button--size: 35px;
   --modal--close-button--transition-duration: 0.08s;
@@ -71,8 +71,8 @@
   --panel-actions-wrapper--before--transition-duration: 0.4s;
   --panel-actions-wrapper--after--transition-duration: 0.4s;
   --panel-actions--before-transition-duration: 0.4s;
-  --panel-menu--background-opacity: 0.9;
-  --panel-menu--transition-duration: 0.18s;
+  --panel-menu--background-opacity: 0.8;
+  --panel-menu--transition-duration: 0.2s;
 
   /* Inputs */
   --input--bg-color: rgba(20, 20, 20, 0.75);

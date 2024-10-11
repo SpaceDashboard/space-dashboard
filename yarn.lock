@@ -10,6 +10,11 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@astrocaleb/content-slider@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@astrocaleb/content-slider/-/content-slider-1.0.0.tgz#de93cd6feb33fc8bb44abd8113ed706cb1c67b2b"
+  integrity sha512-v0F1EBvjH2sf5tnU02mwuqNjEk19D+KsQA8gzekfUo+XREKFt+oHXryr5RsVAX2CcCynF3KvunZzQDfw3wBWvA==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.24.7":
   version "7.24.7"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.24.7.tgz#882fd9e09e8ee324e496bd040401c6f046ef4465"

@@ -102,7 +102,11 @@ export const ContactForm: React.FC = () => {
   }, [spinIcon]);
 
   return (
-    <Modal isOpen={isContactFormOpen} setIsOpen={setIsContactFormOpen}>
+    <Modal
+      isOpen={isContactFormOpen}
+      setIsOpen={setIsContactFormOpen}
+      isFullScreen={true}
+    >
       <div className="content-two-up">
         <FlexWrapper gap={20}>
           <h2>{"What's on your mind?"}</h2>

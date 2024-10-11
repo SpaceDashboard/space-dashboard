@@ -97,7 +97,11 @@ export const UserSettings: React.FC = () => {
   }, []);
 
   return (
-    <Modal isOpen={isUserSettingsOpen} setIsOpen={setIsUserSettingsOpen}>
+    <Modal
+      isOpen={isUserSettingsOpen}
+      setIsOpen={setIsUserSettingsOpen}
+      isFullScreen={true}
+    >
       <FlexWrapper
         gap={25}
         flexDirection={modalContentDirection}

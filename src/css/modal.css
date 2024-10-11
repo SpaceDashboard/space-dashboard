@@ -4,17 +4,16 @@
 
 .modal {
   background-color: rgba(0, 0, 0, var(--modal--background-opacity));
-  bottom: 26px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-sizing: border-box;
   color: #fff;
   container-type: size;
   display: flex;
   flex-direction: column;
-  left: 145px;
+  height: 100%;
   opacity: 0;
-  position: fixed;
-  right: 25px;
-  top: 26px;
+  position: relative;
   transform: scale(1.02);
   transition:
     var(--modal--transition-duration) transform ease,
@@ -22,7 +21,8 @@
     var(--modal--transition-duration) backdrop-filter ease,
     var(--modal--transition-duration) filter ease,
     var(--modal--transition-duration) z-index ease;
-  z-index: 0;
+  width: 100%;
+  z-index: 1000;
 
   &.open {
     opacity: 1;
@@ -35,7 +35,17 @@
     z-index: 1000;
   }
 
-  &.open ~ .content {
+  &.full-screen {
+    width: auto;
+    top: 26px;
+    right: 25px;
+    position: fixed;
+    left: 145px;
+    height: auto;
+    bottom: 26px;
+  }
+
+  &.full-screen.open ~ .content {
     filter: blur(10px);
     opacity: 0.1;
     transform: scale(0.98);

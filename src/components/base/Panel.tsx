@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
-import { Button, Variant, CornersWrapper } from 'src/components/base';
+import { Button, Variant, CornersWrapper, Modal } from 'src/components/base';
 import { AvailablePanels } from 'src/shared/PanelConfigs';
 import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 
@@ -41,7 +41,7 @@ const panelWrapperCss = (
     .panel-section & {
       --panel-menu--transition-duration: ${reduceMotion
         ? 0
-        : 0.18 * speedAdjustment}s !important;
+        : 0.2 * speedAdjustment}s !important;
 
       &::before {
         --panel-actions-wrapper--before--transition-duration: ${reduceMotion
@@ -69,7 +69,7 @@ const panelWrapperCss = (
     .panel-section & {
       --panel-menu--transition-duration: ${reduceMotion
         ? 0
-        : 0.18 * speedAdjustment}s !important;
+        : 0.2 * speedAdjustment}s !important;
     }
   }
 `;
@@ -340,7 +340,7 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
     settings: { panelConfigs, reduceMotion, animationSpeedAdjustment },
   } = useSettingsContext();
   // CSS variable reference: --panel-menu--transition-duration
-  const animationDuration = reduceMotion ? 0 : 0.18 * animationSpeedAdjustment;
+  const animationDuration = reduceMotion ? 0 : 0.2 * animationSpeedAdjustment;
   const [isMenuFullyHidden, setIsMenuFullyHidden] = useState<boolean>(true);
 
   useEffect(() => {
@@ -373,12 +373,12 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
       className={cx('panel-menu', { open: isPanelMenuOpen })}
       style={{ visibility: isMenuFullyHidden ? 'hidden' : 'visible' }}
     >
-      <CornersWrapper height="100%">
+      <Modal isOpen={isPanelMenuOpen} showCloseButton={false}>
         {componentKey && (
           <h3>{panelConfigs[componentKey as AvailablePanels].label}</h3>
         )}
         {children}
-      </CornersWrapper>
+      </Modal>
     </div>
   );
 };

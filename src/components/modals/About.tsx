@@ -7,7 +7,7 @@ export const About: React.FC = () => {
   const { isAboutOpen, setIsAboutOpen } = useAppContext();
 
   return (
-    <Modal isOpen={isAboutOpen} setIsOpen={setIsAboutOpen}>
+    <Modal isOpen={isAboutOpen} setIsOpen={setIsAboutOpen} isFullScreen={true}>
       <div className="content-two-up">
         <FlexWrapper gap={20}>
           <h2>{"Hello! I'm Caleb."}</h2>

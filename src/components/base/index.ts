@@ -7,3 +7,4 @@ export * from './Modal';
 export * from './Toggle';
 export * from './FlexWrapper';
 export * from './PlanetsLoader';
+export * from './ListDetails';

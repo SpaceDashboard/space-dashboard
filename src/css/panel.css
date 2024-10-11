@@ -60,6 +60,7 @@
       );
       box-sizing: border-box;
       color: var(--text-color);
+      content-visibility: auto;
       display: flex;
       font: var(--font);
       flex-direction: column;
@@ -204,6 +205,7 @@
     padding: 24px 26px;
     position: absolute;
     top: 0;
+    width: 100%;
     transform: scale(1.05);
     transition:
       var(--panel-menu--transition-duration) transform ease,
@@ -211,20 +213,11 @@
       var(--panel-menu--transition-duration) backdrop-filter ease,
       var(--panel-menu--transition-duration) filter ease,
       var(--panel-menu--transition-duration) z-index ease;
-    width: 100%;
     z-index: 1;
 
     p,
     label {
       font-size: 0.92rem;
-    }
-
-    .corners-wrapper-content {
-      background-color: rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px 14px;
     }
 
     &.open {

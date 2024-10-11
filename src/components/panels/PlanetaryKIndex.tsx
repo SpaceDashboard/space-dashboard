@@ -27,7 +27,7 @@ import { UtcClock } from 'src/components';
 import { useAutoRefresh } from 'src/hooks';
 import {
   geoStormByKIndex,
-  colorByGeoStorm,
+  colorByKIndex,
   getCurrentTimestamp,
 } from 'src/shared/utils';
 
@@ -105,7 +105,6 @@ const kpValueCss = css`
     'wght' 500,
     'GRAD' -50;
   line-height: 0.8;
-  opacity: 0.7;
   text-wrap: nowrap;
 `;
 
@@ -124,7 +123,7 @@ const kpChartTooltipCss = css`
 
   .time,
   .value {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -133,7 +132,7 @@ const geoStormCss = (
   size: 'small' | 'large',
   kpIndex: number,
 ) => css`
-  background-color: ${kpIndex >= 9 ? '#101010' : '#222'};
+  background-color: ${kpIndex > 7.33 ? '#101010' : '#222'};
   border-radius: ${size === 'small' ? '3px' : '8px'};
   border: 1px solid ${geoStormColor};
   box-sizing: border-box;
@@ -147,23 +146,6 @@ const geoStormCss = (
   padding: ${size === 'small' ? '1px 3px' : '6px 6px 4px'};
 `;
 
-const getBarColor = (kp: string) => {
-  const kpIndex = Number(kp);
-  if (kpIndex <= 4.33) {
-    return '#92D050'; // green
-  } else if (kpIndex <= 5.33) {
-    return '#F6EB14'; // yellow
-  } else if (kpIndex <= 6.33) {
-    return '#FFC800'; // light orange
-  } else if (kpIndex <= 7.33) {
-    return '#FF9600'; // international orange
-  } else if (kpIndex <= 8.67) {
-    return '#FF0000'; // red
-  } else if (kpIndex <= 9.0) {
-    return '#C80000'; // dark red
-  }
-};
-
 const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
   const chartData = data.slice(1).map((item) => ({
     time: item[0],
@@ -171,9 +153,9 @@ const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={230}>
+    <ResponsiveContainer width="100%" height={180}>
       <BarChart
-        data={chartData}
+        data={chartData.slice(-30)}
         margin={{ top: 15, right: 10, bottom: 0, left: -28 }}
       >
         <CartesianGrid
@@ -217,7 +199,9 @@ const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
           fill="#444"
           name="K-Index"
           shape={(props: any) => {
-            return <rect {...props} fill={getBarColor(props.payload.kp)} />;
+            return (
+              <rect {...props} fill={colorByKIndex(Number(props.payload.kp))} />
+            );
           }}
         />
       </BarChart>
@@ -230,12 +214,12 @@ const GeoStorm: React.FC<{
   size?: 'small' | 'large';
 }> = ({ kpIndex = 0, size = 'large' }) => {
   const storm = geoStormByKIndex(Number(kpIndex));
-  const stormColor = colorByGeoStorm(storm);
+  const stormColor = colorByKIndex(Number(kpIndex));
   return (
     <TooltipWrapper title="Geomagnetic storm value" placement="bottom">
-      <div className={geoStormCss(stormColor, size, Number(kpIndex))}>
+      <span className={geoStormCss(stormColor, size, Number(kpIndex))}>
         {storm}
-      </div>
+      </span>
     </TooltipWrapper>
   );
 };

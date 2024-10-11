@@ -4,6 +4,7 @@
 
 .column-manager {
   background-color: rgba(0, 0, 0, var(--column-manager--background-opacity));
+  content-visibility: auto;
   position: relative;
   transition: var(--column-manager--transition-duration) all ease;
 

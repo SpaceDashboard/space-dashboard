@@ -63,7 +63,7 @@ const mergeWithDefaults = <T extends Record<string, any>>(
         defaultValue,
       );
     } else {
-      // Always pull default panel label, in case it's been updated by the author
+      // Always pull default panel label, in case it's been updated
       if (key === 'label') {
         (mergedSettings[key] as T) = defaultValue;
       } else {
@@ -99,6 +99,7 @@ const getSettingWithUpdatedPanels = <T extends Record<string, any>>(
     (panel) => !defaultPanels.includes(panel),
   );
 
+  // Add new panels
   for (const panel of newDefaultPanels) {
     for (const column of [
       'column1Order',
@@ -111,6 +112,7 @@ const getSettingWithUpdatedPanels = <T extends Record<string, any>>(
     }
   }
 
+  // Remove deleted panels
   for (const panel of deletedDefaultPanels) {
     for (const column of [
       'column1Order',

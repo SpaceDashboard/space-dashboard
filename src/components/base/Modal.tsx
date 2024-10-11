@@ -8,16 +8,22 @@ const modalCss = (
   speedAdjustment: number,
   reduceTransparency: boolean,
 ) => css`
-  --modal--background-opacity: ${reduceTransparency ? 1 : 0.3} !important;
+  --modal--background-opacity: ${reduceTransparency ? 1 : 0.4} !important;
   --modal--transition-duration: ${reduceMotion
     ? 0
-    : 0.3 * speedAdjustment}s !important;
+    : 0.2 * speedAdjustment}s !important;
   --modal--close-button--transition-duration: ${reduceMotion
     ? 0
     : 0.08 * speedAdjustment}s !important;
 `;
 
-const modalInnerCss = css`
+const modalInnerCss = (isFullScreen?: boolean) => css`
+  padding: ${isFullScreen ? '0 70px 0 40px' : '10px 14px'};
+  gap: 10px;
+  flex-direction: column;
+  display: flex;
+  ${isFullScreen &&
+  `
   bottom: 20px;
   height: auto;
   left: 0;
@@ -25,17 +31,26 @@ const modalInnerCss = css`
   position: absolute;
   right: 0;
   top: 20px;
+  `}
 `;
 
 interface ModalProps {
+  className?: string;
+  cornerSize?: number;
+  isFullScreen?: boolean;
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
+  showCloseButton?: boolean;
 }
 
 export const Modal = ({
   children,
+  className,
+  cornerSize = 12,
+  isFullScreen,
   isOpen,
   setIsOpen,
+  showCloseButton = true,
 }: React.PropsWithChildren<ModalProps>) => {
   const {
     settings: { animationSpeedAdjustment, reduceMotion, reduceTransparency },
@@ -72,6 +87,7 @@ export const Modal = ({
     <div
       className={cx(
         'modal',
+        isFullScreen && 'full-screen',
         modalCss(reduceMotion, animationSpeedAdjustment, reduceTransparency),
         { open: isOpen },
         css`
@@ -79,25 +95,31 @@ export const Modal = ({
         `,
       )}
     >
-      <TooltipWrapper
-        title="Close"
-        delay={500}
-        placement="left"
-        tooltipOffset={10}
-      >
-        <button
-          type="button"
-          className="close-modal"
-          aria-label="Close modal"
-          onClick={() => {
-            setIsOpen && setIsOpen(false);
-          }}
+      {showCloseButton && (
+        <TooltipWrapper
+          title="Close"
+          delay={500}
+          placement="left"
+          tooltipOffset={10}
         >
-          <span></span>
-          <span></span>
-        </button>
-      </TooltipWrapper>
-      <CornersWrapper size={25} height="100%" className={modalInnerCss}>
+          <button
+            type="button"
+            className="close-modal"
+            aria-label="Close modal"
+            onClick={() => {
+              setIsOpen && setIsOpen(false);
+            }}
+          >
+            <span></span>
+            <span></span>
+          </button>
+        </TooltipWrapper>
+      )}
+      <CornersWrapper
+        size={isFullScreen ? 25 : cornerSize}
+        height="100%"
+        className={cx(className, modalInnerCss(isFullScreen))}
+      >
         {children}
       </CornersWrapper>
     </div>
