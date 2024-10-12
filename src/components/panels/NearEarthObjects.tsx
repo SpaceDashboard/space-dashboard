@@ -1,6 +1,5 @@
-import React, { useLayoutEffect, useMemo } from 'react';
-import { css } from '@emotion/css';
-import { format } from 'date-fns';
+import React, { useMemo } from 'react';
+// import { css } from '@emotion/css';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
@@ -12,17 +11,10 @@ import {
   FadeFromBlack,
   PlanetsLoader,
   FlexWrapper,
-  TooltipWrapper,
   ListDetails,
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
-
-const items = [
-  { id: '1', name: 'Item 1', details: 'Details for item 1...' },
-  { id: '2', name: 'Item 2', details: 'Details for item 2...' },
-  { id: '3', name: 'Item 3', details: 'Details for item 3...' },
-];
 
 export const NearEarthObjects: React.FC<PanelProps> = ({
   index,
@@ -89,25 +81,38 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
         <FadeFromBlack>
           <PlanetsLoader showLoader={isFetchingNeoData} />
           <FlexWrapper>
-            {/* TEST */}
-            <ListDetails items={items} />
-
-            {/* {nearEarthObjects &&
-              nearEarthObjects.map((obj: any) => (
-                <div key={obj.date}>
-                  <h3>
-                    {obj.date}: {obj.neos.length}
-                  </h3>
-                  {obj.neos.map((neo: any) => (
-                    <p style={{ fontSize: '0.6rem' }} key={neo.name}>
-                      {neo.name}:{' '}
-                      {Number(
-                        neo.close_approach_data[0].miss_distance.lunar,
-                      ).toFixed(2)}
-                    </p>
-                  ))}
-                </div>
-              ))} */}
+            <ListDetails
+              items={nearEarthObjects}
+              customRenderLabel={(item: any) => {
+                return (
+                  <FlexWrapper
+                    flexDirection="row"
+                    justifyContent="space-between"
+                  >
+                    <span>{item.date}</span>
+                    <span>{`${item.neos.length} objects`}</span>
+                  </FlexWrapper>
+                );
+              }}
+              customRenderDetailsHeader={(item: any) => {
+                return item.date;
+              }}
+              customRenderDetails={(item: any) => {
+                return (
+                  <div>
+                    {item?.neos?.map((neo: any) => (
+                      <p key={neo.name}>
+                        {neo.name}:{' '}
+                        {Number(
+                          neo.close_approach_data[0].miss_distance.lunar,
+                        ).toFixed(2)}
+                        {' LD'}
+                      </p>
+                    ))}
+                  </div>
+                );
+              }}
+            />
           </FlexWrapper>
         </FadeFromBlack>
       </PanelBody>

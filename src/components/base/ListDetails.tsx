@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { CornersWrapper, Modal } from 'src/components/base';
+import { Modal } from 'src/components/base';
 
-interface ListItem {
+interface DefaultListItem {
   id: string;
-  name: string;
+  label: string;
+  detailsHeader: string;
   details: string;
 }
 
-interface ListDetailsProps {
-  items: ListItem[];
+interface ListDetailsProps<T = DefaultListItem> {
+  items: T[];
+  customRenderLabel?: (item: T) => JSX.Element;
+  customRenderDetailsHeader?: (item: T) => JSX.Element;
+  customRenderDetails?: (item: T) => JSX.Element;
 }
 
-// CSS for the list container and detail pane
 const containerStyle = css`
   display: flex;
   overflow: hidden;
@@ -22,50 +25,33 @@ const containerStyle = css`
 
 const listStyle = css`
   flex: 1;
-  /* background-color: #f9f9f9; */
   transition: transform 0.3s ease;
-`;
-
-const detailPaneStyle = (isOpen: boolean) => css`
-  /* flex: 1; */
-  /* padding: 12px; */
-  /* background-color: #121212; */
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  /* max-width: 400px; */
-  /* box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.2); */
-  transform: translateX(${isOpen ? '0%' : 'calc(100% + 12px)'});
-  transition: transform 0.3s ease;
-`;
-
-const backButtonStyle = css`
-  display: inline-block;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 20px;
 `;
 
 const listItemStyle = css`
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
-export const ListDetails: React.FC<ListDetailsProps> = ({ items }) => {
-  const [selectedItem, setSelectedItem] = useState<ListItem | null>(null);
+export const ListDetails = <T,>({
+  items,
+  customRenderLabel,
+  customRenderDetailsHeader,
+  customRenderDetails,
+}: ListDetailsProps<T>) => {
+  const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [isPaneOpen, setIsPaneOpen] = useState(false);
 
-  const handleItemClick = (item: ListItem) => {
+  const handleItemClick = (item: T) => {
     setSelectedItem(item);
     setIsPaneOpen(true);
   };
@@ -73,18 +59,39 @@ export const ListDetails: React.FC<ListDetailsProps> = ({ items }) => {
   return (
     <div className={containerStyle}>
       <Modal isOpen={isPaneOpen} setIsOpen={setIsPaneOpen} modalPadding={5}>
-        <h2>{selectedItem?.name}</h2>
-        <p>{selectedItem?.details}</p>
+        {selectedItem && (
+          <h2>
+            {customRenderDetailsHeader ? (
+              <>{customRenderDetailsHeader(selectedItem)}</>
+            ) : (
+              <>
+                {selectedItem &&
+                  (customRenderLabel
+                    ? customRenderLabel(selectedItem)
+                    : (selectedItem as unknown as DefaultListItem).label)}
+              </>
+            )}
+          </h2>
+        )}
+
+        <p>
+          {selectedItem &&
+            (customRenderDetails
+              ? customRenderDetails(selectedItem)
+              : (selectedItem as unknown as DefaultListItem).details)}
+        </p>
       </Modal>
 
       <div className={cx('modal-content-overlay', listStyle)}>
-        {items.map((item) => (
+        {items?.map((item) => (
           <div
-            key={item.id}
+            key={(item as DefaultListItem).id}
             className={listItemStyle}
             onClick={() => handleItemClick(item)}
           >
-            {item.name}
+            {customRenderLabel
+              ? customRenderLabel(item)
+              : (item as DefaultListItem).label}
           </div>
         ))}
       </div>
