@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { CornersWrapper } from 'src/components/base';
+import { CornersWrapper, Modal } from 'src/components/base';
 
 interface ListItem {
   id: string;
@@ -65,19 +65,19 @@ export const ListDetails: React.FC<ListDetailsProps> = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState<ListItem | null>(null);
   const [isPaneOpen, setIsPaneOpen] = useState(false);
 
-  // Handle the click event for an item
   const handleItemClick = (item: ListItem) => {
     setSelectedItem(item);
     setIsPaneOpen(true);
   };
 
-  const handleBackClick = () => {
-    setIsPaneOpen(false);
-  };
-
   return (
     <div className={containerStyle}>
-      <div className={listStyle}>
+      <Modal isOpen={isPaneOpen} setIsOpen={setIsPaneOpen} modalPadding={5}>
+        <h2>{selectedItem?.name}</h2>
+        <p>{selectedItem?.details}</p>
+      </Modal>
+
+      <div className={cx('modal-content-overlay', listStyle)}>
         {items.map((item) => (
           <div
             key={item.id}
@@ -87,22 +87,6 @@ export const ListDetails: React.FC<ListDetailsProps> = ({ items }) => {
             {item.name}
           </div>
         ))}
-      </div>
-
-      {/* The detail pane */}
-      {/* TODO: Modal */}
-      <div className={detailPaneStyle(isPaneOpen)}>
-        <CornersWrapper>
-          {selectedItem && (
-            <>
-              <button className={backButtonStyle} onClick={handleBackClick}>
-                Back to List
-              </button>
-              <h2>{selectedItem.name}</h2>
-              <p>{selectedItem.details}</p>
-            </>
-          )}
-        </CornersWrapper>
       </div>
     </div>
   );

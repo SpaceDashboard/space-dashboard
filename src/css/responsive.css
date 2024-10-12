@@ -161,7 +161,7 @@ nav {
   @container (max-width: 400px) {
     .close-modal {
       --modal--close-button--distance: 5px;
-      --modal--close-button--size: 20px;
+      --modal--close-button--size: 15px;
     }
   }
 }

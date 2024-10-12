@@ -4,3 +4,5 @@ public
 dist
 dist-ssr
 *.local
+LICENSE
+README.md

@@ -7,6 +7,8 @@ const modalCss = (
   reduceMotion: boolean,
   speedAdjustment: number,
   reduceTransparency: boolean,
+  isFullScreen?: boolean,
+  modalPadding?: number,
 ) => css`
   --modal--background-opacity: ${reduceTransparency ? 1 : 0.4} !important;
   --modal--transition-duration: ${reduceMotion
@@ -15,6 +17,13 @@ const modalCss = (
   --modal--close-button--transition-duration: ${reduceMotion
     ? 0
     : 0.08 * speedAdjustment}s !important;
+  ${!isFullScreen &&
+  `
+  bottom: ${modalPadding}px;
+  left: ${modalPadding}px;
+  right: ${modalPadding}px;
+  top: ${modalPadding}px;
+  `}
 `;
 
 const modalInnerCss = (isFullScreen?: boolean) => css`
@@ -37,6 +46,7 @@ const modalInnerCss = (isFullScreen?: boolean) => css`
 interface ModalProps {
   className?: string;
   cornerSize?: number;
+  modalPadding?: number;
   isFullScreen?: boolean;
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
@@ -47,6 +57,7 @@ export const Modal = ({
   children,
   className,
   cornerSize = 12,
+  modalPadding = 20,
   isFullScreen,
   isOpen,
   setIsOpen,
@@ -88,7 +99,13 @@ export const Modal = ({
       className={cx(
         'modal',
         isFullScreen && 'full-screen',
-        modalCss(reduceMotion, animationSpeedAdjustment, reduceTransparency),
+        modalCss(
+          reduceMotion,
+          animationSpeedAdjustment,
+          reduceTransparency,
+          isFullScreen,
+          modalPadding,
+        ),
         { open: isOpen },
         css`
           visibility: ${isContentVisible ? 'visible' : 'hidden'};

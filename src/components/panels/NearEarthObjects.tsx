@@ -92,7 +92,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
             {/* TEST */}
             <ListDetails items={items} />
 
-            {nearEarthObjects &&
+            {/* {nearEarthObjects &&
               nearEarthObjects.map((obj: any) => (
                 <div key={obj.date}>
                   <h3>
@@ -107,7 +107,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                     </p>
                   ))}
                 </div>
-              ))}
+              ))} */}
           </FlexWrapper>
         </FadeFromBlack>
       </PanelBody>
