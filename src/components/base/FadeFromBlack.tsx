@@ -6,18 +6,29 @@ const fadeInFromBlackCss = (
   isLoading: boolean,
   delayedAnimationSeconds: number,
   reduceMotion?: boolean,
+  isFadedIn?: boolean,
 ) => css`
   align-items: center;
-  background-color: ${isLoading ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)'};
   display: flex;
-  filter: brightness(${isLoading ? 0 : 1});
   justify-content: center;
-  transition:
-    ${reduceMotion ? 0 : 1}s filter ease,
-    ${reduceMotion ? 0 : 1}s background-color ease;
-  transition-delay: ${reduceMotion ? 0 : delayedAnimationSeconds}s;
+  position: relative;
   height: 100%;
   width: 100%;
+
+  &::after {
+    background-color: ${isLoading ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)'};
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: ${reduceMotion ? 0 : 1}s background-color ease;
+    transition-delay: ${reduceMotion ? 0 : delayedAnimationSeconds}s;
+    width: 100%;
+    z-index: 1;
+    visibility: ${isFadedIn ? 'hidden' : 'visible'};
+  }
 `;
 
 export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
@@ -27,10 +38,19 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
   } = useSettingsContext();
   const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [isFadedIn, setIsFadedIn] = useState(false);
   const delayedAnimationSeconds = useMemo(() => {
     if (!navAnimationSeconds || !animationDurationSeconds) return 0;
     return (
       (animationDurationSeconds ?? 4.5) + (animationDelaySeconds ?? 0) + 1.75
+    );
+  }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
+
+  const timeToFadeIn = useMemo(() => {
+    return (
+      delayedAnimationSeconds * animationSpeedAdjustment * 1000 +
+      (animationDurationSeconds ?? 4.5 * 1000) +
+      1000 // transition time
     );
   }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
 
@@ -40,12 +60,24 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
     setIsLoading(false);
   }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
 
+  useEffect(() => {
+    if (isLoading) return;
+
+    setTimeout(
+      () => {
+        setIsFadedIn(true);
+      },
+      reduceMotion ? 0 : timeToFadeIn,
+    );
+  }, [isLoading]);
+
   return (
     <span
       className={fadeInFromBlackCss(
         isLoading,
         delayedAnimationSeconds * animationSpeedAdjustment,
         reduceMotion,
+        isFadedIn,
       )}
     >
       {children}

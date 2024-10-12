@@ -1,37 +1,50 @@
 import { useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { Modal } from 'src/components/base';
+import { Modal, FlexWrapper } from 'src/components/base';
 
-interface DefaultListItem {
-  id: string;
-  label: string;
-  detailsHeader: string;
-  details: string;
-}
-
-interface ListDetailsProps<T = DefaultListItem> {
+interface ListDetailsProps<T> {
   items: T[];
-  customRenderLabel?: (item: T) => JSX.Element;
-  customRenderDetailsHeader?: (item: T) => JSX.Element;
-  customRenderDetails?: (item: T) => JSX.Element;
+  listHeader?: string;
+  renderLabel: (item: T) => JSX.Element;
+  renderDetails: (item: T) => JSX.Element;
 }
 
-const containerStyle = css`
+const containerCss = css`
   display: flex;
   overflow: hidden;
   width: 100%;
   height: 100%;
 `;
 
-const listStyle = css`
+const listWrapperCss = css`
+  background: hsla(
+    var(--base-blue-hue),
+    calc(var(--base-blue-saturation) - 5%),
+    calc(var(--base-blue-lightness) - 15%),
+    var(--panel--background-opacity)
+  );
+  border-radius: 10px;
   flex: 1;
+  padding: 8px;
   transition: transform 0.3s ease;
 `;
 
-const listItemStyle = css`
-  padding: 10px;
+const listHeaderCss = css`
+  background: hsla(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) - 5%),
+    var(--panel--background-opacity)
+  );
+  border-radius: 6px;
+  padding: 6px;
+`;
+
+const listItemCss = css`
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
+  padding: 10px;
+  width: 100%;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -44,9 +57,9 @@ const listItemStyle = css`
 
 export const ListDetails = <T,>({
   items,
-  customRenderLabel,
-  customRenderDetailsHeader,
-  customRenderDetails,
+  listHeader,
+  renderLabel,
+  renderDetails,
 }: ListDetailsProps<T>) => {
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [isPaneOpen, setIsPaneOpen] = useState(false);
@@ -57,44 +70,31 @@ export const ListDetails = <T,>({
   };
 
   return (
-    <div className={containerStyle}>
+    <div className={containerCss}>
       <Modal isOpen={isPaneOpen} setIsOpen={setIsPaneOpen} modalPadding={5}>
-        {selectedItem && (
-          <h2>
-            {customRenderDetailsHeader ? (
-              <>{customRenderDetailsHeader(selectedItem)}</>
-            ) : (
-              <>
-                {selectedItem &&
-                  (customRenderLabel
-                    ? customRenderLabel(selectedItem)
-                    : (selectedItem as unknown as DefaultListItem).label)}
-              </>
-            )}
-          </h2>
-        )}
-
-        <p>
-          {selectedItem &&
-            (customRenderDetails
-              ? customRenderDetails(selectedItem)
-              : (selectedItem as unknown as DefaultListItem).details)}
-        </p>
+        {selectedItem && renderDetails(selectedItem)}
       </Modal>
 
-      <div className={cx('modal-content-overlay', listStyle)}>
-        {items?.map((item) => (
+      <FlexWrapper gap={0} className={cx('modal-content-overlay', listWrapperCss)}>
+        {listHeader && (
+          <FlexWrapper
+            alignItems="center"
+            className={listHeaderCss}
+          >
+            <h2>{listHeader}</h2>
+          </FlexWrapper>
+        )}
+
+        {items?.map((item, index) => (
           <div
-            key={(item as DefaultListItem).id}
-            className={listItemStyle}
+            key={(item as any).id ?? index}
+            className={listItemCss}
             onClick={() => handleItemClick(item)}
           >
-            {customRenderLabel
-              ? customRenderLabel(item)
-              : (item as DefaultListItem).label}
+            {renderLabel(item)}
           </div>
         ))}
-      </div>
+      </FlexWrapper>
     </div>
   );
 };

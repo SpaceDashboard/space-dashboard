@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-// import { css } from '@emotion/css';
+import { UTCDate } from '@date-fns/utc';
+import { format } from 'date-fns';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
@@ -83,23 +84,22 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <FlexWrapper>
             <ListDetails
               items={nearEarthObjects}
-              customRenderLabel={(item: any) => {
+              listHeader="Near Earth Objects"
+              renderLabel={(item: any) => {
                 return (
                   <FlexWrapper
                     flexDirection="row"
                     justifyContent="space-between"
                   >
-                    <span>{item.date}</span>
+                    <span>{format(new UTCDate(item.date), 'dd MMMM yyyy')}</span>
                     <span>{`${item.neos.length} objects`}</span>
                   </FlexWrapper>
                 );
               }}
-              customRenderDetailsHeader={(item: any) => {
-                return item.date;
-              }}
-              customRenderDetails={(item: any) => {
+              renderDetails={(item: any) => {
                 return (
                   <div>
+                    <h2>{format(new UTCDate(item.date), 'dd MMMM yyyy')}</h2>
                     {item?.neos?.map((neo: any) => (
                       <p key={neo.name}>
                         {neo.name}:{' '}
