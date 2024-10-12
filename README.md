@@ -1,13 +1,13 @@
 # <img src="https://spacedashboard.com/img/space-dashboard.svg" alt="Space Dashboard logo" style="height: 20px; width: 20px;"> Space Dashboard
 
-<a href="https://status.spacedashboard.com/" style="text-decoration: none;">
-  <img src="https://img.shields.io/uptimerobot/ratio/m778287473-60757b71bd53bc72bf571e43" alt="Uptime Robot ratio (30 days)" style="height: 20px; margin-right: 3px;">
+<a href="https://status.spacedashboard.com/" target="_blank">
+  <img src="https://img.shields.io/uptimerobot/ratio/m778287473-60757b71bd53bc72bf571e43" alt="Uptime Robot ratio (30 days)">
 </a>
-<a href="https://ko-fi.com/spacedashboard" style="text-decoration: none;">
-  <img src="https://img.shields.io/badge/Ko--fi-3c5e3a?style=flat&logo=ko-fi&logoColor=white" alt="Ko-Fi" style="height: 20px; margin-right: 3px;">
+<a href="https://ko-fi.com/spacedashboard" target="_blank">
+  <img src="https://img.shields.io/badge/Ko--fi-3c5e3a?style=flat&logo=ko-fi&logoColor=white" alt="Ko-Fi">
 </a>
-<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="text-decoration: none;">
-  <img src="https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg" alt="Ko-Fi" style="height: 20px; margin-right: 3px;">
+<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
+  <img src="https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg" alt="Ko-Fi">
 </a>
 
 Space Dashboard is an open-source web app that provides real-time and historical data on space events, such as solar activity, planetary K indices, upcoming launches, near-Earth objects, and live feeds from the International Space Station. Its goal is to offer enthusiasts and professionals an easy-to-navigate platform for monitoring space data in a visually entertaining way.
