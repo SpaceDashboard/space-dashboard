@@ -64,7 +64,12 @@ export const Modal = ({
   showCloseButton = true,
 }: React.PropsWithChildren<ModalProps>) => {
   const {
-    settings: { animationSpeedAdjustment, reduceMotion, reduceTransparency },
+    settings: {
+      animationSpeedAdjustment,
+      reduceMotion,
+      reduceTransparency,
+      disableButtonTooltips,
+    },
   } = useSettingsContext();
   const [isContentVisible, setIsContentVisible] = useState<boolean>(true);
 
@@ -118,6 +123,7 @@ export const Modal = ({
           delay={500}
           placement="left"
           tooltipOffset={10}
+          enabled={!disableButtonTooltips}
         >
           <button
             type="button"

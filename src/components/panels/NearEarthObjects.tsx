@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { css } from '@emotion/css';
 import { UTCDate } from '@date-fns/utc';
 import { format } from 'date-fns';
 import axios from 'axios';
@@ -16,6 +17,70 @@ import {
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
+
+const listDetailsCss = css`
+  .list-item {
+    .label-divider {
+      flex-grow: 1;
+      height: 1px;
+      position: relative;
+
+      &::after {
+        background: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 8%)
+        );
+        bottom: 0;
+        content: '';
+        height: 1px;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+      }
+    }
+
+    &:hover {
+      .label-divider::after {
+        animation: growPulse 1.6s infinite ease-in-out;
+        opacity: 1;
+      }
+    }
+  }
+
+  @keyframes growPulse {
+    0% {
+      left: 0%;
+      right: 100%;
+    }
+
+    20% {
+      left: 0%;
+      right: 100%;
+    }
+
+    50% {
+      left: 0%;
+      right: 0%;
+    }
+
+    80% {
+      left: 100%;
+      right: 0%;
+    }
+
+    100% {
+      left: 100%;
+      right: 0%;
+    }
+  }
+`;
+
+const objectsCountCss = css`
+  font-variation-settings: 'wght' 100;
+  opacity: 0.75;
+`;
 
 export const NearEarthObjects: React.FC<PanelProps> = ({
   index,
@@ -83,16 +148,24 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <PlanetsLoader showLoader={isFetchingNeoData} />
           <FlexWrapper>
             <ListDetails
+              className={listDetailsCss}
               items={nearEarthObjects}
               listHeader="Near Earth Objects"
               renderLabel={(item: any) => {
                 return (
                   <FlexWrapper
+                    alignItems="center"
                     flexDirection="row"
+                    gap={12}
                     justifyContent="space-between"
                   >
-                    <span>{format(new UTCDate(item.date), 'dd MMMM yyyy')}</span>
-                    <span>{`${item.neos.length} objects`}</span>
+                    <strong>
+                      {format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                    </strong>
+                    <span className="label-divider"></span>
+                    <span
+                      className={objectsCountCss}
+                    >{`${item.neos.length} objects`}</span>
                   </FlexWrapper>
                 );
               }}

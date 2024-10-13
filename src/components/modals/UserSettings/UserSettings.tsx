@@ -136,7 +136,7 @@ export const UserSettings: React.FC = () => {
                   <>
                     {'Reduce motion'}
                     <TooltipWrapper
-                      title="Reduces panel, modal, and toggle animations (anything that animates smoothly)"
+                      title="Reduces panel, modal, and toggle animations (anything that animates smoothly). This can help with performance if your computer is having difficulties rendering panels and animations."
                       delay={300}
                     >
                       <IconInfoCircle color="#CCC" size={20} />
