@@ -10,7 +10,13 @@ interface ToastOptionsProps {
   onCloseClick?: () => void;
 }
 
-// Function to display toast
+/**
+ * Show a toast notification.
+ *
+ * @param content - The content to display in the toast.
+ * @param options - Optional settings for the toast. See ToastOptionsProps for details.
+ * @param isPersistent - Optional, whether the toast automatically disappears or not.
+ */
 export const showToast = (
   content: JSX.Element | string,
   options?: ToastOptionsProps,

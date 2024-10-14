@@ -6,6 +6,18 @@ interface UseAutoRefreshProps<T> {
   resetTimer: () => void;
 }
 
+/**
+ * @description
+ * A hook to automatically refresh data at a specified interval.
+ *
+ * @param fetchData - A function that returns a Promise of the data.
+ * @param delay - Optional time in milliseconds to wait before refreshing the data. Defaults to 5 minutes.
+ *
+ * @returns An object with the following properties:
+ *   - `data`: The current data.
+ *   - `isFetching`: Whether the data is currently being fetched.
+ *   - `resetTimer`: A function to reset the timer, which will also refresh the data.
+ */
 export const useAutoRefresh = <T,>(
   fetchData: () => Promise<T> | T | void,
   delay = 300000,

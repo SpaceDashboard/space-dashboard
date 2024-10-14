@@ -81,7 +81,7 @@
     width: 100vw;
   }
 
-  .modal {
+  .modal.full-screen {
     bottom: 80px;
     left: 25px;
   }

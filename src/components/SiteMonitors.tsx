@@ -47,7 +47,7 @@ export const SiteMonitors: React.FC = () => {
         downSites > 1
           ? 'Apologies, multiple sites providing data for Space Dashboard are down'
           : 'Apologies, a site providing data for Space Dashboard is down';
-      showToast(message, { variant: 'error' });
+      showToast(message, { variant: 'error' }, true);
     }
   }, [downSites, error, showToast]);
 

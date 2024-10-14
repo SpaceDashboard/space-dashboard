@@ -14,68 +14,10 @@ import {
   PlanetsLoader,
   FlexWrapper,
   ListDetails,
+  ListLabel,
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
-
-const listDetailsCss = css`
-  .list-item {
-    .label-divider {
-      flex-grow: 1;
-      height: 1px;
-      position: relative;
-
-      &::after {
-        background: hsl(
-          var(--base-blue-hue),
-          var(--base-blue-saturation),
-          calc(var(--base-blue-lightness) + 8%)
-        );
-        bottom: 0;
-        content: '';
-        height: 1px;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        right: 0;
-      }
-    }
-
-    &:hover {
-      .label-divider::after {
-        animation: growPulse 1.4s infinite ease-in-out;
-        opacity: 1;
-      }
-    }
-  }
-
-  @keyframes growPulse {
-    0% {
-      left: 0%;
-      right: 100%;
-    }
-
-    20% {
-      left: 0%;
-      right: 100%;
-    }
-
-    50% {
-      left: 0%;
-      right: 0%;
-    }
-
-    100% {
-      left: 100%;
-      right: 0%;
-    }
-  }
-`;
-
-const labelRightTextCss = css`
-  font-variation-settings: 'wght' 100;
-  opacity: 0.75;
-`;
 
 const neoDetailsModalCss = css`
   top: 60px;
@@ -88,38 +30,20 @@ const neoDetailsModalCss = css`
   }
 `;
 
-const ListLabel: React.FC<{
-  mainLabel: string;
-  subLabel: string;
-}> = ({ mainLabel, subLabel }) => {
-  return (
-    <FlexWrapper
-      alignItems="center"
-      flexDirection="row"
-      gap={12}
-      justifyContent="space-between"
-    >
-      <strong>{mainLabel}</strong>
-      <span className="label-divider"></span>
-      <span className={labelRightTextCss}>{subLabel}</span>
-    </FlexWrapper>
-  );
-};
-
 const NeoDetailsModal: React.FC<{
   neo: any;
 }> = ({ neo }) => {
   const min = (unit: string) => {
-    return Number(neo.estimated_diameter[unit].estimated_diameter_min).toFixed(
-      1,
-    );
+    return Number(
+      neo?.estimated_diameter[unit]?.estimated_diameter_min,
+    ).toFixed(1);
   };
   const max = (unit: string) => {
-    return Number(neo.estimated_diameter[unit].estimated_diameter_max).toFixed(
-      1,
-    );
+    return Number(
+      neo?.estimated_diameter[unit]?.estimated_diameter_max,
+    ).toFixed(1);
   };
-  const isPotentiallyHazardous = neo.is_potentially_hazardous_asteroid
+  const isPotentiallyHazardous = neo?.is_potentially_hazardous_asteroid
     ? 'Yes'
     : 'No';
   const estimatedDiameters = {
@@ -129,12 +53,12 @@ const NeoDetailsModal: React.FC<{
     feet: `${min('feet')} - ${max('feet')} ft`,
   };
   return (
-    <>
+    <FlexWrapper gap={10}>
       <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
-        <h3 style={{ margin: 0 }}>{neo.name}</h3>
+        <h3 style={{ margin: 0 }}>{neo?.name}</h3>
         <>&ndash;</>
         <a
-          href={neo.nasa_jpl_url}
+          href={neo?.nasa_jpl_url}
           target="_blank"
           rel="noreferrer"
           style={{ margin: 0 }}
@@ -142,44 +66,51 @@ const NeoDetailsModal: React.FC<{
           {'NASA JPL URL'}
         </a>
       </FlexWrapper>
-      <span>
+      <FlexWrapper gap={2}>
         <strong>{'Distance: '}</strong>
-        <br />
-        {`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
-      </span>
-      <span>
+        {`${Number(neo?.close_approach_data[0]?.miss_distance?.lunar).toFixed(2)} LD`}
+      </FlexWrapper>
+      <FlexWrapper gap={2}>
         <strong>{'Close Approach Date / Time: '}</strong>
-        <br />
-        {`${format(new Date(neo.close_approach_data[0].close_approach_date_full), 'd MMM yyyy @ HH:mm')} UTC`}
-      </span>
-      <span>
+        {`${format(new Date(neo?.close_approach_data[0]?.close_approach_date_full), 'd MMM yyyy @ HH:mm')} UTC`}
+      </FlexWrapper>
+      <FlexWrapper gap={2}>
         <strong>{'Potentially Hazardous: '}</strong>
-        <br />
         {`${isPotentiallyHazardous}`}
-      </span>
-      <span>
+      </FlexWrapper>
+      <FlexWrapper gap={2}>
         <strong>{'Relative Velocity: '}</strong>
-        <br />
-        {`${Number(neo.close_approach_data[0].relative_velocity.kilometers_per_hour).toFixed(1)} km/h`}{' '}
-        (
-        {`${Number(neo.close_approach_data[0].relative_velocity.miles_per_hour).toFixed(1)} mph`}
-        )
-      </span>
-      <span>
+        <FlexWrapper flexDirection="row">
+          <span>
+            {`${Number(neo?.close_approach_data[0]?.relative_velocity?.kilometers_per_hour).toFixed(1)} km/h`}
+          </span>
+          <span>
+            (
+            {`${Number(neo?.close_approach_data[0]?.relative_velocity?.miles_per_hour).toFixed(1)} mph`}
+            )
+          </span>
+        </FlexWrapper>
+      </FlexWrapper>
+      <FlexWrapper gap={2}>
         <strong>{'Estimated Diameter: '}</strong>
-        <br />
-        {neo.estimated_diameter.kilometers.estimated_diameter_min >= 1 ||
-        neo.estimated_diameter.kilometers.estimated_diameter_max >= 1
-          ? estimatedDiameters.km
-          : estimatedDiameters.m}{' '}
-        (
-        {neo.estimated_diameter.miles.estimated_diameter_min >= 1 ||
-        neo.estimated_diameter.miles.estimated_diameter_max >= 1
-          ? estimatedDiameters.miles
-          : estimatedDiameters.feet}
-        )
-      </span>
-    </>
+        <FlexWrapper flexDirection="row">
+          <span>
+            {neo?.estimated_diameter?.kilometers.estimated_diameter_min >= 1 ||
+            neo?.estimated_diameter?.kilometers.estimated_diameter_max >= 1
+              ? estimatedDiameters.km
+              : estimatedDiameters.m}
+          </span>
+          <span>
+            (
+            {neo?.estimated_diameter?.miles.estimated_diameter_min >= 1 ||
+            neo?.estimated_diameter?.miles.estimated_diameter_max >= 1
+              ? estimatedDiameters.miles
+              : estimatedDiameters.feet}
+            )
+          </span>
+        </FlexWrapper>
+      </FlexWrapper>
+    </FlexWrapper>
   );
 };
 
@@ -239,7 +170,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
       });
       refetchNeoData();
     },
-    1000 * 60 * 5, // 5 minutes
+    1000 * 60 * 20, // 20 minutes
   );
 
   return (
@@ -249,7 +180,6 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <PlanetsLoader showLoader={isFetchingNeoData} />
           <FlexWrapper>
             <ListDetails
-              className={listDetailsCss}
               items={nearEarthObjects}
               listHeader="Near Earth Objects"
               renderLabel={(item: any) => (
@@ -267,13 +197,12 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                       gap={10}
                     >
                       <h2 style={{ margin: 0 }}>
-                        {format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                        {format(new UTCDate(item.date), 'dd MMM yyyy')}
                       </h2>
                       <>&ndash;</>
                       <p>{`${item.neos.length} objects`}</p>
                     </FlexWrapper>
                     <ListDetails
-                      className={listDetailsCss}
                       items={item?.neos}
                       modalClassName={neoDetailsModalCss}
                       renderLabel={(neo: any) => (
@@ -282,6 +211,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                           subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
                         />
                       )}
+                      // TODO: Opening this on mobile is breaking
                       renderDetails={(neo: any) => (
                         <NeoDetailsModal neo={neo} />
                       )}

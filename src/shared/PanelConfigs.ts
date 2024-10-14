@@ -6,6 +6,8 @@ import {
   PlanetaryKIndex,
   AuroraForecast,
   NearEarthObjects,
+  Launches,
+  Events,
   SolarVisual,
 } from 'src/components/panels';
 
@@ -16,6 +18,8 @@ export type AvailablePanels =
   | 'PlanetaryKIndex'
   | 'AuroraForecast'
   | 'NearEarthObjects'
+  | 'Launches'
+  | 'Events'
   | 'SolarVisual'
   | 'DeepSpaceNetwork';
 
@@ -29,21 +33,25 @@ export const columnPanelMap: PanelMapType = {
   PlanetaryKIndex,
   AuroraForecast,
   NearEarthObjects,
+  Launches,
+  Events,
   SolarVisual,
 };
 
 export const defaultColumn1Order: MoveablePanels[] = [
   'IssFeed1',
   'IssFeed2',
-  'NearEarthObjects',
+  'Launches',
 ];
 export const defaultColumn2Order: MoveablePanels[] = [
   'IssTracker',
   'SolarVisual',
+  'NearEarthObjects',
 ];
 export const defaultColumn3Order: MoveablePanels[] = [
   'PlanetaryKIndex',
   'AuroraForecast',
+  'Events',
 ];
 
 interface BasePanelConfig {
@@ -103,6 +111,14 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   },
   NearEarthObjects: {
     label: 'Near-Earth Objects',
+    enabled: true,
+  },
+  Launches: {
+    label: 'Upcoming Launches',
+    enabled: true,
+  },
+  Events: {
+    label: 'Upcoming Events',
     enabled: true,
   },
   SolarVisual: {

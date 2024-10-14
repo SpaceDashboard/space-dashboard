@@ -62,11 +62,11 @@
   }
 
   .Toastify__slide-enter--top-center {
-    animation-name: toast-slide-in-down;
+    animation-name: toastSlideInDown;
   }
 
   .Toastify__slide-exit--top-center {
-    animation-name: toast-slide-out-up;
+    animation-name: toastSlideOutUp;
   }
 }
 

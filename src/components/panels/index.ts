@@ -6,4 +6,6 @@ export * from './PlanetaryKIndex';
 export * from './AuroraForecast';
 export * from './SolarVisual';
 export * from './NearEarthObjects';
+export * from './Launches';
+export * from './Events';
 export * from './DeepSpaceNetwork';

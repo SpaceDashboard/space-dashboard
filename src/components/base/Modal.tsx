@@ -44,6 +44,7 @@ const modalInnerCss = (isFullScreen?: boolean) => css`
 `;
 
 interface ModalProps {
+  canHaveChildrenModals?: boolean;
   className?: string;
   cornerSize?: number;
   isFullScreen?: boolean;
@@ -55,6 +56,7 @@ interface ModalProps {
 }
 
 export const Modal = ({
+  canHaveChildrenModals = false,
   children,
   className,
   cornerSize = 12,
@@ -155,9 +157,11 @@ export const Modal = ({
         height="100%"
         className={cx(className, modalInnerCss(isFullScreen))}
       >
-        {/* TODO: messing with column manager UI because of children rerender */}
-        {isOpen ? children : renderChildrenWithClosePropagation()}
-        {/* {children} */}
+        {canHaveChildrenModals ? (
+          <>{isOpen ? children : renderChildrenWithClosePropagation()}</>
+        ) : (
+          <>{children}</>
+        )}
       </CornersWrapper>
     </div>
   );

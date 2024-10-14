@@ -29,7 +29,7 @@
   }
 }
 
-@keyframes toast-slide-in-down {
+@keyframes toastSlideInDown {
   0% {
     opacity: 0;
     transform: translateY(10px) scale(0.95);
@@ -41,7 +41,7 @@
   }
 }
 
-@keyframes toast-slide-out-up {
+@keyframes toastSlideOutUp {
   0% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -68,5 +68,27 @@
   }
   100% {
     transform: rotate(-360deg);
+  }
+}
+
+@keyframes dashLeftToRight {
+  0% {
+    left: 0%;
+    right: 100%;
+  }
+
+  20% {
+    left: 0%;
+    right: 100%;
+  }
+
+  50% {
+    left: 0%;
+    right: 0%;
+  }
+
+  100% {
+    left: 100%;
+    right: 0%;
   }
 }

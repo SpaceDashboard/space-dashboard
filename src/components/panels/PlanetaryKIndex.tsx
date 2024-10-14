@@ -276,16 +276,13 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
         };
   }, [liveData]);
 
-  const { resetTimer } = useAutoRefresh(
-    () => {
-      queryClient.invalidateQueries({
-        queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
-      });
-      refetchLiveData();
-      refetchChartData();
-    },
-    1000 * 60 * 5, // 5 minutes
-  );
+  const { resetTimer } = useAutoRefresh(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
+    });
+    refetchLiveData();
+    refetchChartData();
+  });
 
   return (
     <Panel
