@@ -12,6 +12,7 @@ import {
   PanelMenu,
   FadeFromBlack,
   PlanetsLoader,
+  CornersWrapper,
   FlexWrapper,
   ListDetails,
 } from 'src/components/base';
@@ -25,7 +26,12 @@ const eventDateTimeCss = css`
 `;
 
 const detailsModalHeaderCss = css`
+  margin-bottom: 12px;
   max-width: 90%;
+`;
+
+const eventImageWrapperCss = css`
+  margin-right: 12px;
 `;
 
 const eventImageCss = css`
@@ -39,7 +45,7 @@ const DetailsModal: React.FC<{
   return (
     <FlexWrapper gap={12}>
       <h2 className={detailsModalHeaderCss}>{item.name}</h2>
-      <FlexWrapper flexDirection="row">
+      <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
           <FlexWrapper gap={2}>
             <strong>{'Date: '}</strong>
@@ -67,11 +73,15 @@ const DetailsModal: React.FC<{
             {item.description}
           </FlexWrapper>
         </FlexWrapper>
-        <img
-          src={item.image.thumbnail_url}
-          alt={item.image.name}
-          className={eventImageCss}
-        />
+        <div className={eventImageWrapperCss}>
+          <CornersWrapper size={8}>
+            <img
+              src={item.image.thumbnail_url}
+              alt={item.image.name}
+              className={eventImageCss}
+            />
+          </CornersWrapper>
+        </div>
       </FlexWrapper>
     </FlexWrapper>
   );
@@ -137,8 +147,12 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
           <div>
             <p>{'Credit: '}</p>
             <p>
-              <a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">
-                {'NASA API - Asteroids NeoWs: Near Earth Object Web Service'}
+              <a
+                href="https://lldev.thespacedevs.com/2.3.0/events/upcoming/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {'The Space Devs - Upcoming Event List'}
               </a>
             </p>
           </div>

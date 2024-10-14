@@ -5,6 +5,10 @@
 .corners-wrapper {
   position: relative;
 
+  .corners-wrapper-content {
+    display: flex;
+  }
+
   .corner-top-left,
   .corner-top-right,
   .corner-bottom-left,

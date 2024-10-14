@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react';
 import { css, cx } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';
 import { PanelProvider } from 'src/providers';
-import { Button, Variant, CornersWrapper, Modal } from 'src/components/base';
+import { Button, Variant, Modal } from 'src/components/base';
 import { AvailablePanels } from 'src/shared/PanelConfigs';
 import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 

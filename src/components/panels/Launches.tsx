@@ -12,6 +12,7 @@ import {
   PanelMenu,
   FadeFromBlack,
   PlanetsLoader,
+  CornersWrapper,
   FlexWrapper,
   ListDetails,
 } from 'src/components/base';
@@ -25,7 +26,12 @@ const launchDateTimeCss = css`
 `;
 
 const detailsModalHeaderCss = css`
+  margin-bottom: 12px;
   max-width: 90%;
+`;
+
+const launchImageWrapperCss = css`
+  margin-right: 12px;
 `;
 
 const launchImageCss = css`
@@ -104,7 +110,7 @@ const DetailsModal: React.FC<{
   return (
     <FlexWrapper gap={12}>
       <h2 className={detailsModalHeaderCss}>{item.name}</h2>
-      <FlexWrapper flexDirection="row">
+      <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
           <FlexWrapper gap={2}>
             <strong>{'Countdown to Launch: '}</strong>
@@ -119,11 +125,15 @@ const DetailsModal: React.FC<{
             {item.status.name}
           </FlexWrapper>
         </FlexWrapper>
-        <img
-          src={item.image.thumbnail_url}
-          alt={item.image.name}
-          className={launchImageCss}
-        />
+        <div className={launchImageWrapperCss}>
+          <CornersWrapper size={8}>
+            <img
+              src={item.image.thumbnail_url}
+              alt={item.image.name}
+              className={launchImageCss}
+            />
+          </CornersWrapper>
+        </div>
       </FlexWrapper>
       {item.vid_urls.length > 0 && (
         <FlexWrapper gap={2}>
@@ -214,8 +224,12 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
           <div>
             <p>{'Credit: '}</p>
             <p>
-              <a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">
-                {'NASA API - Asteroids NeoWs: Near Earth Object Web Service'}
+              <a
+                href="https://lldev.thespacedevs.com/2.3.0/launches/upcoming/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {'The Space Devs - Upcoming Launch List'}
               </a>
             </p>
           </div>

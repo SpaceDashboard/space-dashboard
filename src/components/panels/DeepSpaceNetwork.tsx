@@ -6,9 +6,9 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  Button,
   FadeFromBlack,
   PlanetsLoader,
+  FlexWrapper,
 } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
@@ -58,8 +58,34 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
         </FadeFromBlack>
       </PanelBody>
       <PanelMenu>
-        {'This is a test'}
-        <Button variantsList={['small']}>Button</Button>
+        <FlexWrapper gap={12}>
+          <div>
+            <p>{'Credit: '}</p>
+            <p>
+              <a
+                href="https://eyes.nasa.gov/dsn/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {'NASA JPL - Deep Space Network Now'}
+              </a>
+            </p>
+          </div>
+          <p>
+            {
+              "The Deep Space Network is NASA's international array of giant radio antennas that supports interplanetary spacecraft missions and provides radar and radio astronomy observations. The DSN consists of three facilities strategically placed around the world, enabling continuous communication with spacecraft as Earth rotates. The network's largest antennas, 230 feet in diameter, are capable of tracking spacecraft traveling tens of billions of miles from Earth."
+            }
+          </p>
+          <p>
+            <a
+              href="https://www.nasa.gov/directorates/somd/space-communications-navigation-program/what-is-the-deep-space-network/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {'More about the Deep Space Network'}
+            </a>
+          </p>
+        </FlexWrapper>
       </PanelMenu>
       <PanelActions
         refreshData={() => refreshIframe()}
