@@ -86,7 +86,7 @@
       box-shadow: 0 0 0 1px #fff;
       height: 100%;
       transition: var(--modal--close-button--transition-duration) all ease;
-      width: 0.5px;
+      width: 0;
 
       &:first-child {
         transform: rotate(45deg);

@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import { cx } from '@emotion/css';
+import React, { useEffect, useMemo, useState } from 'react';
+import { css, cx } from '@emotion/css';
 import { Modal, FlexWrapper } from 'src/components/base';
+
+const listHeaderCss = (isRenderingListDetails?: boolean) => css``;
 
 interface ListDetailsProps<T> {
   className?: string;
   items: T[];
   listHeader?: string;
+  modalClassName?: string;
   renderLabel: (item: T) => JSX.Element;
   renderDetails: (item: T) => JSX.Element;
 }
@@ -13,7 +16,8 @@ interface ListDetailsProps<T> {
 export const ListDetails = <T,>({
   className,
   items,
-  listHeader,
+  listHeader = '',
+  modalClassName,
   renderLabel,
   renderDetails,
 }: ListDetailsProps<T>) => {
@@ -25,9 +29,25 @@ export const ListDetails = <T,>({
     setIsPaneOpen(true);
   };
 
+  // const isRenderingListDetails = useMemo(() => {
+  //   if (selectedItem) {
+  //     const renderedDetails = renderDetails(selectedItem);
+  //     return (
+  //       React.isValidElement(renderedDetails) &&
+  //       renderedDetails.type === ListDetails
+  //     );
+  //   }
+  //   return false;
+  // }, [selectedItem, renderDetails]);
+
   return (
     <div className={cx('list-container', className)}>
-      <Modal isOpen={isPaneOpen} setIsOpen={setIsPaneOpen} modalPadding={5}>
+      <Modal
+        modalClassName={modalClassName}
+        isOpen={isPaneOpen}
+        setIsOpen={setIsPaneOpen}
+        modalPadding={5}
+      >
         {selectedItem && renderDetails(selectedItem)}
       </Modal>
 

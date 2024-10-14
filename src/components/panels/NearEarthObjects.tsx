@@ -43,7 +43,7 @@ const listDetailsCss = css`
 
     &:hover {
       .label-divider::after {
-        animation: growPulse 1.6s infinite ease-in-out;
+        animation: growPulse 1.4s infinite ease-in-out;
         opacity: 1;
       }
     }
@@ -65,11 +65,6 @@ const listDetailsCss = css`
       right: 0%;
     }
 
-    80% {
-      left: 100%;
-      right: 0%;
-    }
-
     100% {
       left: 100%;
       right: 0%;
@@ -77,10 +72,116 @@ const listDetailsCss = css`
   }
 `;
 
-const objectsCountCss = css`
+const labelRightTextCss = css`
   font-variation-settings: 'wght' 100;
   opacity: 0.75;
 `;
+
+const neoDetailsModalCss = css`
+  top: 60px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+
+  .close-modal span {
+    height: 60% !important;
+  }
+`;
+
+const ListLabel: React.FC<{
+  mainLabel: string;
+  subLabel: string;
+}> = ({ mainLabel, subLabel }) => {
+  return (
+    <FlexWrapper
+      alignItems="center"
+      flexDirection="row"
+      gap={12}
+      justifyContent="space-between"
+    >
+      <strong>{mainLabel}</strong>
+      <span className="label-divider"></span>
+      <span className={labelRightTextCss}>{subLabel}</span>
+    </FlexWrapper>
+  );
+};
+
+const NeoDetailsModal: React.FC<{
+  neo: any;
+}> = ({ neo }) => {
+  const min = (unit: string) => {
+    return Number(neo.estimated_diameter[unit].estimated_diameter_min).toFixed(
+      1,
+    );
+  };
+  const max = (unit: string) => {
+    return Number(neo.estimated_diameter[unit].estimated_diameter_max).toFixed(
+      1,
+    );
+  };
+  const isPotentiallyHazardous = neo.is_potentially_hazardous_asteroid
+    ? 'Yes'
+    : 'No';
+  const estimatedDiameters = {
+    km: `${min('kilometers')} - ${max('kilometers')}`,
+    m: `${min('meters')} - ${max('meters')} m`,
+    miles: `${min} - ${max('miles')} mi`,
+    feet: `${min('feet')} - ${max('feet')} ft`,
+  };
+  return (
+    <>
+      <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
+        <h3 style={{ margin: 0 }}>{neo.name}</h3>
+        <>&ndash;</>
+        <a
+          href={neo.nasa_jpl_url}
+          target="_blank"
+          rel="noreferrer"
+          style={{ margin: 0 }}
+        >
+          {'NASA JPL URL'}
+        </a>
+      </FlexWrapper>
+      <span>
+        <strong>{'Distance: '}</strong>
+        <br />
+        {`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
+      </span>
+      <span>
+        <strong>{'Close Approach Date / Time: '}</strong>
+        <br />
+        {`${format(new Date(neo.close_approach_data[0].close_approach_date_full), 'd MMM yyyy @ HH:mm')} UTC`}
+      </span>
+      <span>
+        <strong>{'Potentially Hazardous: '}</strong>
+        <br />
+        {`${isPotentiallyHazardous}`}
+      </span>
+      <span>
+        <strong>{'Relative Velocity: '}</strong>
+        <br />
+        {`${Number(neo.close_approach_data[0].relative_velocity.kilometers_per_hour).toFixed(1)} km/h`}{' '}
+        (
+        {`${Number(neo.close_approach_data[0].relative_velocity.miles_per_hour).toFixed(1)} mph`}
+        )
+      </span>
+      <span>
+        <strong>{'Estimated Diameter: '}</strong>
+        <br />
+        {neo.estimated_diameter.kilometers.estimated_diameter_min >= 1 ||
+        neo.estimated_diameter.kilometers.estimated_diameter_max >= 1
+          ? estimatedDiameters.km
+          : estimatedDiameters.m}{' '}
+        (
+        {neo.estimated_diameter.miles.estimated_diameter_min >= 1 ||
+        neo.estimated_diameter.miles.estimated_diameter_max >= 1
+          ? estimatedDiameters.miles
+          : estimatedDiameters.feet}
+        )
+      </span>
+    </>
+  );
+};
 
 export const NearEarthObjects: React.FC<PanelProps> = ({
   index,
@@ -151,38 +252,41 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
               className={listDetailsCss}
               items={nearEarthObjects}
               listHeader="Near Earth Objects"
-              renderLabel={(item: any) => {
-                return (
-                  <FlexWrapper
-                    alignItems="center"
-                    flexDirection="row"
-                    gap={12}
-                    justifyContent="space-between"
-                  >
-                    <strong>
-                      {format(new UTCDate(item.date), 'dd MMMM yyyy')}
-                    </strong>
-                    <span className="label-divider"></span>
-                    <span
-                      className={objectsCountCss}
-                    >{`${item.neos.length} objects`}</span>
-                  </FlexWrapper>
-                );
-              }}
+              renderLabel={(item: any) => (
+                <ListLabel
+                  mainLabel={format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                  subLabel={`${item.neos.length} objects`}
+                />
+              )}
               renderDetails={(item: any) => {
                 return (
-                  <div>
-                    <h2>{format(new UTCDate(item.date), 'dd MMMM yyyy')}</h2>
-                    {item?.neos?.map((neo: any) => (
-                      <p key={neo.name}>
-                        {neo.name}:{' '}
-                        {Number(
-                          neo.close_approach_data[0].miss_distance.lunar,
-                        ).toFixed(2)}
-                        {' LD'}
-                      </p>
-                    ))}
-                  </div>
+                  <>
+                    <FlexWrapper
+                      flexDirection="row"
+                      alignItems="center"
+                      gap={10}
+                    >
+                      <h2 style={{ margin: 0 }}>
+                        {format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                      </h2>
+                      <>&ndash;</>
+                      <p>{`${item.neos.length} objects`}</p>
+                    </FlexWrapper>
+                    <ListDetails
+                      className={listDetailsCss}
+                      items={item?.neos}
+                      modalClassName={neoDetailsModalCss}
+                      renderLabel={(neo: any) => (
+                        <ListLabel
+                          mainLabel={neo.name}
+                          subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
+                        />
+                      )}
+                      renderDetails={(neo: any) => (
+                        <NeoDetailsModal neo={neo} />
+                      )}
+                    />
+                  </>
                 );
               }}
             />
@@ -194,21 +298,23 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <div>
             <p>{'Credit: '}</p>
             <p>
-              <a
-                href="https://www.swpc.noaa.gov/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {'Space Weather Prediction Center (SWPC)'}
+              <a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">
+                {'NASA API - Asteroids NeoWs: Near Earth Object Web Service'}
               </a>
+            </p>
+          </div>
+
+          <div>
+            <p>
+              {'Additional information on small bodies can be found here: '}
             </p>
             <p>
               <a
-                href="https://www.swpc.noaa.gov/products/planetary-k-index"
+                href="https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/"
                 target="_blank"
                 rel="noreferrer"
               >
-                {'SWPC - Planetary K-index'}
+                {'JPL - Small-Body Database Lookup'}
               </a>
             </p>
           </div>

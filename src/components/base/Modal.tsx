@@ -46,9 +46,10 @@ const modalInnerCss = (isFullScreen?: boolean) => css`
 interface ModalProps {
   className?: string;
   cornerSize?: number;
-  modalPadding?: number;
   isFullScreen?: boolean;
   isOpen?: boolean;
+  modalClassName?: string;
+  modalPadding?: number;
   setIsOpen?: (isOpen: boolean) => void;
   showCloseButton?: boolean;
 }
@@ -57,9 +58,10 @@ export const Modal = ({
   children,
   className,
   cornerSize = 12,
-  modalPadding = 20,
   isFullScreen,
   isOpen,
+  modalClassName,
+  modalPadding = 20,
   setIsOpen,
   showCloseButton = true,
 }: React.PropsWithChildren<ModalProps>) => {
@@ -99,6 +101,15 @@ export const Modal = ({
     };
   }, [isOpen, setIsOpen]);
 
+  const renderChildrenWithClosePropagation = () => {
+    return React.Children.map(children, (child) => {
+      if (React.isValidElement(child) && child.type === Modal) {
+        return React.cloneElement(child, { isOpen: false } as any);
+      }
+      return child;
+    });
+  };
+
   return (
     <div
       className={cx(
@@ -111,6 +122,7 @@ export const Modal = ({
           isFullScreen,
           modalPadding,
         ),
+        modalClassName,
         { open: isOpen },
         css`
           visibility: ${isContentVisible ? 'visible' : 'hidden'};
@@ -143,7 +155,9 @@ export const Modal = ({
         height="100%"
         className={cx(className, modalInnerCss(isFullScreen))}
       >
-        {children}
+        {/* TODO: messing with column manager UI because of children rerender */}
+        {isOpen ? children : renderChildrenWithClosePropagation()}
+        {/* {children} */}
       </CornersWrapper>
     </div>
   );

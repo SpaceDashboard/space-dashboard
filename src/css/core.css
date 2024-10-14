@@ -26,6 +26,7 @@ body {
     'XTRA' 380,
     'opsz' 14,
     'YTLC' 530;
+  letter-spacing: 0.5px;
   overscroll-behavior: none;
   padding: 0;
 }
