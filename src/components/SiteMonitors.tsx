@@ -17,7 +17,9 @@ interface StatusResult {
 }
 
 const fetchSiteAssetStatuses = async (): Promise<number> => {
-  const response = await fetch('/status/json/status-monitors.json');
+  const response = await fetch(
+    `${import.meta.env.VITE_STATUS_URL}/json/status-monitors.json`,
+  );
   const result: StatusResult = await response.json();
 
   let downCount = 0;

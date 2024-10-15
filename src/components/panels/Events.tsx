@@ -90,9 +90,12 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
   const queryClient = useQueryClient();
   const getData = async (): Promise<any> => {
     const response = await axios
-      .get(`/api/json/events-data.json?u=${getCurrentTimestamp()}`, {
-        timeout: 1000 * 10,
-      })
+      .get(
+        `${import.meta.env.VITE_API_URL}/json/events-data.json?u=${getCurrentTimestamp()}`,
+        {
+          timeout: 1000 * 10,
+        },
+      )
       .then((res) => res.data);
     return response;
   };

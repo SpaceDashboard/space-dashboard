@@ -230,18 +230,24 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   const queryClient = useQueryClient();
   const getLiveData = async (): Promise<any> => {
     const response = await axios
-      .get(`/api/json/planetary-k-index-dst.json?u=${getCurrentTimestamp()}`, {
-        timeout: 1000 * 10,
-      })
+      .get(
+        `${import.meta.env.VITE_API_URL}/json/planetary-k-index-dst.json?u=${getCurrentTimestamp()}`,
+        {
+          timeout: 1000 * 10,
+        },
+      )
       .then((res) => res.data);
     return response;
   };
 
   const getHourlyData = async (): Promise<any> => {
     const response = await axios
-      .get(`/api/json/noaa-planetary-k-index.json?u=${getCurrentTimestamp()}`, {
-        timeout: 1000 * 10,
-      })
+      .get(
+        `${import.meta.env.VITE_API_URL}/json/noaa-planetary-k-index.json?u=${getCurrentTimestamp()}`,
+        {
+          timeout: 1000 * 10,
+        },
+      )
       .then((res) => res.data);
     return response;
   };
