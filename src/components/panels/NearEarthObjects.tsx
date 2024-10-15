@@ -10,7 +10,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
   FlexWrapper,
   ListDetails,
@@ -72,7 +71,7 @@ const NeoDetailsModal: React.FC<{
       </FlexWrapper>
       <FlexWrapper gap={2}>
         <strong>{'Close Approach Date / Time: '}</strong>
-        {`${format(new Date(neo?.close_approach_data[0]?.close_approach_date_full), 'd MMM yyyy @ HH:mm')} UTC`}
+        {`${format(new UTCDate(neo?.close_approach_data[0]?.epoch_date_close_approach), 'd MMM yyyy @ HH:mm')} UTC`}
       </FlexWrapper>
       <FlexWrapper gap={2}>
         <strong>{'Potentially Hazardous: '}</strong>
@@ -176,52 +175,43 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isFetchingNeoData} />
-          <FlexWrapper>
-            <ListDetails
-              items={nearEarthObjects}
-              listHeader="Near Earth Objects"
-              renderLabel={(item: any) => (
-                <ListLabel
-                  mainLabel={format(new UTCDate(item.date), 'dd MMMM yyyy')}
-                  subLabel={`${item.neos.length} objects`}
-                />
-              )}
-              renderDetails={(item: any) => {
-                return (
-                  <>
-                    <FlexWrapper
-                      flexDirection="row"
-                      alignItems="center"
-                      gap={10}
-                    >
-                      <h2 style={{ margin: 0 }}>
-                        {format(new UTCDate(item.date), 'dd MMM yyyy')}
-                      </h2>
-                      <>&ndash;</>
-                      <p>{`${item.neos.length} objects`}</p>
-                    </FlexWrapper>
-                    <ListDetails
-                      items={item?.neos}
-                      modalClassName={neoDetailsModalCss}
-                      renderLabel={(neo: any) => (
-                        <ListLabel
-                          mainLabel={neo.name}
-                          subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
-                        />
-                      )}
-                      // TODO: Opening this on mobile is breaking
-                      renderDetails={(neo: any) => (
-                        <NeoDetailsModal neo={neo} />
-                      )}
-                    />
-                  </>
-                );
-              }}
-            />
-          </FlexWrapper>
-        </FadeFromBlack>
+        <PlanetsLoader showLoader={isFetchingNeoData} />
+        <FlexWrapper>
+          <ListDetails
+            items={nearEarthObjects}
+            listHeader="Near Earth Objects"
+            renderLabel={(item: any) => (
+              <ListLabel
+                mainLabel={format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                subLabel={`${item.neos.length} objects`}
+              />
+            )}
+            renderDetails={(item: any) => {
+              return (
+                <>
+                  <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
+                    <h2 style={{ margin: 0 }}>
+                      {format(new UTCDate(item.date), 'dd MMM yyyy')}
+                    </h2>
+                    <>&ndash;</>
+                    <p>{`${item.neos.length} objects`}</p>
+                  </FlexWrapper>
+                  <ListDetails
+                    items={item?.neos}
+                    modalClassName={neoDetailsModalCss}
+                    renderLabel={(neo: any) => (
+                      <ListLabel
+                        mainLabel={neo.name}
+                        subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
+                      />
+                    )}
+                    renderDetails={(neo: any) => <NeoDetailsModal neo={neo} />}
+                  />
+                </>
+              );
+            }}
+          />
+        </FlexWrapper>
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>

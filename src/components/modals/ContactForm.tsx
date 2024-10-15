@@ -7,6 +7,9 @@ import {
   IconSend,
   IconRestore,
   IconRotateClockwise,
+  IconCode,
+  IconCircleDot,
+  IconExternalLink,
 } from '@tabler/icons-react';
 import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
 import { useAppContext } from 'src/hooks';
@@ -114,7 +117,7 @@ export const ContactForm: React.FC = () => {
             <p className="text-error">
               {'Error submitting the form.'}
               <br />
-              {'You can also email me directly at:'}{' '}
+              {'You can also email me directly at: '}
               <a href="mailto:caleb@spacedashboard.com">
                 {'caleb@spacedashboard.com'}
               </a>
@@ -209,17 +212,18 @@ export const ContactForm: React.FC = () => {
           </form>
         </FlexWrapper>
 
-        <FlexWrapper>
-          <p>{'<Social media and GitHub info goes here>'}</p>
-          <p>{"I'm also available via email, Facebook, or Twitter."}</p>
-
+        <FlexWrapper gap={16}>
+          <h2>{'You can also reach me via:'}</h2>
           <p>
+            <strong>{'Email:'}</strong>
+            <br />
             <a href="mailto:caleb@spacedashboard.com">
               {'caleb@spacedashboard.com'}
             </a>
           </p>
-
           <p>
+            <strong>{'Facebook:'}</strong>
+            <br />
             <a
               href="https://www.facebook.com/SpaceDashboard"
               target="_blank"
@@ -228,8 +232,9 @@ export const ContactForm: React.FC = () => {
               {'@SpaceDashboard'}
             </a>
           </p>
-
           <p>
+            <strong>{'X (formerly Twitter):'}</strong>
+            <br />
             <a
               href="https://twitter.com/SpaceDashboard"
               target="_blank"
@@ -238,17 +243,51 @@ export const ContactForm: React.FC = () => {
               {'@SpaceDashboard'}
             </a>
           </p>
-
           <p>
+            <strong>{'Bluesky:'}</strong>
+            <br />
             <a
-              href="https://twitter.com/closeapproaches"
+              href="https://bsky.app/profile/spacedashboard.com"
               target="_blank"
               rel="noreferrer"
             >
-              {'@CloseApproaches'}
-            </a>{' '}
-            &ndash; {'Near-Earth objects for the day.'}
+              {'@SpaceDashboard.com'}
+            </a>
           </p>
+          <h2 style={{ marginTop: '20px' }}>{'Interested in contributing?'}</h2>
+          <p>
+            {
+              'Check out Space Dashboard on GitHub or report bugs directly via GitHub Issues.'
+            }
+          </p>
+          <FlexWrapper flexDirection="row" gap={18}>
+            <Button
+              Icon={IconCode}
+              variantsList={['secondary']}
+              onClick={() => {
+                window.open(
+                  'https://github.com/SpaceDashboard/space-dashboard/tree/beta',
+                  '_blank',
+                );
+              }}
+            >
+              {'Code'}
+              <IconExternalLink size={14} opacity={0.6} />
+            </Button>
+            <Button
+              Icon={IconCircleDot}
+              variantsList={['secondary']}
+              onClick={() => {
+                window.open(
+                  'https://github.com/SpaceDashboard/space-dashboard/issues',
+                  '_blank',
+                );
+              }}
+            >
+              {'Issues'}
+              <IconExternalLink size={14} opacity={0.6} />
+            </Button>
+          </FlexWrapper>
         </FlexWrapper>
       </div>
     </Modal>

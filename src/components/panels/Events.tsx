@@ -10,7 +10,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
   CornersWrapper,
   FlexWrapper,
@@ -120,27 +119,25 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isFetchingData} />
-          <FlexWrapper>
-            <ListDetails
-              items={data && data.results}
-              listHeader="Upcoming Events"
-              renderLabel={(item: any) => (
-                <FlexWrapper gap={4}>
-                  <span>
-                    <strong>{item.name}</strong>
-                  </span>
-                  <span className={eventDateTimeCss}>
-                    {format(new UTCDate(item.date), 'dd MMMM yyyy')}
-                  </span>
-                </FlexWrapper>
-              )}
-              renderDetails={(item: any) => <DetailsModal item={item} />}
-              maxHeight={370}
-            />
-          </FlexWrapper>
-        </FadeFromBlack>
+        <PlanetsLoader showLoader={isFetchingData} />
+        <FlexWrapper>
+          <ListDetails
+            items={data && data.results}
+            listHeader="Upcoming Events"
+            renderLabel={(item: any) => (
+              <FlexWrapper gap={4}>
+                <span>
+                  <strong>{item.name}</strong>
+                </span>
+                <span className={eventDateTimeCss}>
+                  {format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                </span>
+              </FlexWrapper>
+            )}
+            renderDetails={(item: any) => <DetailsModal item={item} />}
+            maxHeight={370}
+          />
+        </FlexWrapper>
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>

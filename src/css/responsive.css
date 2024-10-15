@@ -167,17 +167,15 @@ nav {
 }
 
 .content-two-up {
-  @container (min-width: 701px) and (max-width: 1000px) {
-    --content-two-up--gap: 40px;
-  }
   @container (max-width: 700px) {
-    --content-two-up--gap: 20px;
-
     > div {
       width: 100%;
 
       &:first-child::before {
-        background-color: transparent;
+        bottom: calc(-1 * var(--content-two-up--gap) / 2);
+        height: 1px;
+        width: 100%;
+        right: 0;
       }
 
       &:first-child,

@@ -6,7 +6,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
 } from 'src/components/base';
 import { getCurrentTimestamp } from 'src/shared/utils';
@@ -83,17 +82,15 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <div className={issTrackerWrapperCss} ref={issTrackerWrapperRef}>
-          <FadeFromBlack>
-            <PlanetsLoader showLoader={isLoading} />
-            <iframe
-              className={issTrackerFrameCss(issTrackerFrameScale)}
-              ref={issTrackerFrameRef}
-              src={iframeSrc}
-              onLoad={() => setIsLoading(false)}
-              scrolling="no" // Deprecated but works better than overflow: hidden
-              tabIndex={-1}
-            ></iframe>
-          </FadeFromBlack>
+          <PlanetsLoader showLoader={isLoading} />
+          <iframe
+            className={issTrackerFrameCss(issTrackerFrameScale)}
+            ref={issTrackerFrameRef}
+            src={iframeSrc}
+            onLoad={() => setIsLoading(false)}
+            scrolling="no" // Deprecated but works better than overflow: hidden
+            tabIndex={-1}
+          ></iframe>
         </div>
       </PanelBody>
       <PanelMenu>

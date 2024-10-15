@@ -1,3 +1,4 @@
+// Deprecated already?
 import React, { useEffect, useMemo, useState } from 'react';
 import { css } from '@emotion/css';
 import { useAppContext, usePanelContext, useSettingsContext } from 'src/hooks';

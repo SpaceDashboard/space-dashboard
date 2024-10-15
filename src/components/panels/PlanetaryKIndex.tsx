@@ -18,7 +18,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
   FlexWrapper,
   TooltipWrapper,
@@ -291,47 +290,43 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
       className={planetaryKIndexCss}
     >
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader
-            showLoader={isFetchingLiveData || isFetchingChartData}
-          />
-          <FlexWrapper gap={0} className={contentWrapperCss}>
+        <PlanetsLoader showLoader={isFetchingLiveData || isFetchingChartData} />
+        <FlexWrapper gap={0} className={contentWrapperCss}>
+          <FlexWrapper
+            alignItems="center"
+            gap={4}
+            className={currentKIndexWrapperCss}
+          >
+            <FlexWrapper alignItems="center" className={utcClockCss}>
+              <UtcClock />
+            </FlexWrapper>
             <FlexWrapper
               alignItems="center"
-              gap={4}
-              className={currentKIndexWrapperCss}
+              flexDirection="row"
+              className={currentKIndexCss}
             >
-              <FlexWrapper alignItems="center" className={utcClockCss}>
-                <UtcClock />
-              </FlexWrapper>
               <FlexWrapper
-                alignItems="center"
-                flexDirection="row"
-                className={currentKIndexCss}
+                alignItems="flex-start"
+                flexDirection="column"
+                gap={4}
               >
-                <FlexWrapper
-                  alignItems="flex-start"
-                  flexDirection="column"
-                  gap={4}
-                >
-                  <p className={titleCss}>{'Current Kp'}</p>
-                  <p
-                    className={updatedTimeCss}
-                  >{`Estimate as of ${currentKpData.time ? format(new Date(currentKpData.time), 'HH:mm') : '--:--'} UTC`}</p>
-                </FlexWrapper>
-                <p className={kpValueCss}>
-                  {Number(currentKpData.estimatedKp) >= 5 && (
-                    <GeoStorm kpIndex={currentKpData.estimatedKp} />
-                  )}
-                  {currentKpData.estimatedKp}
-                </p>
+                <p className={titleCss}>{'Current Kp'}</p>
+                <p
+                  className={updatedTimeCss}
+                >{`Estimate as of ${currentKpData.time ? format(new Date(currentKpData.time), 'HH:mm') : '--:--'} UTC`}</p>
               </FlexWrapper>
-            </FlexWrapper>
-            <FlexWrapper alignItems="center" className={chartCss}>
-              <KIndexChart data={chartData} />
+              <p className={kpValueCss}>
+                {Number(currentKpData.estimatedKp) >= 5 && (
+                  <GeoStorm kpIndex={currentKpData.estimatedKp} />
+                )}
+                {currentKpData.estimatedKp}
+              </p>
             </FlexWrapper>
           </FlexWrapper>
-        </FadeFromBlack>
+          <FlexWrapper alignItems="center" className={chartCss}>
+            <KIndexChart data={chartData} />
+          </FlexWrapper>
+        </FlexWrapper>
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>

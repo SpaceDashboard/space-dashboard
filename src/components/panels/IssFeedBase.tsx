@@ -6,7 +6,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
 } from 'src/components/base';
 import { useAppContext, useSettingsContext } from 'src/hooks';
@@ -59,18 +58,16 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isLoading} />
-          <iframe
-            className={cx('aspect-16-9', iframeCss)}
-            src={iframeSrc}
-            onLoad={() => setIsLoading(false)}
-            title={iframeTitle}
-            allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-            allowFullScreen
-            tabIndex={-1}
-          />
-        </FadeFromBlack>
+        <PlanetsLoader showLoader={isLoading} />
+        <iframe
+          className={cx('aspect-16-9', iframeCss)}
+          src={iframeSrc}
+          onLoad={() => setIsLoading(false)}
+          title={iframeTitle}
+          allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+          allowFullScreen
+          tabIndex={-1}
+        />
       </PanelBody>
       <PanelMenu>
         {menuContent}

@@ -6,7 +6,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   Button,
   PlanetsLoader,
 } from 'src/components/base';
@@ -121,41 +120,39 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isLoading} />
-          <div
-            className={cx(
-              'data-img-wrapper',
-              wrapperCss(wrapperWidth, wrapperHeight),
-            )}
-            ref={wrapperRef}
-          >
-            {showVideo ? (
-              <video
-                muted
-                autoPlay
-                loop={true}
-                key={videoSrc}
-                onLoadedData={() => {
-                  setIsLoading(false);
-                  handleResize();
-                }}
-              >
-                <source src={videoSrc} type="video/mp4"></source>
-              </video>
-            ) : (
-              <img
-                src={imageSrc}
-                key={imageSrc}
-                alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
-                onLoad={() => {
-                  setIsLoading(false);
-                  handleResize();
-                }}
-              />
-            )}
-          </div>
-        </FadeFromBlack>
+        <PlanetsLoader showLoader={isLoading} />
+        <div
+          className={cx(
+            'data-img-wrapper',
+            wrapperCss(wrapperWidth, wrapperHeight),
+          )}
+          ref={wrapperRef}
+        >
+          {showVideo ? (
+            <video
+              muted
+              autoPlay
+              loop={true}
+              key={videoSrc}
+              onLoadedData={() => {
+                setIsLoading(false);
+                handleResize();
+              }}
+            >
+              <source src={videoSrc} type="video/mp4"></source>
+            </video>
+          ) : (
+            <img
+              src={imageSrc}
+              key={imageSrc}
+              alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
+              onLoad={() => {
+                setIsLoading(false);
+                handleResize();
+              }}
+            />
+          )}
+        </div>
       </PanelBody>
       <PanelMenu>
         <h4>

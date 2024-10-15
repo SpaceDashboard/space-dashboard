@@ -10,7 +10,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
   CornersWrapper,
   FlexWrapper,
@@ -189,35 +188,33 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isFetching} />
-          <FlexWrapper>
-            <ListDetails
-              items={data && data.results}
-              listHeader="Upcoming Launches"
-              renderLabel={(item: any) => (
-                <FlexWrapper
-                  alignItems="center"
-                  flexDirection="row"
-                  gap={4}
-                  justifyContent="space-between"
-                >
-                  <FlexWrapper gap={4}>
-                    <span>
-                      <strong>{item.name}</strong>
-                    </span>
-                    <span className={launchDateTimeCss}>
-                      {`${format(new UTCDate(item.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`}
-                    </span>
-                  </FlexWrapper>
-                  <CountdownTimer netT0={item.net} />
+        <PlanetsLoader showLoader={isFetching} />
+        <FlexWrapper>
+          <ListDetails
+            items={data && data.results}
+            listHeader="Upcoming Launches"
+            renderLabel={(item: any) => (
+              <FlexWrapper
+                alignItems="center"
+                flexDirection="row"
+                gap={4}
+                justifyContent="space-between"
+              >
+                <FlexWrapper gap={4}>
+                  <span>
+                    <strong>{item.name}</strong>
+                  </span>
+                  <span className={launchDateTimeCss}>
+                    {`${format(new UTCDate(item.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`}
+                  </span>
                 </FlexWrapper>
-              )}
-              renderDetails={(item: any) => <DetailsModal item={item} />}
-              maxHeight={370}
-            />
-          </FlexWrapper>
-        </FadeFromBlack>
+                <CountdownTimer netT0={item.net} />
+              </FlexWrapper>
+            )}
+            renderDetails={(item: any) => <DetailsModal item={item} />}
+            maxHeight={370}
+          />
+        </FlexWrapper>
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>

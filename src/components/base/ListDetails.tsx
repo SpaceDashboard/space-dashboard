@@ -74,7 +74,7 @@ export const ListDetails = <T,>({
         modalClassName={modalClassName}
         isOpen={isPaneOpen}
         setIsOpen={setIsPaneOpen}
-        modalPadding={5}
+        modalPadding={15}
       >
         {selectedItem && renderDetails(selectedItem)}
       </Modal>

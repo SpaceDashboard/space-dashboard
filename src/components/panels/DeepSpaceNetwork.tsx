@@ -6,7 +6,6 @@ import {
   PanelActions,
   PanelProps,
   PanelMenu,
-  FadeFromBlack,
   PlanetsLoader,
   FlexWrapper,
 } from 'src/components/base';
@@ -47,15 +46,13 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
-        <FadeFromBlack>
-          <PlanetsLoader showLoader={isLoading} />
-          <iframe
-            className={cx('aspect-16-9', iframeCss)}
-            src={iframeSrc}
-            onLoad={() => setIsLoading(false)}
-            tabIndex={-1}
-          ></iframe>
-        </FadeFromBlack>
+        <PlanetsLoader showLoader={isLoading} />
+        <iframe
+          className={cx('aspect-16-9', iframeCss)}
+          src={iframeSrc}
+          onLoad={() => setIsLoading(false)}
+          tabIndex={-1}
+        ></iframe>
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>
