@@ -70,7 +70,7 @@ export const About: React.FC = () => {
 
         <FlexWrapper gap={14} className={coffeeCss}>
           <FlexWrapper gap={4}>
-            <h3>{'Enjoying SpaceDashboard?'}</h3>
+            <h3>{'Enjoying Space Dashboard?'}</h3>
             <p style={{ fontSize: '0.95rem' }}>
               {
                 "If you'd like to support the site, you can fuel my next coding session with a coffee."

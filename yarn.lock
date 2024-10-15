@@ -795,17 +795,17 @@
     "@sentry/bundler-plugin-core" "2.22.5"
     unplugin "1.0.1"
 
-"@tabler/icons-react@^3.19.0":
-  version "3.19.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.19.0.tgz#9b5a421bf69875677fde52e7de73b4e6b5571e57"
-  integrity sha512-AqEWGI0tQWgqo6ZjMO5yJ9sYT8oXLuAM/up0hN9iENS6IdtNZryKrkNSiMgpwweNTpl8wFFG/dAZ959S91A/uQ==
+"@tabler/icons-react@3.17.0":
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.17.0.tgz#badafce6618f6b8104262538e3f55d34d09c2e29"
+  integrity sha512-Ndm9Htv7KpIU1PYYrzs5EMhyA3aZGcgaxUp9Q1XOxcRZ+I0X+Ub2WS5f4bkRyDdL1s0++k2T9XRgmg2pG113sw==
   dependencies:
-    "@tabler/icons" "3.19.0"
+    "@tabler/icons" "3.17.0"
 
-"@tabler/icons@3.19.0":
-  version "3.19.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.19.0.tgz#5998b0557ef34572e003f2d75ac95e7c04f88c81"
-  integrity sha512-A4WEWqpdbTfnpFEtwXqwAe9qf9sp1yRPvzppqAuwcoF0q5YInqB+JkJtSFToCyBpPVeLxJUxxkapLvt2qQgnag==
+"@tabler/icons@3.17.0":
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.17.0.tgz#329ca3e4cb533c5a6a61467fe5d6de14a0813020"
+  integrity sha512-sCSfAQ0w93KSnSL7tS08n73CdIKpuHP8foeLMWgDKiZaCs8ZE//N3ytazCk651ZtruTtByI3b+ZDj7nRf+hHvA==
 
 "@tanstack/query-core@5.59.13":
   version "5.59.13"
@@ -818,16 +818,16 @@
   integrity sha512-iFdQEFXaYYxqgrv63ots+65FGI+tNp5ZS5PdMU1DWisxk3fez5HG3FyVlbUva+RdYS5hSLbxZ9aw3yEs97GNTw==
 
 "@tanstack/react-query-devtools@^5.59.13":
-  version "5.59.13"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.59.13.tgz#764fe5ea8eaaed9cd0a0b8a85c324d2e827b8ca8"
-  integrity sha512-6RW9jjJPeIUxu/rAy7W2a4cCOFp46Tv2LY2pOS4m5s8vqOSvI8dkizvOq+GmLGtI2E+QjoeZbEOGKDSmqDynWg==
+  version "5.59.14"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.59.14.tgz#cc077667c42868bfeeeb9926225ba18b347379c2"
+  integrity sha512-7hYY59jveDF1thc4mnExfMoz/ySnE22pv3d+tinw+HxDGZFPa5BfCZgr1N3i1OGxxBuZch8k9seUJ2qUhBdJoQ==
   dependencies:
     "@tanstack/query-devtools" "5.58.0"
 
 "@tanstack/react-query@^5.59.13":
-  version "5.59.13"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.59.13.tgz#decac9c15ddc29a54dc3520a41a1dcedb1a9596a"
-  integrity sha512-GB2ELtiH8tL0rcFiM4sWvnXhazt1xRXX/LolMEV12kfEKu58aNA4lQoieslP61PO4vZO9JJMwm+6lqyS0E1HOA==
+  version "5.59.14"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.59.14.tgz#f1fc446a5a47085cac35570d7098fb252d0b2c56"
+  integrity sha512-2cM4x3Ka4Thl7/wnjf++EMGA2Is/RgPynn83D4kfGiJOGSjb5T2D3EEOlC8Nt6U2htLS3imOXjOSMEjC3K7JNg==
   dependencies:
     "@tanstack/query-core" "5.59.13"
 
@@ -1594,9 +1594,9 @@ dotenv@^16.3.1:
   integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 electron-to-chromium@^1.5.28:
-  version "1.5.37"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.37.tgz#1660fb87d2bc82a3f8a652ef78eed17cc0d3ef4f"
-  integrity sha512-u7000ZB/X0K78TaQqXZ5ktoR7J79B9US7IkE4zyvcILYwOGY2Tx9GRPYstn7HmuPcMxZ+BDGqIsyLpZQi9ufPw==
+  version "1.5.38"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.38.tgz#c6a14e1506717c5a46d439580d7424d8d5860180"
+  integrity sha512-VbeVexmZ1IFh+5EfrYz1I0HTzHVIlJa112UEWhciPyeOcKJGeTv6N8WnG4wsQB81DGCaVEGhpSb6o6a8WYFXXg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2811,9 +2811,9 @@ postcss@^8.4.43:
     source-map-js "^1.2.1"
 
 posthog-js@^1.167.1:
-  version "1.167.1"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.167.1.tgz#fb05645be937ea0f9e57332831d6cbe58e09c895"
-  integrity sha512-xt+HWcB1vi6tcHxQEf1FgctWqolQli899Yb/6j581U9uZy6ow16qXPrKJghHSuoJ18l4s0WvFB997J2EghzfbQ==
+  version "1.169.0"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.169.0.tgz#bdbdcc907d0d69fbd2502faf8190a59944c74f65"
+  integrity sha512-C0TiNv6ehbiy78F9gKZIqy3RbCRsWDSQDbQMi1YW2iuO4kDQUQwacmx2DKyaCwsH0/oN69FdBl99WoEJdjmxXg==
   dependencies:
     fflate "^0.4.8"
     preact "^10.19.3"

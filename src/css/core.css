@@ -26,7 +26,6 @@ body {
     'XTRA' 380,
     'opsz' 14,
     'YTLC' 530;
-  letter-spacing: 0.5px;
   overscroll-behavior: none;
   padding: 0;
 }
@@ -58,10 +57,10 @@ h4,
 h5,
 h6 {
   font-variation-settings:
-    'wdth' 130,
+    'wdth' 140,
     'wght' 600,
     'GRAD' 0,
-    'XTRA' 400;
+    'XTRA' 340;
   line-height: 1.2;
   margin: 0 0 4px;
 }
