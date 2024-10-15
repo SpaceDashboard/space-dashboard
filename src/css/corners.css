@@ -1,0 +1,56 @@
+/* 
+  Corner marker styles
+*/
+
+.corners-wrapper {
+  position: relative;
+
+  .corners-wrapper-content {
+    display: flex;
+  }
+
+  .corner-top-left,
+  .corner-top-right,
+  .corner-bottom-left,
+  .corner-bottom-right {
+    border: 1px solid
+      hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 20%)
+      );
+    box-sizing: border-box;
+    height: var(--corners-wrapper--size);
+    position: absolute;
+    width: var(--corners-wrapper--size);
+    z-index: 1;
+  }
+
+  .corner-top-left {
+    border-right-width: 0;
+    border-bottom-width: 0;
+    left: var(--corners-wrapper--distance);
+    top: var(--corners-wrapper--distance);
+  }
+
+  .corner-top-right {
+    border-left-width: 0;
+    border-bottom-width: 0;
+    right: var(--corners-wrapper--distance);
+    top: var(--corners-wrapper--distance);
+  }
+
+  .corner-bottom-left {
+    border-right-width: 0;
+    border-top-width: 0;
+    bottom: var(--corners-wrapper--distance);
+    left: var(--corners-wrapper--distance);
+  }
+
+  .corner-bottom-right {
+    border-left-width: 0;
+    border-top-width: 0;
+    bottom: var(--corners-wrapper--distance);
+    right: var(--corners-wrapper--distance);
+  }
+}

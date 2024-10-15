@@ -1,0 +1,225 @@
+/*
+  Responsive styles for Space Dashboard
+*/
+
+/* --------------------- */
+/* Media queries, screen */
+/* --------------------- */
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+  .content-column-wrapper {
+    --content--gap: 30px;
+    flex-direction: column;
+
+    .content-column {
+      --content-column--width: 100%;
+      gap: 30px;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .panel-section {
+        width: calc(50% - 15px);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .content-column-wrapper {
+    --content--gap: 0px;
+    flex-direction: column;
+
+    .content-column {
+      --content-column--width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  nav {
+    &.show-nav.show-nav-borders,
+    &.show-nav-borders {
+      animation: opacityIn 0.25s ease forwards;
+      animation-delay: 0.25s;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: hsla(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) - 6%),
+        0.92
+      );
+      bottom: 0px;
+      height: 55px;
+      margin: 0;
+      opacity: 0;
+      padding: 8px 20px 10px;
+      position: fixed;
+      transition: 0s height ease;
+      width: 100%;
+
+      &::before {
+        height: calc(100% + 10px);
+        top: -2px;
+      }
+
+      .logo,
+      .logo img {
+        height: 32px;
+        width: 32px;
+      }
+
+      .nav-inner,
+      .btn-wrapper {
+        flex-direction: row;
+      }
+    }
+  }
+
+  .content-wrapper {
+    padding-bottom: 60px;
+    width: 100vw;
+  }
+
+  .modal.full-screen {
+    bottom: 80px;
+    left: 25px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .panel-section {
+    padding-bottom: 20px;
+  }
+
+  .Toastify__toast-container {
+    left: 0;
+    margin: 0 0 0 1vw;
+    padding: 0;
+    width: 98vw;
+  }
+
+  .Toastify__toast {
+    margin-bottom: 8px;
+  }
+
+  .Toastify__toast-container--top-center {
+    top: 0;
+    transform: translateX(0);
+  }
+}
+
+/* ----------------- */
+/* Container queries */
+/* ----------------- */
+
+nav {
+  @container (min-height: 201px) and (max-height: 300px) {
+    button.nav {
+      height: 40px !important;
+      min-height: 40px !important;
+    }
+  }
+  @container (max-height: 250px) {
+    button.nav {
+      --button--edge-size: 10px !important;
+      background-size: 11.5px 11.5px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+      padding: 0 8px 3px 18px;
+    }
+  }
+
+  @container (min-width: 231px) and (max-width: 300px) and (max-height: 55px) {
+    button.nav {
+      padding-left: 10px !important;
+      padding-right: 8px !important;
+      width: 38px !important;
+    }
+  }
+
+  @container (max-width: 230px) and (max-height: 55px) {
+    button.nav {
+      padding-left: 5px;
+      padding-right: 5px;
+      width: 30px !important;
+    }
+  }
+}
+
+.modal {
+  @container (max-height: 400px) {
+    .close-modal {
+      --modal--close-button--distance: 10px;
+    }
+  }
+  @container (min-width: 401px) and (max-width: 600px) {
+    .close-modal {
+      --modal--close-button--distance: 10px;
+    }
+  }
+  @container (max-width: 400px) {
+    .close-modal {
+      --modal--close-button--distance: 5px;
+      --modal--close-button--size: 15px;
+    }
+  }
+}
+
+.content-two-up {
+  @container (max-width: 700px) {
+    > div {
+      width: 100%;
+
+      &:first-child::before {
+        bottom: calc(-1 * var(--content-two-up--gap) / 2);
+        height: 1px;
+        width: 100%;
+        right: 0;
+      }
+
+      &:first-child,
+      &:last-child {
+        margin-bottom: var(--content-two-up--gap);
+      }
+    }
+  }
+}
+
+.panel-actions-wrapper {
+  @container (max-width: 330px) {
+    &::before {
+      width: calc(20% - 46px) !important;
+    }
+    &::after {
+      width: 80% !important;
+    }
+
+    .panel-actions {
+      &::before {
+        width: calc(80% + 50px) !important;
+      }
+    }
+  }
+
+  @container (min-width: 251px) and (max-width: 400px) {
+    button {
+      min-width: 38px !important;
+
+      &.small {
+        padding-left: 10px !important;
+      }
+    }
+  }
+
+  @container (max-width: 250px) {
+    button {
+      min-width: 30px !important;
+
+      &.small {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+      }
+    }
+  }
+}

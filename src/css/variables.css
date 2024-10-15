@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf')
+    format('truetype');
+}
+
+:root {
+  /* To help viewport size issues, see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/ */
+  --100-vh: calc(var(--vh, 1vh) * 100);
+
+  /* Colors */
+  --base-blue-hue: var(--index-defined-base-blue-hue);
+  --base-blue-saturation: var(--index-defined-base-blue-saturation);
+  --base-blue-lightness: var(--index-defined-base-blue-lightness);
+  --base-blue: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    var(--base-blue-lightness)
+  );
+  --base-orange-hue: 37;
+  --base-orange-saturation: 76%;
+  --base-orange-lightness: 18%;
+  --base-orange: hsl(
+    var(--base-orange-hue),
+    var(--base-orange-saturation),
+    var(--base-orange-lightness)
+  );
+
+  /* Fonts */
+  --font-size: 16px;
+  --font: 'Roboto Flex', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --text-color: #fff;
+
+  /* Links */
+  --link-color: hsl(213, 43%, 66%);
+  --link-border-color: hsla(213, 43%, 66%, 0.2);
+  --link-hover-border-color: hsla(213, 43%, 66%, 0.6);
+
+  /* Focus */
+  --focus-visible-box-shadow: 0 0 0 1px hsla(207, 62%, 46%, 0.5);
+
+  /*
+    Button variables are solely defined in buttons.css
+  */
+
+  /* Content and content wrapper */
+  --content--gap: 30px;
+  --content--transition-duration: 0.3s;
+  --content-column--width: 33.33%;
+  --content-two-up--gap: 80px;
+
+  /* Nav */
+  --navbar--background-opacity: 0.8;
+  --navbar--transition-duration: 0.5s;
+  --navbar--logo--transition-duration: 0.3s;
+  --navbar--logo--transition-delay: 0.5s;
+
+  /* Modal */
+  --modal--background-opacity: 0.4;
+  --modal--transition-duration: 0.2s;
+  --modal--close-button--distance: 20px;
+  --modal--close-button--size: 25px;
+  --modal--close-button--transition-duration: 0.08s;
+
+  /* Panel, wrapper, body, actions, and menu */
+  --panel-wrapper--before--transition-duration: 0.4s;
+  --panel--background-opacity: 0.7;
+  --panel--transition-duration: 0.4s;
+  --panel-body--transition-duration: 0.4s;
+  --panel-body--transition-delay: 0.8s;
+  --panel-actions-wrapper--before--transition-duration: 0.4s;
+  --panel-actions-wrapper--after--transition-duration: 0.4s;
+  --panel-actions--before-transition-duration: 0.4s;
+  --panel-menu--background-opacity: 0.8;
+  --panel-menu--transition-duration: 0.2s;
+
+  /* Inputs */
+  --input--bg-color: rgba(20, 20, 20, 0.75);
+  --input--focus-hover--bg-color: rgba(20, 20, 20, 0.8);
+  --input--border-color: rgba(255, 255, 255, 0.15);
+  --input--bottom-border-color: rgba(255, 255, 255, 0.8);
+  --input--text-color: #fff;
+
+  /* Corners wrapper */
+  --corners-wrapper--distance: -6px;
+  --corners-wrapper--size: 12px;
+
+  /* Toggle checkbox */
+  --toggle--size: 18px;
+  --toggle--gap: 3px;
+  --toggle--transition-duration: 0.08s;
+
+  /* Toast */
+  --toast--transition-duration: 0.2s;
+  --toast--confirmation--bg-color: #223a18;
+  --toast--confirmation--border-color: #628a51;
+  --toast--warning--bg-color: #7d6016;
+  --toast--warning--border-color: #e9ad0a;
+  --toast--error--bg-color: #511010;
+  --toast--error--border-color: #9d2020;
+  --toast--info--bg-color: #143257;
+  --toast--info--border-color: #335681;
+  /* -- Defaults, overridden in ToastContent.tsx -- */
+  --toast--bg-color: var(--toast--confirmation--bg-color);
+  --toast--border-color: var(--toast--confirmation--border-color);
+
+  /* Column manager */
+  --column-manager--transition-duration: 0.3s;
+  --column-manager--background-opacity: 0.4;
+}

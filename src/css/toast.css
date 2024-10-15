@@ -1,0 +1,128 @@
+/*
+  Override styles for react-toastify
+*/
+
+.toast-container-wrapper {
+  height: 0;
+  position: absolute;
+  width: 0;
+  z-index: 1000;
+
+  .Toastify__toast-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    position: fixed;
+    top: 15px;
+    transform: translateX(-50%);
+    width: auto;
+  }
+
+  .Toastify__toast {
+    align-self: center;
+    border-radius: 100px;
+    box-shadow:
+      0 1px 8px 0 rgba(0, 0, 0, 0.9),
+      0 2px 12px 0 rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
+    cursor: default;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    max-width: 850px;
+    min-height: auto;
+    min-width: 280px;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    transition: var(--toast--transition-duration) all ease;
+    z-index: 1001;
+
+    a {
+      margin-left: 4px;
+    }
+  }
+
+  .Toastify__toast-body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    > div:last-child {
+      flex: 1;
+    }
+  }
+
+  .Toastify__slide-enter--top-center,
+  .Toastify__slide-exit--top-center {
+    animation-fill-mode: both;
+    animation-duration: var(--toast--transition-duration);
+  }
+
+  .Toastify__slide-enter--top-center {
+    animation-name: toastSlideInDown;
+  }
+
+  .Toastify__slide-exit--top-center {
+    animation-name: toastSlideOutUp;
+  }
+}
+
+.toast-content-wrapper {
+  align-items: center;
+  background-color: var(--toast--bg-color);
+  border-radius: 100px;
+  color: #fff;
+  display: flex;
+  gap: 24px;
+  padding: 12px 20px 12px 16px;
+
+  a,
+  a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  &::before {
+    --toast--border-distance: -2px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 100px;
+    border: 2px solid transparent;
+    border-color: var(--toast--border-color);
+    bottom: var(--toast--border-distance);
+    content: '';
+    height: auto;
+    left: var(--toast--border-distance);
+    position: absolute;
+    right: var(--toast--border-distance);
+    top: var(--toast--border-distance);
+    width: auto;
+    z-index: -1;
+  }
+
+  .toast-content {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    gap: 8px;
+    word-break: break-word;
+
+    span {
+      align-items: center;
+      flex: 1;
+    }
+  }
+
+  .toast-close-button {
+    align-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    margin: 0;
+    outline: none;
+    padding: 0;
+  }
+}

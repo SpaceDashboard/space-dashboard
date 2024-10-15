@@ -1,0 +1,135 @@
+/*
+  Toggle styles
+*/
+
+.toggle-switch {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+
+  input:focus-visible ~ .switch .slider {
+    outline: 0;
+    box-shadow: 0 0 0px 3px rgba(71, 152, 216, 0.8);
+    transition: var(--toggle--transition-duration) all ease;
+  }
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+
+    &:checked {
+      /* Disabled and checked */
+      &:disabled ~ .switch {
+        background-color: rgba(69, 84, 58, 0.85);
+        border-color: #ccc;
+
+        .checked {
+          opacity: 0.5;
+        }
+      }
+
+      /* Checked */
+      ~ .switch {
+        background-color: rgba(43, 106, 0, 0.85);
+
+        .checked {
+          opacity: 1;
+
+          svg {
+            opacity: 1;
+          }
+        }
+
+        .unchecked {
+          opacity: 0;
+        }
+
+        .slider-wrapper {
+          width: 100%;
+        }
+      }
+    }
+
+    /* Regular disabled */
+    &:disabled ~ .switch {
+      cursor: not-allowed;
+
+      .slider {
+        background-color: #a5a5a5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .toggle-label {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+
+  .switch {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 100px;
+    border: 1px solid #fff;
+    box-sizing: content-box;
+    display: flex;
+    height: calc(var(--toggle--size) + calc(var(--toggle--gap) * 2));
+    overflow: visible;
+    position: relative;
+    transition: var(--toggle--transition-duration) all ease;
+    width: calc(var(--toggle--size) + calc(var(--toggle--size) * 1.5));
+
+    .checked-unchecked-wrapper {
+      display: flex;
+      height: 100%;
+      justify-content: space-evenly;
+      position: absolute;
+      width: 100%;
+
+      .checked,
+      .unchecked {
+        align-items: center;
+        display: flex;
+        transition: var(--toggle--transition-duration) all ease;
+
+        svg {
+          --icon-size: calc(
+            var(--toggle--size) - calc(var(--toggle--size) * 0.2)
+          );
+          height: var(--icon-size);
+          opacity: 0.3;
+          transition: var(--toggle--transition-duration) all ease;
+          width: var(--icon-size);
+        }
+      }
+
+      .checked {
+        opacity: 0;
+      }
+
+      .unchecked {
+        opacity: 1;
+      }
+    }
+
+    .slider-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      transition: var(--toggle--transition-duration) all ease;
+      width: calc(var(--toggle--size) + calc(var(--toggle--gap) * 2));
+
+      .slider {
+        background-color: #fff;
+        border-radius: 100%;
+        display: flex;
+        height: var(--toggle--size);
+        margin: 0 var(--toggle--gap);
+        transition: var(--toggle--transition-duration) all ease;
+        width: var(--toggle--size);
+      }
+    }
+  }
+}

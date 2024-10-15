@@ -1,0 +1,448 @@
+/* 
+  Available additional style classes:
+  - flat-bottom
+  - secondary
+  - danger
+  - small
+  - nav
+  - active
+*/
+
+/*
+  Base button styles
+*/
+.button {
+  --button--edge-size: 15px;
+  --button--background-color: var(--base-orange);
+  --button--border-color: hsl(
+    var(--base-orange-hue),
+    var(--base-orange-saturation),
+    calc(var(--base-orange-lightness) + 20%)
+  );
+  --button--clip-path: polygon(
+    0 0,
+    calc(100% - var(--button--edge-size)) 0%,
+    100% var(--button--edge-size),
+    100% 100%,
+    calc(var(--button--edge-size) / 3) 100%,
+    0 calc(100% - var(--button--edge-size) / 3)
+  );
+  align-items: end;
+  background:
+    linear-gradient(
+        to top right,
+        transparent 50%,
+        var(--button--border-color) 50%
+      )
+      top right,
+    linear-gradient(
+        to bottom left,
+        transparent 80%,
+        var(--button--border-color) 50%
+      )
+      bottom left,
+    #fff;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  background-color: var(--button--background-color);
+  background-origin: border-box;
+  background-repeat: no-repeat;
+  background-size: 16.5px 16.5px;
+  border-radius: 3px 0;
+  border: 1px solid var(--button--border-color);
+  box-sizing: border-box;
+  clip-path: var(--button--clip-path);
+  color: #fff;
+  cursor: pointer;
+  display: inline-grid;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  font-variation-settings:
+    'wdth' 100,
+    'wght' 200,
+    'GRAD' 50,
+    'YTLC' 520;
+  justify-content: end;
+  max-width: 250px;
+  min-height: 50px;
+  min-width: 50px;
+  padding: 0 12px 6px 20px;
+  position: relative;
+  text-align: right;
+  width: fit-content;
+
+  .button-content-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .pulse-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5px;
+    left: 3px;
+    max-width: 10px;
+    position: absolute;
+    top: 3px;
+
+    .pulses {
+      animation-name: pulse;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      /* animation-duration set in Button.tsx */
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 1px;
+      height: 4px;
+      transition: 0.2s all ease;
+      width: 2px;
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    filter: brightness(0.65);
+  }
+
+  &:not(:disabled, [disabled]) {
+    @media (hover: hover) {
+      &:hover {
+        --button--background-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 10%)
+        );
+        --button--border-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 35%)
+        );
+        box-shadow: none;
+        outline: none;
+      }
+    }
+
+    &:focus-visible {
+      --button--background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 10%)
+      );
+      --button--border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 35%)
+      );
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:active {
+      --button--background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 7%)
+      );
+      --button--border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 22%)
+      );
+    }
+
+    &.active {
+      --button--background-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 20%)
+      );
+      --button--border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 45%)
+      );
+
+      &:focus-visible {
+        --button--background-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 24%)
+        );
+        --button--border-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 48%)
+        );
+      }
+    }
+  }
+
+  /*
+    ------------------------
+    Additional button styles
+    ------------------------
+  */
+
+  /*
+    Secondary button styles
+  */
+  &.secondary {
+    --button--background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 10%)
+    );
+    --button--border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 40%)
+    );
+  }
+
+  &:not(:disabled, [disabled]) {
+    @media (hover: hover) {
+      &.secondary:hover {
+        --button--background-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 20%)
+        );
+        --button--border-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 65%)
+        );
+        box-shadow: none;
+      }
+    }
+
+    &.secondary:focus-visible {
+      --button--background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 20%)
+      );
+      --button--border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 65%)
+      );
+      box-shadow: none;
+    }
+
+    &.secondary:active {
+      --button--background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 15%)
+      );
+      --button--border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 50%)
+      );
+    }
+
+    &.secondary.active {
+      --button--background-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 25%)
+      );
+      --button--border-color: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) + 75%)
+      );
+
+      &:focus-visible {
+        --button--background-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 30%)
+        );
+        --button--border-color: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) + 70%)
+        );
+      }
+    }
+  }
+
+  /*
+    Danger button styles
+  */
+  &.danger {
+    --button--background-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 10%)
+    );
+    --button--border-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 40%)
+    );
+  }
+
+  &:not(:disabled, [disabled]) {
+    @media (hover: hover) {
+      &.danger:hover {
+        --button--background-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 20%)
+        );
+        --button--border-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 55%)
+        );
+        box-shadow: none;
+      }
+    }
+
+    &.danger:focus-visible {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 20%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 50%)
+      );
+      box-shadow: none;
+    }
+
+    &.danger:active {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 15%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 45%)
+      );
+    }
+
+    &.danger.active {
+      --button--background-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 25%)
+      );
+      --button--border-color: hsl(
+        calc(var(--base-orange-hue) - 20),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 65%)
+      );
+
+      &:focus-visible {
+        --button--background-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 30%)
+        );
+        --button--border-color: hsl(
+          calc(var(--base-orange-hue) - 20),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 70%)
+        );
+      }
+    }
+  }
+
+  /*
+    Small button styles
+  */
+  &.small {
+    --button--edge-size: 10px;
+    align-items: end;
+    background-size: 11.5px 11.5px;
+    min-height: 32px;
+    padding: 3px 8px 3px 18px;
+  }
+
+  /*
+    Flat bottom button styles
+  */
+  &.flat-bottom {
+    --button--clip-path: polygon(
+      0 0,
+      calc(100% - var(--button--edge-size)) 0%,
+      100% var(--button--edge-size),
+      100% 100%,
+      0 100%
+    );
+    background:
+      linear-gradient(
+          to top right,
+          transparent 50%,
+          var(--button--border-color) 50%
+        )
+        top right,
+      #fff;
+    background-color: var(--button--background-color);
+    background-repeat: no-repeat;
+    background-size: 14.5px 14.5px;
+    border-radius: 3px 0 0 0;
+
+    &.small {
+      --button--clip-path: polygon(
+        0 0,
+        calc(100% - var(--button--edge-size)) 0%,
+        100% var(--button--edge-size),
+        100% 100%,
+        0 100%
+      );
+      background-size: 9.5px 9.5px;
+    }
+  }
+
+  .close-x {
+    align-items: center;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    margin: 1px 0 0 1px;
+    position: relative;
+    width: 5px;
+
+    span {
+      background: #fff;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 1px;
+
+      &:first-child {
+        left: 0;
+        transform: rotate(-45deg);
+        transform-origin: top left;
+      }
+      &:last-child {
+        right: 0;
+        transform: rotate(45deg);
+        transform-origin: top right;
+      }
+    }
+  }
+
+  /* 
+    Nav specific button styles
+  */
+  &.nav {
+    background-size: 16.5px 16.5px;
+    height: 50px;
+    min-width: auto;
+    width: 50px;
+  }
+}
