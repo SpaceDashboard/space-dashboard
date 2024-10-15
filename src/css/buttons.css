@@ -19,13 +19,22 @@
     var(--base-orange-saturation),
     calc(var(--base-orange-lightness) + 20%)
   );
-  --button--clip-path: polygon(
-    0 0,
+  /* Original, doesn't seem to work the same on lower pixel density screens */
+  /* --button--clip-path: polygon(
+    0% 0%,
     calc(100% - var(--button--edge-size)) 0%,
     100% var(--button--edge-size),
     100% 100%,
     calc(var(--button--edge-size) / 3) 100%,
-    0 calc(100% - var(--button--edge-size) / 3)
+    0% calc(100% - var(--button--edge-size) / 3)
+  ); */
+  --button--clip-path: polygon(
+    0% -1%,
+    calc(99.5% - var(--button--edge-size)) -1%,
+    100% var(--button--edge-size),
+    120% 120%,
+    calc(var(--button--edge-size) / 3) 101%,
+    -1% calc(100% - var(--button--edge-size) / 3)
   );
   align-items: end;
   background:
