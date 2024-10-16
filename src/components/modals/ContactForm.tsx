@@ -10,8 +10,15 @@ import {
   IconCode,
   IconCircleDot,
   IconExternalLink,
+  IconInfoCircle,
 } from '@tabler/icons-react';
-import { Button, Modal, FlexWrapper, Toggle } from 'src/components/base';
+import {
+  Button,
+  Modal,
+  FlexWrapper,
+  Toggle,
+  TooltipWrapper,
+} from 'src/components/base';
 import { useAppContext } from 'src/hooks';
 import { showToast } from 'src/shared/utils';
 
@@ -242,6 +249,23 @@ export const ContactForm: React.FC = () => {
             >
               {'@SpaceDashboard'}
             </a>
+            <br />
+            <FlexWrapper alignItems="center" flexDirection="row">
+              <a
+                href="https://twitter.com/CloseApproaches"
+                target="_blank"
+                rel="noreferrer"
+                style={{ margin: 0 }}
+              >
+                {'@CloseApproaches'}
+              </a>
+              <TooltipWrapper
+                title="Automated account, relaying NASA's close approaches each day for near-Earth objects under 100 lunar distance (LD)"
+                delay={300}
+              >
+                <IconInfoCircle color="#CCC" size={20} />
+              </TooltipWrapper>
+            </FlexWrapper>
           </p>
           <p>
             <strong>{'Bluesky:'}</strong>

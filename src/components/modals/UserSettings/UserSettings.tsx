@@ -16,6 +16,7 @@ import {
   IssFeedSettings,
   SolarVisualSettings,
   AuroraForecastSettings,
+  DeepSpaceNetworkSettings,
 } from './panel-settings';
 import { css } from '@emotion/css';
 
@@ -261,6 +262,11 @@ export const UserSettings: React.FC = () => {
             <FlexWrapper>
               <h3>{'Aurora Forecast'}</h3>
               <AuroraForecastSettings />
+            </FlexWrapper>
+
+            <FlexWrapper>
+              <h3>{'Deep Space Network'}</h3>
+              <DeepSpaceNetworkSettings />
             </FlexWrapper>
           </FlexWrapper>
 
