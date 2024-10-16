@@ -1,4 +1,4 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import process from 'process';
@@ -12,8 +12,8 @@ export default defineConfig(() => {
   if (process.env.NODE_ENV !== 'development') {
     plugins.push(
       sentryVitePlugin({
-        org: "space-dashboard",
-        project: "space-dashboard-js"
+        org: 'space-dashboard',
+        project: 'space-dashboard'
       })
     );
   }
@@ -33,6 +33,9 @@ export default defineConfig(() => {
       rollupOptions: {
         output: {
           minifyInternalExports: true,
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]',
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
               switch (true) {

@@ -1,8 +1,6 @@
-@font-face {
-  font-family: 'Roboto Flex';
-  src: url('/fonts/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf')
-    format('truetype');
-}
+/*
+  Variables
+*/
 
 :root {
   /* To help viewport size issues, see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/ */
