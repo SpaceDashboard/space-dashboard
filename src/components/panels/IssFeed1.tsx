@@ -18,7 +18,7 @@ export const IssFeed1: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
         <p>
           {'Credit: '}
           <a
-            href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId1}`}
+            href={`https://www.youtube-nocookie.com/watch?v=${issLiveFeedVideoId1}`}
             target="_blank"
             rel="noreferrer"
           >

@@ -41,7 +41,7 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
     [panelConfig, videoId],
   );
   const [isLoading, setIsLoading] = useState(false);
-  const iframeBase = `https://www.youtube.com/embed/${feedId}?autoplay=${panelConfig.autoPlay}&mute=${panelConfig.mute}`;
+  const iframeBase = `https://www.youtube-nocookie.com/embed/${feedId}?autoplay=${panelConfig.autoPlay}&mute=${panelConfig.mute}`;
   const [iframeSrc, setIframeSrc] = useState(`
     ${iframeBase}&updated=${getCurrentTimestamp()}
   `);
