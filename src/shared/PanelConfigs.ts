@@ -74,11 +74,16 @@ interface AuroraForecastConfig {
   startWithVideo?: boolean;
 }
 
+interface DeepSpaceNetworkConfig {
+  renderDSNOnLoad?: boolean;
+}
+
 // TODO: clean up types
 export type PanelConfig = BasePanelConfig &
   IssFeedConfig &
   SolarVisualConfig &
-  AuroraForecastConfig;
+  AuroraForecastConfig &
+  DeepSpaceNetworkConfig;
 
 export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   IssFeed1: {
@@ -129,5 +134,6 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   DeepSpaceNetwork: {
     label: 'Deep Space Network',
     enabled: true,
+    renderDSNOnLoad: false,
   },
 };

@@ -38,7 +38,9 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   const [videoSrc, setVideoSrc] = useState(
     `${coronaVideo}?u=${getCurrentTimestamp()}`,
   );
-  const [showVideo, setShowVideo] = useState(false);
+  const [showVideo, setShowVideo] = useState(
+    SolarVisual.startWithVideo ?? false,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
     undefined,
@@ -90,10 +92,6 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    setShowVideo(SolarVisual.startWithVideo ?? false);
-  }, [SolarVisual]);
 
   return (
     <Panel index={index} componentKey={componentKey}>
