@@ -176,6 +176,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
         refreshTooltip="Reload image"
       >
         <Button
+          ariaLabel={showVideo ? 'Switch to image' : 'Switch to video'}
           onClick={() => {
             setIsLoading(true);
             setShowVideo(!showVideo);
@@ -186,6 +187,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
           variantsList={['secondary']}
         />
         <Button
+          ariaLabel={`Show ${showSouthernHemisphere ? 'Northern' : 'Southern'} Hemisphere`}
           onClick={() => {
             setIsLoading(true);
             setShowSouthernHemisphere(!showSouthernHemisphere);

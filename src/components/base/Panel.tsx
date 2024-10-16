@@ -306,6 +306,7 @@ export const PanelActions = ({
         {updatedChildren}
         {refreshData && (
           <Button
+            ariaLabel={refreshTooltip}
             Icon={IconRefresh}
             isPanelAction={true}
             className={spinIcon ? 'spin-icon' : ''}
@@ -319,6 +320,7 @@ export const PanelActions = ({
         )}
         {isMenuRendered && (
           <Button
+            ariaLabel={isPanelMenuOpen ? 'Close menu' : 'Open menu'}
             Icon={IconLayoutGrid}
             isPanelAction={true}
             onClick={() => {

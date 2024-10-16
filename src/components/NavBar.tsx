@@ -175,6 +175,7 @@ export const NavBar: React.FC = () => {
           animationSpeedAdjustment={animationSpeedAdjustment}
         >
           <Button
+            ariaLabel="About"
             Icon={IconHelpHexagon}
             onClick={() => {
               closeAllModals();
@@ -191,6 +192,7 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
+            ariaLabel="Connect with me"
             Icon={IconSocial}
             onClick={() => {
               closeAllModals();
@@ -207,6 +209,7 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
+            ariaLabel="Settings"
             Icon={IconAdjustments}
             onClick={() => {
               closeAllModals();

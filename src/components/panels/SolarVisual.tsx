@@ -156,6 +156,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
         refreshTooltip={`Reload ${showVideo ? 'video' : 'image'}`}
       >
         <Button
+          ariaLabel={showVideo ? 'Switch to image' : 'Switch to video'}
           onClick={() => {
             setIsLoading(true);
             setShowVideo(!showVideo);
