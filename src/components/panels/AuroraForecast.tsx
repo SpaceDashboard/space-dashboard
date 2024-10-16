@@ -39,8 +39,12 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       panelConfigs: { AuroraForecast },
     },
   } = useSettingsContext();
-  const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
+  const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(
+    AuroraForecast.startWithSouthernHemisphere ?? false,
+  );
+  const [showVideo, setShowVideo] = useState(
+    AuroraForecast.startWithVideo ?? false,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const getHemisphereMedia = () => {
     const hemisphere = showSouthernHemisphere ? 'southern' : 'northern';
@@ -105,13 +109,6 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    setShowSouthernHemisphere(
-      AuroraForecast.startWithSouthernHemisphere ?? false,
-    );
-    setShowVideo(AuroraForecast.startWithVideo ?? false);
-  }, [AuroraForecast]);
 
   useEffect(() => {
     refreshMedia();

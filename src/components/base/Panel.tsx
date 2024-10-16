@@ -233,6 +233,7 @@ export const Panel = ({
 interface PanelActionsProps {
   /** Internal prop, please ignore */
   isMenuRendered?: boolean;
+  isRefreshEnabled?: boolean;
   refreshData?: () => void;
   refreshTooltip?: string;
 }
@@ -240,6 +241,7 @@ interface PanelActionsProps {
 export const PanelActions = ({
   children,
   isMenuRendered,
+  isRefreshEnabled = true,
   refreshData,
   refreshTooltip = 'Refresh data',
 }: React.PropsWithChildren<PanelActionsProps>) => {
@@ -310,6 +312,7 @@ export const PanelActions = ({
             Icon={IconRefresh}
             isPanelAction={true}
             className={spinIcon ? 'spin-icon' : ''}
+            disabled={!isRefreshEnabled}
             onClick={() => {
               setSpinIcon(true);
               refreshData();

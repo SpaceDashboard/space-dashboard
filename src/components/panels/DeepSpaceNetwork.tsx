@@ -8,8 +8,10 @@ import {
   PanelMenu,
   PlanetsLoader,
   FlexWrapper,
+  Button,
 } from 'src/components/base';
-import { useAppContext } from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
+import { DeepSpaceNetworkSettings } from 'src/components/modals/UserSettings/panel-settings';
 import { getCurrentTimestamp } from 'src/shared/utils';
 
 const iframeCss = css`
@@ -23,7 +25,15 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
   componentKey,
 }) => {
   const { navAnimationSeconds } = useAppContext();
+  const {
+    settings: {
+      panelConfigs: { DeepSpaceNetwork },
+    },
+  } = useSettingsContext();
   const dsnSource = 'https://eyes.nasa.gov/dsn/dsn.html';
+  const [showDSNIframe, setShowDSNIframe] = useState(
+    DeepSpaceNetwork.renderDSNOnLoad ?? false,
+  );
   const [iframeSrc, setIframeSrc] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,16 +53,42 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
     );
   }, []);
 
+  useEffect(() => {
+    setShowDSNIframe(DeepSpaceNetwork.renderDSNOnLoad ?? false);
+  }, [DeepSpaceNetwork.renderDSNOnLoad]);
+
   return (
     <Panel index={index} componentKey={componentKey}>
       <PanelBody>
         <PlanetsLoader showLoader={isLoading} />
-        <iframe
-          className={cx('aspect-16-9', iframeCss)}
-          src={iframeSrc}
-          onLoad={() => setIsLoading(false)}
-          tabIndex={-1}
-        ></iframe>
+        {showDSNIframe ? (
+          <iframe
+            className={cx('aspect-16-9', iframeCss)}
+            src={iframeSrc}
+            onLoad={() => setIsLoading(false)}
+            tabIndex={-1}
+          ></iframe>
+        ) : (
+          <FlexWrapper
+            alignItems="center"
+            gap={20}
+            justifyContent="center"
+            style={{ padding: '100px 0' }}
+          >
+            <p>
+              {
+                'For performance reasons, the Deep Space Network iframe is not loaded by default.'
+              }
+            </p>
+            <DeepSpaceNetworkSettings />
+            <Button
+              variantsList={['secondary']}
+              onClick={() => setShowDSNIframe(true)}
+            >
+              {'Load Deep Space Network'}
+            </Button>
+          </FlexWrapper>
+        )}
       </PanelBody>
       <PanelMenu>
         <FlexWrapper gap={12}>
@@ -82,9 +118,11 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
               {'More about the Deep Space Network'}
             </a>
           </p>
+          <DeepSpaceNetworkSettings />
         </FlexWrapper>
       </PanelMenu>
       <PanelActions
+        isRefreshEnabled={showDSNIframe}
         refreshData={() => refreshIframe()}
         refreshTooltip="Reload iframe"
       />
