@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import * as Sentry from '@sentry/react';
 import axios from 'axios';
 import { css } from '@emotion/css';
 import { usePostHog } from 'posthog-js/react';
@@ -91,6 +92,7 @@ export const ContactForm: React.FC = () => {
         variant: 'error',
       });
       setSubmitError(error);
+      Sentry.captureException(error);
       console.error('Error:', error);
     } finally {
       setIsSubmitting(false);
