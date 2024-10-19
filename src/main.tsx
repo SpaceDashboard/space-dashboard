@@ -12,8 +12,13 @@ import 'src/css/index.css';
 
 Sentry.init({
   dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',
+  integrations: [Sentry.browserTracingIntegration()],
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [/^\//, /^https:\/\/api\.spacedashboard\.com/],
+  tracePropagationTargets: [
+    /^\//,
+    /^https:\/\/api\.spacedashboard\.com/,
+    /^https:\/\/status\.spacedashboard\.com/,
+  ],
 });
 
 posthog.init('phc_9c7D91ze1wShYC4X83jlsYBnNvqDMSaOOyeJEm418hK', {
