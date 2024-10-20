@@ -264,7 +264,7 @@ export const ContactForm: React.FC = () => {
               {'@SpaceDashboard'}
             </a>
             <br />
-            <FlexWrapper alignItems="center" flexDirection="row">
+            <FlexWrapper alignItems="center" flexDirection="row" tag="span">
               <a
                 href="https://twitter.com/CloseApproaches"
                 target="_blank"

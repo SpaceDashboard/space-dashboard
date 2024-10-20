@@ -223,3 +223,35 @@ nav {
     }
   }
 }
+
+/* Container queries, but only under specific media query conditions */
+@media screen and (max-width: 960px) {
+  .column-manager-wrapper {
+    @container (max-width: 670px) {
+      .columns-wrapper {
+        overflow-y: auto;
+        padding: 10px 6px;
+      }
+      .buttons-wrapper {
+        width: 120px;
+      }
+      .column-manager-card {
+        font-size: 0.7rem;
+      }
+    }
+
+    @container (max-width: 615px) {
+      flex-direction: column-reverse;
+
+      .buttons-wrapper {
+        flex-direction: row;
+        align-items: flex-end;
+        width: 75px;
+
+        button {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
