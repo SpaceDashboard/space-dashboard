@@ -65,12 +65,24 @@ export const ContactForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setIsSubmitting(true);
+    const formUrl1 = 'https://api.spacedashboard.com/contact/';
+    // Only get 50 submissions per month, so I hope the first flow works most of the time
+    const formUrl2 = 'https://formspree.io/f/xvgogpaa';
 
     try {
-      const response = await axios.post(
-        'https://api.spacedashboard.com/contact/',
-        data,
-      );
+      let response;
+      try {
+        response = await axios.post(formUrl1, data);
+      } catch (error) {
+        console.error(
+          'Error with first contact URL, trying the backup: ',
+          error,
+        );
+        Sentry.captureException(
+          `Error with formUrl1, trying formUrl2. Error: ${error}`,
+        );
+        response = await axios.post(formUrl2, data);
+      }
 
       if (response.status === 200) {
         try {
@@ -79,7 +91,7 @@ export const ContactForm: React.FC = () => {
             name: data.name,
           });
         } catch (error) {
-          console.error(error);
+          console.error('PostHog identify error:', error);
         }
         resetForm();
         showToast('Message sent successfully!', { variant: 'confirmation' });
@@ -93,7 +105,7 @@ export const ContactForm: React.FC = () => {
       });
       setSubmitError(error);
       Sentry.captureException(error);
-      console.error('Error:', error);
+      console.error('Final Error:', error);
     } finally {
       setIsSubmitting(false);
     }
