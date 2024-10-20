@@ -108,7 +108,8 @@ export const ColumnManager: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       if (!managerRef.current) return;
-      if (managerRef.current?.offsetWidth < 780) setCardWidth(160);
+      if (managerRef.current?.offsetWidth < 670) setCardWidth(135);
+      else if (managerRef.current?.offsetWidth < 780) setCardWidth(160);
       else if (managerRef.current?.offsetWidth < 870) setCardWidth(180);
       else if (managerRef.current?.offsetWidth < 960) setCardWidth(210);
       else if (managerRef.current?.offsetWidth < 1050) setCardWidth(240);
@@ -401,8 +402,12 @@ export const ColumnManager: React.FC = () => {
           {'Enabling or disabling panels takes effect immediately.'}
         </p>
       </div>
-      <FlexWrapper gap={32} flexDirection="row">
-        <FlexWrapper gap={38}>
+      <FlexWrapper
+        gap={32}
+        flexDirection="row"
+        className="column-manager-wrapper"
+      >
+        <FlexWrapper gap={38} className="columns-wrapper">
           <CornersWrapper height="100%" size={20}>
             {/* Plus 60px for the header height and 10px of space */}
             <div
@@ -468,7 +473,10 @@ export const ColumnManager: React.FC = () => {
             </div>
           </CornersWrapper>
         </FlexWrapper>
-        <FlexWrapper gap={18} className={columnManagerButtonWrapperCss}>
+        <FlexWrapper
+          gap={18}
+          className={cx('buttons-wrapper', columnManagerButtonWrapperCss)}
+        >
           <Button onClick={applyChanges} disabled={!modified}>
             {'Apply changes'}
           </Button>

@@ -39,6 +39,7 @@ interface FlexWrapperProps {
   marginTop?: number;
   maxWidth?: number;
   style?: React.CSSProperties;
+  tag?: keyof JSX.IntrinsicElements;
 }
 
 export const FlexWrapper = React.forwardRef<
@@ -58,11 +59,13 @@ export const FlexWrapper = React.forwardRef<
       marginTop,
       maxWidth,
       style,
+      tag = 'div',
     },
     ref,
   ) => {
+    const Component = tag as React.ElementType;
     return (
-      <div
+      <Component
         className={cx(
           flexWrapperCss(
             alignItems,
@@ -80,7 +83,7 @@ export const FlexWrapper = React.forwardRef<
         ref={ref}
       >
         {children}
-      </div>
+      </Component>
     );
   },
 );
