@@ -173,6 +173,11 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
     return response;
   };
 
+  const emptyData = Array(50).fill({
+    name: '-',
+    net: '',
+  });
+
   const { data, isFetching, refetch } = useQuery({
     queryKey: ['upcoming-launches'],
     queryFn: getData,
@@ -194,7 +199,7 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
         <PlanetsLoader showLoader={isFetching} />
         <FlexWrapper>
           <ListDetails
-            items={data && data.results}
+            items={data ? data.results : emptyData}
             listHeader="Upcoming Launches"
             renderLabel={(item: any) => (
               <FlexWrapper
@@ -208,13 +213,22 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
                     <strong>{item.name}</strong>
                   </span>
                   <span className={launchDateTimeCss}>
-                    {`${format(new UTCDate(item.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`}
+                    {item.net !== ''
+                      ? `${format(new UTCDate(item.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`
+                      : '-'}
                   </span>
                 </FlexWrapper>
-                <CountdownTimer netT0={item.net} />
+                {item.net !== '' ? (
+                  <CountdownTimer netT0={item.net} />
+                ) : (
+                  <>{'-'}</>
+                )}
               </FlexWrapper>
             )}
-            renderDetails={(item: any) => <DetailsModal item={item} />}
+            renderDetails={(item: any) => {
+              if (!data) return <></>;
+              return <DetailsModal item={item} />;
+            }}
             maxHeight={370}
           />
         </FlexWrapper>

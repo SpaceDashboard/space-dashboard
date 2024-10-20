@@ -59,12 +59,8 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   const [videoSrc, setVideoSrc] = useState(
     `${getHemisphereMedia()['vid']}?u=${getCurrentTimestamp()}`,
   );
-  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
-    undefined,
-  );
-  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(
-    undefined,
-  );
+  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(500);
+  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(500);
   const wrapperRef = useRef<HTMLDivElement>(null);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 

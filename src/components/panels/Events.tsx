@@ -100,6 +100,11 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
     return response;
   };
 
+  const emptyData = Array(14).fill({
+    name: '-',
+    date: '',
+  });
+
   const {
     data,
     isFetching: isFetchingData,
@@ -125,7 +130,7 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
         <PlanetsLoader showLoader={isFetchingData} />
         <FlexWrapper>
           <ListDetails
-            items={data && data.results}
+            items={data ? data.results : emptyData}
             listHeader="Upcoming Events"
             renderLabel={(item: any) => (
               <FlexWrapper gap={4}>
@@ -133,11 +138,16 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
                   <strong>{item.name}</strong>
                 </span>
                 <span className={eventDateTimeCss}>
-                  {format(new UTCDate(item.date), 'dd MMMM yyyy')}
+                  {item.date !== ''
+                    ? format(new UTCDate(item.date), 'dd MMMM yyyy')
+                    : '-'}
                 </span>
               </FlexWrapper>
             )}
-            renderDetails={(item: any) => <DetailsModal item={item} />}
+            renderDetails={(item: any) => {
+              if (!item) return <></>;
+              return <DetailsModal item={item} />;
+            }}
             maxHeight={370}
           />
         </FlexWrapper>

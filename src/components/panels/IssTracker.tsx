@@ -8,6 +8,7 @@ import {
   PanelMenu,
   PlanetsLoader,
 } from 'src/components/base';
+import { useAppContext } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
 
 const issTrackerWrapperCss = css`
@@ -30,6 +31,7 @@ const issTrackerFrameCss = (issTrackerFrameScale: number) => css`
 `;
 
 export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
+  const { navAnimationSeconds } = useAppContext();
   const issTrackerWrapperRef = useRef<HTMLDivElement | null>(null);
   const issTrackerFrameRef = useRef<HTMLIFrameElement | null>(null);
   const [issTrackerFrameScale, setIssTrackerFrameScale] = useState<number>(1);
@@ -73,6 +75,13 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    setTimeout(
+      () => {
+        handleResize();
+      },
+      (navAnimationSeconds + 1) * 1000,
+    );
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -87,7 +96,10 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
             className={issTrackerFrameCss(issTrackerFrameScale)}
             ref={issTrackerFrameRef}
             src={iframeSrc}
-            onLoad={() => setIsLoading(false)}
+            onLoad={() => {
+              setIsLoading(false);
+              handleResize();
+            }}
             scrolling="no" // Deprecated but works better than overflow: hidden
             tabIndex={-1}
           ></iframe>

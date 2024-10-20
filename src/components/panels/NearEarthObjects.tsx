@@ -146,6 +146,11 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
     );
   };
 
+  const emptyData = Array(8).fill({
+    date: '',
+    neos: [],
+  });
+
   const nearEarthObjects: any = useMemo(() => {
     if (neoData) {
       const data = Object.keys(neoData.near_earth_objects).map((date) => {
@@ -181,15 +186,20 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
         <PlanetsLoader showLoader={isFetchingNeoData} />
         <FlexWrapper>
           <ListDetails
-            items={nearEarthObjects}
+            items={nearEarthObjects || emptyData}
             listHeader="Near Earth Objects"
             renderLabel={(item: any) => (
               <ListLabel
-                mainLabel={format(new UTCDate(item.date), 'dd MMMM yyyy')}
-                subLabel={`${item.neos.length} objects`}
+                mainLabel={
+                  item.date !== ''
+                    ? format(new UTCDate(item.date), 'dd MMMM yyyy')
+                    : '-'
+                }
+                subLabel={`${item.neos.length || '-'} objects`}
               />
             )}
             renderDetails={(item: any) => {
+              if (!item) return <></>;
               return (
                 <>
                   <FlexWrapper flexDirection="row" alignItems="center" gap={10}>

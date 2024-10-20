@@ -42,12 +42,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     SolarVisual.startWithVideo ?? false,
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(
-    undefined,
-  );
-  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(
-    undefined,
-  );
+  const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(500);
+  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(500);
   const wrapperRef = useRef<HTMLDivElement>(null);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
