@@ -13,7 +13,7 @@ const panelWrapperCss = (
   speedAdjustment: number,
   reduceTransparency: boolean,
 ) => css`
-  --panel--background-opacity: ${reduceTransparency ? 1 : 0.7} !important;
+  --panel--background-opacity: ${reduceTransparency ? 1 : 0.65} !important;
   --panel-menu--background-opacity: ${reduceTransparency ? 1 : 0.9} !important;
 
   &::before {
@@ -34,7 +34,7 @@ const panelWrapperCss = (
       : animationDuration * 2 * speedAdjustment}s !important;
     --panel-body--transition-delay: ${reduceMotion
       ? 0
-      : 0.8 * speedAdjustment}s !important;
+      : 0.45 * speedAdjustment}s !important;
   }
 
   .panel-actions-wrapper {
@@ -123,7 +123,7 @@ export const InnerPanel = ({
     if (allPanelsLoaded) {
       return navAnimationSeconds - 1 + animationDelay + index * 0.1;
     } else {
-      return navAnimationSeconds + animationDelay + index * 0.06;
+      return navAnimationSeconds + animationDelay + index * 0.04;
     }
   }, [allPanelsLoaded, animationDelay, index, navAnimationSeconds]);
 

@@ -48,7 +48,7 @@
   --content-two-up--gap: 80px;
 
   /* Nav */
-  --navbar--background-opacity: 0.8;
+  --navbar--background-opacity: 0.7;
   --navbar--transition-duration: 0.5s;
   --navbar--logo--transition-duration: 0.3s;
   --navbar--logo--transition-delay: 0.5s;
@@ -62,10 +62,10 @@
 
   /* Panel, wrapper, body, actions, and menu */
   --panel-wrapper--before--transition-duration: 0.4s;
-  --panel--background-opacity: 0.7;
+  --panel--background-opacity: 0.65;
   --panel--transition-duration: 0.4s;
   --panel-body--transition-duration: 0.4s;
-  --panel-body--transition-delay: 0.8s;
+  --panel-body--transition-delay: 0.45s;
   --panel-actions-wrapper--before--transition-duration: 0.4s;
   --panel-actions-wrapper--after--transition-duration: 0.4s;
   --panel-actions--before-transition-duration: 0.4s;

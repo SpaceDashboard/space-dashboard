@@ -234,7 +234,7 @@ export const ContactForm: React.FC = () => {
         </FlexWrapper>
 
         <FlexWrapper gap={16}>
-          <h2>{'You can also reach me via:'}</h2>
+          <h2>{'You can also find me via:'}</h2>
           <p>
             <strong>{'Email:'}</strong>
             <br />
@@ -291,6 +291,23 @@ export const ContactForm: React.FC = () => {
             >
               {'@SpaceDashboard.com'}
             </a>
+            <br />
+            <FlexWrapper alignItems="center" flexDirection="row" tag="span">
+              <a
+                href="https://bsky.app/profile/closeapproaches.bsky.social"
+                target="_blank"
+                rel="noreferrer"
+                style={{ margin: 0 }}
+              >
+                {'@closeapproaches.bsky.social'}
+              </a>
+              <TooltipWrapper
+                title="Automated account, relaying NASA's close approaches each day for near-Earth objects under 100 lunar distance (LD)"
+                delay={300}
+              >
+                <IconInfoCircle color="#CCC" size={20} />
+              </TooltipWrapper>
+            </FlexWrapper>
           </p>
           <h2 style={{ marginTop: '20px' }}>{'Interested in contributing?'}</h2>
           <p>

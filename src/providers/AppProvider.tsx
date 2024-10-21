@@ -31,9 +31,8 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
   const [allPanelsLoaded, setAllPanelsLoaded] = useState(false);
 
-  // Close to the nav animation time, but not exact. This felt right though.
   const navAnimationSeconds = useMemo(
-    () => 1.75 * animationSpeedAdjustment,
+    () => 0.9 * animationSpeedAdjustment,
     [animationSpeedAdjustment],
   );
 

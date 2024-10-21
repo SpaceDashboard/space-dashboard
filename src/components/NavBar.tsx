@@ -57,7 +57,7 @@ const buttonDelayInCss = (
       button:nth-child(${i + 1}) {
         animation-delay: ${reduceMotion
           ? 0
-          : (1.5 + (i + 1) * 0.1) * speedAdjustment}s;
+          : (1.2 + (i + 1) * 0.1) * speedAdjustment}s;
       }
     `,
   );
@@ -141,7 +141,7 @@ export const NavBar: React.FC = () => {
           reduceMotion ? 0 : 400 * animationSpeedAdjustment,
         );
       },
-      reduceMotion ? 0 : 600 * animationSpeedAdjustment,
+      reduceMotion ? 0 : 250 * animationSpeedAdjustment,
     );
     return () => clearTimeout(timer);
   }, [reduceMotion, animationSpeedAdjustment]);

@@ -29,7 +29,7 @@
         background: hsl(
           var(--base-blue-hue),
           var(--base-blue-saturation),
-          calc(var(--base-blue-lightness) - 12%)
+          calc(var(--base-blue-lightness) - 10%)
         );
         color: white;
         container-type: size;
@@ -51,7 +51,7 @@
           background: hsl(
             var(--base-blue-hue),
             var(--base-blue-saturation),
-            calc(var(--base-blue-lightness) + 10%)
+            calc(var(--base-blue-lightness) + 15%)
           );
         }
 
@@ -67,7 +67,7 @@
           background: hsl(
             var(--base-orange-hue),
             var(--base-orange-saturation),
-            calc(var(--base-orange-lightness) - 12%)
+            calc(var(--base-orange-lightness) - 9%)
           );
 
           &::before,
@@ -75,7 +75,7 @@
             background: hsl(
               var(--base-orange-hue),
               var(--base-orange-saturation),
-              calc(var(--base-orange-lightness) + 10%)
+              calc(var(--base-orange-lightness) + 15%)
             );
           }
         }
