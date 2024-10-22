@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { useSettingsContext } from 'src/hooks';
 
 interface AppProviderProps {
@@ -30,18 +30,27 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
   const [allPanelsLoaded, setAllPanelsLoaded] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
-  const navAnimationSeconds = useMemo(
-    () => 0.9 * animationSpeedAdjustment,
-    [animationSpeedAdjustment],
-  );
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  // After 8 seconds consider all panels loaded - easier than actually calculating it
+  const navAnimationSeconds = useMemo(() => {
+    if (viewportWidth < 540) {
+      return 0.2;
+    }
+    return 0.8 * animationSpeedAdjustment;
+  }, [viewportWidth, animationSpeedAdjustment]);
+
+  // After 3 seconds consider all panels loaded - easier than actually calculating it
   setTimeout(() => {
     if (!allPanelsLoaded) {
       setAllPanelsLoaded(true);
     }
-  }, 8000);
+  }, 3000);
 
   const value = useMemo(
     () => ({

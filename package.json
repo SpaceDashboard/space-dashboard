@@ -8,8 +8,9 @@
   "scripts": {
     "dev": "NODE_ENV=development vite",
     "build": "tsc && vite build",
-    "lint": "eslint --max-warnings 100",
     "preview": "vite preview",
+    "build-preview": "yarn build && yarn preview",
+    "lint": "eslint --max-warnings 100",
     "type-check": "tsc --noEmit",
     "format:check": "prettier --check ./src",
     "format:fix": "prettier --write ./src",

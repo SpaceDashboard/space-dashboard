@@ -121,7 +121,7 @@ export const InnerPanel = ({
   } = usePanelContext();
   const delayedAnimationSeconds = useMemo(() => {
     if (allPanelsLoaded) {
-      return navAnimationSeconds - 1 + animationDelay + index * 0.1;
+      return animationDelay + index * 0.1;
     } else {
       return navAnimationSeconds + animationDelay + index * 0.04;
     }

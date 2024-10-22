@@ -24,7 +24,7 @@ const navBarCss = (
       : 0.3 * speedAdjustment}s !important;
     --navbar--logo--transition-delay: ${reduceMotion
       ? 0
-      : 0.5 * speedAdjustment}s !important;
+      : 0.4 * speedAdjustment}s !important;
   }
 
   .btn-wrapper {
@@ -50,6 +50,7 @@ const buttonDelayInCss = (
   buttonCount: number,
   reduceMotion: boolean,
   speedAdjustment: number,
+  showNavDelayMs: number,
 ) =>
   Array.from(
     { length: buttonCount },
@@ -57,21 +58,23 @@ const buttonDelayInCss = (
       button:nth-child(${i + 1}) {
         animation-delay: ${reduceMotion
           ? 0
-          : (1.2 + (i + 1) * 0.1) * speedAdjustment}s;
+          : (0.4 + showNavDelayMs * 0.001 + (i + 1) * 0.1) * speedAdjustment}s;
       }
     `,
   );
 
 interface NavButtonProps {
   children: React.ReactNode;
-  reduceMotion: boolean;
   animationSpeedAdjustment: number;
+  reduceMotion: boolean;
+  showNavDelayMs: number;
 }
 
 const NavButtonContainer: React.FC<NavButtonProps> = ({
   children,
   reduceMotion,
   animationSpeedAdjustment,
+  showNavDelayMs,
 }) => {
   const [buttonCount, setButtonCount] = useState(0);
 
@@ -85,7 +88,12 @@ const NavButtonContainer: React.FC<NavButtonProps> = ({
       className={cx(
         'btn-wrapper',
         buttonWrapperCss(reduceMotion, animationSpeedAdjustment),
-        buttonDelayInCss(buttonCount, reduceMotion, animationSpeedAdjustment),
+        buttonDelayInCss(
+          buttonCount,
+          reduceMotion,
+          animationSpeedAdjustment,
+          showNavDelayMs,
+        ),
       )}
     >
       {children}
@@ -130,20 +138,18 @@ export const NavBar: React.FC = () => {
     return 'right';
   }, [viewportWidth]);
 
+  const showNavDelayMs = useMemo(() => {
+    if (viewportWidth < 540) {
+      return 0;
+    }
+    return reduceMotion ? 0 : 800 * animationSpeedAdjustment;
+  }, [viewportWidth]);
+
   useEffect(() => {
-    const timer = setTimeout(
-      () => {
-        setShowNavBorders(true);
-        setTimeout(
-          () => {
-            setShowNav(true);
-          },
-          reduceMotion ? 0 : 400 * animationSpeedAdjustment,
-        );
-      },
-      reduceMotion ? 0 : 250 * animationSpeedAdjustment,
-    );
-    return () => clearTimeout(timer);
+    setShowNavBorders(true);
+    setTimeout(() => {
+      setShowNav(true);
+    }, showNavDelayMs);
   }, [reduceMotion, animationSpeedAdjustment]);
 
   return (
@@ -171,8 +177,9 @@ export const NavBar: React.FC = () => {
           </TooltipWrapper>
         </span>
         <NavButtonContainer
-          reduceMotion={reduceMotion}
           animationSpeedAdjustment={animationSpeedAdjustment}
+          reduceMotion={reduceMotion}
+          showNavDelayMs={showNavDelayMs}
         >
           <Button
             ariaLabel="About"
