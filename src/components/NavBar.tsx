@@ -16,7 +16,7 @@ const navBarCss = (
   --navbar--background-opacity: ${reduceTransparency ? 1 : 0.8} !important;
   --navbar--transition-duration: ${reduceMotion
     ? 0
-    : 0.5 * speedAdjustment}s !important;
+    : 0.4 * speedAdjustment}s !important;
 
   .logo {
     --navbar--logo--transition-duration: ${reduceMotion
@@ -142,7 +142,7 @@ export const NavBar: React.FC = () => {
     if (viewportWidth < 540) {
       return 0;
     }
-    return reduceMotion ? 0 : 800 * animationSpeedAdjustment;
+    return reduceMotion ? 0 : 700 * animationSpeedAdjustment;
   }, [viewportWidth]);
 
   useEffect(() => {

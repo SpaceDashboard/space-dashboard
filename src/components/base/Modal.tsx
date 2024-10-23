@@ -27,7 +27,7 @@ const modalCss = (
 `;
 
 const modalInnerCss = (isFullScreen?: boolean) => css`
-  padding: ${isFullScreen ? '0 70px 0 40px' : '10px 14px'};
+  padding: ${isFullScreen ? '0 70px 0 40px' : '12px 26px'};
   gap: 10px;
   flex-direction: column;
   display: flex;

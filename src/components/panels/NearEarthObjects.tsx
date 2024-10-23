@@ -29,6 +29,14 @@ const neoDetailsModalCss = css`
   }
 `;
 
+const cleanName = (name: string) => {
+  if (name.startsWith('(') && name.endsWith(')')) {
+    return name.substring(1, name.length - 1);
+  } else {
+    return name;
+  }
+};
+
 const NeoDetailsModal: React.FC<{
   neo: any;
 }> = ({ neo }) => {
@@ -48,13 +56,13 @@ const NeoDetailsModal: React.FC<{
   const estimatedDiameters = {
     km: `${min('kilometers')} - ${max('kilometers')}`,
     m: `${min('meters')} - ${max('meters')} m`,
-    miles: `${min} - ${max('miles')} mi`,
+    miles: `${min('miles')} - ${max('miles')} mi`,
     feet: `${min('feet')} - ${max('feet')} ft`,
   };
   return (
     <FlexWrapper gap={10}>
       <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
-        <h3 style={{ margin: 0 }}>{neo?.name}</h3>
+        <h3 style={{ margin: 0 }}>{cleanName(neo?.name)}</h3>
         <>&ndash;</>
         <a
           href={neo?.nasa_jpl_url}
@@ -214,7 +222,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                     modalClassName={neoDetailsModalCss}
                     renderLabel={(neo: any) => (
                       <ListLabel
-                        mainLabel={neo.name}
+                        mainLabel={cleanName(neo.name)}
                         subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
                       />
                     )}

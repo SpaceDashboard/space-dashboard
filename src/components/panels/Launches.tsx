@@ -29,13 +29,9 @@ const detailsModalHeaderCss = css`
   max-width: 90%;
 `;
 
-const launchImageWrapperCss = css`
-  margin-right: 12px;
-`;
-
 const launchImageCss = css`
   max-height: 140px;
-  max-width: 200px;
+  max-width: 140px;
 `;
 
 const countdownTimerCss = css`
@@ -107,7 +103,7 @@ const DetailsModal: React.FC<{
   item: any;
 }> = ({ item }) => {
   return (
-    <FlexWrapper gap={12}>
+    <FlexWrapper className="panel-data-details-modal" gap={12}>
       <h2 className={detailsModalHeaderCss}>{item.name}</h2>
       <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
@@ -124,15 +120,13 @@ const DetailsModal: React.FC<{
             {item.status.name}
           </FlexWrapper>
         </FlexWrapper>
-        <div className={launchImageWrapperCss}>
-          <CornersWrapper size={8}>
-            <img
-              src={item.image.thumbnail_url}
-              alt={item.image.name}
-              className={launchImageCss}
-            />
-          </CornersWrapper>
-        </div>
+        <CornersWrapper size={8}>
+          <img
+            src={item.image.thumbnail_url}
+            alt={item.image.name}
+            className={launchImageCss}
+          />
+        </CornersWrapper>
       </FlexWrapper>
       {item.vid_urls.length > 0 && (
         <FlexWrapper gap={2}>

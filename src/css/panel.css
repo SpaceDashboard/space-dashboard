@@ -98,6 +98,10 @@
       .show-panel & {
         opacity: 1;
       }
+
+      .panel-data-details-modal {
+        container-type: size;
+      }
     }
   }
 
