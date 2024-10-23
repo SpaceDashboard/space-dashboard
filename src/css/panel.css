@@ -101,6 +101,10 @@
 
       .panel-data-details-modal {
         container-type: size;
+        height: inherit;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 6px;
       }
     }
   }
