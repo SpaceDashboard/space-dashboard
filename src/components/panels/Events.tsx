@@ -29,20 +29,16 @@ const detailsModalHeaderCss = css`
   max-width: 90%;
 `;
 
-const eventImageWrapperCss = css`
-  margin-right: 12px;
-`;
-
 const eventImageCss = css`
   max-height: 140px;
-  max-width: 200px;
+  max-width: 140px;
 `;
 
 const DetailsModal: React.FC<{
   item: any;
 }> = ({ item }) => {
   return (
-    <FlexWrapper gap={12}>
+    <FlexWrapper className="panel-data-details-modal" gap={12}>
       <h2 className={detailsModalHeaderCss}>{item.name}</h2>
       <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
@@ -72,15 +68,13 @@ const DetailsModal: React.FC<{
             {item.description}
           </FlexWrapper>
         </FlexWrapper>
-        <div className={eventImageWrapperCss}>
-          <CornersWrapper size={8}>
-            <img
-              src={item.image.thumbnail_url}
-              alt={item.image.name}
-              className={eventImageCss}
-            />
-          </CornersWrapper>
-        </div>
+        <CornersWrapper size={8}>
+          <img
+            src={item.image.thumbnail_url}
+            alt={item.image.name}
+            className={eventImageCss}
+          />
+        </CornersWrapper>
       </FlexWrapper>
     </FlexWrapper>
   );

@@ -42,7 +42,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
     if (viewportWidth < 540) {
       return 0.2;
     }
-    return 0.8 * animationSpeedAdjustment;
+    return 0.7 * animationSpeedAdjustment;
   }, [viewportWidth, animationSpeedAdjustment]);
 
   // After 3 seconds consider all panels loaded - easier than actually calculating it
