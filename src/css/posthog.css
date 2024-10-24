@@ -1,0 +1,10 @@
+/*
+  PostHog style overrides (to offset site specific styles)
+*/
+
+div[class^='PostHog'] {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-variation-settings:
+    'wdth' 100,
+    'wght' 400 !important;
+}

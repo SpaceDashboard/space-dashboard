@@ -1,0 +1,17 @@
+/*
+  Override styles for tooltip
+*/
+
+.sd-tooltip {
+  animation: 0.15s ease forwards opacityIn !important;
+  background-color: hsl(
+    var(--base-blue-hue),
+    var(--base-blue-saturation),
+    calc(var(--base-blue-lightness) + 1%)
+  ) !important;
+  border-radius: 0 !important;
+  line-height: 1.4;
+  max-width: 330px;
+  text-wrap: pretty;
+  z-index: 1000;
+}

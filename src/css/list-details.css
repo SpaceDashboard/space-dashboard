@@ -1,0 +1,94 @@
+/* 
+  List and list details styles
+*/
+
+.list-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  .list-content-wrapper {
+    background: hsla(
+      var(--base-blue-hue),
+      calc(var(--base-blue-saturation) - 5%),
+      calc(var(--base-blue-lightness) - 15%),
+      var(--panel--background-opacity)
+    );
+    border-radius: 10px;
+    flex: 1;
+    margin-bottom: 5px;
+    overflow: auto;
+    padding: 8px;
+    transition: transform 0.3s ease;
+
+    .list-content-header {
+      background: hsla(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) - 5%),
+        var(--panel--background-opacity)
+      );
+      border-radius: 6px;
+      margin-bottom: 5px;
+      padding: 6px;
+    }
+
+    .list-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+
+      &:hover {
+        background: hsla(
+          var(--base-blue-hue),
+          calc(var(--base-blue-saturation) - 5%),
+          calc(var(--base-blue-lightness)),
+          0.2
+        );
+
+        .label-divider::after {
+          animation: dashLeftToRight 1.4s infinite ease-in-out;
+          opacity: 1;
+        }
+      }
+
+      &:first-of-type {
+        border-radius: 6px 6px 0 0;
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+        border-radius: 0 0 6px 6px;
+      }
+
+      .label-divider {
+        flex-grow: 1;
+        height: 1px;
+        position: relative;
+
+        &::after {
+          background: hsl(
+            var(--base-blue-hue),
+            var(--base-blue-saturation),
+            calc(var(--base-blue-lightness) + 8%)
+          );
+          bottom: 0;
+          content: '';
+          height: 1px;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          right: 0;
+        }
+      }
+
+      .label-right {
+        font-variation-settings: 'wght' 100;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+    }
+  }
+}

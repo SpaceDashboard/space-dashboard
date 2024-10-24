@@ -10,20 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
-        uses: actions/checkout@v3
-      - name: Use Node.js 16.20.0
-        uses: actions/setup-node@v2
+        uses: actions/checkout@v4
+      - name: Use Node.js 20.12.2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.20.0
-      - name: Build Project
+          node-version: 20.12.2
+      - name: Build and Upload Source Maps
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: space-dashboard
+          SENTRY_PROJECT: space-dashboard
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
       - name: Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.PROD_FTP_USERNAME }}
           password: ${{ secrets.PROD_FTP_PASSWORD }}
           server-dir: public_html/
-          local-dir: ./build/
+          local-dir: ./dist/

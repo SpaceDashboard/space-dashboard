@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>Space Dashboard</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="initial-scale=1" />
+  <meta name="keywords"
+    content="Space, International Space Station, Space Station, ISS, International Space Station live views, ISS live views, International Space Station live view, ISS live view, Space Dashboard, spacedashboard, Deep Space Network, DSN, geomagnetic activity, geomagnetic activity observation and forecast, planetary K index, K index, Kp index, solar radiation activity observation and forecast" />
+  <meta name="description" content="Space dashboard is a collection of a select few live happenings in space." />
+
+  <link rel="icon" href="./img/space-dashboard.ico">
+  <link rel="mask-icon" href="./img/space-dashboard.svg" color="#000000">
+  <link rel="apple-touch-icon-precomposed" href="./img/apple-touch-icon-precomposed.png">
+  <link rel="icon" href="./img/space-dashboard-512.png" sizes="512x512">
+  <link rel="shortcut icon" sizes="196x196" href="./img/space-dashboard-196.png">
+
+  <meta name="google-site-verification" content="oBRA-AAdPeqeePAc2eup9qvEBt2VjAsGdTNR2wyK9Go" />
+
+  <link rel="preload"
+    href="/fonts/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.woff2"
+    as="font" type="font/woff2" crossorigin="anonymous" />
+
+  <meta property="og:title" content="Space Dashboard" />
+  <meta property="og:url" content="https://spacedashboard.com" />
+  <meta property="og:description" content="A collection of a select few live happenings in space." />
+  <meta property="og:image" content="https://spacedashboard.com/img/spacedashboard.png" />
+
+  <style>
+    /* Critical CSS for Space Dashboard */
+    :root {
+      --index-defined-base-blue-hue: 210;
+      --index-defined-base-blue-saturation: 40%;
+      --index-defined-base-blue-lightness: 20%;
+    }
+
+    body {
+      background-color: #06090c;
+    }
+  </style>
+  <script>
+    // To help viewport size issues, see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setVh();
+    window.addEventListener('resize', setVh);
+  </script>
+  <script>
+    function detectBotOrHeadless() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const botRegex = /bot|crawler|spider|crawling|headless/i;
+      const isHeadless = (navigator.webdriver === true) ||
+        /headless/.test(userAgent) ||
+        /phantomjs/.test(userAgent) ||
+        /puppeteer/.test(userAgent);
+
+      return botRegex.test(userAgent) || isHeadless;
+    }
+    window.isBot = detectBotOrHeadless();
+  </script>
+</head>
+
+<body class="initial-load" style="background: #000;">
+  <div class="bg-container"></div>
+  <div id="app"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

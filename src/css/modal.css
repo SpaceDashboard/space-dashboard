@@ -1,0 +1,99 @@
+/*
+  Modal styles
+*/
+
+.modal {
+  background-color: rgba(0, 0, 0, var(--modal--background-opacity));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  color: #fff;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  position: absolute;
+  transform: scale(1.02);
+  transition:
+    var(--modal--transition-duration) transform ease,
+    var(--modal--transition-duration) opacity ease,
+    var(--modal--transition-duration) backdrop-filter ease,
+    var(--modal--transition-duration) filter ease,
+    var(--modal--transition-duration) z-index ease;
+  z-index: 1000;
+
+  &.open {
+    opacity: 1;
+    transform: scale(1);
+    transition:
+      var(--modal--transition-duration) transform ease,
+      var(--modal--transition-duration) opacity ease,
+      var(--modal--transition-duration) backdrop-filter ease,
+      var(--modal--transition-duration) filter ease;
+    z-index: 1000;
+
+    ~ .content {
+      filter: blur(10px);
+      opacity: 0.1;
+      transform: scale(0.98);
+    }
+
+    ~ .modal-content-overlay {
+      filter: blur(5px);
+      opacity: 0.2;
+      transform: scale(0.98);
+    }
+  }
+
+  &.full-screen {
+    width: auto;
+    top: 26px;
+    right: 25px;
+    position: fixed;
+    left: 145px;
+    height: auto;
+    bottom: 26px;
+  }
+
+  .close-modal {
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    height: var(--modal--close-button--size);
+    justify-content: center;
+    outline: none;
+    position: absolute;
+    right: var(--modal--close-button--distance);
+    top: var(--modal--close-button--distance);
+    width: var(--modal--close-button--size);
+    z-index: 1;
+
+    @media (hover: hover) {
+      &:hover span {
+        box-shadow: 0 0 0 2.5px #fff;
+      }
+    }
+
+    &:focus-visible span {
+      box-shadow: 0 0 0 2.5px #fff;
+    }
+
+    span {
+      background: #fff;
+      border-radius: 1px;
+      box-shadow: 0 0 0 1px #fff;
+      height: 100%;
+      transition: var(--modal--close-button--transition-duration) all ease;
+      width: 0;
+
+      &:first-child {
+        transform: rotate(45deg);
+      }
+      &:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
