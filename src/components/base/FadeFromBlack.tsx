@@ -43,7 +43,7 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
   const delayedAnimationSeconds = useMemo(() => {
     if (!navAnimationSeconds || !animationDurationSeconds) return 0;
     return (
-      (animationDurationSeconds ?? 4.5) + (animationDelaySeconds ?? 0) + 1.75
+      (animationDurationSeconds ?? 4.5) + (animationDelaySeconds ?? 0) + 0.55
     );
   }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
 
