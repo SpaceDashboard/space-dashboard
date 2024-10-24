@@ -3,7 +3,7 @@ on:
     branches:
       - beta
 
-name: Deploy beta site
+name: Deploy to beta
 jobs:
   web-deploy:
     name: Deploy
