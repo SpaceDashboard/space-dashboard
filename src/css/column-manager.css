@@ -1,0 +1,111 @@
+/* 
+  Column manager styles
+*/
+
+.column-manager-wrapper {
+  .columns-wrapper {
+    position: relative;
+  }
+
+  .column-manager {
+    background-color: rgba(0, 0, 0, var(--column-manager--background-opacity));
+    content-visibility: auto;
+    position: relative;
+    transition: var(--column-manager--transition-duration) all ease;
+
+    .column-headers {
+      height: 50px;
+
+      h4 {
+        margin: 0;
+      }
+    }
+
+    .column-wrapper {
+      position: relative;
+
+      .column-manager-card {
+        align-items: center;
+        background: hsl(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) - 10%)
+        );
+        color: white;
+        container-type: size;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        text-align: center;
+        transition:
+          var(--column-manager--transition-duration) top ease,
+          var(--column-manager--transition-duration) left ease;
+        user-select: none;
+
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background: hsl(
+            var(--base-blue-hue),
+            var(--base-blue-saturation),
+            calc(var(--base-blue-lightness) + 15%)
+          );
+        }
+
+        &::before {
+          top: -3px;
+        }
+
+        &::after {
+          bottom: -3px;
+        }
+
+        &.modified {
+          background: hsl(
+            var(--base-orange-hue),
+            var(--base-orange-saturation),
+            calc(var(--base-orange-lightness) - 9%)
+          );
+
+          &::before,
+          &::after {
+            background: hsl(
+              var(--base-orange-hue),
+              var(--base-orange-saturation),
+              calc(var(--base-orange-lightness) + 15%)
+            );
+          }
+        }
+
+        .card-arrow-button {
+          align-items: center;
+          background-color: transparent;
+          border: 1px solid transparent;
+          border-radius: 50px;
+          box-sizing: border-box;
+          color: #fff;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          outline: none;
+          padding: 0;
+
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.15;
+          }
+
+          @media (hover: hover) {
+            &:not(:disabled):hover {
+              background-color: rgba(255, 255, 255, 0.05);
+              border-color: rgba(255, 255, 255, 0.08);
+            }
+          }
+        }
+      }
+    }
+  }
+}

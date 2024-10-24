@@ -1,0 +1,8 @@
+# Ignore artifacts:
+_app
+public
+dist
+dist-ssr
+*.local
+LICENSE
+README.md
