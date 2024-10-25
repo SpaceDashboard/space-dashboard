@@ -322,7 +322,7 @@ export const ContactForm: React.FC = () => {
               variantsList={['secondary']}
               onClick={() => {
                 window.open(
-                  'https://github.com/SpaceDashboard/space-dashboard/tree/beta',
+                  'https://github.com/SpaceDashboard/space-dashboard',
                   '_blank',
                   'noopener,noreferrer',
                 );
