@@ -8,8 +8,7 @@ import {
   FlexWrapper,
   TooltipWrapper,
 } from 'src/components/base';
-import { useAppContext } from 'src/hooks';
-import { useSettingsContext } from 'src/hooks';
+import { useAppContext, useSettingsContext } from 'src/hooks';
 import { IconInfoCircle, IconAlertTriangle } from '@tabler/icons-react';
 import { ColumnManager } from './ColumnManager';
 import {

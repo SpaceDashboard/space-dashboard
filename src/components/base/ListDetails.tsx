@@ -91,13 +91,13 @@ export const ListDetails = <T,>({
 
         <FlexWrapper gap={0}>
           {items?.map((item, index) => (
-            <div
+            <button
               key={(item as any).id ?? index}
               className={cx('list-item', listItemCss(reduceMotion))}
               onClick={() => handleItemClick(item)}
             >
               {renderLabel(item)}
-            </div>
+            </button>
           ))}
         </FlexWrapper>
       </FlexWrapper>

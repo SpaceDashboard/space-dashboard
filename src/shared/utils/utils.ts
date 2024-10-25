@@ -39,3 +39,9 @@ export const colorByKIndex = (kp: number) => {
 };
 
 export const getCurrentTimestamp = () => new Date().getTime();
+
+export const getRandomFloat = () => {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return array[0] / (0xffffffff + 1);
+};

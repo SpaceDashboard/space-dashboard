@@ -76,6 +76,7 @@ export const Modal = ({
     },
   } = useSettingsContext();
   const [isContentVisible, setIsContentVisible] = useState<boolean>(true);
+  const modalRef = React.createRef<HTMLDivElement>();
 
   useEffect(() => {
     if (isOpen) {
@@ -92,9 +93,15 @@ export const Modal = ({
   }, [isOpen]);
 
   useEffect(() => {
+    if (isOpen && isContentVisible && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [isContentVisible]);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (isOpen && e.key === 'Escape') {
-        setIsOpen && setIsOpen(false);
+        setIsOpen?.(false);
       }
     };
     document.addEventListener('keydown', onKeyDown);
@@ -130,6 +137,8 @@ export const Modal = ({
           visibility: ${isContentVisible ? 'visible' : 'hidden'};
         `,
       )}
+      ref={modalRef}
+      tabIndex={0}
     >
       {showCloseButton && (
         <TooltipWrapper
@@ -144,8 +153,9 @@ export const Modal = ({
             className="close-modal"
             aria-label="Close modal"
             onClick={() => {
-              setIsOpen && setIsOpen(false);
+              setIsOpen?.(false);
             }}
+            // ref={modalRef}
           >
             <span></span>
             <span></span>

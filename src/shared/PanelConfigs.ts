@@ -78,7 +78,6 @@ interface DeepSpaceNetworkConfig {
   renderDSNOnLoad?: boolean;
 }
 
-// TODO: clean up types
 export type PanelConfig = BasePanelConfig &
   IssFeedConfig &
   SolarVisualConfig &

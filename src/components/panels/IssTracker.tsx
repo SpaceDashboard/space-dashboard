@@ -104,6 +104,7 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
               }}
               scrolling="no" // Deprecated but works better than overflow: hidden
               tabIndex={-1}
+              title="Space Station Tracker"
             ></iframe>
           </div>
         </FadeFromBlack>
