@@ -155,7 +155,6 @@ export const Modal = ({
             onClick={() => {
               setIsOpen?.(false);
             }}
-            // ref={modalRef}
           >
             <span></span>
             <span></span>

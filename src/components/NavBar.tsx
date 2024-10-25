@@ -115,7 +115,6 @@ export const NavBar: React.FC = () => {
   } = useSettingsContext();
   const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
   const [showNav, setShowNav] = useState<boolean>(false);
-  // const navButtonCount = 3;
 
   const closeAllModals = () => {
     setIsAboutOpen(false);
