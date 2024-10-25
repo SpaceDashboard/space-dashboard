@@ -134,6 +134,7 @@ const DetailsModal: React.FC<{
           <FlexWrapper gap={3}>
             {item.vid_urls.map((vid: any) => (
               <a
+                key={vid.url}
                 href={vid.url}
                 target="_blank"
                 rel="noreferrer"

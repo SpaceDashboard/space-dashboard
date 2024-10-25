@@ -35,12 +35,15 @@
     }
 
     .list-item {
+      all: unset;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
       cursor: pointer;
       padding: 10px;
       width: 100%;
 
-      &:hover {
+      &:hover,
+      &:focus-visible {
         background: hsla(
           var(--base-blue-hue),
           calc(var(--base-blue-saturation) - 5%),

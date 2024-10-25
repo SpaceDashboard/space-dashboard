@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
+import { getRandomFloat } from 'src/shared/utils';
 
 type JustifyContent =
   | 'flex-start'
@@ -49,7 +50,7 @@ export const Toggle: React.FC<ToggleProps> = ({
     settings: { reduceMotion },
   } = useSettingsContext();
   const toggleId = useMemo(() => {
-    const randomId = Math.random().toString(36).substring(2, 8);
+    const randomId = getRandomFloat().toString(36).substring(2, 8);
     return id ?? randomId;
   }, [id]);
   const isChecked = useMemo(() => {

@@ -12,29 +12,27 @@ export const DeepSpaceNetworkSettings: React.FC = () => {
   } = useSettingsContext();
 
   return (
-    <>
-      <Toggle
-        label={
-          <>
-            {'Load Deep Space Network by default'}
-            <TooltipWrapper
-              title="When enabled, the Deep Space Network iframe will render on page load by default"
-              delay={300}
-            >
-              <IconInfoCircle color="#CCC" size={20} />
-            </TooltipWrapper>
-          </>
-        }
-        checked={DeepSpaceNetwork.renderDSNOnLoad}
-        onChange={() =>
-          updatePanelConfigs({
-            DeepSpaceNetwork: {
-              ...DeepSpaceNetwork,
-              renderDSNOnLoad: !DeepSpaceNetwork.renderDSNOnLoad,
-            },
-          })
-        }
-      />
-    </>
+    <Toggle
+      label={
+        <>
+          {'Load Deep Space Network by default'}
+          <TooltipWrapper
+            title="When enabled, the Deep Space Network iframe will render on page load by default"
+            delay={300}
+          >
+            <IconInfoCircle color="#CCC" size={20} />
+          </TooltipWrapper>
+        </>
+      }
+      checked={DeepSpaceNetwork.renderDSNOnLoad}
+      onChange={() =>
+        updatePanelConfigs({
+          DeepSpaceNetwork: {
+            ...DeepSpaceNetwork,
+            renderDSNOnLoad: !DeepSpaceNetwork.renderDSNOnLoad,
+          },
+        })
+      }
+    />
   );
 };

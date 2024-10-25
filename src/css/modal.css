@@ -22,6 +22,12 @@
     var(--modal--transition-duration) z-index ease;
   z-index: 1000;
 
+  &:focus,
+  &:focus-visible {
+    box-shadow: none;
+    outline: none;
+  }
+
   &.open {
     opacity: 1;
     transform: scale(1);

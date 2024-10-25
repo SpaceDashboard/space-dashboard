@@ -81,7 +81,11 @@ export const About: React.FC = () => {
           <Button
             Icon={IconCoffee}
             onClick={() => {
-              window.open('https://ko-fi.com/spacedashboard', '_blank');
+              window.open(
+                'https://ko-fi.com/spacedashboard',
+                '_blank',
+                'noopener,noreferrer',
+              );
             }}
           >
             {'Buy me a coffee'}

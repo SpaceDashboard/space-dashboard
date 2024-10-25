@@ -63,7 +63,7 @@ const NeoDetailsModal: React.FC<{
     <FlexWrapper gap={10}>
       <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
         <h3 style={{ margin: 0 }}>{cleanName(neo?.name)}</h3>
-        <>&ndash;</>
+        &ndash;
         <a
           href={neo?.nasa_jpl_url}
           target="_blank"
@@ -214,7 +214,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                     <h2 style={{ margin: 0 }}>
                       {format(new UTCDate(item.date), 'dd MMM yyyy')}
                     </h2>
-                    <>&ndash;</>
+                    &ndash;
                     <p>{`${item.neos.length} objects`}</p>
                   </FlexWrapper>
                   <ListDetails

@@ -3,6 +3,7 @@ import { css, cx } from '@emotion/css';
 import { TooltipWrapper, TooltipPlacement } from './Tooltip';
 import { useSettingsContext } from 'src/hooks';
 import { IconProps } from '@tabler/icons-react';
+import { getRandomFloat } from 'src/shared/utils';
 
 /* 
   Available additional style classes:
@@ -57,10 +58,10 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
     settings: { reduceButtonAnimation, enableButtonAnimationAlways },
   } = useSettingsContext();
   const speeds = [...new Array(isLargeButton ? 5 : 3)].map(
-    () => Math.random() * 1 + 1.25,
+    () => getRandomFloat() * 1 + 1.25,
   );
   const delays = [...new Array(isLargeButton ? 5 : 3)].map(
-    () => Math.random() * 1.25,
+    () => getRandomFloat() * 1.25,
   );
 
   const disableAnimation = useMemo(() => {
@@ -96,7 +97,7 @@ const ButtonCorner: React.FC<ButtonCornerProps> = ({
         <>
           {speeds.map((speed, i) => (
             <div
-              key={i}
+              key={speed}
               className={cx(
                 'pulses',
                 css`
@@ -191,7 +192,7 @@ export const Button = ({
               strokeWidth={iconStrokeWidth}
             />
           )}
-          {children && children}
+          {children}
         </span>
       </button>
     </TooltipWrapper>

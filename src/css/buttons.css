@@ -9,7 +9,9 @@
 */
 
 /*
+  ------------------
   Base button styles
+  ------------------
 */
 .button {
   --button--edge-size: 15px;
@@ -19,15 +21,6 @@
     var(--base-orange-saturation),
     calc(var(--base-orange-lightness) + 20%)
   );
-  /* Original, doesn't seem to work the same on lower pixel density screens */
-  /* --button--clip-path: polygon(
-    0% 0%,
-    calc(100% - var(--button--edge-size)) 0%,
-    100% var(--button--edge-size),
-    100% 100%,
-    calc(var(--button--edge-size) / 3) 100%,
-    0% calc(100% - var(--button--edge-size) / 3)
-  ); */
   --button--clip-path: polygon(
     0% -1%,
     calc(99.5% - var(--button--edge-size)) -1%,
@@ -116,7 +109,139 @@
     filter: brightness(0.65);
   }
 
+  /*
+    ------------------------
+    Additional button styles
+    ------------------------
+  */
+
+  /*
+    Secondary - core button styles
+  */
+  &.secondary {
+    --button--background-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 10%)
+    );
+    --button--border-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) + 40%)
+    );
+  }
+
+  /*
+    Danger - core button styles
+  */
+  &.danger {
+    --button--background-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 10%)
+    );
+    --button--border-color: hsl(
+      calc(var(--base-orange-hue) - 20),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 40%)
+    );
+  }
+
+  /*
+    Small - core button styles
+  */
+  &.small {
+    --button--edge-size: 10px;
+    align-items: end;
+    background-size: 11.5px 11.5px;
+    min-height: 32px;
+    padding: 3px 8px 3px 18px;
+  }
+
+  /*
+    Flat bottom - core button styles
+  */
+  &.flat-bottom {
+    --button--clip-path: polygon(
+      0 0,
+      calc(100% - var(--button--edge-size)) 0%,
+      100% var(--button--edge-size),
+      100% 100%,
+      0 100%
+    );
+    background:
+      linear-gradient(
+          to top right,
+          transparent 50%,
+          var(--button--border-color) 50%
+        )
+        top right,
+      #fff;
+    background-color: var(--button--background-color);
+    background-repeat: no-repeat;
+    background-size: 14.5px 14.5px;
+    border-radius: 3px 0 0 0;
+
+    &.small {
+      --button--clip-path: polygon(
+        0 0,
+        calc(100% - var(--button--edge-size)) 0%,
+        100% var(--button--edge-size),
+        100% 100%,
+        0 100%
+      );
+      background-size: 9.5px 9.5px;
+    }
+  }
+
+  .close-x {
+    align-items: center;
+    display: flex;
+    height: 6px;
+    justify-content: center;
+    margin: 1px 0 0 1px;
+    position: relative;
+    width: 5px;
+
+    span {
+      background: #fff;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 1px;
+
+      &:first-child {
+        left: 0;
+        transform: rotate(-45deg);
+        transform-origin: top left;
+      }
+      &:last-child {
+        right: 0;
+        transform: rotate(45deg);
+        transform-origin: top right;
+      }
+    }
+  }
+
+  /* 
+    Nav specific - core button styles
+  */
+  &.nav {
+    background-size: 16.5px 16.5px;
+    height: 50px;
+    min-width: auto;
+    width: 50px;
+  }
+
+  /*
+    ---------------------------------------------
+    Enabled button hover, focus, and active style
+    ---------------------------------------------
+  */
   &:not(:disabled, [disabled]) {
+    /*
+      Base - hover, focus, and active style
+    */
     @media (hover: hover) {
       &:hover {
         --button--background-color: hsl(
@@ -187,31 +312,10 @@
         );
       }
     }
-  }
 
-  /*
-    ------------------------
-    Additional button styles
-    ------------------------
-  */
-
-  /*
-    Secondary button styles
-  */
-  &.secondary {
-    --button--background-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 10%)
-    );
-    --button--border-color: hsl(
-      var(--base-blue-hue),
-      var(--base-blue-saturation),
-      calc(var(--base-blue-lightness) + 40%)
-    );
-  }
-
-  &:not(:disabled, [disabled]) {
+    /*
+      Secondary - hover, focus, and active style
+    */
     @media (hover: hover) {
       &.secondary:hover {
         --button--background-color: hsl(
@@ -280,25 +384,10 @@
         );
       }
     }
-  }
 
-  /*
-    Danger button styles
-  */
-  &.danger {
-    --button--background-color: hsl(
-      calc(var(--base-orange-hue) - 20),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 10%)
-    );
-    --button--border-color: hsl(
-      calc(var(--base-orange-hue) - 20),
-      var(--base-orange-saturation),
-      calc(var(--base-orange-lightness) + 40%)
-    );
-  }
-
-  &:not(:disabled, [disabled]) {
+    /*
+      Danger - hover, focus, and active style
+    */
     @media (hover: hover) {
       &.danger:hover {
         --button--background-color: hsl(
@@ -367,91 +456,5 @@
         );
       }
     }
-  }
-
-  /*
-    Small button styles
-  */
-  &.small {
-    --button--edge-size: 10px;
-    align-items: end;
-    background-size: 11.5px 11.5px;
-    min-height: 32px;
-    padding: 3px 8px 3px 18px;
-  }
-
-  /*
-    Flat bottom button styles
-  */
-  &.flat-bottom {
-    --button--clip-path: polygon(
-      0 0,
-      calc(100% - var(--button--edge-size)) 0%,
-      100% var(--button--edge-size),
-      100% 100%,
-      0 100%
-    );
-    background:
-      linear-gradient(
-          to top right,
-          transparent 50%,
-          var(--button--border-color) 50%
-        )
-        top right,
-      #fff;
-    background-color: var(--button--background-color);
-    background-repeat: no-repeat;
-    background-size: 14.5px 14.5px;
-    border-radius: 3px 0 0 0;
-
-    &.small {
-      --button--clip-path: polygon(
-        0 0,
-        calc(100% - var(--button--edge-size)) 0%,
-        100% var(--button--edge-size),
-        100% 100%,
-        0 100%
-      );
-      background-size: 9.5px 9.5px;
-    }
-  }
-
-  .close-x {
-    align-items: center;
-    display: flex;
-    height: 6px;
-    justify-content: center;
-    margin: 1px 0 0 1px;
-    position: relative;
-    width: 5px;
-
-    span {
-      background: #fff;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      width: 1px;
-
-      &:first-child {
-        left: 0;
-        transform: rotate(-45deg);
-        transform-origin: top left;
-      }
-      &:last-child {
-        right: 0;
-        transform: rotate(45deg);
-        transform-origin: top right;
-      }
-    }
-  }
-
-  /* 
-    Nav specific button styles
-  */
-  &.nav {
-    background-size: 16.5px 16.5px;
-    height: 50px;
-    min-width: auto;
-    width: 50px;
   }
 }

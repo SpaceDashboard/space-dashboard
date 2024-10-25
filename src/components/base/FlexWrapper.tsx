@@ -6,26 +6,32 @@ type Flex = React.CSSProperties['flex'];
 type FlexDirection = React.CSSProperties['flexDirection'];
 type JustifyContent = React.CSSProperties['justifyContent'];
 
+interface OptionalStyles {
+  flex?: Flex;
+  justifyContent?: JustifyContent;
+  marginBottom?: number;
+  marginTop?: number;
+  maxWidth?: number;
+}
+
 const flexWrapperCss = (
   alignItems: AlignItems,
   flexDirection: FlexDirection,
   gap: number,
-  flex?: Flex,
-  justifyContent?: JustifyContent,
-  marginBottom?: number,
-  marginTop?: number,
-  maxWidth?: number,
+  optionalStyles: OptionalStyles = {},
 ) => css`
   align-items: ${alignItems};
   display: flex;
   flex-direction: ${flexDirection};
   gap: ${gap}px;
   width: 100%;
-  ${flex && `flex: ${flex}`};
-  ${justifyContent && `justify-content: ${justifyContent}`};
-  ${marginBottom && `margin-bottom: ${marginBottom}px`};
-  ${marginTop && `margin-top: ${marginTop}px`};
-  ${maxWidth && `max-width: ${maxWidth}px`};
+  ${optionalStyles.flex && `flex: ${optionalStyles.flex}`};
+  ${optionalStyles.justifyContent &&
+  `justify-content: ${optionalStyles.justifyContent}`};
+  ${optionalStyles.marginBottom &&
+  `margin-bottom: ${optionalStyles.marginBottom}px`};
+  ${optionalStyles.marginTop && `margin-top: ${optionalStyles.marginTop}px`};
+  ${optionalStyles.maxWidth && `max-width: ${optionalStyles.maxWidth}px`};
 `;
 
 interface FlexWrapperProps {
@@ -67,16 +73,13 @@ export const FlexWrapper = React.forwardRef<
     return (
       <Component
         className={cx(
-          flexWrapperCss(
-            alignItems,
-            flexDirection,
-            gap,
+          flexWrapperCss(alignItems, flexDirection, gap, {
             flex,
             justifyContent,
             marginBottom,
             marginTop,
             maxWidth,
-          ),
+          }),
           className,
         )}
         style={style}
