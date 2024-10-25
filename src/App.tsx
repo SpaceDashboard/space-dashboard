@@ -38,7 +38,7 @@ export const App: React.FC = () => {
         if (!enabled) return null;
         return (
           <Component
-            key={index}
+            key={componentName}
             index={index + previousCumulativeComponentCount}
             componentKey={componentName}
           />

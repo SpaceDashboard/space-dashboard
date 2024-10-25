@@ -62,16 +62,11 @@ const mergeWithDefaults = <T extends Record<string, any>>(
         settingValue,
         defaultValue,
       );
-    } else {
+    } else if (key === 'label') {
       // Always pull default panel label, in case it's been updated
-      if (key === 'label') {
-        (mergedSettings[key] as T) = defaultValue;
-      } else {
-        (mergedSettings[key] as T) = settingValue as T[Extract<
-          keyof T,
-          string
-        >];
-      }
+      (mergedSettings[key] as T) = defaultValue;
+    } else {
+      (mergedSettings[key] as T) = settingValue as T[Extract<keyof T, string>];
     }
   }
 

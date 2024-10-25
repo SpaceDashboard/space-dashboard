@@ -95,7 +95,7 @@ export const ContactForm: React.FC = () => {
         }
         resetForm();
         showToast('Message sent successfully!', { variant: 'confirmation' });
-        setIsContactFormOpen && setIsContactFormOpen(false);
+        setIsContactFormOpen?.(false);
       } else {
         showToast('An unexpected error occurred.', { variant: 'error' });
       }
@@ -171,7 +171,8 @@ export const ContactForm: React.FC = () => {
                   data-1p-ignore
                   {...register('email', {
                     required: true,
-                    pattern: /^\S+@\S+$/i,
+                    pattern:
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                   })}
                 />
                 {errors.email && (
@@ -323,6 +324,7 @@ export const ContactForm: React.FC = () => {
                 window.open(
                   'https://github.com/SpaceDashboard/space-dashboard/tree/beta',
                   '_blank',
+                  'noopener,noreferrer',
                 );
               }}
             >
@@ -336,6 +338,7 @@ export const ContactForm: React.FC = () => {
                 window.open(
                   'https://github.com/SpaceDashboard/space-dashboard/issues',
                   '_blank',
+                  'noopener,noreferrer',
                 );
               }}
             >

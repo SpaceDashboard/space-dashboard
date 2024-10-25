@@ -177,7 +177,7 @@ const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
         <Tooltip
           cursor={{ fill: '#444' }}
           content={({ active, payload }) => {
-            if (active && payload && payload.length) {
+            if (active && payload?.length) {
               return (
                 <div className={kpChartTooltipCss}>
                   <p className="time">{`${format(payload[0].payload.time, 'd MMM yyyy @ HH:mm:ss')} UTC`}</p>

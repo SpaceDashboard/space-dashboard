@@ -2,18 +2,8 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { showToast } from 'src/shared/utils';
 
-const monitorNames = [
-  'Space Dashboard',
-  'ISS Tracker',
-  'JPL Solar System Dynamics',
-  'NASA NEO API',
-  'People in Space',
-  'SWPC NOAA - Services',
-  'Deep Space Network',
-];
-
 interface StatusResult {
-  data: { status: string; paused: boolean }[];
+  monitors: { status: number }[];
 }
 
 const fetchSiteAssetStatuses = async (): Promise<number> => {
@@ -21,14 +11,22 @@ const fetchSiteAssetStatuses = async (): Promise<number> => {
     `${import.meta.env.VITE_STATUS_URL}/json/status-monitors.json`,
   );
   const result: StatusResult = await response.json();
+  // 0 - Paused
+  // 1 - Not checked yet
+  // 2 - Up
+  // 8 - Possibly down
+  // 9 - Down
 
   let downCount = 0;
-  monitorNames.forEach((_, index) => {
-    const monitor = result.data[index];
-    if (!monitor.paused && monitor.status === 'down') {
-      downCount++;
-    }
-  });
+  try {
+    result.monitors.forEach((monitor) => {
+      if (monitor.status === 8 || monitor.status === 9) {
+        downCount++;
+      }
+    });
+  } catch (error) {
+    throw new Error('Error fetching statuses: ' + error);
+  }
 
   return downCount;
 };
@@ -43,7 +41,6 @@ export const SiteMonitors: React.FC = () => {
   useEffect(() => {
     if (error) {
       console.error('Error fetching statuses:', error);
-      showToast('Error fetching site statuses', { variant: 'error' });
     } else if (downSites > 0) {
       const message =
         downSites > 1

@@ -273,8 +273,8 @@ input[type='email'],
 input[type='number'],
 textarea {
   background: var(--input--bg-color);
-  border-bottom-color: var(--input--bottom-border-color);
   border: 1px solid var(--input--border-color);
+  border-bottom-color: var(--input--bottom-border-color);
   box-sizing: border-box;
   color: var(--input--text-color);
   flex-shrink: 0;
@@ -299,13 +299,6 @@ textarea:focus {
     background: var(--input--focus-hover--bg-color) !important;
   }
 }
-
-/* TODO: ? */
-/* input[type='text'],
-input[type='email'],
-input[type='number'] {
-  max-width: 350px;
-} */
 
 input[type='checkbox'] {
   font-size: 16px;

@@ -67,6 +67,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
             src={iframeSrc}
             onLoad={() => setIsLoading(false)}
             tabIndex={-1}
+            title="Deep Space Network"
           ></iframe>
         ) : (
           <FlexWrapper

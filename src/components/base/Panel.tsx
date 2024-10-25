@@ -183,7 +183,7 @@ export const InnerPanel = ({
   ]);
 
   useEffect(() => {
-    setIsPanelMenuOpen && setIsPanelMenuOpen(isMenuOpen ?? false);
+    setIsPanelMenuOpen?.(isMenuOpen ?? false);
   }, [isMenuOpen, setIsPanelMenuOpen]);
 
   useEffect(() => {
@@ -327,7 +327,7 @@ export const PanelActions = ({
             Icon={IconLayoutGrid}
             isPanelAction={true}
             onClick={() => {
-              setIsPanelMenuOpen && setIsPanelMenuOpen(!isPanelMenuOpen);
+              setIsPanelMenuOpen?.(!isPanelMenuOpen);
             }}
             tooltipTitle={isPanelMenuOpen ? 'Close menu' : 'Open menu'}
             variantsList={variants as Variant[]}
@@ -351,7 +351,7 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (isPanelMenuOpen && e.key === 'Escape') {
-        setIsPanelMenuOpen && setIsPanelMenuOpen(false);
+        setIsPanelMenuOpen?.(false);
       }
     };
     document.addEventListener('keydown', onKeyDown);
