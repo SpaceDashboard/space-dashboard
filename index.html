@@ -49,19 +49,6 @@
     setVh();
     window.addEventListener('resize', setVh);
   </script>
-  <script>
-    function detectBotOrHeadless() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const botRegex = /bot|crawler|spider|crawling|headless/i;
-      const isHeadless = (navigator.webdriver === true) ||
-        /headless/.test(userAgent) ||
-        /phantomjs/.test(userAgent) ||
-        /puppeteer/.test(userAgent);
-
-      return botRegex.test(userAgent) || isHeadless;
-    }
-    window.isBot = detectBotOrHeadless();
-  </script>
 </head>
 
 <body class="initial-load" style="background: #000;">
