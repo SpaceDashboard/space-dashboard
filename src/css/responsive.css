@@ -63,42 +63,43 @@
 
 @media screen and (max-width: 540px) {
   nav {
-    &.show-nav.show-nav-borders,
-    &.show-nav-borders {
-      animation: opacityIn 0.25s ease forwards;
-      animation-delay: 0.25s;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background: hsla(
-        var(--base-blue-hue),
-        var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) - 6%),
-        0.92
-      );
-      bottom: 0px;
-      height: 55px;
-      margin: 0;
-      opacity: 0;
-      padding: 8px 20px 10px;
-      position: fixed;
-      transition: 0s height ease;
-      width: 100%;
+    animation: opacityIn 0.25s ease forwards !important;
+    animation-delay: 0.15s !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: hsla(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 6%),
+      0.92
+    );
+    bottom: 0px;
+    height: 55px !important;
+    margin: 0;
+    opacity: 0;
+    padding: 8px 20px 10px;
+    position: fixed;
+    transition: 0s height ease;
+    transform: scaleX(1);
+    width: 100%;
 
-      &::before {
-        height: calc(100% + 10px);
-        top: -2px;
-      }
+    &::before {
+      animation: unset;
+      height: calc(100% + 10px);
+      top: -2px;
+    }
 
-      .logo,
-      .logo img {
-        height: 32px;
-        width: 32px;
-      }
+    .logo,
+    .logo img {
+      animation: opacityIn 0.25s ease forwards !important;
+      animation-delay: 0.35s !important;
+      height: 32px;
+      width: 32px;
+    }
 
-      .nav-inner,
-      .btn-wrapper {
-        flex-direction: row;
-      }
+    .nav-inner,
+    .btn-wrapper {
+      flex-direction: row;
     }
   }
 
