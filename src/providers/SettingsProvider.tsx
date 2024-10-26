@@ -40,14 +40,12 @@ export const SettingsContext = createContext<SettingsContextProps | undefined>(
 );
 
 const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
-  // @ts-ignore
-  const bot = !!window.isBot;
   const defaultSettings: Settings = {
     column1Order: defaultColumn1Order,
     column2Order: defaultColumn2Order,
     column3Order: defaultColumn3Order,
     panelConfigs: defaultPanelConfigs,
-    reduceMotion: bot,
+    reduceMotion: true,
     reduceTransparency: false,
     reduceButtonAnimation: false,
     enableButtonAnimationAlways: false,
