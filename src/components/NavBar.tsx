@@ -14,17 +14,16 @@ const navBarCss = (
   reduceTransparency: boolean,
 ) => css`
   --navbar--background-opacity: ${reduceTransparency ? 1 : 0.8} !important;
-  --navbar--transition-duration: ${reduceMotion
+  --navbar--animation-duration: ${reduceMotion ? 0 : 0.8 * speedAdjustment}s;
+  --navbar--animation-delay: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
+  --navbar--before--animation-delay: ${reduceMotion
     ? 0
-    : 0.4 * speedAdjustment}s !important;
+    : 0.1 * speedAdjustment}s;
 
   .logo {
-    --navbar--logo--transition-duration: ${reduceMotion
-      ? 0
-      : 0.3 * speedAdjustment}s !important;
-    --navbar--logo--transition-delay: ${reduceMotion
-      ? 0
-      : 0.4 * speedAdjustment}s !important;
+    animation: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s ease normal forwards
+      1 opacityIn;
+    animation-delay: ${reduceMotion ? 0 : 1 * speedAdjustment}s;
   }
 
   .btn-wrapper {
@@ -113,8 +112,6 @@ export const NavBar: React.FC = () => {
   const {
     settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
   } = useSettingsContext();
-  const [showNavBorders, setShowNavBorders] = useState<boolean>(false);
-  const [showNav, setShowNav] = useState<boolean>(false);
 
   const closeAllModals = () => {
     setIsAboutOpen(false);
@@ -141,22 +138,15 @@ export const NavBar: React.FC = () => {
     if (viewportWidth < 540) {
       return 0;
     }
-    return reduceMotion ? 0 : 700 * animationSpeedAdjustment;
+    return reduceMotion ? 0 : 500 * animationSpeedAdjustment;
   }, [viewportWidth]);
-
-  useEffect(() => {
-    setShowNavBorders(true);
-    setTimeout(() => {
-      setShowNav(true);
-    }, showNavDelayMs);
-  }, [reduceMotion, animationSpeedAdjustment]);
 
   return (
     <nav
-      className={cx(
-        navBarCss(reduceMotion, animationSpeedAdjustment, reduceTransparency),
-        showNavBorders && 'show-nav-borders',
-        showNav && 'show-nav',
+      className={navBarCss(
+        reduceMotion,
+        animationSpeedAdjustment,
+        reduceTransparency,
       )}
     >
       <div className="nav-inner">

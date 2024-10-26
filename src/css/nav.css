@@ -3,6 +3,8 @@
 */
 
 nav {
+  animation: renderNavIn var(--navbar--animation-duration) ease forwards;
+  animation-delay: var(--navbar--animation-delay);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   background: hsla(
@@ -13,15 +15,16 @@ nav {
   );
   box-sizing: border-box;
   container-type: size;
-  height: 1px;
+  height: 0;
   margin-left: 25px;
   padding: 0;
   transform: scaleX(0);
-  transition: var(--navbar--transition-duration) all ease;
   width: 85px;
   z-index: 1;
 
   &::before {
+    animation: renderNavBeforeIn var(--navbar--animation-duration) ease forwards;
+    animation-delay: var(--navbar--before--animation-delay);
     border: 2px solid
       hsl(
         var(--base-blue-hue),
@@ -39,20 +42,6 @@ nav {
     z-index: -1;
   }
 
-  &.show-nav-borders {
-    transform: scaleX(1);
-  }
-
-  &.show-nav {
-    height: calc(100% - 50px);
-    padding: 15px 0;
-
-    &::before {
-      height: calc(100% + 10px);
-      top: -5px;
-    }
-  }
-
   .nav-inner {
     align-items: center;
     display: flex;
@@ -64,19 +53,14 @@ nav {
   }
 
   .logo {
+    /* animation set in NavBar.tsx */
     background: #fff;
     border-radius: 50%;
     display: block;
     font: 10px sans-serif;
     height: 50px;
     opacity: 0;
-    transition: var(--navbar--logo--transition-duration) opacity ease;
-    transition-delay: var(--navbar--logo--transition-delay);
     width: 50px;
-
-    .show-nav & {
-      opacity: 1;
-    }
   }
 
   .btn-wrapper {
@@ -88,5 +72,42 @@ nav {
     button {
       opacity: 0;
     }
+  }
+}
+
+@keyframes renderNavIn {
+  0% {
+    height: 0;
+    padding: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    height: 0;
+    padding: 0;
+    transform: scaleX(1);
+  }
+  100% {
+    height: calc(100% - 50px);
+    padding: 15px 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes renderNavBeforeIn {
+  0% {
+    height: 0;
+    top: 0;
+  }
+  50% {
+    height: 0;
+    top: 0;
+  }
+  99% {
+    height: calc(100% + 10px);
+    top: 0;
+  }
+  100% {
+    height: calc(100% + 10px);
+    top: -5px;
   }
 }
