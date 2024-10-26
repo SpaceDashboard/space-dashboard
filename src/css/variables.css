@@ -52,6 +52,8 @@
   --navbar--animation-delay: 0.3s;
   --navbar--before--animation-delay: 0.1s;
   --navbar--background-opacity: 0.7;
+  --navbar--logo--animation-duration: 0.3s;
+  --navbar--logo--animation-delay: 1;
 
   /* Modal */
   --modal--background-opacity: 0.4;

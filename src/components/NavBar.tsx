@@ -21,9 +21,10 @@ const navBarCss = (
     : 0.1 * speedAdjustment}s;
 
   .logo {
-    animation: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s ease normal forwards
-      1 opacityIn;
-    animation-delay: ${reduceMotion ? 0 : 1 * speedAdjustment}s;
+    --navbar--logo--animation-duration: ${reduceMotion
+      ? 0
+      : 0.3 * speedAdjustment}s;
+    --navbar--logo--animation-delay: ${reduceMotion ? 0 : 1 * speedAdjustment}s;
   }
 
   .btn-wrapper {

@@ -3,7 +3,7 @@
 */
 
 nav {
-  animation: renderNavIn var(--navbar--animation-duration) ease forwards;
+  animation: renderNavIn var(--navbar--animation-duration) ease forwards 1;
   animation-delay: var(--navbar--animation-delay);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -23,7 +23,8 @@ nav {
   z-index: 1;
 
   &::before {
-    animation: renderNavBeforeIn var(--navbar--animation-duration) ease forwards;
+    animation: renderNavBeforeIn var(--navbar--animation-duration) ease forwards
+      1;
     animation-delay: var(--navbar--before--animation-delay);
     border: 2px solid
       hsl(
@@ -53,7 +54,9 @@ nav {
   }
 
   .logo {
-    /* animation set in NavBar.tsx */
+    animation: var(--navbar--logo--animation-duration) ease normal forwards 1
+      opacityIn;
+    animation-delay: var(--navbar--logo--animation-delay);
     background: #fff;
     border-radius: 50%;
     display: block;
