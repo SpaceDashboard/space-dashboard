@@ -1,0 +1,78 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose environment to deploy (prod, staging, beta)'
+        required: false
+        default: 'staging'
+        type: choice
+        options:
+          - prod
+          - staging
+          - beta
+      branch:
+        description: 'Branch to deploy from (overrides default branch)'
+        required: false
+        default: '' # Default is empty, will be set based on environment if not provided
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+        with:
+          ref: |
+            ${{ github.event.inputs.branch != '' && github.event.inputs.branch || 
+              (github.event.inputs.environment == 'prod' && 'main') || 
+              (github.event.inputs.environment == 'staging' && 'staging') || 
+              (github.event.inputs.environment == 'beta' && 'beta') 
+            }}
+
+      - name: Use Node.js 20.12.2
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+
+      - name: Build and Upload Source Maps
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: space-dashboard
+          SENTRY_PROJECT: space-dashboard
+        run: |
+          yarn install
+          yarn build
+
+      - name: Sync files to Production
+        if: ${{ github.event.inputs.environment == 'prod' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.PROD_FTP_USERNAME }}
+          password: ${{ secrets.PROD_FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist/
+
+      - name: Sync files to Staging
+        if: ${{ github.event.inputs.environment == 'staging' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.STAGING_FTP_USERNAME }}
+          password: ${{ secrets.STAGING_FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist/
+
+      - name: Sync files to Beta
+        if: ${{ github.event.inputs.environment == 'beta' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.BETA_FTP_USERNAME }}
+          password: ${{ secrets.BETA_FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist/
