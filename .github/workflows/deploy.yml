@@ -40,12 +40,23 @@ jobs:
           yarn install
           yarn build
 
+      - name: Upload dist folder as artifact
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: dist
+          path: ./dist/
+
   deploy-prod:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: setup
     if: ${{ github.event.inputs.environment == 'prod' }}
     steps:
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: dist
+
       - name: Sync files to Production
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -61,6 +72,11 @@ jobs:
     needs: setup
     if: ${{ github.event.inputs.environment == 'staging' }}
     steps:
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: dist
+
       - name: Sync files to Staging
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
