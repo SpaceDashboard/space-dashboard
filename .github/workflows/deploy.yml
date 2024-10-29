@@ -31,57 +31,35 @@ jobs:
         with:
           node-version: 20.12.2
 
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run format check
+        run: yarn format:check
+
+      - name: Run type check
+        run: yarn type-check
+
+      - name: Run lint check
+        run: yarn lint
+
       - name: Build and Upload Source Maps
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: space-dashboard
           SENTRY_PROJECT: space-dashboard
-        run: |
-          yarn install
-          yarn build
+        run: yarn build
 
-      - name: Upload dist folder as artifact
-        uses: actions/upload-artifact@v4.4.3
-        with:
-          name: dist
-          path: dist/
-
-  deploy-prod:
-    name: Deploy to Production
+  deploy:
+    name: Deploy to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     needs: setup
-    if: ${{ github.event.inputs.environment == 'prod' }}
     steps:
-      - name: Download dist artifact
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: dist
-
-      - name: Sync files to Production
+      - name: Sync files to ${{ github.event.inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.PROD_FTP_USERNAME }}
-          password: ${{ secrets.PROD_FTP_PASSWORD }}
+          username: ${{ secrets[github.event.inputs.environment == 'prod' && 'PROD_FTP_USERNAME' || 'STAGING_FTP_USERNAME'] }}
+          password: ${{ secrets[github.event.inputs.environment == 'prod' && 'PROD_FTP_PASSWORD' || 'STAGING_FTP_PASSWORD'] }}
           server-dir: public_html/
-          local-dir: dist/
-
-  deploy-staging:
-    name: Deploy to Staging
-    runs-on: ubuntu-latest
-    needs: setup
-    if: ${{ github.event.inputs.environment == 'staging' }}
-    steps:
-      - name: Download dist artifact
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: dist
-
-      - name: Sync files to Staging
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.STAGING_FTP_USERNAME }}
-          password: ${{ secrets.STAGING_FTP_PASSWORD }}
-          server-dir: public_html/
-          local-dir: dist/
+          local-dir: ./dist/
