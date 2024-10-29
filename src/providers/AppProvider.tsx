@@ -1,26 +1,6 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSettingsContext } from 'src/hooks';
-
-interface AppProviderProps {
-  navAnimationSeconds: number;
-  allPanelsLoaded: boolean;
-  isAboutOpen?: boolean;
-  setIsAboutOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isContactFormOpen?: boolean;
-  setIsContactFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isUserSettingsOpen?: boolean;
-  setIsUserSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  issLiveFeedVideoId1?: string;
-  issLiveFeedVideoId2?: string;
-}
-
-export const AppContext = createContext<AppProviderProps>({
-  navAnimationSeconds: 0,
-  allPanelsLoaded: false,
-  setIsAboutOpen: () => {},
-  setIsContactFormOpen: () => {},
-  setIsUserSettingsOpen: () => {},
-});
+import { AppContext } from 'src/providers';
 
 const AppProvider = ({ children }: React.PropsWithChildren) => {
   const {

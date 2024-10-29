@@ -30,7 +30,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
       panelConfigs: { DeepSpaceNetwork },
     },
   } = useSettingsContext();
-  const dsnSource = 'https://eyes.nasa.gov/dsn/dsn.html';
+  const dsnSource = 'https://eyes.nasa.gov/apps/dsn-now/dsn.html';
   const [showDSNIframe, setShowDSNIframe] = useState(
     DeepSpaceNetwork.renderDSNOnLoad ?? false,
   );
@@ -86,7 +86,7 @@ export const DeepSpaceNetwork: React.FC<PanelProps> = ({
               variantsList={['secondary']}
               onClick={() => setShowDSNIframe(true)}
             >
-              {'Load Deep Space Network'}
+              {'Load Deep Space Network Once'}
             </Button>
           </FlexWrapper>
         )}

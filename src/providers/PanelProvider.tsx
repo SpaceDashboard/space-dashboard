@@ -1,17 +1,5 @@
-import React, { createContext, useMemo, useState } from 'react';
-
-interface PanelProviderProps {
-  animationDurationSeconds?: number;
-  setAnimationDurationSeconds?: React.Dispatch<React.SetStateAction<number>>;
-  animationDelaySeconds?: number;
-  setAnimationDelaySeconds?: React.Dispatch<React.SetStateAction<number>>;
-  isPanelMenuOpen?: boolean;
-  setIsPanelMenuOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  componentKey?: string;
-  setComponentKey?: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const PanelContext = createContext<PanelProviderProps>({});
+import React, { useMemo, useState } from 'react';
+import { PanelContext } from 'src/providers';
 
 export const PanelProvider = ({ children }: React.PropsWithChildren) => {
   const [animationDurationSeconds, setAnimationDurationSeconds] = useState(0);

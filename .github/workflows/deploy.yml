@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Choose environment to deploy (prod or staging)'
+        description: 'Choose environment to deploy (production or staging)'
         required: false
         default: 'staging'
         type: choice
         options:
-          - production
-          - staging
+          - Production
+          - Staging
       branch:
         description: 'Branch to deploy from'
         required: false
@@ -18,7 +18,7 @@ on:
 
 jobs:
   web-deploy:
-    name: Setup, Build, and Deploy to ${{ github.event.inputs.environment }}
+    name: Build and Deploy to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
@@ -54,7 +54,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets[github.event.inputs.environment == 'prod' && 'PROD_FTP_USERNAME' || 'STAGING_FTP_USERNAME'] }}
-          password: ${{ secrets[github.event.inputs.environment == 'prod' && 'PROD_FTP_PASSWORD' || 'STAGING_FTP_PASSWORD'] }}
+          username: ${{ secrets[github.event.inputs.environment == 'Production' && 'PROD_FTP_USERNAME' || 'STAGING_FTP_USERNAME'] }}
+          password: ${{ secrets[github.event.inputs.environment == 'Production' && 'PROD_FTP_PASSWORD' || 'STAGING_FTP_PASSWORD'] }}
           server-dir: public_html/
           local-dir: ./dist/

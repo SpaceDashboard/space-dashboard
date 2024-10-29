@@ -1,4 +1,4 @@
-import React, { createContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { UTCDate } from '@date-fns/utc';
 import { useLocalStorage } from 'src/hooks';
 import {
@@ -10,8 +10,9 @@ import {
   PanelConfig,
   defaultPanelConfigs,
 } from 'src/shared/PanelConfigs';
+import { SettingsContext } from 'src/providers';
 
-interface Settings {
+export interface Settings {
   column1Order: MoveablePanels[];
   column2Order: MoveablePanels[];
   column3Order: MoveablePanels[];
@@ -24,20 +25,6 @@ interface Settings {
   disableButtonTooltips: boolean;
   lastUpdated?: Date | string;
 }
-
-export interface SettingsContextProps {
-  settings: Settings;
-  defaultSettings: Settings;
-  updateSettings: (newSettings: Partial<Settings>) => void;
-  updatePanelConfigs: (
-    newPanelConfigs: Partial<Record<AvailablePanels, PanelConfig>>,
-  ) => void;
-  resetSettings: () => void;
-}
-
-export const SettingsContext = createContext<SettingsContextProps | undefined>(
-  undefined,
-);
 
 const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultSettings: Settings = {
