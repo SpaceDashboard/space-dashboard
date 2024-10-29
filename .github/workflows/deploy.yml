@@ -9,7 +9,7 @@ on:
         default: 'staging'
         type: choice
         options:
-          - prod
+          - production
           - staging
       branch:
         description: 'Branch to deploy from'
@@ -17,8 +17,8 @@ on:
         default: 'main'
 
 jobs:
-  setup:
-    name: Setup and Build
+  web-deploy:
+    name: Setup, Build, and Deploy to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Get latest code
@@ -50,11 +50,6 @@ jobs:
           SENTRY_PROJECT: space-dashboard
         run: yarn build
 
-  deploy:
-    name: Deploy to ${{ github.event.inputs.environment }}
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
       - name: Sync files to ${{ github.event.inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
