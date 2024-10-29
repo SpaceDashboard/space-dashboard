@@ -4,34 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Choose environment to deploy (prod, staging, beta)'
+        description: 'Choose environment to deploy (prod or staging)'
         required: false
         default: 'staging'
         type: choice
         options:
           - prod
           - staging
-          - beta
       branch:
-        description: 'Branch to deploy from (overrides default branch)'
+        description: 'Branch to deploy from'
         required: false
-        default: '' # Default is empty, will be set based on environment if not provided
+        default: 'main'
 
 jobs:
-  web-deploy:
-    name: Deploy
+  setup:
+    name: Setup and Build
     runs-on: ubuntu-latest
-
     steps:
       - name: Get latest code
         uses: actions/checkout@v4
         with:
-          ref: |
-            ${{ github.event.inputs.branch != '' && github.event.inputs.branch || 
-              (github.event.inputs.environment == 'prod' && 'main') || 
-              (github.event.inputs.environment == 'staging' && 'staging') || 
-              (github.event.inputs.environment == 'beta' && 'beta') 
-            }}
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Use Node.js 20.12.2
         uses: actions/setup-node@v4
@@ -47,8 +40,13 @@ jobs:
           yarn install
           yarn build
 
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ github.event.inputs.environment == 'prod' }}
+    steps:
       - name: Sync files to Production
-        if: ${{ github.event.inputs.environment == 'prod' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -57,22 +55,17 @@ jobs:
           server-dir: public_html/
           local-dir: ./dist/
 
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ github.event.inputs.environment == 'staging' }}
+    steps:
       - name: Sync files to Staging
-        if: ${{ github.event.inputs.environment == 'staging' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.STAGING_FTP_USERNAME }}
           password: ${{ secrets.STAGING_FTP_PASSWORD }}
-          server-dir: public_html/
-          local-dir: ./dist/
-
-      - name: Sync files to Beta
-        if: ${{ github.event.inputs.environment == 'beta' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.BETA_FTP_USERNAME }}
-          password: ${{ secrets.BETA_FTP_PASSWORD }}
           server-dir: public_html/
           local-dir: ./dist/
