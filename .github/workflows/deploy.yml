@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: dist
-          path: ./dist/
+          path: dist/
 
   deploy-prod:
     name: Deploy to Production
@@ -64,7 +64,7 @@ jobs:
           username: ${{ secrets.PROD_FTP_USERNAME }}
           password: ${{ secrets.PROD_FTP_PASSWORD }}
           server-dir: public_html/
-          local-dir: ./dist/
+          local-dir: dist
 
   deploy-staging:
     name: Deploy to Staging
@@ -84,4 +84,4 @@ jobs:
           username: ${{ secrets.STAGING_FTP_USERNAME }}
           password: ${{ secrets.STAGING_FTP_PASSWORD }}
           server-dir: public_html/
-          local-dir: ./dist/
+          local-dir: dist
