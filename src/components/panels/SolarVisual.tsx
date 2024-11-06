@@ -32,12 +32,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
   } = useSettingsContext();
   const coronaImage = 'https://api.spacedashboard.com/img/current-corona.jpg';
   const coronaVideo = 'https://api.spacedashboard.com/vid/current-corona.mp4';
-  const [imageSrc, setImageSrc] = useState(
-    `${coronaImage}?u=${getCurrentTimestamp()}`,
-  );
-  const [videoSrc, setVideoSrc] = useState(
-    `${coronaVideo}?u=${getCurrentTimestamp()}`,
-  );
+  const [imageSrc, setImageSrc] = useState(coronaImage);
+  const [videoSrc, setVideoSrc] = useState(coronaVideo);
   const [showVideo, setShowVideo] = useState(
     SolarVisual.startWithVideo ?? false,
   );
@@ -89,6 +85,13 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      resetTimer();
+      refreshImageVideo();
+    }, 6000);
+  }, []);
+
   return (
     <Panel index={index} componentKey={componentKey} minHeight={wrapperHeight}>
       <PanelBody>
@@ -120,6 +123,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
               key={imageSrc}
               alt="Current visual of the sun"
               loading="eager"
+              fetchPriority="high"
               onLoad={() => {
                 setIsLoading(false);
                 handleResize();
