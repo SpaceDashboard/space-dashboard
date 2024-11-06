@@ -140,6 +140,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
               src={imageSrc}
               key={imageSrc}
               alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
+              loading="eager"
               onLoad={() => {
                 setIsLoading(false);
                 handleResize();

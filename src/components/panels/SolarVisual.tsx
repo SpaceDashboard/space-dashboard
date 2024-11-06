@@ -119,6 +119,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
               src={imageSrc}
               key={imageSrc}
               alt="Current visual of the sun"
+              loading="eager"
               onLoad={() => {
                 setIsLoading(false);
                 handleResize();

@@ -14,17 +14,19 @@ const navBarCss = (
   reduceTransparency: boolean,
 ) => css`
   --navbar--background-opacity: ${reduceTransparency ? 1 : 0.8} !important;
-  --navbar--animation-duration: ${reduceMotion ? 0 : 0.8 * speedAdjustment}s;
-  --navbar--animation-delay: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
+  --navbar--animation-duration: ${reduceMotion ? 0 : 0.6 * speedAdjustment}s;
+  --navbar--animation-delay: ${reduceMotion ? 0 : 0.2 * speedAdjustment}s;
   --navbar--before--animation-delay: ${reduceMotion
     ? 0
-    : 0.1 * speedAdjustment}s;
+    : 0.05 * speedAdjustment}s;
 
   .logo {
     --navbar--logo--animation-duration: ${reduceMotion
       ? 0
       : 0.3 * speedAdjustment}s;
-    --navbar--logo--animation-delay: ${reduceMotion ? 0 : 1 * speedAdjustment}s;
+    --navbar--logo--animation-delay: ${reduceMotion
+      ? 0
+      : 0.7 * speedAdjustment}s;
   }
 
   .btn-wrapper {
@@ -58,7 +60,7 @@ const buttonDelayInCss = (
       button:nth-child(${i + 1}) {
         animation-delay: ${reduceMotion
           ? 0
-          : (0.4 + showNavDelayMs * 0.001 + (i + 1) * 0.1) * speedAdjustment}s;
+          : (0.15 + showNavDelayMs * 0.001 + (i + 1) * 0.1) * speedAdjustment}s;
       }
     `,
   );
@@ -163,6 +165,7 @@ export const NavBar: React.FC = () => {
               width="50"
               height="50"
               alt="Space Dashboard"
+              loading="eager"
             />
           </TooltipWrapper>
         </span>

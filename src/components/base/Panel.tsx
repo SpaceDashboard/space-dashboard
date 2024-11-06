@@ -99,7 +99,7 @@ export interface PanelProps {
 
 export const InnerPanel = ({
   children,
-  animationDuration = 0.4,
+  animationDuration = 0.3,
   animationDelay = 0,
   className,
   componentKey,
