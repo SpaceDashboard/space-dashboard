@@ -32,7 +32,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     column2Order: defaultColumn2Order,
     column3Order: defaultColumn3Order,
     panelConfigs: defaultPanelConfigs,
-    reduceMotion: true,
+    reduceMotion: false,
     reduceTransparency: false,
     reduceButtonAnimation: false,
     enableButtonAnimationAlways: false,
