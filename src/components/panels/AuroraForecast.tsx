@@ -53,12 +53,8 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       vid: `https://api.spacedashboard.com/vid/${hemisphere}_hemisphere_forecast.mp4`,
     };
   };
-  const [imageSrc, setImageSrc] = useState(
-    `${getHemisphereMedia()['img']}?u=${getCurrentTimestamp()}`,
-  );
-  const [videoSrc, setVideoSrc] = useState(
-    `${getHemisphereMedia()['vid']}?u=${getCurrentTimestamp()}`,
-  );
+  const [imageSrc, setImageSrc] = useState(`${getHemisphereMedia()['img']}`);
+  const [videoSrc, setVideoSrc] = useState(`${getHemisphereMedia()['vid']}`);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(500);
   const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(500);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -111,7 +107,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   }, [showSouthernHemisphere]);
 
   return (
-    <Panel index={index} componentKey={componentKey}>
+    <Panel index={index} componentKey={componentKey} minHeight={wrapperHeight}>
       <PanelBody>
         <PlanetsLoader showLoader={isLoading} />
         <div
@@ -125,6 +121,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             <video
               muted
               autoPlay
+              playsInline
               loop={true}
               key={videoSrc}
               onLoadedData={() => {
@@ -139,6 +136,8 @@ export const AuroraForecast: React.FC<PanelProps> = ({
               src={imageSrc}
               key={imageSrc}
               alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
+              loading="eager"
+              fetchPriority="high"
               onLoad={() => {
                 setIsLoading(false);
                 handleResize();

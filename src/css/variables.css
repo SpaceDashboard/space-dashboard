@@ -48,12 +48,12 @@
   --content-two-up--gap: 80px;
 
   /* Nav */
-  --navbar--animation-duration: 0.8s;
-  --navbar--animation-delay: 0.3s;
-  --navbar--before--animation-delay: 0.1s;
+  --navbar--animation-duration: 0.6s;
+  --navbar--animation-delay: 0.2s;
+  --navbar--before--animation-delay: 0.05s;
   --navbar--background-opacity: 0.7;
   --navbar--logo--animation-duration: 0.3s;
-  --navbar--logo--animation-delay: 1;
+  --navbar--logo--animation-delay: 0.7s;
 
   /* Modal */
   --modal--background-opacity: 0.4;
@@ -65,7 +65,7 @@
   /* Panel, wrapper, body, actions, and menu */
   --panel-wrapper--before--transition-duration: 0.4s;
   --panel--background-opacity: 0.65;
-  --panel--transition-duration: 0.4s;
+  --panel--transition-duration: 0.3s;
   --panel-body--transition-duration: 0.4s;
   --panel-body--transition-delay: 0.45s;
   --panel-actions-wrapper--before--transition-duration: 0.4s;

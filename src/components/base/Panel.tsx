@@ -94,16 +94,18 @@ export interface PanelProps {
   componentKey: string;
   index: number;
   isMenuOpen?: boolean;
+  minHeight?: number;
 }
 
 export const InnerPanel = ({
   children,
-  animationDuration = 0.4,
+  animationDuration = 0.3,
   animationDelay = 0,
   className,
   componentKey,
   index,
   isMenuOpen,
+  minHeight,
 }: React.PropsWithChildren<PanelProps>) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
@@ -207,7 +209,18 @@ export const InnerPanel = ({
           )}
         >
           <div>
-            <div className={cx('panel', className)} ref={panelRef}>
+            <div
+              className={cx(
+                'panel',
+                className,
+                minHeight
+                  ? css`
+                      min-height: ${minHeight}px !important;
+                    `
+                  : '',
+              )}
+              ref={panelRef}
+            >
               {panelBodyChild}
               {panelMenuChild}
             </div>

@@ -202,6 +202,7 @@ const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
               <rect {...props} fill={colorByKIndex(Number(props.payload.kp))} />
             );
           }}
+          isAnimationActive={false}
         />
       </BarChart>
     </ResponsiveContainer>
@@ -294,6 +295,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
       index={index}
       componentKey={componentKey}
       className={planetaryKIndexCss}
+      minHeight={330}
     >
       <PanelBody>
         <PlanetsLoader showLoader={isFetchingLiveData || isFetchingChartData} />
