@@ -3,10 +3,9 @@ import { css, cx } from '@emotion/css';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { NavBar, SiteMonitors } from 'src/components';
 import { FlexWrapper } from './components/base';
-import { DeepSpaceNetwork } from './components/panels';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { useAppContext, useSettingsContext } from 'src/hooks';
-import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
+import { columnPanelMap, AvailablePanels } from 'src/shared/PanelConfigs';
 import { ToastContainer, PersistentToastContainer } from 'src/shared/utils';
 
 const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
@@ -28,11 +27,11 @@ export const App: React.FC = () => {
   const [isViewportLarge, setIsViewportLarge] = useState(true);
 
   const renderColumn = (
-    componentOrder?: MoveablePanels[],
+    componentOrder?: AvailablePanels[] | undefined,
     previousCumulativeComponentCount = 0,
   ) => (
     <>
-      {componentOrder?.map((componentName, index) => {
+      {componentOrder?.map((componentName: AvailablePanels, index) => {
         const Component = columnPanelMap[componentName];
         const enabled = panelConfigs[componentName].enabled;
         if (!enabled) return null;
@@ -107,7 +106,14 @@ export const App: React.FC = () => {
               )}
             </div>
             {panelConfigs.DeepSpaceNetwork.enabled && (
-              <DeepSpaceNetwork index={0} componentKey="DeepSpaceNetwork" />
+              <>
+                {renderColumn(
+                  ['DeepSpaceNetwork'],
+                  column1Order?.length +
+                    column2Order?.length +
+                    column3Order?.length,
+                )}
+              </>
             )}
           </FlexWrapper>
         </section>

@@ -50,31 +50,42 @@
     }
 
     .panel {
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      background: hsla(
-        var(--base-blue-hue),
-        var(--base-blue-saturation),
-        calc(var(--base-blue-lightness) - 6%),
-        var(--panel--background-opacity)
-      );
       box-sizing: border-box;
       color: var(--text-color);
       content-visibility: auto;
       display: flex;
       font: var(--font);
       flex-direction: column;
-      max-height: 0%;
-      justify-content: space-between;
+      min-height: 200px;
+      justify-content: center;
       overflow: hidden;
       padding-left: 12px;
       padding-right: 12px;
       position: relative;
-      transition: var(--panel--transition-duration) all ease;
       width: 100%;
 
+      &::before {
+        content: '';
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        background: hsla(
+          var(--base-blue-hue),
+          var(--base-blue-saturation),
+          calc(var(--base-blue-lightness) - 6%),
+          var(--panel--background-opacity)
+        );
+        height: 0;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: var(--panel--transition-duration) all ease;
+        width: 100%;
+      }
+
       .show-panel & {
-        max-height: 100%;
+        &::before {
+          height: 100%;
+        }
       }
     }
 

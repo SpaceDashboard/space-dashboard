@@ -9,6 +9,7 @@ import {
   Launches,
   Events,
   SolarVisual,
+  DeepSpaceNetwork,
 } from 'src/components/panels';
 
 export type AvailablePanels =
@@ -25,7 +26,7 @@ export type AvailablePanels =
 
 export type MoveablePanels = Exclude<AvailablePanels, 'DeepSpaceNetwork'>;
 
-type PanelMapType = Record<MoveablePanels, React.FC<PanelProps>>;
+type PanelMapType = Record<AvailablePanels, React.FC<PanelProps>>;
 export const columnPanelMap: PanelMapType = {
   IssFeed1,
   IssFeed2,
@@ -36,6 +37,7 @@ export const columnPanelMap: PanelMapType = {
   Launches,
   Events,
   SolarVisual,
+  DeepSpaceNetwork,
 };
 
 export const defaultColumn1Order: MoveablePanels[] = [

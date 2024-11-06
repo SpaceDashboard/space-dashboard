@@ -111,7 +111,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   }, [showSouthernHemisphere]);
 
   return (
-    <Panel index={index} componentKey={componentKey}>
+    <Panel index={index} componentKey={componentKey} minHeight={wrapperHeight}>
       <PanelBody>
         <PlanetsLoader showLoader={isLoading} />
         <div
@@ -125,6 +125,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
             <video
               muted
               autoPlay
+              playsInline
               loop={true}
               key={videoSrc}
               onLoadedData={() => {
