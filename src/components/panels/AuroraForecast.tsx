@@ -137,6 +137,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
               key={imageSrc}
               alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
               loading="eager"
+              // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
               fetchPriority="high"
               onLoad={() => {
                 setIsLoading(false);

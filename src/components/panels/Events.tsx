@@ -35,30 +35,30 @@ const eventImageCss = css`
 `;
 
 const DetailsModal: React.FC<{
-  item: any;
+  item: any | null;
 }> = ({ item }) => {
   return (
     <FlexWrapper className="panel-data-details-modal" gap={12}>
-      <h2 className={detailsModalHeaderCss}>{item.name}</h2>
+      <h2 className={detailsModalHeaderCss}>{item?.name}</h2>
       <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
           <FlexWrapper gap={2}>
             <strong>{'Date: '}</strong>
-            {`${format(new UTCDate(item.date), 'dd MMM yyyy @ HH:mm:ss')} UTC`}
+            {`${format(new UTCDate(item?.date), 'dd MMM yyyy @ HH:mm:ss')} UTC`}
           </FlexWrapper>
-          {item.vid_urls.length > 0 && (
+          {item?.vid_urls?.length > 0 && (
             <FlexWrapper gap={2}>
               <strong>{'Webcast Link(s): '}</strong>
               <FlexWrapper gap={3}>
-                {item.vid_urls.map((vid: any) => (
+                {item?.vid_urls?.map((vid: any) => (
                   <a
-                    key={vid.url}
-                    href={vid.url}
+                    key={vid?.url}
+                    href={vid?.url}
                     target="_blank"
                     rel="noreferrer"
                     style={{ margin: 0 }}
                   >
-                    {`${vid.publisher} - ${vid.source}`}
+                    {`${vid?.publisher} - ${vid?.source}`}
                   </a>
                 ))}
               </FlexWrapper>
@@ -66,13 +66,13 @@ const DetailsModal: React.FC<{
           )}
           <FlexWrapper gap={2}>
             <strong>{'Event: '}</strong>
-            {item.description}
+            {item?.description}
           </FlexWrapper>
         </FlexWrapper>
         <CornersWrapper size={8}>
           <img
-            src={item.image.thumbnail_url}
-            alt={item.image.name}
+            src={item?.image?.thumbnail_url}
+            alt={item?.image?.name}
             className={eventImageCss}
           />
         </CornersWrapper>
@@ -130,11 +130,11 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
             renderLabel={(item: any) => (
               <FlexWrapper gap={4}>
                 <span>
-                  <strong>{item.name}</strong>
+                  <strong>{item?.name}</strong>
                 </span>
                 <span className={eventDateTimeCss}>
-                  {item.date !== ''
-                    ? format(new UTCDate(item.date), 'dd MMMM yyyy')
+                  {item?.date !== ''
+                    ? format(new UTCDate(item?.date), 'dd MMMM yyyy')
                     : '-'}
                 </span>
               </FlexWrapper>

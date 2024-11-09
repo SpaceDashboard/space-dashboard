@@ -123,6 +123,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
               key={imageSrc}
               alt="Current visual of the sun"
               loading="eager"
+              // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
               fetchPriority="high"
               onLoad={() => {
                 setIsLoading(false);
