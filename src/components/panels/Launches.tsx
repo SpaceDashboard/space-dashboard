@@ -100,47 +100,47 @@ const CountdownTimer = ({
 };
 
 const DetailsModal: React.FC<{
-  item: any;
+  item: any | null;
 }> = ({ item }) => {
   return (
     <FlexWrapper className="panel-data-details-modal" gap={12}>
-      <h2 className={detailsModalHeaderCss}>{item.name}</h2>
+      <h2 className={detailsModalHeaderCss}>{item?.name}</h2>
       <FlexWrapper flexDirection="row" gap={16}>
         <FlexWrapper gap={12}>
           <FlexWrapper gap={2}>
             <strong>{'Countdown to Launch: '}</strong>
-            <CountdownTimer netT0={item.net} fontSizeRem={1} />
+            <CountdownTimer netT0={item?.net} fontSizeRem={1} />
           </FlexWrapper>
           <FlexWrapper gap={2}>
             <strong>{'Estimated T-0: '}</strong>
-            {`${format(new UTCDate(item.net), 'dd MMM yyyy @ HH:mm:ss')} UTC`}
+            {`${format(new UTCDate(item?.net), 'dd MMM yyyy @ HH:mm:ss')} UTC`}
           </FlexWrapper>
           <FlexWrapper gap={2}>
             <strong>{'Status: '}</strong>
-            {item.status.name}
+            {item?.status?.name}
           </FlexWrapper>
         </FlexWrapper>
         <CornersWrapper size={8}>
           <img
-            src={item.image.thumbnail_url}
-            alt={item.image.name}
+            src={item?.image?.thumbnail_url}
+            alt={item?.image?.name}
             className={launchImageCss}
           />
         </CornersWrapper>
       </FlexWrapper>
-      {item.vid_urls.length > 0 && (
+      {item?.vid_urls?.length > 0 && (
         <FlexWrapper gap={2}>
           <strong>{'Webcast Link(s): '}</strong>
           <FlexWrapper gap={3}>
-            {item.vid_urls.map((vid: any) => (
+            {item?.vid_urls?.map((vid: any) => (
               <a
-                key={vid.url}
-                href={vid.url}
+                key={vid?.url}
+                href={vid?.url}
                 target="_blank"
                 rel="noreferrer"
                 style={{ margin: 0 }}
               >
-                {`${vid.publisher} - ${vid.source}`}
+                {`${vid?.publisher} - ${vid?.source}`}
               </a>
             ))}
           </FlexWrapper>
@@ -148,7 +148,7 @@ const DetailsModal: React.FC<{
       )}
       <FlexWrapper gap={2}>
         <strong>{'Mission: '}</strong>
-        {item.mission.description}
+        {item?.mission?.description}
       </FlexWrapper>
     </FlexWrapper>
   );
@@ -205,16 +205,16 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
               >
                 <FlexWrapper gap={4}>
                   <span>
-                    <strong>{item.name}</strong>
+                    <strong>{item?.name}</strong>
                   </span>
                   <span className={launchDateTimeCss}>
-                    {item.net !== ''
-                      ? `${format(new UTCDate(item.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`
+                    {item?.net !== ''
+                      ? `${format(new UTCDate(item?.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`
                       : '-'}
                   </span>
                 </FlexWrapper>
-                {item.net !== '' ? (
-                  <CountdownTimer netT0={item.net} />
+                {item?.net !== '' ? (
+                  <CountdownTimer netT0={item?.net} />
                 ) : (
                   <>{'-'}</>
                 )}
