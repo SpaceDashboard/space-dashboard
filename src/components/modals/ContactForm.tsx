@@ -295,12 +295,12 @@ export const ContactForm: React.FC = () => {
             <br />
             <FlexWrapper alignItems="center" flexDirection="row" tag="span">
               <a
-                href="https://bsky.app/profile/closeapproaches.bsky.social"
+                href="https://bsky.app/profile/closeapproaches.com"
                 target="_blank"
                 rel="noreferrer"
                 style={{ margin: 0 }}
               >
-                {'@closeapproaches.bsky.social'}
+                {'@CloseApproaches.com'}
               </a>
               <TooltipWrapper
                 title="Automated account, relaying NASA's close approaches each day for near-Earth objects under 100 lunar distance (LD)"
