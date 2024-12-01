@@ -54,19 +54,10 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
       if (!issTrackerFrameRef.current || !issTrackerWrapperRef.current) return;
       const issTrackerWrapper = issTrackerWrapperRef.current;
       const issTrackerFrame = issTrackerFrameRef.current;
-      const scaleForWidth =
-        issTrackerWrapper.clientWidth / issTrackerFrame.clientWidth;
-      const scaleForHeight =
-        issTrackerWrapper.clientHeight / issTrackerFrame.clientHeight;
-      let scale = scaleForWidth;
-
-      if (
-        issTrackerFrame.clientHeight * scaleForWidth -
-          issTrackerWrapper.clientHeight >=
-        0
-      ) {
-        scale = scaleForHeight;
-      }
+      const scale = Math.min(
+        issTrackerWrapper.clientWidth / issTrackerFrame.clientWidth,
+        issTrackerWrapper.clientHeight / issTrackerFrame.clientHeight,
+      );
 
       setIssTrackerFrameScale(scale);
     }, 500);
@@ -80,7 +71,7 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
       () => {
         handleResize();
       },
-      (navAnimationSeconds + 1) * 1000,
+      (navAnimationSeconds + 1) * 2000,
     );
 
     return () => {
