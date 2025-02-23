@@ -20,6 +20,7 @@ export interface Settings {
   reduceMotion: boolean;
   reduceTransparency: boolean;
   reduceButtonAnimation: boolean;
+  enableLoadingAnimation: boolean;
   enableButtonAnimationAlways: boolean;
   animationSpeedAdjustment: number;
   disableButtonTooltips: boolean;
@@ -35,6 +36,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     reduceMotion: false,
     reduceTransparency: false,
     reduceButtonAnimation: false,
+    enableLoadingAnimation: false,
     enableButtonAnimationAlways: false,
     animationSpeedAdjustment: 1,
     disableButtonTooltips: false,

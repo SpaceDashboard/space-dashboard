@@ -10,6 +10,7 @@ import { IconLayoutGrid, IconRefresh } from '@tabler/icons-react';
 const panelWrapperCss = (
   animationDuration: number,
   reduceMotion: boolean,
+  isLoadingAnimationDisabled: boolean,
   speedAdjustment: number,
   reduceTransparency: boolean,
 ) => css`
@@ -17,22 +18,22 @@ const panelWrapperCss = (
   --panel-menu--background-opacity: ${reduceTransparency ? 1 : 0.9} !important;
 
   &::before {
-    --panel-wrapper--before--transition-duration: ${reduceMotion
+    --panel-wrapper--before--transition-duration: ${isLoadingAnimationDisabled
       ? 0
       : animationDuration * speedAdjustment}s !important;
   }
 
   .panel {
-    --panel--transition-duration: ${reduceMotion
+    --panel--transition-duration: ${isLoadingAnimationDisabled
       ? 0
       : animationDuration * speedAdjustment}s !important;
   }
 
   .panel-body {
-    --panel-body--transition-duration: ${reduceMotion
+    --panel-body--transition-duration: ${isLoadingAnimationDisabled
       ? 0
       : animationDuration * 2 * speedAdjustment}s !important;
-    --panel-body--transition-delay: ${reduceMotion
+    --panel-body--transition-delay: ${isLoadingAnimationDisabled
       ? 0
       : 0.45 * speedAdjustment}s !important;
   }
@@ -112,7 +113,12 @@ export const InnerPanel = ({
   const [showPanel, setShowPanel] = useState<boolean>(false);
   const { navAnimationSeconds, allPanelsLoaded } = useAppContext();
   const {
-    settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
+    settings: {
+      reduceMotion,
+      enableLoadingAnimation,
+      animationSpeedAdjustment,
+      reduceTransparency,
+    },
   } = useSettingsContext();
   const {
     animationDurationSeconds,
@@ -128,6 +134,11 @@ export const InnerPanel = ({
       return navAnimationSeconds + animationDelay + index * 0.04;
     }
   }, [allPanelsLoaded, animationDelay, index, navAnimationSeconds]);
+
+  const isLoadingAnimationDisabled = useMemo(
+    () => !enableLoadingAnimation || reduceMotion,
+    [enableLoadingAnimation, reduceMotion],
+  );
 
   const panelMenuChild = useMemo(() => {
     const panelMenu = React.Children.toArray(children).filter(
@@ -167,16 +178,16 @@ export const InnerPanel = ({
           () => {
             setShowPanel(true);
           },
-          reduceMotion ? 0 : 350 * animationSpeedAdjustment,
+          isLoadingAnimationDisabled ? 0 : 350 * animationSpeedAdjustment,
         );
       },
-      reduceMotion
+      isLoadingAnimationDisabled
         ? 0
         : delayedAnimationSeconds * 1000 * animationSpeedAdjustment,
     );
     return () => clearTimeout(timer);
   }, [
-    reduceMotion,
+    isLoadingAnimationDisabled,
     animationDuration,
     delayedAnimationSeconds,
     setAnimationDurationSeconds,
@@ -201,6 +212,7 @@ export const InnerPanel = ({
             panelWrapperCss(
               animationDurationSeconds ?? animationDuration,
               reduceMotion,
+              isLoadingAnimationDisabled,
               animationSpeedAdjustment,
               reduceTransparency,
             ),
@@ -260,7 +272,11 @@ export const PanelActions = ({
 }: React.PropsWithChildren<PanelActionsProps>) => {
   const updatedChildren: React.ReactNode[] = [];
   const {
-    settings: { reduceMotion, animationSpeedAdjustment },
+    settings: {
+      reduceMotion,
+      enableLoadingAnimation,
+      animationSpeedAdjustment,
+    },
   } = useSettingsContext();
   const {
     isPanelMenuOpen,
@@ -269,6 +285,11 @@ export const PanelActions = ({
     animationDelaySeconds,
   } = usePanelContext();
   const [spinIcon, setSpinIcon] = useState<boolean>(false);
+
+  const isLoadingAnimationDisabled = useMemo(
+    () => !enableLoadingAnimation || reduceMotion,
+    [enableLoadingAnimation, reduceMotion],
+  );
 
   // Child must be a Button
   React.Children.forEach(children, (child) => {
@@ -302,7 +323,7 @@ export const PanelActions = ({
         panelActionsCss(
           animationDurationSeconds ?? 0,
           animationDelaySeconds ?? 0,
-          reduceMotion,
+          isLoadingAnimationDisabled,
           animationSpeedAdjustment,
         ),
       )}
@@ -313,7 +334,7 @@ export const PanelActions = ({
           panelActionsCss(
             animationDurationSeconds ?? 0,
             animationDelaySeconds ?? 0,
-            reduceMotion,
+            isLoadingAnimationDisabled,
             animationSpeedAdjustment,
           ),
         )}

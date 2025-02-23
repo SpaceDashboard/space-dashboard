@@ -35,7 +35,11 @@ const fadeInFromBlackCss = (
 export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
   const { navAnimationSeconds } = useAppContext();
   const {
-    settings: { reduceMotion, animationSpeedAdjustment },
+    settings: {
+      reduceMotion,
+      enableLoadingAnimation,
+      animationSpeedAdjustment,
+    },
   } = useSettingsContext();
   const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +50,11 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
       (animationDurationSeconds ?? 4.5) + (animationDelaySeconds ?? 0) + 0.55
     );
   }, [animationDurationSeconds, animationDelaySeconds, navAnimationSeconds]);
+
+  const isLoadingAnimationDisabled = useMemo(
+    () => !enableLoadingAnimation || reduceMotion,
+    [enableLoadingAnimation, reduceMotion],
+  );
 
   const timeToFadeIn = useMemo(() => {
     return (
@@ -68,7 +77,7 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
       () => {
         setIsFadedIn(true);
       },
-      reduceMotion ? 0 : timeToFadeIn,
+      isLoadingAnimationDisabled ? 0 : timeToFadeIn,
     );
   }, [isLoading]);
 
@@ -77,7 +86,7 @@ export const FadeFromBlack = ({ children }: React.PropsWithChildren) => {
       className={fadeInFromBlackCss(
         isLoading,
         delayedAnimationSeconds * animationSpeedAdjustment,
-        reduceMotion,
+        isLoadingAnimationDisabled,
         isFadedIn,
       )}
     >

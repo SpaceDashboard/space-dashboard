@@ -41,11 +41,12 @@ const animationSpeedAdjustmentSelectCss = css`
   box-sizing: content-box;
   color: #fff;
   cursor: pointer;
-  font-size: 0.9rem;
-  height: 20px;
-  padding: 0 7px;
+  font-size: 0.75rem;
+  height: 24px;
+  padding: 0 2.5px;
   text-align: center;
-  width: 45px;
+  text-align-last: center;
+  width: 40px;
 
   @media (hover: hover) {
     &:hover {
@@ -58,6 +59,26 @@ const animationSpeedAdjustmentSelectCss = css`
   }
 `;
 
+const animationSpeedAdjustmentSelectLabelDividerCss = css`
+  flex-grow: 1;
+  height: 1px;
+  position: relative;
+
+  &::after {
+    background: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 5%)
+    );
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+`;
+
 export const UserSettings: React.FC = () => {
   const { isUserSettingsOpen, setIsUserSettingsOpen } = useAppContext();
   const {
@@ -65,6 +86,7 @@ export const UserSettings: React.FC = () => {
       reduceMotion,
       reduceTransparency,
       reduceButtonAnimation,
+      enableLoadingAnimation,
       enableButtonAnimationAlways,
       disableButtonTooltips,
       lastUpdated,
@@ -108,7 +130,11 @@ export const UserSettings: React.FC = () => {
         ref={modalContentWrapperRef}
       >
         {/* Start toggle wrapper */}
-        <FlexWrapper gap={50} style={{ maxWidth: '440px', minWidth: '265px' }}>
+        <FlexWrapper
+          gap={50}
+          style={{ maxWidth: '440px', minWidth: '265px' }}
+          className="settings-toggles-wrapper"
+        >
           <FlexWrapper gap={28}>
             <h2 className={settingsSectionHeaderCss}>
               {'Motion & Accessibility'}
@@ -146,10 +172,29 @@ export const UserSettings: React.FC = () => {
                 checked={reduceMotion}
                 onChange={() => updateSettings({ reduceMotion: !reduceMotion })}
               />
+              <Toggle
+                label={
+                  <>
+                    {'Dashboard loading animation'}
+                    <TooltipWrapper
+                      title="Toggle the loading animation of the dashboard panels on page load"
+                      delay={300}
+                    >
+                      <IconInfoCircle color="#CCC" size={20} />
+                    </TooltipWrapper>
+                  </>
+                }
+                checked={enableLoadingAnimation}
+                onChange={() =>
+                  updateSettings({
+                    enableLoadingAnimation: !enableLoadingAnimation,
+                  })
+                }
+              />
               <FlexWrapper
                 alignItems="center"
                 flexDirection="row"
-                marginBottom={3}
+                justifyContent="space-between"
               >
                 <label>{'Animation speed adjustment: '}</label>
                 <TooltipWrapper
@@ -158,6 +203,9 @@ export const UserSettings: React.FC = () => {
                 >
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
+                <span
+                  className={animationSpeedAdjustmentSelectLabelDividerCss}
+                ></span>
                 <select
                   className={animationSpeedAdjustmentSelectCss}
                   onChange={(e) =>

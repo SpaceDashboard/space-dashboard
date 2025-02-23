@@ -113,7 +113,12 @@ export const NavBar: React.FC = () => {
     setIsUserSettingsOpen,
   } = useAppContext();
   const {
-    settings: { reduceMotion, animationSpeedAdjustment, reduceTransparency },
+    settings: {
+      reduceMotion,
+      enableLoadingAnimation,
+      animationSpeedAdjustment,
+      reduceTransparency,
+    },
   } = useSettingsContext();
 
   const closeAllModals = () => {
@@ -121,6 +126,11 @@ export const NavBar: React.FC = () => {
     setIsContactFormOpen(false);
     setIsUserSettingsOpen(false);
   };
+
+  const isLoadingAnimationDisabled = useMemo(
+    () => !enableLoadingAnimation || reduceMotion,
+    [enableLoadingAnimation, reduceMotion],
+  );
 
   // get current viewport width
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -141,13 +151,13 @@ export const NavBar: React.FC = () => {
     if (viewportWidth < 540) {
       return 0;
     }
-    return reduceMotion ? 0 : 500 * animationSpeedAdjustment;
+    return isLoadingAnimationDisabled ? 0 : 500 * animationSpeedAdjustment;
   }, [viewportWidth]);
 
   return (
     <nav
       className={navBarCss(
-        reduceMotion,
+        isLoadingAnimationDisabled,
         animationSpeedAdjustment,
         reduceTransparency,
       )}
@@ -171,7 +181,7 @@ export const NavBar: React.FC = () => {
         </span>
         <NavButtonContainer
           animationSpeedAdjustment={animationSpeedAdjustment}
-          reduceMotion={reduceMotion}
+          reduceMotion={isLoadingAnimationDisabled}
           showNavDelayMs={showNavDelayMs}
         >
           <Button

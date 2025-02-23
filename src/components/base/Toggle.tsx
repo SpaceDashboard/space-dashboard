@@ -73,7 +73,12 @@ export const Toggle: React.FC<ToggleProps> = ({
         toggleSwitchCss(reduceMotion, width, justifyContent),
       )}
     >
-      <span className="toggle-label">{label}</span>
+      {label && (
+        <>
+          <span className="toggle-label">{label}</span>
+          <span className="toggle-label-divider"></span>
+        </>
+      )}
       <span>
         <input
           aria-label={ariaLabel}

@@ -19,25 +19,18 @@ export const IssFeed2: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
           <p>
             {'Credit: '}
             <a
-              href={`https://www.youtube-nocookie.com/watch?v=${issLiveFeedVideoId2}`}
+              href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId2}`}
               target="_blank"
               rel="noreferrer"
+              title="Live Video from the International Space Station (Official NASA Stream)"
             >
-              {'Live HD Views from the ISS'}
+              {'Live Video from the International Space Station'}
             </a>
           </p>
           <p>
             {
-              'More information for the ISS HD Earth Viewing Experiment can be found here: '
+              'Watch live video from the International Space Station, including inside views when the crew aboard the space station is on duty, provided by NASA.'
             }
-            <br />
-            <a
-              href="https://eol.jsc.nasa.gov/ESRS/HDEV/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {'NASA High Definition Earth-Viewing System'}
-            </a>
           </p>
         </>
       }
