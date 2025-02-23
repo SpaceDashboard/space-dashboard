@@ -22,7 +22,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
     if (viewportWidth < 540) {
       return 0.2;
     }
-    return 0.7 * animationSpeedAdjustment;
+    return 0.8 * animationSpeedAdjustment;
   }, [viewportWidth, animationSpeedAdjustment]);
 
   // After 3 seconds consider all panels loaded - easier than actually calculating it
@@ -42,8 +42,8 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       setIsContactFormOpen,
       isUserSettingsOpen,
       setIsUserSettingsOpen,
-      issLiveFeedVideoId1: 'OCem0E-0Q6Y',
-      issLiveFeedVideoId2: 'wG4YaEcNlb0',
+      issLiveFeedVideoId1: 'idAoaC5DmFI',
+      issLiveFeedVideoId2: 'c5ZJ-5mP3_Y',
     }),
     [
       navAnimationSeconds,
