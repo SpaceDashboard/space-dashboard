@@ -7,6 +7,10 @@
   display: flex;
   position: relative;
 
+  .settings-toggles-wrapper & {
+    width: 100%;
+  }
+
   input:focus-visible ~ .switch .slider {
     outline: 0;
     box-shadow: 0 0 0px 3px rgba(71, 152, 216, 0.8);
@@ -67,6 +71,27 @@
     align-items: center;
     display: flex;
     gap: 8px;
+    /* max-width: 70%; */
+  }
+
+  .toggle-label-divider {
+    flex-grow: 1;
+    height: 1px;
+    position: relative;
+
+    &::after {
+      background: hsl(
+        var(--base-blue-hue),
+        var(--base-blue-saturation),
+        calc(var(--base-blue-lightness) - 5%)
+      );
+      bottom: 0;
+      content: '';
+      height: 1px;
+      left: 0;
+      position: absolute;
+      right: 0;
+    }
   }
 
   .switch {

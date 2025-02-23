@@ -15,16 +15,25 @@ export const IssFeed1: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
       componentKey={componentKey}
       feedName="IssFeed1"
       menuContent={
-        <p>
-          {'Credit: '}
-          <a
-            href={`https://www.youtube-nocookie.com/watch?v=${issLiveFeedVideoId1}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {'Live Video from the International Space Station'}
-          </a>
-        </p>
+        <>
+          <p>
+            {'Credit: '}
+            <a
+              href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId1}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {'Livestream of Earth & Space'}
+            </a>
+          </p>
+          <p>
+            {'Watch Earth Live from space in 4K, provided by '}
+            <a href="https://www.sen.com/" target="_blank" rel="noreferrer">
+              {'Sen'}
+            </a>
+            .
+          </p>
+        </>
       }
     />
   );

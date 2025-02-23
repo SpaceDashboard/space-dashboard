@@ -86,16 +86,16 @@ export type PanelConfig = BasePanelConfig &
 
 export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   IssFeed1: {
-    label: 'Live Video from the ISS',
+    label: 'Livestream of Earth & Space',
     enabled: true,
-    autoPlay: false,
+    autoPlay: true,
     mute: true,
     videoIdOverride: '',
   },
   IssFeed2: {
-    label: 'Live HD Views from the ISS',
+    label: 'Live Video from the ISS',
     enabled: true,
-    autoPlay: false,
+    autoPlay: true,
     mute: true,
     videoIdOverride: '',
   },
