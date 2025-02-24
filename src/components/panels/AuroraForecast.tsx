@@ -97,6 +97,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       (navAnimationSeconds + 1) * 1000,
     );
 
+    setInterval(() => {
+      handleResize();
+    }, 1000 * 5);
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };

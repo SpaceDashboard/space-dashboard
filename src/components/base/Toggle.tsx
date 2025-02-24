@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { css, cx } from '@emotion/css';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { IconCheck, IconX, IconInfoCircle } from '@tabler/icons-react';
 import { useSettingsContext } from 'src/hooks';
 import { getRandomFloat } from 'src/shared/utils';
+import { FlexWrapper, TooltipWrapper } from 'src/components/base';
 
 type JustifyContent =
   | 'flex-start'
@@ -33,7 +34,9 @@ interface ToggleProps {
   justifyContent?: JustifyContent;
   label?: string | React.ReactNode;
   onChange?: (checked: boolean) => void;
+  tooltip?: string;
   width?: number | string;
+  wrapperJustifyContent?: JustifyContent;
 }
 
 export const Toggle: React.FC<ToggleProps> = ({
@@ -44,7 +47,9 @@ export const Toggle: React.FC<ToggleProps> = ({
   justifyContent = 'space-between',
   label,
   onChange,
+  tooltip,
   width = 'fit-content',
+  wrapperJustifyContent = 'flex-start',
 }) => {
   const {
     settings: { reduceMotion },
@@ -66,45 +71,56 @@ export const Toggle: React.FC<ToggleProps> = ({
   }, [isChecked]);
 
   return (
-    <label
-      htmlFor={toggleId}
-      className={cx(
-        'toggle-switch',
-        toggleSwitchCss(reduceMotion, width, justifyContent),
-      )}
+    <FlexWrapper
+      flexDirection="row"
+      alignItems="center"
+      justifyContent={wrapperJustifyContent}
     >
-      {label && (
-        <>
-          <span className="toggle-label">{label}</span>
-          <span className="toggle-label-divider"></span>
-        </>
+      {tooltip && (
+        <TooltipWrapper title={tooltip} delay={300}>
+          <IconInfoCircle color="#CCC" size={20} />
+        </TooltipWrapper>
       )}
-      <span>
-        <input
-          aria-label={ariaLabel}
-          type="checkbox"
-          id={toggleId}
-          disabled={isDisabled}
-          checked={localIsChecked}
-          onChange={() => {
-            setLocalIsChecked((prev) => !prev);
-            onChange?.(!localIsChecked);
-          }}
-        />
-        <span aria-hidden="true" className="switch">
-          <div className="checked-unchecked-wrapper">
-            <span className="checked">
-              <IconCheck />
-            </span>
-            <span className="unchecked">
-              <IconX />
-            </span>
-          </div>
-          <div className="slider-wrapper">
-            <span className="slider"></span>
-          </div>
+      <label
+        htmlFor={toggleId}
+        className={cx(
+          'toggle-switch',
+          toggleSwitchCss(reduceMotion, width, justifyContent),
+        )}
+      >
+        {label && (
+          <>
+            <span className="toggle-label">{label}</span>
+            <span className="toggle-label-divider"></span>
+          </>
+        )}
+        <span>
+          <input
+            aria-label={ariaLabel}
+            type="checkbox"
+            id={toggleId}
+            disabled={isDisabled}
+            checked={localIsChecked}
+            onChange={() => {
+              setLocalIsChecked((prev) => !prev);
+              onChange?.(!localIsChecked);
+            }}
+          />
+          <span aria-hidden="true" className="switch">
+            <div className="checked-unchecked-wrapper">
+              <span className="checked">
+                <IconCheck />
+              </span>
+              <span className="unchecked">
+                <IconX />
+              </span>
+            </div>
+            <div className="slider-wrapper">
+              <span className="slider"></span>
+            </div>
+          </span>
         </span>
-      </span>
-    </label>
+      </label>
+    </FlexWrapper>
   );
 };

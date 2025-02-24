@@ -1,7 +1,6 @@
 import React from 'react';
-import { Toggle, TooltipWrapper } from 'src/components/base';
+import { Toggle } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 export const AuroraForecastSettings: React.FC = () => {
   const {
@@ -14,17 +13,8 @@ export const AuroraForecastSettings: React.FC = () => {
   return (
     <>
       <Toggle
-        label={
-          <>
-            {'Show southern hemisphere by default'}
-            <TooltipWrapper
-              title="When enabled, the aurora forecast for the southern hemisphere will be shown by default"
-              delay={300}
-            >
-              <IconInfoCircle color="#CCC" size={20} />
-            </TooltipWrapper>
-          </>
-        }
+        label="Show southern hemisphere by default"
+        tooltip="When enabled, the aurora forecast for the southern hemisphere will be shown by default"
         checked={AuroraForecast.startWithSouthernHemisphere}
         onChange={() =>
           updatePanelConfigs({
@@ -37,17 +27,8 @@ export const AuroraForecastSettings: React.FC = () => {
         }
       />
       <Toggle
-        label={
-          <>
-            {'Show video by default'}
-            <TooltipWrapper
-              title="When enabled, a video of the aurora forecast for the selected hemisphere will be shown on loop by default"
-              delay={300}
-            >
-              <IconInfoCircle color="#CCC" size={20} />
-            </TooltipWrapper>
-          </>
-        }
+        label="Show video by default"
+        tooltip="When enabled, a video of the aurora forecast for the selected hemisphere will be shown on loop by default"
         checked={AuroraForecast.startWithVideo}
         onChange={() =>
           updatePanelConfigs({

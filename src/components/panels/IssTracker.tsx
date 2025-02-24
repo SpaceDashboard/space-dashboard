@@ -71,8 +71,12 @@ export const IssTracker: React.FC<PanelProps> = ({ index, componentKey }) => {
       () => {
         handleResize();
       },
-      (navAnimationSeconds + 1) * 2000,
+      (navAnimationSeconds + 1) * 500,
     );
+
+    setInterval(() => {
+      handleResize();
+    }, 1000 * 5);
 
     return () => {
       window.removeEventListener('resize', handleResize);

@@ -4,7 +4,7 @@ import { AppContext } from 'src/providers';
 
 const AppProvider = ({ children }: React.PropsWithChildren) => {
   const {
-    settings: { animationSpeedAdjustment },
+    settings: { animationSpeedAdjustment, enableLoadingAnimation },
   } = useSettingsContext();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -19,18 +19,26 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
   }, []);
 
   const navAnimationSeconds = useMemo(() => {
+    if (!enableLoadingAnimation) {
+      return 0.001; // bug where 0 causes an issue with FadeFromBlack component
+    }
+
     if (viewportWidth < 540) {
       return 0.2;
     }
+
     return 0.8 * animationSpeedAdjustment;
   }, [viewportWidth, animationSpeedAdjustment]);
 
   // After 3 seconds consider all panels loaded - easier than actually calculating it
-  setTimeout(() => {
-    if (!allPanelsLoaded) {
-      setAllPanelsLoaded(true);
-    }
-  }, 3000);
+  setTimeout(
+    () => {
+      if (!allPanelsLoaded) {
+        setAllPanelsLoaded(true);
+      }
+    },
+    enableLoadingAnimation ? 3000 : 0,
+  );
 
   const value = useMemo(
     () => ({

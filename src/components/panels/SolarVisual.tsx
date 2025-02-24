@@ -77,8 +77,12 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       () => {
         handleResize();
       },
-      (navAnimationSeconds + 1) * 1000,
+      (navAnimationSeconds + 1) * 500,
     );
+
+    setInterval(() => {
+      handleResize();
+    }, 1000 * 5);
 
     return () => {
       window.removeEventListener('resize', handleResize);

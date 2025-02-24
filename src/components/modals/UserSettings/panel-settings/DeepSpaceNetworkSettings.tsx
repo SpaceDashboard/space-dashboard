@@ -1,7 +1,6 @@
 import React from 'react';
-import { Toggle, TooltipWrapper } from 'src/components/base';
+import { Toggle } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 export const DeepSpaceNetworkSettings: React.FC = () => {
   const {
@@ -13,18 +12,10 @@ export const DeepSpaceNetworkSettings: React.FC = () => {
 
   return (
     <Toggle
-      label={
-        <>
-          {'Load Deep Space Network by default'}
-          <TooltipWrapper
-            title="When enabled, the Deep Space Network iframe will render on page load by default"
-            delay={300}
-          >
-            <IconInfoCircle color="#CCC" size={20} />
-          </TooltipWrapper>
-        </>
-      }
+      label="Load Deep Space Network by default"
+      tooltip="When enabled, the Deep Space Network iframe will render on page load by default"
       checked={DeepSpaceNetwork.renderDSNOnLoad}
+      wrapperJustifyContent="center"
       onChange={() =>
         updatePanelConfigs({
           DeepSpaceNetwork: {
