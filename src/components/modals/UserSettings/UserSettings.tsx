@@ -141,49 +141,22 @@ export const UserSettings: React.FC = () => {
             </h2>
             <FlexWrapper>
               <Toggle
-                label={
-                  <>
-                    {'Reduce transparency'}
-                    <TooltipWrapper
-                      title="Reduces transparency of background colors and elements"
-                      delay={300}
-                    >
-                      <IconInfoCircle color="#CCC" size={20} />
-                    </TooltipWrapper>
-                  </>
-                }
+                label="Reduce transparency"
+                tooltip="Reduces transparency of background colors and elements"
                 checked={reduceTransparency}
                 onChange={() =>
                   updateSettings({ reduceTransparency: !reduceTransparency })
                 }
               />
               <Toggle
-                label={
-                  <>
-                    {'Reduce motion'}
-                    <TooltipWrapper
-                      title="Reduces panel, modal, and toggle animations (anything that animates smoothly). This can help with performance if your computer is having difficulties rendering panels and animations."
-                      delay={300}
-                    >
-                      <IconInfoCircle color="#CCC" size={20} />
-                    </TooltipWrapper>
-                  </>
-                }
+                label="Reduce motion"
+                tooltip="Reduces panel, modal, and toggle animations (anything that animates smoothly). This can help with performance if your computer is having difficulties rendering panels and animations."
                 checked={reduceMotion}
                 onChange={() => updateSettings({ reduceMotion: !reduceMotion })}
               />
               <Toggle
-                label={
-                  <>
-                    {'Dashboard loading animation'}
-                    <TooltipWrapper
-                      title="Toggle the loading animation of the dashboard panels on page load"
-                      delay={300}
-                    >
-                      <IconInfoCircle color="#CCC" size={20} />
-                    </TooltipWrapper>
-                  </>
-                }
+                label="Dashboard loading animation"
+                tooltip="Toggle the loading animation of the dashboard panels on page load"
                 checked={enableLoadingAnimation}
                 onChange={() =>
                   updateSettings({
@@ -196,13 +169,13 @@ export const UserSettings: React.FC = () => {
                 flexDirection="row"
                 justifyContent="space-between"
               >
-                <label>{'Animation speed adjustment: '}</label>
                 <TooltipWrapper
                   title="Adjusts the speed of animations by the selected adjustment value (lower = faster)"
                   delay={300}
                 >
                   <IconInfoCircle color="#CCC" size={20} />
                 </TooltipWrapper>
+                <label>{'Animation speed adjustment: '}</label>
                 <span
                   className={animationSpeedAdjustmentSelectLabelDividerCss}
                 ></span>
@@ -224,17 +197,8 @@ export const UserSettings: React.FC = () => {
                 </select>
               </FlexWrapper>
               <Toggle
-                label={
-                  <>
-                    {'Reduce button animation'}
-                    <TooltipWrapper
-                      title="Reduces the corner animations on buttons when hovered"
-                      delay={300}
-                    >
-                      <IconInfoCircle color="#CCC" size={20} />
-                    </TooltipWrapper>
-                  </>
-                }
+                label="Reduce button animation"
+                tooltip="Reduces the corner animations on buttons when hovered"
                 checked={reduceButtonAnimation}
                 onChange={() =>
                   updateSettings({
@@ -244,17 +208,8 @@ export const UserSettings: React.FC = () => {
               />
               <FlexWrapper alignItems="center" flexDirection="row">
                 <Toggle
-                  label={
-                    <>
-                      {'Always render button animations'}
-                      <TooltipWrapper
-                        title="Always animates the corner animations on buttons, except when disabled"
-                        delay={300}
-                      >
-                        <IconInfoCircle color="#CCC" size={20} />
-                      </TooltipWrapper>
-                    </>
-                  }
+                  label="Always render button animations"
+                  tooltip="Always animates the corner animations on buttons, except when disabled"
                   checked={enableButtonAnimationAlways}
                   onChange={() =>
                     updateSettings({
@@ -292,12 +247,12 @@ export const UserSettings: React.FC = () => {
               {'Panel Specific Settings'}
             </h2>
             <FlexWrapper>
-              <h3>{'Live Video from the ISS'}</h3>
+              <h3>{'Livestream of Earth & Space'}</h3>
               <IssFeedSettings feedName="IssFeed1" />
             </FlexWrapper>
 
             <FlexWrapper>
-              <h3>{'Live HD Views from the ISS'}</h3>
+              <h3>{'Live Video from the ISS'}</h3>
               <IssFeedSettings feedName="IssFeed2" />
             </FlexWrapper>
 
@@ -323,17 +278,8 @@ export const UserSettings: React.FC = () => {
             </h2>
             <FlexWrapper>
               <Toggle
-                label={
-                  <>
-                    {'Disable icon button tooltips'}
-                    <TooltipWrapper
-                      title="Disables tooltips for any button that only renders an icon. This is not recommended but allows for fewer visual interruptions when using the dashboard."
-                      delay={300}
-                    >
-                      <IconInfoCircle color="#CCC" size={20} />
-                    </TooltipWrapper>
-                  </>
-                }
+                label="Disable icon button tooltips"
+                tooltip="Disables tooltips for any button that only renders an icon. This is not recommended but allows for fewer visual interruptions when using the dashboard."
                 checked={disableButtonTooltips}
                 onChange={() =>
                   updateSettings({

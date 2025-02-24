@@ -80,10 +80,10 @@ export const IssFeedSettings: React.FC<IssFeedSettingsProps> = ({
       <FlexWrapper flexDirection="row" alignItems="flex-end" ref={fieldRef}>
         <FlexWrapper maxWidth={200}>
           <FlexWrapper flexDirection="row" alignItems="center" gap={6}>
-            <label htmlFor="videoIdOverride">{'Video ID Override'}</label>
             <TooltipWrapper title="Override the YouTube video ID" delay={100}>
               <IconInfoCircle color="#CCC" size={20} />
             </TooltipWrapper>
+            <label htmlFor="videoIdOverride">{'Video ID Override'}</label>
           </FlexWrapper>
           <FlexWrapper
             flexDirection={fieldIsNarrow ? 'column' : 'row'}

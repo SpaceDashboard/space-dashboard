@@ -348,6 +348,7 @@ export const ColumnManager: React.FC = () => {
                     <Toggle
                       ariaLabel="Enable panel"
                       checked={panelConfigs[panel as AvailablePanels].enabled}
+                      wrapperJustifyContent="center"
                       onChange={() =>
                         updatePanelConfigs({
                           [panel as AvailablePanels]: {
@@ -459,6 +460,7 @@ export const ColumnManager: React.FC = () => {
                   <Toggle
                     ariaLabel="Enable panel"
                     checked={panelConfigs.DeepSpaceNetwork?.enabled}
+                    wrapperJustifyContent="center"
                     onChange={() =>
                       updatePanelConfigs({
                         DeepSpaceNetwork: {
