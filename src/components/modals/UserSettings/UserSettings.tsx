@@ -125,7 +125,7 @@ export const UserSettings: React.FC = () => {
       isFullScreen={true}
     >
       <FlexWrapper
-        gap={25}
+        gap={45}
         flexDirection={modalContentDirection}
         ref={modalContentWrapperRef}
       >
