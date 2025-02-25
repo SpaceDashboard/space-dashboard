@@ -2,6 +2,7 @@ import { PanelProps } from 'src/components/base';
 import {
   IssFeed1,
   IssFeed2,
+  IssFeed3,
   IssTracker,
   PlanetaryKIndex,
   AuroraForecast,
@@ -14,6 +15,7 @@ import {
 export type AvailablePanels =
   | 'IssFeed1'
   | 'IssFeed2'
+  | 'IssFeed3'
   | 'IssTracker'
   | 'PlanetaryKIndex'
   | 'AuroraForecast'
@@ -29,6 +31,7 @@ type PanelMapType = Record<MoveablePanels, React.FC<PanelProps>>;
 export const columnPanelMap: PanelMapType = {
   IssFeed1,
   IssFeed2,
+  IssFeed3,
   IssTracker,
   PlanetaryKIndex,
   AuroraForecast,
@@ -41,6 +44,7 @@ export const columnPanelMap: PanelMapType = {
 export const defaultColumn1Order: MoveablePanels[] = [
   'IssFeed1',
   'IssFeed2',
+  'IssFeed3',
   'Launches',
 ];
 export const defaultColumn2Order: MoveablePanels[] = [
@@ -88,14 +92,21 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
   IssFeed1: {
     label: 'Livestream of Earth & Space',
     enabled: true,
-    autoPlay: true,
+    autoPlay: false,
     mute: true,
     videoIdOverride: '',
   },
   IssFeed2: {
     label: 'Live Video from the ISS',
     enabled: true,
-    autoPlay: true,
+    autoPlay: false,
+    mute: true,
+    videoIdOverride: '',
+  },
+  IssFeed3: {
+    label: 'Live HD Views from the ISS',
+    enabled: true,
+    autoPlay: false,
     mute: true,
     videoIdOverride: '',
   },

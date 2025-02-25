@@ -17,7 +17,7 @@ const iframeCss = css`
   background: #000;
 `;
 
-type FeedName = 'IssFeed1' | 'IssFeed2';
+type FeedName = 'IssFeed1' | 'IssFeed2' | 'IssFeed3';
 
 interface IssFeedBaseProps extends Pick<PanelProps, 'index' | 'componentKey'> {
   feedName: FeedName;
@@ -32,11 +32,18 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
   index,
   menuContent,
 }) => {
-  const { issLiveFeedVideoId1, issLiveFeedVideoId2 } = useAppContext();
+  const { issLiveFeedVideoId1, issLiveFeedVideoId2, issLiveFeedVideoId3 } =
+    useAppContext();
   const { settings } = useSettingsContext();
   const panelConfig = settings.panelConfigs[feedName as FeedName];
   const videoId =
-    feedName === 'IssFeed1' ? issLiveFeedVideoId1 : issLiveFeedVideoId2;
+    feedName === 'IssFeed1'
+      ? issLiveFeedVideoId1
+      : feedName === 'IssFeed2'
+        ? issLiveFeedVideoId2
+        : feedName === 'IssFeed3'
+          ? issLiveFeedVideoId3
+          : '';
   const feedId = useMemo(
     () => panelConfig.videoIdOverride || videoId,
     [panelConfig, videoId],

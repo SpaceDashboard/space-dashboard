@@ -1,5 +1,6 @@
 export * from './IssFeed1';
 export * from './IssFeed2';
+export * from './IssFeed3';
 export * from './IssFeedBase';
 export * from './IssTracker';
 export * from './PlanetaryKIndex';

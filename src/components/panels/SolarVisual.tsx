@@ -30,7 +30,7 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       panelConfigs: { SolarVisual },
     },
   } = useSettingsContext();
-  const coronaImage = 'https://api.spacedashboard.com/img/current-corona.jpg';
+  const coronaImage = 'https://api.spacedashboard.com/img/current-corona.webp';
   const coronaVideo = 'https://api.spacedashboard.com/vid/current-corona.mp4';
   const [imageSrc, setImageSrc] = useState(coronaImage);
   const [videoSrc, setVideoSrc] = useState(coronaVideo);
@@ -122,18 +122,25 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
               <source src={videoSrc} type="video/mp4"></source>
             </video>
           ) : (
-            <img
-              src={imageSrc}
-              key={imageSrc}
-              alt="Current visual of the sun"
-              loading="eager"
-              // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
-              fetchPriority="high"
-              onLoad={() => {
-                setIsLoading(false);
-                handleResize();
-              }}
-            />
+            <picture>
+              <source srcSet={`${imageSrc}`} type="image/webp" />
+              <source
+                srcSet={`${imageSrc.replace('.webp', '.jpg')}`}
+                type="image/jpeg"
+              />
+              <img
+                src={imageSrc}
+                key={imageSrc}
+                alt="Current visual of the sun"
+                loading="eager"
+                // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
+                fetchPriority="high"
+                onLoad={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
+              />
+            </picture>
           )}
         </div>
       </PanelBody>

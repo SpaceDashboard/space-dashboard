@@ -49,7 +49,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   const getHemisphereMedia = () => {
     const hemisphere = showSouthernHemisphere ? 'southern' : 'northern';
     return {
-      img: `https://api.spacedashboard.com/img/aurora-forecast-${hemisphere}-hemisphere.jpg`,
+      img: `https://api.spacedashboard.com/img/aurora-forecast-${hemisphere}-hemisphere.webp`,
       vid: `https://api.spacedashboard.com/vid/${hemisphere}_hemisphere_forecast.mp4`,
     };
   };
@@ -136,18 +136,25 @@ export const AuroraForecast: React.FC<PanelProps> = ({
               <source src={videoSrc} type="video/mp4"></source>
             </video>
           ) : (
-            <img
-              src={imageSrc}
-              key={imageSrc}
-              alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
-              loading="eager"
-              // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
-              fetchPriority="high"
-              onLoad={() => {
-                setIsLoading(false);
-                handleResize();
-              }}
-            />
+            <picture>
+              <source srcSet={`${imageSrc}`} type="image/webp" />
+              <source
+                srcSet={`${imageSrc.replace('.webp', '.jpg')}`}
+                type="image/jpeg"
+              />
+              <img
+                src={imageSrc}
+                key={imageSrc}
+                alt={`Aurora Forecast ${showSouthernHemisphere ? 'Southern Hemisphere' : 'Northern Hemisphere'}`}
+                loading="eager"
+                // React doesn't recognize `fetchPriority` console error fixed in React 19: https://github.com/facebook/react/issues/27233
+                fetchPriority="high"
+                onLoad={() => {
+                  setIsLoading(false);
+                  handleResize();
+                }}
+              />
+            </picture>
           )}
         </div>
       </PanelBody>
