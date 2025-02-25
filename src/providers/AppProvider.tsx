@@ -51,7 +51,8 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       isUserSettingsOpen,
       setIsUserSettingsOpen,
       issLiveFeedVideoId1: 'fO9e9jnhYK8',
-      issLiveFeedVideoId2: 'idAoaC5DmFI',
+      issLiveFeedVideoId2: '4zXSrtbqYjI',
+      issLiveFeedVideoId3: 'mx28JNUOQ2w',
     }),
     [
       navAnimationSeconds,

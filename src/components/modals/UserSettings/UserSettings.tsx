@@ -257,6 +257,11 @@ export const UserSettings: React.FC = () => {
             </FlexWrapper>
 
             <FlexWrapper>
+              <h3>{'Live HD Views from the ISS'}</h3>
+              <IssFeedSettings feedName="IssFeed3" />
+            </FlexWrapper>
+
+            <FlexWrapper>
               <h3>{'The Sun Now'}</h3>
               <SolarVisualSettings />
             </FlexWrapper>

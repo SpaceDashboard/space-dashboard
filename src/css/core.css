@@ -231,6 +231,7 @@ a {
   width: 100%;
 
   img,
+  picture,
   video {
     height: 100%;
     left: 0;

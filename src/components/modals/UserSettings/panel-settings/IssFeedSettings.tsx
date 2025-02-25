@@ -10,17 +10,24 @@ import { useForm } from 'react-hook-form';
 import { IconInfoCircle } from '@tabler/icons-react';
 
 interface IssFeedSettingsProps {
-  feedName: 'IssFeed1' | 'IssFeed2';
+  feedName: 'IssFeed1' | 'IssFeed2' | 'IssFeed3';
 }
 
 export const IssFeedSettings: React.FC<IssFeedSettingsProps> = ({
   feedName,
 }) => {
-  const { issLiveFeedVideoId1, issLiveFeedVideoId2 } = useAppContext();
+  const { issLiveFeedVideoId1, issLiveFeedVideoId2, issLiveFeedVideoId3 } =
+    useAppContext();
   const { settings, updatePanelConfigs } = useSettingsContext();
   const panelConfig = settings.panelConfigs[feedName];
   const videoId =
-    feedName === 'IssFeed1' ? issLiveFeedVideoId1 : issLiveFeedVideoId2;
+    feedName === 'IssFeed1'
+      ? issLiveFeedVideoId1
+      : feedName === 'IssFeed2'
+        ? issLiveFeedVideoId2
+        : feedName === 'IssFeed3'
+          ? issLiveFeedVideoId3
+          : '';
 
   const { register, setValue, watch } = useForm<{
     videoIdOverride?: string;

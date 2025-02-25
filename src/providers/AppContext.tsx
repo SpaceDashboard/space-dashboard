@@ -11,6 +11,7 @@ interface AppContextProps {
   setIsUserSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   issLiveFeedVideoId1?: string;
   issLiveFeedVideoId2?: string;
+  issLiveFeedVideoId3?: string;
 }
 
 export const AppContext = createContext<AppContextProps>({
