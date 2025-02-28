@@ -40,10 +40,10 @@ export const AuroraForecast: React.FC<PanelProps> = ({
     },
   } = useSettingsContext();
   const [showSouthernHemisphere, setShowSouthernHemisphere] = useState(
-    AuroraForecast.startWithSouthernHemisphere ?? false,
+    AuroraForecast?.startWithSouthernHemisphere ?? false,
   );
   const [showVideo, setShowVideo] = useState(
-    AuroraForecast.startWithVideo ?? false,
+    AuroraForecast?.startWithVideo ?? false,
   );
   const [isLoading, setIsLoading] = useState(false);
   const getHemisphereMedia = () => {
@@ -58,6 +58,7 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>(500);
   const [wrapperHeight, setWrapperHeight] = useState<number | undefined>(500);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const prevShowSouthernHemisphere = useRef(showSouthernHemisphere);
   let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
 
   const refreshMedia = () => {
@@ -94,20 +95,24 @@ export const AuroraForecast: React.FC<PanelProps> = ({
       () => {
         handleResize();
       },
-      (navAnimationSeconds + 1) * 1000,
+      (navAnimationSeconds + 1) * 500,
     );
 
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       handleResize();
-    }, 1000 * 5);
+    }, 1000 * 2);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearInterval(intervalId);
     };
   }, []);
 
   useEffect(() => {
-    refreshMedia();
+    if (prevShowSouthernHemisphere.current !== showSouthernHemisphere) {
+      refreshMedia();
+      prevShowSouthernHemisphere.current = showSouthernHemisphere;
+    }
   }, [showSouthernHemisphere]);
 
   return (

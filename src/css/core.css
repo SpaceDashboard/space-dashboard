@@ -222,9 +222,11 @@ a {
 }
 
 .data-img-wrapper {
+  aspect-ratio: 1;
   background-color: #000;
   max-height: 500px;
   max-width: 500px;
+  height: auto;
   overflow: hidden;
   padding-bottom: 100%;
   position: relative;
@@ -233,7 +235,8 @@ a {
   img,
   picture,
   video {
-    height: 100%;
+    aspect-ratio: 1;
+    height: auto;
     left: 0;
     object-fit: contain;
     max-height: 500px;
