@@ -8,13 +8,13 @@ jobs:
   close_sentry:
     name: Auto-Close Sentry Issue
     runs-on: ubuntu-latest
-    if: github.event.issue.body != null && contains(github.event.issue.body, 'https://sentry.io/')
+    if: github.event.issue.body != null && contains(github.event.issue.body, 'https://space-dashboard.sentry.io/issues/')
     steps:
       - name: Extract Sentry Issue ID from Body
         id: extract
         run: |
           BODY="${{ github.event.issue.body }}"
-          URL=$(echo "$BODY" | grep -oE 'https://sentry.io/organizations/.*/issues/[0-9]+')
+          URL=$(echo "$BODY" | grep -oE 'https://space-dashboard.sentry.io/issues/[0-9]+')
           ID=$(echo "$URL" | grep -oE '[0-9]+$')
 
           if [ -z "$ID" ]; then
