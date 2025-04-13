@@ -38,7 +38,7 @@ jobs:
           # Build body with clean formatting
           DESCRIPTION="**Sentry Issue:** [$TITLE]($URL) "
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="<details><summary>**Stacktrace:**</summary>\`\`\`$STACKTRACE\`\`\`</details>"
+            DESCRIPTION+="<details><summary>**Stacktrace**</summary>\`\`\`$STACKTRACE\`\`\`</details>"
           fi
 
           # Remove excess newlines
