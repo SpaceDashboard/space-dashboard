@@ -1,0 +1,85 @@
+name: Create GitHub Issue from Sentry Short ID
+
+on:
+  workflow_dispatch:
+    inputs:
+      sentry_short_id:
+        description: 'Sentry Short ID (e.g. SPACE-DASHBOARD-1A)'
+        required: true
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Resolve Full Issue ID from Short ID
+        id: resolve
+        run: |
+          ORG_SLUG="space-dashboard"  # hardcoded org slug
+          SHORT_ID="${{ github.event.inputs.sentry_short_id }}"
+          AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
+          API_BASE="https://sentry.io/api/0"
+
+          RESPONSE=$(curl -s -H "$AUTH_HEADER" "$API_BASE/organizations/$ORG_SLUG/issues/?query=shortId:$SHORT_ID")
+
+          ISSUE_ID=$(echo "$RESPONSE" | jq -r '.[0].id')
+
+          if [ "$ISSUE_ID" = "null" ] || [ -z "$ISSUE_ID" ]; then
+            echo "Could not find issue with short ID: $SHORT_ID"
+            exit 1
+          fi
+
+          echo "issue_id=$ISSUE_ID" >> $GITHUB_OUTPUT
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Fetch Sentry Issue by Full ID
+        id: sentry
+        run: |
+          SENTRY_API=https://sentry.io/api/0
+          ISSUE_ID=${{ steps.resolve.outputs.issue_id }}
+          AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
+
+          ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
+
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title')
+          URL=$(echo "$ISSUE_DATA" | jq -r '.permalink')
+          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit')
+          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
+          PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug')
+
+          DESCRIPTION="**Culprit:** $CULPRIT\n\n**Sentry Issue:** $URL"
+
+          if [ -n "$STACKTRACE" ]; then
+            DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n</details>"
+          fi
+
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+          echo "body=$DESCRIPTION" >> $GITHUB_OUTPUT
+          echo "label=$PROJECT" >> $GITHUB_OUTPUT
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Create GitHub Issue via API
+        run: |
+          API_URL="https://api.github.com/repos/SpaceDashboard/space-dashboard/issues"
+          TITLE="${{ steps.sentry.outputs.title }}"
+          BODY="${{ steps.sentry.outputs.body }}"
+          LABEL="${{ steps.sentry.outputs.label }}"
+
+          DATA=$(jq -n \
+            --arg title "$TITLE" \
+            --arg body "$BODY" \
+            --arg assignee "AstroCaleb" \
+            --argjson labels "[\"$LABEL\"]" \
+            '{title: $title, body: $body, labels: $labels, assignees: [$assignee]}')
+
+          curl -s -X POST "$API_URL" \
+            -H "Authorization: Bearer $GH_PAT" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
+            -d "$DATA"
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
