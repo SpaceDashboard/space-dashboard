@@ -1,10 +1,10 @@
-name: Create Issue from Sentry
+name: Create GitHub Issue from Sentry Short ID
 
 on:
   workflow_dispatch:
     inputs:
       sentry_short_id:
-        description: 'Sentry Short ID (e.g. SPACE-DASHBOARD-1A)'
+        description: 'Sentry Short ID (e.g. SPACE-DASHBOARD-9A)'
         required: true
 
 jobs:
@@ -17,19 +17,22 @@ jobs:
       - name: Resolve Full Issue ID from Short ID
         id: resolve
         run: |
-          ORG_SLUG="space-dashboard"  # hardcoded org slug
+          ORG_SLUG="space-dashboard"
           SHORT_ID="${{ github.event.inputs.sentry_short_id }}"
           AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
           API_BASE="https://sentry.io/api/0"
 
           RESPONSE=$(curl -s -H "$AUTH_HEADER" "$API_BASE/organizations/$ORG_SLUG/issues/?query=shortId:$SHORT_ID")
 
-          ISSUE_ID=$(echo "$RESPONSE" | jq -r '.[0].id')
+          COUNT=$(echo "$RESPONSE" | jq 'if type=="array" then length else 0 end')
 
-          if [ "$ISSUE_ID" = "null" ] || [ -z "$ISSUE_ID" ]; then
-            echo "Could not find issue with short ID: $SHORT_ID"
+          if [ "$COUNT" -eq 0 ]; then
+            echo "Sentry search failed or returned no results:"
+            echo "$RESPONSE"
             exit 1
           fi
+
+          ISSUE_ID=$(echo "$RESPONSE" | jq -r '.[0].id')
 
           echo "issue_id=$ISSUE_ID" >> $GITHUB_OUTPUT
         env:
@@ -61,6 +64,24 @@ jobs:
           echo "label=$PROJECT" >> $GITHUB_OUTPUT
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Ensure Label Exists
+        run: |
+          API_URL="https://api.github.com/repos/SpaceDashboard/space-dashboard/labels"
+          LABEL="${{ steps.sentry.outputs.label }}"
+
+          EXISTS=$(curl -s -H "Authorization: Bearer $GH_PAT" "$API_URL/$LABEL" | jq -r '.name // empty')
+
+          if [ -z "$EXISTS" ]; then
+            echo "Label does not exist, creating..."
+            curl -s -X POST "$API_URL" \
+              -H "Authorization: Bearer $GH_PAT" \
+              -H "Accept: application/vnd.github+json" \
+              -H "Content-Type: application/json" \
+              -d "{\"name\": \"$LABEL\", \"color\": \"ededed\"}"
+          fi
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Create GitHub Issue via API
         run: |
