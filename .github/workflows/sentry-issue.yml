@@ -46,7 +46,7 @@ jobs:
 
           # Save to environment for the next step
           echo "TITLE=$TITLE" >> $GITHUB_ENV
-          echo -e "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
+          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
