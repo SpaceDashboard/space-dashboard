@@ -30,10 +30,12 @@ jobs:
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
 
+          # Escape triple backticks in STACKTRACE
+          STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/```/\\`\\`\\`/g')
+
           # Build body with clean formatting
           DESCRIPTION=$(printf "**Sentry Issue:** [%s](%s)\n\n" "$TITLE" "$URL")
-          if [ -n "$STACKTRACE" ]; then
-            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE")
+          if [ -n "$STACKTRACE_ESCAPED" ]; then
             DESCRIPTION+=$(printf "**Stacktrace:**\n\n\`\`\`\n%s\n\`\`\`\n" "$STACKTRACE_ESCAPED")
           fi
 
