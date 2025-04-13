@@ -3,8 +3,8 @@ name: Create GitHub Issue from Sentry Short ID
 on:
   workflow_dispatch:
     inputs:
-      sentry_short_id:
-        description: 'Sentry Short ID (e.g. SPACE-DASHBOARD-9A)'
+      sentry_id:
+        description: 'Sentry Issue ID (e.g. 6390929863)'
         required: true
 
 jobs:
@@ -14,35 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Resolve Full Issue ID from Short ID
-        id: resolve
-        run: |
-          ORG_SLUG="space-dashboard"
-          SHORT_ID="${{ github.event.inputs.sentry_short_id }}"
-          AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
-          API_BASE="https://sentry.io/api/0"
-
-          RESPONSE=$(curl -s -H "$AUTH_HEADER" "$API_BASE/organizations/$ORG_SLUG/issues/?query=shortId:$SHORT_ID")
-
-          COUNT=$(echo "$RESPONSE" | jq 'if type=="array" then length else 0 end')
-
-          if [ "$COUNT" -eq 0 ]; then
-            echo "Sentry search failed or returned no results:"
-            echo "$RESPONSE"
-            exit 1
-          fi
-
-          ISSUE_ID=$(echo "$RESPONSE" | jq -r '.[0].id')
-
-          echo "issue_id=$ISSUE_ID" >> $GITHUB_OUTPUT
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
-
       - name: Fetch Sentry Issue by Full ID
         id: sentry
         run: |
           SENTRY_API=https://sentry.io/api/0
-          ISSUE_ID=${{ steps.resolve.outputs.issue_id }}
+          ISSUE_ID=${{ github.event.inputs.sentry_id }}
           AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
 
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
