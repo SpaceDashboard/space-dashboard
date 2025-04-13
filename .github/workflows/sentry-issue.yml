@@ -1,4 +1,4 @@
-name: Create GitHub Issue from Sentry Short ID
+name: Create Issue from Sentry
 
 on:
   workflow_dispatch:

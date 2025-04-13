@@ -1,4 +1,4 @@
-name: Close Sentry Issue When GitHub Issue is Closed
+name: Close Sentry Issue
 
 on:
   issues:
