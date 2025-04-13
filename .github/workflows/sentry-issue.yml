@@ -26,30 +26,27 @@ jobs:
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
           # Extract and clean fields
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/"/\\"/g')
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          # STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
 
-          # Escape triple backticks in STACKTRACE
-          # STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/```/\\`\\`\\`/g')
+          # Clean up stacktrace for Markdown
+          if [ -n "$STACKTRACE" ]; then
+            STACKTRACE=$(echo "$STACKTRACE" | sed 's/`/\\`/g; s/^ *//; s/ *$//')
+          fi
 
           # Build body with clean formatting
-          DESCRIPTION=$(printf "**Sentry Issue:** [%s](%s)\n\n" "$TITLE" "$URL")
+          DESCRIPTION="**Sentry Issue:** [$TITLE]($URL) \n\n "
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+=$(printf "**Stacktrace:**\n\n\`\`\`\n%s\n\`\`\`\n" "$STACKTRACE")
+            DESCRIPTION+="**Stacktrace:** \`\`\`$STACKTRACE\`\`\`"
           fi
 
           # Remove excess newlines
           DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
 
-          # Escape variables for GitHub Actions
-          ESCAPED_TITLE=$(echo "$TITLE" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
-          ESCAPED_DESCRIPTION=$(echo "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
-
           # Save to environment for the next step
-          echo "TITLE=$ESCAPED_TITLE" >> $GITHUB_ENV
-          echo "DESCRIPTION=$ESCAPED_DESCRIPTION" >> $GITHUB_ENV
+          echo "TITLE=$TITLE" >> $GITHUB_ENV
+          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
