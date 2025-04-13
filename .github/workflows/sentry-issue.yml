@@ -28,25 +28,21 @@ jobs:
           # Extract and clean fields
           TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
-
-          # Clean up stacktrace for Markdown
-          if [ -n "$STACKTRACE" ]; then
-            STACKTRACE=$(echo "$STACKTRACE" | sed 's/`/\\`/g; s/^ *//; s/ *$//')
-          fi
+          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
 
           # Build body with clean formatting
-          DESCRIPTION="**Sentry Issue:** [$TITLE]($URL) \n\n"
+          DESCRIPTION=$(printf "**Sentry Issue:** [%s](%s)\n\n" "$TITLE" "$URL")
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="**Stacktrace:** \`\`\`$STACKTRACE\`\`\`\n"
+            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE")
+            DESCRIPTION+=$(printf "**Stacktrace:**\n\n\`\`\`\n%s\n\`\`\`\n" "$STACKTRACE_ESCAPED")
           fi
 
           # Remove excess newlines
-          DESCRIPTION=$(echo -e "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
+          DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
 
           # Save to environment for the next step
-          echo "TITLE=$TITLE" >> $GITHUB_ENV
-          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
+          printf "TITLE=%s\n" "$TITLE" >> $GITHUB_ENV
+          printf "DESCRIPTION=%s\n" "$DESCRIPTION" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
