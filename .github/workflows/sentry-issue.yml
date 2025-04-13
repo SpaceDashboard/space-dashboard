@@ -27,53 +27,29 @@ jobs:
           # Extract and sanitize fields
           TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit // "Unknown"' | sed 's/(/\\(/g; s/)/\\)/g')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g')
           PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug // "Unknown Project"')
 
           # Build the DESCRIPTION
-          DESCRIPTION=$(printf "**Culprit:** %s\n\n**Sentry Issue:** %s" "$CULPRIT" "$URL")
+          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
 
           if [ -n "$STACKTRACE" ]; then
             STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/`/\\`/g')
             DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE_ESCAPED\n\`\`\`\n</details>"
           fi
 
-          # Escape multiline strings for GitHub Actions output
-          escape_output() {
-            echo "$1" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g'
-          }
-
-          ESCAPED_DESCRIPTION=$(escape_output "$DESCRIPTION")
-          ESCAPED_TITLE=$(escape_output "$TITLE")
-
-          # Debugging output
-          echo "Title: $ESCAPED_TITLE"
-          echo "Body: $ESCAPED_DESCRIPTION"
-
-          # Write escaped values to $GITHUB_OUTPUT
-          echo "title=$ESCAPED_TITLE" >> $GITHUB_OUTPUT
-          echo "body=$ESCAPED_DESCRIPTION" >> $GITHUB_OUTPUT
+          # Save for the next step
+          echo "TITLE=$TITLE" >> $GITHUB_ENV
+          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
-      - name: Create GitHub Issue via API
+      - name: Create GitHub Issue via gh CLI
         run: |
-          API_URL="https://api.github.com/repos/SpaceDashboard/space-dashboard/issues"
-          TITLE="${{ steps.sentry.outputs.title }}"
-          BODY="${{ steps.sentry.outputs.body }}"
-
-          DATA=$(jq -n \
-            --arg title "$TITLE" \
-            --arg body "$BODY" \
-            --arg assignee "AstroCaleb" \
-            --argjson labels '["bug"]' \
-            '{title: $title, body: $body, labels: $labels, assignees: [$assignee]}')
-
-          curl -s -X POST "$API_URL" \
-            -H "Authorization: Bearer $GH_PAT" \
-            -H "Accept: application/vnd.github+json" \
-            -H "Content-Type: application/json" \
-            -d "$DATA"
+          gh issue create \
+            --title "$TITLE" \
+            --body "$DESCRIPTION" \
+            --label "bug" \
+            --assignee "AstroCaleb"
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
