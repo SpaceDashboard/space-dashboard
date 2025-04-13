@@ -28,15 +28,16 @@ jobs:
           # Extract and clean fields
           TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/"/\\"/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
+          # STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
+          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
 
           # Escape triple backticks in STACKTRACE
-          STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/```/\\`\\`\\`/g')
+          # STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/```/\\`\\`\\`/g')
 
           # Build body with clean formatting
           DESCRIPTION=$(printf "**Sentry Issue:** [%s](%s)\n\n" "$TITLE" "$URL")
-          if [ -n "$STACKTRACE_ESCAPED" ]; then
-            DESCRIPTION+=$(printf "**Stacktrace:**\n\n\`\`\`\n%s\n\`\`\`\n" "$STACKTRACE_ESCAPED")
+          if [ -n "$STACKTRACE" ]; then
+            DESCRIPTION+=$(printf "**Stacktrace:**\n\n\`\`\`\n%s\n\`\`\`\n" "$STACKTRACE")
           fi
 
           # Remove excess newlines
