@@ -1,4 +1,4 @@
-name: Create GitHub Issue from Sentry Short ID
+name: Create Issue from Sentry
 
 on:
   workflow_dispatch:
@@ -9,12 +9,13 @@ on:
 
 jobs:
   create_issue:
+    name: Create Issue from Sentry Issue
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Fetch Sentry Issue by Full ID
+      - name: Fetch Sentry Issue
         id: sentry
         run: |
           SENTRY_API=https://sentry.io/api/0
@@ -23,16 +24,19 @@ jobs:
 
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title')
+          # Extract and sanitize fields
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink')
-          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit')
-          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
+          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit' | sed 's/(/\\(/g; s/)/\\)/g')
+          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g')
           PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug')
 
-          DESCRIPTION="**Culprit:** $CULPRIT\n\n**Sentry Issue:** $URL"
+          # Escape special characters in DESCRIPTION
+          DESCRIPTION=$(printf "**Culprit:** %s\n\n**Sentry Issue:** %s" "$CULPRIT" "$URL")
 
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n</details>"
+            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE")
+            DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE_ESCAPED\n\`\`\`\n</details>"
           fi
 
           echo "title=$TITLE" >> $GITHUB_OUTPUT

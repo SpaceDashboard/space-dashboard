@@ -1,4 +1,4 @@
-name: Close Sentry Issue
+name: Auto-Close Sentry Issue
 
 on:
   issues:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   close_sentry:
+    name: Auto-Close Sentry Issue
     runs-on: ubuntu-latest
     if: github.event.issue.body != null && contains(github.event.issue.body, 'https://sentry.io/')
     steps:
