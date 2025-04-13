@@ -26,7 +26,7 @@ jobs:
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
           # Extract and clean fields
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/"/\\"/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g; s/^ *//; s/ *$//')
 
@@ -42,17 +42,25 @@ jobs:
           # Remove excess newlines
           DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
 
+          # Escape variables for GitHub Actions
+          ESCAPED_TITLE=$(echo "$TITLE" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
+          ESCAPED_DESCRIPTION=$(echo "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
+
           # Save to environment for the next step
-          printf "TITLE=%s\n" "$TITLE" >> $GITHUB_ENV
-          printf "DESCRIPTION=%s\n" "$DESCRIPTION" >> $GITHUB_ENV
+          echo "TITLE=$ESCAPED_TITLE" >> $GITHUB_ENV
+          echo "DESCRIPTION=$ESCAPED_DESCRIPTION" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
-      - name: Create GitHub Issue via gh CLI
+      - name: Create GitHub Issue
         run: |
+          # Write the DESCRIPTION to a temporary file
+          echo "$DESCRIPTION" > issue_body.md
+
+          # Create the GitHub issue using the temporary file
           gh issue create \
             --title "$TITLE" \
-            --body $"$DESCRIPTION" \
+            --body-file issue_body.md \
             --label "bug" \
             --assignee "AstroCaleb"
         env:
