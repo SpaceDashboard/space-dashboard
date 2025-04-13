@@ -31,7 +31,7 @@ jobs:
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g')
           PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug')
 
-          # Escape special characters in DESCRIPTION
+          # Build the DESCRIPTION
           DESCRIPTION=$(printf "**Culprit:** %s\n\n**Sentry Issue:** %s" "$CULPRIT" "$URL")
 
           if [ -n "$STACKTRACE" ]; then
@@ -43,8 +43,9 @@ jobs:
           ESCAPED_DESCRIPTION=$(echo "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
           ESCAPED_TITLE=$(echo "$TITLE" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
 
-          printf "title=%s\n" "$ESCAPED_TITLE" >> $GITHUB_OUTPUT
-          printf "body=%s\n" "$ESCAPED_DESCRIPTION" >> $GITHUB_OUTPUT
+          # Write escaped values to $GITHUB_OUTPUT
+          echo "title=$ESCAPED_TITLE" >> $GITHUB_OUTPUT
+          echo "body=$ESCAPED_DESCRIPTION" >> $GITHUB_OUTPUT
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
