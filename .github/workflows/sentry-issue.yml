@@ -50,7 +50,7 @@ jobs:
 
           gh issue create \
             --title "$TITLE" \
-            --body $"### Sentry Issue: [$TITLE]($URL)\n\n**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n" \
+            --body $"### Sentry Issue: [$TITLE]($URL) \n\n **Stacktrace:** \n\n \`\`\`\n$STACKTRACE\n\`\`\`" \
             --label "bug" \
             --assignee "AstroCaleb"
         env:
