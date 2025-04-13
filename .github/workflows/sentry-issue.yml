@@ -22,27 +22,33 @@ jobs:
           ISSUE_ID=${{ github.event.inputs.sentry_id }}
           AUTH_HEADER="Authorization: Bearer $SENTRY_AUTH_TOKEN"
 
+          # Fetch Sentry Issue JSON
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
-          # Extract and sanitize fields
+          # Extract and clean fields
           TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g')
-          PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug // "Unknown Project"')
+          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
 
-          # Build the DESCRIPTION
-          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
-
+          # Clean up stacktrace for Markdown
           if [ -n "$STACKTRACE" ]; then
-            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/`/\\`/g')
-            DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE_ESCAPED\n\`\`\`\n</details>"
+            STACKTRACE=$(echo "$STACKTRACE" | sed 's/`/\\`/g; s/^ *//; s/ *$//')
           fi
 
-          # Save for the next step
+          # Build body with clean formatting
+          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
+          if [ -n "$STACKTRACE" ]; then
+            DESCRIPTION+="**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n"
+          fi
+
+          # Remove excess newlines
+          DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
+
+          # Save to environment for the next step
           echo "TITLE=$TITLE" >> $GITHUB_ENV
           echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
+              env:
+                SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
       - name: Create GitHub Issue via gh CLI
         run: |
