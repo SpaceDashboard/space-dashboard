@@ -26,7 +26,7 @@ jobs:
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
           # Extract and clean fields
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\(/g; s/)/\)/g')
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
 
@@ -36,12 +36,9 @@ jobs:
           fi
 
           # Build body with clean formatting
-          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)"
+          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="
-              **Stacktrace:**
-              \`\`\`$STACKTRACE\`\`\`
-            "
+            DESCRIPTION+="**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n"
           fi
 
           # Remove excess newlines
@@ -57,7 +54,7 @@ jobs:
         run: |
           gh issue create \
             --title "$TITLE" \
-            --body "$DESCRIPTION" \
+            --body $"$DESCRIPTION" \
             --label "bug" \
             --assignee "AstroCaleb"
         env:
