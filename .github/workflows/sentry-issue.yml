@@ -66,12 +66,15 @@ jobs:
           BODY="${{ steps.sentry.outputs.body }}"
           LABEL="${{ steps.sentry.outputs.label }}"
 
+          # Sanitize the LABEL variable
+          LABEL=$(echo "$LABEL" | tr -d '\n' | tr -d '[:space:]')
+
           DATA=$(jq -n \
             --arg title "$TITLE" \
             --arg body "$BODY" \
             --arg assignee "AstroCaleb" \
-            --argjson labels "[\"$LABEL\"]" \
-            '{title: $title, body: $body, labels: $labels, assignees: [$assignee]}')
+            --arg label "$LABEL" \
+            '{title: $title, body: $body, labels: [$label], assignees: [$assignee]}')
 
           curl -s -X POST "$API_URL" \
             -H "Authorization: Bearer $GH_PAT" \
