@@ -36,26 +36,32 @@ jobs:
           fi
 
           # Build body with clean formatting
-          DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
-          if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n"
-          fi
+          # DESCRIPTION="### Sentry Issue: [$TITLE]($URL)\n\n"
+          # if [ -n "$STACKTRACE" ]; then
+          #   DESCRIPTION+="**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n"
+          # fi
 
           # Remove excess newlines
-          DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
+          # DESCRIPTION=$(echo "$DESCRIPTION" | sed -E ':a;N;$!ba;s/\n{2,}/\n\n/g')
 
           # Save to environment for the next step
-          echo "TITLE=$TITLE" >> $GITHUB_ENV
-          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
+          # echo "TITLE=$TITLE" >> $GITHUB_ENV
+          # echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
 
-      - name: Create GitHub Issue via gh CLI
-        run: |
           gh issue create \
             --title "$TITLE" \
-            --body $"$DESCRIPTION" \
+            --body $"### Sentry Issue: [$TITLE]($URL)\n\n**Stacktrace:**\n\n\`\`\`\n$STACKTRACE\n\`\`\`\n" \
             --label "bug" \
             --assignee "AstroCaleb"
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
+
+      # - name: Create GitHub Issue via gh CLI
+      #   run: |
+      #     gh issue create \
+      #       --title "$TITLE" \
+      #       --body $"$DESCRIPTION" \
+      #       --label "bug" \
+      #       --assignee "AstroCaleb"
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_PAT }}
