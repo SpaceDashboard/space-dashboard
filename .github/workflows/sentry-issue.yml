@@ -40,8 +40,11 @@ jobs:
           fi
 
           # Escape multiline strings for GitHub Actions output
-          printf "title=%s\n" "$TITLE" >> $GITHUB_OUTPUT
-          printf "body=%s\n" "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g' >> $GITHUB_OUTPUT
+          ESCAPED_DESCRIPTION=$(echo "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
+          ESCAPED_TITLE=$(echo "$TITLE" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
+
+          printf "title=%s\n" "$ESCAPED_TITLE" >> $GITHUB_OUTPUT
+          printf "body=%s\n" "$ESCAPED_DESCRIPTION" >> $GITHUB_OUTPUT
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
