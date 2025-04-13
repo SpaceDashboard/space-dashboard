@@ -35,12 +35,13 @@ jobs:
           DESCRIPTION=$(printf "**Culprit:** %s\n\n**Sentry Issue:** %s" "$CULPRIT" "$URL")
 
           if [ -n "$STACKTRACE" ]; then
-            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE")
+            STACKTRACE_ESCAPED=$(printf "%s" "$STACKTRACE" | sed 's/`/\\`/g')
             DESCRIPTION+="\n\n<details><summary>Stacktrace</summary>\n\n\`\`\`\n$STACKTRACE_ESCAPED\n\`\`\`\n</details>"
           fi
 
-          echo "title=$TITLE" >> $GITHUB_OUTPUT
-          echo "body=$DESCRIPTION" >> $GITHUB_OUTPUT
+          # Escape multiline strings for GitHub Actions output
+          printf "title=%s\n" "$TITLE" >> $GITHUB_OUTPUT
+          printf "body=%s\n" "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g' >> $GITHUB_OUTPUT
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
