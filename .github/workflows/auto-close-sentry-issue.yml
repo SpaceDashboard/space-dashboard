@@ -14,14 +14,29 @@ jobs:
         id: extract
         run: |
           BODY="${{ github.event.issue.body }}"
-          URL=$(echo "$BODY" | grep -oE 'https://space-dashboard.sentry.io/issues/[0-9]+')
-          ID=$(echo "$URL" | grep -oE '[0-9]+$')
 
-          if [ -z "$ID" ]; then
-            echo "No Sentry issue ID found."
+          # Extract the Sentry issue URL
+          URL=$(echo "$BODY" | grep -oE 'https://space-dashboard.sentry.io/issues/[0-9]+')
+
+          # Validate the extracted URL
+          if [ -z "$URL" ]; then
+            echo "No valid Sentry issue URL found in the issue body."
             exit 1
           fi
 
+          # Extract the Sentry issue ID from the URL
+          ID=$(echo "$URL" | grep -oE '[0-9]+$')
+
+          # Validate the extracted ID
+          if [ -z "$ID" ]; then
+            echo "No valid Sentry issue ID found in the extracted URL."
+            exit 1
+          fi
+
+          echo "Extracted Sentry issue URL: $URL"
+          echo "Extracted Sentry issue ID: $ID"
+
+          # Output the ID for the next step
           echo "id=$ID" >> $GITHUB_OUTPUT
 
       - name: Mark Sentry Issue as Resolved
