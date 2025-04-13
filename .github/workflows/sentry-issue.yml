@@ -25,11 +25,11 @@ jobs:
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
           # Extract and sanitize fields
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title' | sed 's/"/\\"/g')
-          URL=$(echo "$ISSUE_DATA" | jq -r '.permalink')
-          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit' | sed 's/(/\\(/g; s/)/\\)/g')
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
+          URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
+          CULPRIT=$(echo "$ISSUE_DATA" | jq -r '.culprit // "Unknown"' | sed 's/(/\\(/g; s/)/\\)/g')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""' | sed 's/`/\\`/g')
-          PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug')
+          PROJECT=$(echo "$ISSUE_DATA" | jq -r '.project.slug // "Unknown Project"')
 
           # Build the DESCRIPTION
           DESCRIPTION=$(printf "**Culprit:** %s\n\n**Sentry Issue:** %s" "$CULPRIT" "$URL")
@@ -40,8 +40,16 @@ jobs:
           fi
 
           # Escape multiline strings for GitHub Actions output
-          ESCAPED_DESCRIPTION=$(printf "%s" "$DESCRIPTION" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
-          ESCAPED_TITLE=$(printf "%s" "$TITLE" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g')
+          escape_output() {
+            echo "$1" | sed 's/%/%25/g; s/\n/%0A/g; s/\r/%0D/g'
+          }
+
+          ESCAPED_DESCRIPTION=$(escape_output "$DESCRIPTION")
+          ESCAPED_TITLE=$(escape_output "$TITLE")
+
+          # Debugging output
+          echo "Title: $ESCAPED_TITLE"
+          echo "Body: $ESCAPED_DESCRIPTION"
 
           # Write escaped values to $GITHUB_OUTPUT
           echo "title=$ESCAPED_TITLE" >> $GITHUB_OUTPUT
