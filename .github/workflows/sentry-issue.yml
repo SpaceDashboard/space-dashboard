@@ -55,6 +55,7 @@ jobs:
             --assignee "AstroCaleb"
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
 
       # - name: Create GitHub Issue via gh CLI
       #   run: |
