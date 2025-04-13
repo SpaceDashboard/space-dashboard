@@ -36,7 +36,8 @@ jobs:
           fi
 
           # Build body with clean formatting
-          DESCRIPTION="**Sentry Issue:** $TITLE"
+          DESCRIPTION="<p><strong>Sentry Issue ID:</strong> $ISSUE_ID</p><hr>"
+          DESCRIPTION+="<p><strong>Sentry Issue:</strong> $TITLE</p>"
           DESCRIPTION+="<p>Link: [$URL]($URL)</p>"
           if [ -n "$STACKTRACE" ]; then
             DESCRIPTION+="<details><summary>**Stacktrace**</summary>\`\`\`$STACKTRACE\`\`\`</details>"
