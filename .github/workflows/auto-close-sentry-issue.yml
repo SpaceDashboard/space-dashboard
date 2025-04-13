@@ -34,4 +34,4 @@ jobs:
             -d '{"status": "resolved"}' \
             "https://sentry.io/api/0/issues/$ISSUE_ID/"
         env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}

@@ -36,7 +36,7 @@ jobs:
 
           echo "issue_id=$ISSUE_ID" >> $GITHUB_OUTPUT
         env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
       - name: Fetch Sentry Issue by Full ID
         id: sentry
@@ -63,7 +63,7 @@ jobs:
           echo "body=$DESCRIPTION" >> $GITHUB_OUTPUT
           echo "label=$PROJECT" >> $GITHUB_OUTPUT
         env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
       - name: Ensure Label Exists
         run: |
