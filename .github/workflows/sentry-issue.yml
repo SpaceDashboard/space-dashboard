@@ -26,7 +26,7 @@ jobs:
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
 
           # Extract and clean fields
-          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
+          TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\(/g; s/)/\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
           STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
 
