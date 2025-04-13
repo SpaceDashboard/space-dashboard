@@ -37,44 +37,21 @@ jobs:
 
           echo "title=$TITLE" >> $GITHUB_OUTPUT
           echo "body=$DESCRIPTION" >> $GITHUB_OUTPUT
-          echo "label=$PROJECT" >> $GITHUB_OUTPUT
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
-
-      - name: Ensure Label Exists
-        run: |
-          API_URL="https://api.github.com/repos/SpaceDashboard/space-dashboard/labels"
-          LABEL="${{ steps.sentry.outputs.label }}"
-
-          EXISTS=$(curl -s -H "Authorization: Bearer $GH_PAT" "$API_URL/$LABEL" | jq -r '.name // empty')
-
-          if [ -z "$EXISTS" ]; then
-            echo "Label does not exist, creating..."
-            curl -s -X POST "$API_URL" \
-              -H "Authorization: Bearer $GH_PAT" \
-              -H "Accept: application/vnd.github+json" \
-              -H "Content-Type: application/json" \
-              -d "{\"name\": \"$LABEL\", \"color\": \"ededed\"}"
-          fi
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Create GitHub Issue via API
         run: |
           API_URL="https://api.github.com/repos/SpaceDashboard/space-dashboard/issues"
           TITLE="${{ steps.sentry.outputs.title }}"
           BODY="${{ steps.sentry.outputs.body }}"
-          LABEL="${{ steps.sentry.outputs.label }}"
-
-          # Sanitize the LABEL variable
-          LABEL=$(echo "$LABEL" | tr -d '\n' | tr -d '[:space:]')
 
           DATA=$(jq -n \
             --arg title "$TITLE" \
             --arg body "$BODY" \
             --arg assignee "AstroCaleb" \
-            --arg label "$LABEL" \
-            '{title: $title, body: $body, labels: [$label], assignees: [$assignee]}')
+            --argjson labels '["bug"]' \
+            '{title: $title, body: $body, labels: $labels, assignees: [$assignee]}')
 
           curl -s -X POST "$API_URL" \
             -H "Authorization: Bearer $GH_PAT" \
