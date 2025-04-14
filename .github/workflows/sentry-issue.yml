@@ -35,7 +35,7 @@ jobs:
             .entries[] | 
             select(.type=="exception") | 
             .data.values[]?.stacktrace.frames[] |
-            "\(.filename):\(.function) [line: \(.lineno // "N/A")]"
+            "\(.filename | gsub(\"\\\\\"; \"\\\\\\\\\") | gsub(\"\\\"\"; \"\\\\\\\"\")): \(.function | gsub(\"\\\\\"; \"\\\\\\\\\") | gsub(\"\\\"\"; \"\\\\\\\"\")) [line: \(.lineno // "N/A")]"
           ')
 
           # Fallback if no stacktrace from latest event
