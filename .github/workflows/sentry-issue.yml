@@ -35,8 +35,8 @@ jobs:
             .entries[]? | 
             select(.type=="exception") | 
             .data.values[]?.stacktrace.frames[]? |
-            if .lineno then
-              "\(.filename): \(.function) [line: \(.lineno)]"
+            if .lineNo then
+              "\(.filename): \(.function) [line: \(.lineNo)]"
             else
               "\(.filename): \(.function)"
             end
