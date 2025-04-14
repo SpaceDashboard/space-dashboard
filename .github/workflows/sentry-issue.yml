@@ -32,11 +32,12 @@ jobs:
 
           # Extract stacktrace from the latest event
           STACKTRACE=$(echo "$LATEST_EVENT_DATA" | jq -r '
-            .entries[] | 
+            .entries[]? | 
             select(.type=="exception") | 
-            .data.values[]?.stacktrace.frames[] |
-            "\(.filename | gsub(\"\\\\\"; \"\\\\\\\\\") | gsub(\"\\\"\"; \"\\\\\\\"\")): \(.function | gsub(\"\\\\\"; \"\\\\\\\\\") | gsub(\"\\\"\"; \"\\\\\\\"\")) [line: \(.lineno // "N/A")]"
+            .data.values[]?.stacktrace.frames[]? |
+            "\(.filename): \(.function) [line: \(.lineno // "N/A")]"
           ')
+          STACKTRACE=$(echo "$STACKTRACE" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')
 
           # Fallback if no stacktrace from latest event
           if [ -z "$STACKTRACE" ]; then
