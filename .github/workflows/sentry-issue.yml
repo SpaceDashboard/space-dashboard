@@ -66,6 +66,7 @@ jobs:
             echo "$DESCRIPTION"
             echo "EOF"
           } >> $GITHUB_ENV
+          echo "TITLE=$TITLE" >> $GITHUB_ENV
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN_WRITE }}
 
