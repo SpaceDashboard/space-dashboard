@@ -24,11 +24,24 @@ jobs:
 
           # Fetch Sentry Issue JSON
           ISSUE_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/")
+          LATEST_EVENT_DATA=$(curl -s -H "$AUTH_HEADER" "$SENTRY_API/issues/$ISSUE_ID/events/latest/")
 
           # Extract and clean fields
           TITLE=$(echo "$ISSUE_DATA" | jq -r '.title // "No Title"' | sed 's/(/\\(/g; s/)/\\)/g')
           URL=$(echo "$ISSUE_DATA" | jq -r '.permalink // "No URL"')
-          STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
+
+          # Extract stacktrace from the latest event
+          STACKTRACE=$(echo "$LATEST_EVENT_DATA" | jq -r '
+            .entries[] | 
+            select(.type=="exception") | 
+            .data.values[]?.stacktrace.frames[] |
+            "\(.filename):\(.function) [line: \(.lineno // "N/A")]"
+          ')
+
+          # Fallback if no stacktrace from latest event
+          if [ -z "$STACKTRACE" ]; then
+            STACKTRACE=$(echo "$ISSUE_DATA" | jq -r '.metadata.value // ""')
+          fi
 
           # Clean up stacktrace for Markdown
           if [ -n "$STACKTRACE" ]; then
