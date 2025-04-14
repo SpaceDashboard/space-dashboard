@@ -35,7 +35,11 @@ jobs:
             .entries[]? | 
             select(.type=="exception") | 
             .data.values[]?.stacktrace.frames[]? |
-            "\(.filename): \(.function) [line: \(.lineno // "N/A")]"
+            if .lineno then
+              "\(.filename): \(.function) [line: \(.lineno)]"
+            else
+              "\(.filename): \(.function)"
+            end
           ')
           STACKTRACE=$(echo "$STACKTRACE" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g')
 
