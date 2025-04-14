@@ -62,6 +62,7 @@ jobs:
             --title "$TITLE" \
             --body-file issue_body.md \
             --label "bug" \
+            --label "sentry" \
             --assignee "AstroCaleb"
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
