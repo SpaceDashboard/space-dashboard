@@ -15,18 +15,15 @@ jobs:
         run: |
           BODY="${{ github.event.issue.body }}"
 
-          # Extract the Sentry issue ID from the body
-          ID=$(echo "$BODY" | grep -oE '^Sentry Issue ID: [0-9]+' | grep -oE '[0-9]+')
+          # Extract the Sentry issue ID from a <sentryid> tag
+          ID=$(echo "$BODY" | grep -oE '<sentryid>[0-9]+</sentryid>' | grep -oE '[0-9]+')
 
-          # Validate the extracted ID
           if [ -z "$ID" ]; then
-            echo "No valid Sentry issue ID found in the issue body."
+            echo "No valid <sentryid> tag found in the issue body."
             exit 1
           fi
 
           echo "Extracted Sentry issue ID: $ID"
-
-          # Output the ID for the next step
           echo "id=$ID" >> $GITHUB_OUTPUT
 
       - name: Mark Sentry Issue as Resolved

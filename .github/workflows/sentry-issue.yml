@@ -36,11 +36,11 @@ jobs:
           fi
 
           # Build body with clean formatting
-          DESCRIPTION="<p><strong>Sentry Issue ID:</strong> $ISSUE_ID</p><hr>"
+          DESCRIPTION="<p><strong>Sentry Issue ID:</strong> <sentryid>$ISSUE_ID</sentryid></p><hr>"
           DESCRIPTION+="<p><strong>Sentry Issue:</strong> $TITLE</p>"
-          DESCRIPTION+="<p>Link: [$URL]($URL)</p>"
+          DESCRIPTION+="<p>Link: <a href=\"$URL\" target=\"_blank\" rel=\"noopener\">$URL</a></p>"
           if [ -n "$STACKTRACE" ]; then
-            DESCRIPTION+="<details><summary>**Stacktrace**</summary>\`\`\`$STACKTRACE\`\`\`</details>"
+            DESCRIPTION+="<details><summary><strong>Stacktrace</strong></summary><pre>$STACKTRACE</pre></details>"
           fi
 
           # Remove excess newlines
