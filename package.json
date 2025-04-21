@@ -41,7 +41,7 @@
     "@changesets/cli": "^2.28.1",
     "@eslint/compat": "^1.2.3",
     "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.16.0",
+    "@eslint/js": "^9.25.0",
     "@tanstack/react-query-devtools": "^5.62.0",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
