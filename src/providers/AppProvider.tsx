@@ -51,7 +51,7 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       isUserSettingsOpen,
       setIsUserSettingsOpen,
       issLiveFeedVideoId1: 'fO9e9jnhYK8',
-      issLiveFeedVideoId2: 'jKHvbJe9c_Y',
+      issLiveFeedVideoId2: 'DIgkvm2nmHc',
       issLiveFeedVideoId3: 'H999s0P1Er0',
     }),
     [
