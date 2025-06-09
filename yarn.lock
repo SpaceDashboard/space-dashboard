@@ -1001,17 +1001,17 @@
     "@sentry/bundler-plugin-core" "2.22.6"
     unplugin "1.0.1"
 
-"@tabler/icons-react@^3.23.0":
-  version "3.23.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.23.0.tgz#68dd3ee4995935c00228c1a401a10bb7d2d9c4be"
-  integrity sha512-uSJfu1Tnhk6AAkerNCOBL3KL3aPpb/bnB4UjTbV3jItTJKitEgr4a98ted67qu5FHB3/tG1bxs32pqy5OL7NGw==
+"@tabler/icons-react@^3.34.0":
+  version "3.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-3.34.0.tgz#8503c25ba9e50ff02a49a1f9c62ceecfd27fa3ab"
+  integrity sha512-OpEIR2iZsIXECtAIMbn1zfKfQ3zKJjXyIZlkgOGUL9UkMCFycEiF2Y8AVfEQsyre/3FnBdlWJvGr0NU47n2TbQ==
   dependencies:
-    "@tabler/icons" "3.23.0"
+    "@tabler/icons" "3.34.0"
 
-"@tabler/icons@3.23.0":
-  version "3.23.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.23.0.tgz#d00b5c98c110fd0e773dff81f4776ba52e49f576"
-  integrity sha512-Cz+X58jfRm0g/KcupXXuPw5knj671lNR054AnmLXvCjudiQBWI0wZulDDSsqDoGezvBzMTNPQtNcjLkZs82ZxQ==
+"@tabler/icons@3.34.0":
+  version "3.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.34.0.tgz#b11734dc76686abe969b68c2f33e565b116b70fb"
+  integrity sha512-jtVqv0JC1WU2TTEBN32D9+R6mc1iEBuPwLnBsWaR02SIEciu9aq5806AWkCHuObhQ4ERhhXErLEK7Fs+tEZxiA==
 
 "@tanstack/query-core@5.62.0":
   version "5.62.0"
