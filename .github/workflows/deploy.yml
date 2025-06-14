@@ -69,13 +69,13 @@ jobs:
 
       - name: Checkout code
         if: steps.download-release.outputs.use_prebuilt != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
           ref: ${{ steps.version.outputs.tag || 'main' }}
 
       - name: Set up Node.js
         if: steps.download-release.outputs.use_prebuilt != 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
           node-version: '20.x'
           cache: 'yarn'
@@ -116,7 +116,7 @@ jobs:
         run: yarn build
 
       - name: Sync files to ${{ github.event.inputs.environment }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
         if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Staging'
         with:
           server: ${{ secrets.FTP_SERVER }}

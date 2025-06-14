@@ -19,7 +19,7 @@ on:
       - '**/__tests__/**'
       - '**/*.test.*'
       - '**/*.spec.*'
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch: # Allow manual triggering
 
 # Default environment variables for all jobs
 env:
@@ -34,12 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
@@ -53,14 +53,14 @@ jobs:
 
       - name: Find existing version bump PRs
         id: find-prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
         with:
           script: |
             const { data: prs } = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: 'SpaceDashboard',
+              repo: 'space-dashboard',
               state: 'open',
-              head: '${context.repo.owner}:changeset-release/main'
+              head: 'SpaceDashboard:changeset-release/main'
             });
             return prs.map(pr => pr.number);
         env:
@@ -68,20 +68,20 @@ jobs:
 
       - name: Close existing version bump PRs
         if: steps.find-prs.outputs.result != '[]'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
         with:
           script: |
             const prNumbers = JSON.parse('${{ steps.find-prs.outputs.result }}');
             for (const prNumber of prNumbers) {
               await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner: 'SpaceDashboard',
+                repo: 'space-dashboard',
                 issue_number: prNumber,
                 body: 'Closing in favor of a new version bump PR with the latest changes.'
               });
               await github.rest.pulls.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner: 'SpaceDashboard',
+                repo: 'space-dashboard',
                 pull_number: prNumber,
                 state: 'closed'
               });
@@ -103,7 +103,7 @@ jobs:
       - name: Create Release Pull Request
         if: steps.check-changesets.outputs.has_changesets == 'true'
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # 1.5.3
         with:
           version: yarn changeset:version
           commit: 'chore(release): v${VERSION}'
@@ -120,28 +120,28 @@ jobs:
           # Get version from package.json
           VERSION=$(node -p "require('./package.json').version")
           TAG="v$VERSION"
-          
+
           # Create release notes
           cat > release_notes.md << EOF
           ## What's Changed
-          
+
           *Automated release - see the full changelog for details.*
-          
+
           ### How to Update
-          
+
           \`\`\`bash
           # Update your local repository
           git fetch --tags
           git checkout $TAG
-          
+
           # Install updated dependencies
           yarn install
-          
+
           # Rebuild if needed
           yarn build
           \`\`\`
           EOF
-          
+
           # Create a GitHub release
           gh release create $TAG \
             --title "Release $TAG" \
@@ -152,7 +152,7 @@ jobs:
             
           # Zip the dist directory
           zip -r dist-$VERSION.zip ./dist/*
-          
+
           # Upload the dist directory as a release asset
           gh release upload $TAG dist-$VERSION.zip --clobber
         env:
