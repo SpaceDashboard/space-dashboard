@@ -9,9 +9,6 @@ updates:
         dependency-type: "development"
         patterns:
           - "*"
-        exclude-patterns:
-          - "react"
-          - "react-dom"
       regular-dependencies:
         dependency-type: "production"
         patterns:
