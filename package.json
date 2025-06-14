@@ -59,7 +59,7 @@
     "prettier": "^3.4.1",
     "process": "^0.11.10",
     "typescript": "^5.7.2",
-    "vite": "^6.0.1",
+    "vite": "^6.1.6",
     "vite-bundle-visualizer": "^1.2.1"
   },
   "lint-staged": {
