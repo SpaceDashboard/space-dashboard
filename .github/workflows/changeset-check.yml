@@ -1,0 +1,32 @@
+name: Changeset Check
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/*'
+      - '!.changeset/**/*'
+      - '!.github/workflows/**/*'
+
+jobs:
+  check:
+    name: Check for changeset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for changeset files
+        id: changeset-check
+        run: |
+          # Check if there are any .md files in the .changeset directory
+          if [ -z "$(find .changeset -name '*.md' -type f -not -path '*/.*')" ]; then
+            echo "::error::No changeset found! Please add a changeset using 'yarn changeset:add'"
+            echo "has_changeset=false" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "Changeset found"
+            echo "has_changeset=true" >> $GITHUB_OUTPUT
+          fi

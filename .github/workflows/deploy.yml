@@ -4,44 +4,109 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Choose environment to deploy (Production or Staging)'
-        required: false
-        default: 'Staging'
+        description: 'Environment to deploy to'
+        required: true
         type: choice
         options:
           - Production
           - Staging
-      branch:
-        description: 'Branch to deploy from'
+      version:
+        description: 'Version/tag to deploy (e.g., v2.0.2) or "latest" for most recent release'
         required: false
-        default: 'main'
+        default: 'latest'
 
 jobs:
   web-deploy:
-    name: Build and Deploy to ${{ github.event.inputs.environment }}
+    name: Deploy ${{ github.event.inputs.version == 'latest' && 'latest' || github.event.inputs.version }} to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get latest code
+      - name: Set version and tag
+        id: version
+        run: |
+          VERSION="${{ github.event.inputs.version || 'latest' }}"
+          if [ "$VERSION" != "latest" ]; then
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "tag=$VERSION" >> $GITHUB_OUTPUT
+          else
+            # Get the latest release tag
+            LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq '.tag_name')
+            echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
+            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          fi
+          echo "Using version: $VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download release asset
+        id: download-release
+        run: |
+          if [ "${{ github.event.inputs.version }}" = "latest" ]; then
+            ASSET_URL=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.assets[] | select(.name | startswith("dist-")) | .url')
+            if [ -n "$ASSET_URL" ]; then
+              gh api "$ASSET_URL" -H "Accept: application/octet-stream" -o dist-release.zip
+            fi
+          else
+            # Try to find the release by tag
+            RELEASE_ID=$(gh api repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }} --jq '.id' || echo "")
+            if [ -n "$RELEASE_ID" ]; then
+              ASSET_URL=$(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name | startswith("dist-")) | .url')
+              if [ -n "$ASSET_URL" ]; then
+                gh api $ASSET_URL -H "Accept: application/octet-stream" -o dist-release.zip
+              fi
+            fi
+          fi
+
+          if [ -f "dist-release.zip" ]; then
+            echo "Using pre-built assets from release"
+            echo "use_prebuilt=true" >> $GITHUB_OUTPUT
+            unzip -o dist-release.zip -d dist-release
+          else
+            echo "No pre-built assets found, will build from source"
+            echo "use_prebuilt=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout code
+        if: steps.download-release.outputs.use_prebuilt != 'true'
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch }}
+          ref: ${{ steps.version.outputs.tag || 'main' }}
 
-      - name: Use Node.js 20.12.2
+      - name: Set up Node.js
+        if: steps.download-release.outputs.use_prebuilt != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: 20.12.2
+          node-version: '20.x'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        if: steps.download-release.outputs.use_prebuilt != 'true'
+        run: yarn install --frozen-lockfile
 
-      - name: Run format check
-        run: yarn format:check
+      - name: Build project
+        if: steps.download-release.outputs.use_prebuilt != 'true'
+        run: |
+          yarn build
+          # Create the same structure as the release zip for consistency
+          mkdir -p dist-release/dist
+          cp -r dist/* dist-release/dist/
 
-      - name: Run type check
-        run: yarn type-check
+      - name: Verify build
+        run: |
+          if [ -d "dist-release/dist" ]; then
+            echo "Build verified, found dist directory"
+            ls -la dist-release/dist/
+          else
+            echo "::error::Build output not found"
+            exit 1
+          fi
 
-      - name: Run lint check
-        run: yarn lint
+      - name: Show deployment info
+        run: |
+          echo "Deploying version: ${{ steps.version.outputs.version }}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
       - name: Build and Upload Source Maps
         env:
@@ -52,9 +117,10 @@ jobs:
 
       - name: Sync files to ${{ github.event.inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Staging'
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets[github.event.inputs.environment == 'Production' && 'PROD_FTP_USERNAME' || 'STAGING_FTP_USERNAME'] }}
-          password: ${{ secrets[github.event.inputs.environment == 'Production' && 'PROD_FTP_PASSWORD' || 'STAGING_FTP_PASSWORD'] }}
+          username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
+          password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
           server-dir: public_html/
           local-dir: ./dist/
