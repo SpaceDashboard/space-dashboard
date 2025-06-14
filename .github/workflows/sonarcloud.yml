@@ -2,9 +2,9 @@ name: SonarCloud analysis
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -20,7 +20,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          args:
-            -Dsonar.projectKey=SpaceDashboard_space-dashboard
+          args: -Dsonar.projectKey=SpaceDashboard_space-dashboard
             -Dsonar.organization=spacedashboard
-          projectBaseDir: scr/**/*
+          projectBaseDir: src/**/*
