@@ -23,4 +23,4 @@ jobs:
           args: >
             -Dsonar.projectKey=SpaceDashboard_space-dashboard
             -Dsonar.organization=spacedashboard
-          projectBaseDir: src
+          projectBaseDir: .
