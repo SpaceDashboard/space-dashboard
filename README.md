@@ -36,4 +36,4 @@ To contribute:
 
 ## License
 
-[Space Dashboard](https://calebdudleydesign.com) &copy; 2016-2024 by [Caleb Dudley](https://calebdudleydesign.com) is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+[Space Dashboard](https://calebdudleydesign.com) &copy; 2016-2025 by [Caleb Dudley](https://calebdudleydesign.com) is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
