@@ -20,6 +20,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          args: -Dsonar.projectKey=SpaceDashboard_space-dashboard
+          args: >
+            -Dsonar.projectKey=SpaceDashboard_space-dashboard
             -Dsonar.organization=spacedashboard
-          projectBaseDir: src/**/*
+          projectBaseDir: src
