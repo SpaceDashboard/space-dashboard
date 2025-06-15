@@ -15,16 +15,27 @@ on:
         required: false
         default: 'latest'
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   web-deploy:
     name: Deploy ${{ github.event.inputs.version == 'latest' && 'latest' || github.event.inputs.version }} to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Set version and tag
         id: version
         run: |
           VERSION="${{ github.event.inputs.version || 'latest' }}"
+
           if [ "$VERSION" != "latest" ]; then
+            # Ensure the release version starts with a "v"
+            if [[ "$VERSION" != v* ]]; then
+              VERSION="v$VERSION"
+            fi
             echo "version=$VERSION" >> $GITHUB_OUTPUT
             echo "tag=$VERSION" >> $GITHUB_OUTPUT
           else
@@ -73,18 +84,21 @@ jobs:
         with:
           ref: ${{ steps.version.outputs.tag || 'main' }}
 
-      - name: Set up Node.js
-        if: steps.download-release.outputs.use_prebuilt != 'true'
+      - name: Set up Node 20
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
-          node-version: '20.x'
+          node-version: lts/Iron
           cache: 'yarn'
+
+      - name: Enable Corepack
+        if: steps.download-release.outputs.use_prebuilt != 'true'
+        run: corepack enable
 
       - name: Install dependencies
         if: steps.download-release.outputs.use_prebuilt != 'true'
         run: yarn install --frozen-lockfile
 
-      - name: Build project
+      - name: Build project (if no pre-built assets)
         if: steps.download-release.outputs.use_prebuilt != 'true'
         run: |
           yarn build

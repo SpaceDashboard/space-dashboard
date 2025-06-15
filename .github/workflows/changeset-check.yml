@@ -4,36 +4,33 @@ permissions:
 
 on:
   pull_request:
-    branches: [main]
-    paths:
-      - '**/*'
-      - '!.changeset/**/*'
-      - '!.github/workflows/**/*'
-
-# Skip this workflow for release PRs (created by the release workflow)
-# which come from the changeset-release/main branch
+    types: [opened, synchronize, reopened]
 
 jobs:
-  check:
-    name: Check for changeset
+  check-changeset:
+    name: Check for Changeset
+    # Skip if this is a release PR (from release-branch/main branch)
+    if: github.head_ref != 'release-branch/main'
     runs-on: ubuntu-latest
-    # Skip if this is a release PR (from changeset-release/main branch)
-    if: github.head_ref != 'changeset-release/main'
     steps:
-      - name: Checkout repository
+      - name: Clone Repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
           fetch-depth: 0
 
-      - name: Check for changeset files
-        id: changeset-check
+      - name: Fetch develop branch
+        run: git fetch origin develop:develop
+
+      - name: Set up Node 20
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
+        with:
+          node-version: lts/Iron
+          cache: 'yarn'
+
+      - name: Get latest yarn
         run: |
-          # Check if there are any .md files in the .changeset directory
-          if [ -z "$(find .changeset -name '*.md' -type f -not -path '*/.*')" ]; then
-            echo "::error::No changeset found! Please add a changeset using 'yarn changeset:add'"
-            echo "has_changeset=false" >> $GITHUB_OUTPUT
-            exit 1
-          else
-            echo "Changeset found"
-            echo "has_changeset=true" >> $GITHUB_OUTPUT
-          fi
+          corepack enable
+          yarn set version berry
+
+      - name: Check changeset status
+        run: yarn dlx -p @changesets/cli changeset status --since=main
