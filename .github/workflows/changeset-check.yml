@@ -18,8 +18,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetch develop branch
-        run: git fetch origin develop:develop
+      - name: Fetch main branch
+        run: git fetch origin main
 
       - name: Set up Node 20
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
