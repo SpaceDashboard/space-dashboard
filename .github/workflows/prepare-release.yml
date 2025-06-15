@@ -48,10 +48,11 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
           node-version: lts/Iron
-          cache: 'yarn'
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Get latest yarn
+        run: |
+          corepack enable
+          yarn set version berry
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -165,14 +166,14 @@ jobs:
           # Get the new version from package.json
           VERSION=$(node -p "require('./package.json').version")
           CHANGELOG_FILE=".changelogs/v${VERSION}.md"
-          
+
           if [ -f "$CHANGELOG_FILE" ]; then
             # Escape newlines for JSON output
             CHANGES=$(cat "$CHANGELOG_FILE" | jq -Rs . | sed 's/"//g')
           else
             CHANGES="No changelog content found for v$VERSION"
           fi
-          
+
           echo "changes<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -188,7 +189,7 @@ jobs:
             This PR was automatically generated to process changesets and prepare for release.
 
             ## Changes in this Release
-            
+
             ${{ steps.changelog.outputs.changes }}
 
             ### What's Changed

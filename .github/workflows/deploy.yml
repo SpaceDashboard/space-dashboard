@@ -88,11 +88,12 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
           node-version: lts/Iron
-          cache: 'yarn'
 
-      - name: Enable Corepack
+      - name: Get latest yarn
         if: steps.download-release.outputs.use_prebuilt != 'true'
-        run: corepack enable
+        run: |
+          corepack enable
+          yarn set version berry
 
       - name: Install dependencies
         if: steps.download-release.outputs.use_prebuilt != 'true'
