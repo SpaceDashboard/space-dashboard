@@ -4,6 +4,7 @@ permissions:
   contents: read
   packages: read
   actions: write
+  deployments: write
 
 on:
   workflow_dispatch:
