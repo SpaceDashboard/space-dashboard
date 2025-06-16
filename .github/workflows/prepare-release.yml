@@ -1,0 +1,76 @@
+name: Prepare Release PR
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.changeset/**'
+      - 'package.json'
+
+# Prevent multiple workflow runs for the same commit
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Release PR
+    runs-on: ubuntu-latest
+    # Skip if the commit message contains release-related keywords
+    if: |
+      github.event_name == 'workflow_dispatch' || 
+      (github.event_name == 'push' && 
+       !contains(github.event.head_commit.message, 'chore(release)') &&
+       !contains(github.event.head_commit.message, 'Release PR') &&
+       !contains(github.event.head_commit.message, 'chore(release-pr)'))
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
+        with:
+          node-version: lts/Iron
+
+      - name: Set up Yarn
+        run: |
+          corepack enable
+          yarn set version berry
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check for changesets
+        id: check-changesets
+        run: |
+          if [ -z "$(git diff --name-only --cached | grep '.changeset/')" ] && \
+             [ -z "$(git ls-files --exclude='**/.changeset/*.md' --ignored --others --exclude-standard | grep '.changeset/')" ]; then
+            echo "No changesets found. Nothing to release."
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Changesets found. Proceeding with release PR creation."
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release PR
+        if: steps.check-changesets.outputs.has_changesets == 'true'
+        id: create-release
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
+        with:
+          # This will automatically create a PR with version bumps and changelog updates
+          title: 'chore(release): Version Packages'
+          commit: 'chore(release): update versions and changelogs'
+          # Use GitHub API for commits to ensure they're attributed correctly
+          commitMode: 'github-api'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
