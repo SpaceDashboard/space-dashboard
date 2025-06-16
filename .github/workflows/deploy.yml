@@ -30,10 +30,10 @@ jobs:
         id: version
         run: |
           set -e  # Exit on error
-          
+
           VERSION="${{ github.event.inputs.version || 'latest' }}"
           echo "Input version: $VERSION"
-          
+
           if [ "$VERSION" = "latest" ]; then
             # Get the latest release tag
             echo "Fetching latest release..."
@@ -56,7 +56,7 @@ jobs:
               exit 1
             fi
           fi
-          
+
           # Output both with and without 'v' prefix for flexibility
           echo "version=${VERSION#v}" >> $GITHUB_OUTPUT  # Without 'v' prefix
           echo "tag=$VERSION" >> $GITHUB_OUTPUT         # With 'v' prefix
@@ -155,4 +155,4 @@ jobs:
           username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
           password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
           server-dir: public_html/
-          local-dir: ./dist/
+          local-dir: ./dist-release/dist/
