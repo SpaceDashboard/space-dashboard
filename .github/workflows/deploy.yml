@@ -29,22 +29,39 @@ jobs:
       - name: Set version and tag
         id: version
         run: |
+          set -e  # Exit on error
+          
           VERSION="${{ github.event.inputs.version || 'latest' }}"
-
-          if [ "$VERSION" != "latest" ]; then
-            # Ensure the release version starts with a "v"
-            if [[ "$VERSION" != v* ]]; then
-              VERSION="v$VERSION"
-            fi
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-            echo "tag=$VERSION" >> $GITHUB_OUTPUT
-          else
+          echo "Input version: $VERSION"
+          
+          if [ "$VERSION" = "latest" ]; then
             # Get the latest release tag
+            echo "Fetching latest release..."
             LATEST_TAG=$(gh api repos/${{ github.repository }}/releases/latest --jq '.tag_name')
-            echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
-            echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            VERSION="$LATEST_TAG"
+            echo "Latest release: $VERSION"
+          else
+            # Clean up version string
+            VERSION=$(echo "$VERSION" | tr -d '[:space:]')
+            
+            # Ensure version has 'v' prefix for consistency
+            if [[ ! "$VERSION" =~ ^v ]]; then
+              VERSION="v$VERSION"
+              echo "Normalized version to: $VERSION"
+            fi
+            
+            # Verify the release exists
+            if ! gh release view "$VERSION" --json tagName >/dev/null 2>&1; then
+              echo "::error::Release $VERSION not found"
+              exit 1
+            fi
           fi
+          
+          # Output both with and without 'v' prefix for flexibility
+          echo "version=${VERSION#v}" >> $GITHUB_OUTPUT  # Without 'v' prefix
+          echo "tag=$VERSION" >> $GITHUB_OUTPUT         # With 'v' prefix
           echo "Using version: $VERSION"
+          echo "::notice::Preparing to deploy version: $VERSION"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

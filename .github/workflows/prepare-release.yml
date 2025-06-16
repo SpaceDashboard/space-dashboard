@@ -1,42 +1,30 @@
 name: Prepare Release PR
 
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'CHANGELOG.md' # Ignore changes to changelog
-      - 'package.json' # Ignore version changes
-      - '.changelogs' # Ignore changelog files
-      - '**/package.json'
+    paths:
+      - '.changeset/**'
+      - 'package.json'
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  statuses: read
-
+# Prevent multiple workflow runs for the same commit
 concurrency:
-  group: prepare-release-${{ github.ref }}
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  prepare-release:
-    name: Prepare Release PR
+  release:
+    name: Create Release PR
     runs-on: ubuntu-latest
+    # Skip if the commit message contains release-related keywords
     if: |
       github.event_name == 'workflow_dispatch' || 
       (github.event_name == 'push' && 
        !contains(github.event.head_commit.message, 'chore(release)') &&
        !contains(github.event.head_commit.message, 'Release PR') &&
        !contains(github.event.head_commit.message, 'chore(release-pr)'))
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GIT_AUTHOR_NAME: github-actions
-      GIT_AUTHOR_EMAIL: github-actions@github.com
-      GIT_COMMITTER_NAME: github-actions
-      GIT_COMMITTER_EMAIL: github-actions@github.com
 
     steps:
       - name: Checkout repository
@@ -49,7 +37,7 @@ jobs:
         with:
           node-version: lts/Iron
 
-      - name: Get latest yarn
+      - name: Set up Yarn
         run: |
           corepack enable
           yarn set version berry
@@ -60,7 +48,6 @@ jobs:
       - name: Check for changesets
         id: check-changesets
         run: |
-          # Check if there are any uncommitted changes in the changeset files
           if [ -z "$(git diff --name-only --cached | grep '.changeset/')" ] && \
              [ -z "$(git ls-files --exclude='**/.changeset/*.md' --ignored --others --exclude-standard | grep '.changeset/')" ]; then
             echo "No changesets found. Nothing to release."
@@ -71,133 +58,15 @@ jobs:
             echo "has_changesets=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Find existing release PRs
-        if: steps.check-changesets.outputs.has_changesets == 'true'
-        id: find-prs
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
-        with:
-          script: |
-            const { data: prs } = await github.rest.pulls.list({
-              owner: 'SpaceDashboard',
-              repo: 'space-dashboard',
-              state: 'open',
-              head: 'SpaceDashboard:release-branch/main'
-            });
-            return prs.map(pr => pr.number);
-
-      - name: Close existing release PRs
-        if: steps.find-prs.outputs.result != '[]' && steps.check-changesets.outputs.has_changesets == 'true'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
-        with:
-          script: |
-            const prNumbers = JSON.parse('${{ steps.find-prs.outputs.result }}');
-            for (const prNumber of prNumbers) {
-              await github.rest.issues.createComment({
-                owner: 'SpaceDashboard',
-                repo: 'space-dashboard',
-                issue_number: prNumber,
-                body: 'Closing in favor of a new release PR with the latest changes.'
-              });
-              await github.rest.pulls.update({
-                owner: 'SpaceDashboard',
-                repo: 'space-dashboard',
-                pull_number: prNumber,
-                state: 'closed'
-              });
-            }
-
-      - name: Create release branch
-        if: steps.check-changesets.outputs.has_changesets == 'true'
-        run: |
-          git config --global user.name "$GIT_AUTHOR_NAME"
-          git config --global user.email "$GIT_AUTHOR_EMAIL"
-
-          # Get the current branch name
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-          # Create a new release branch with timestamp
-          TIMESTAMP=$(date +%s)
-          RELEASE_BRANCH="release-branch/auto-$TIMESTAMP"
-
-          # Create and switch to the new branch
-          git checkout -b "$RELEASE_BRANCH"
-
-          # Process changesets to update versions and changelogs
-          yarn changeset version
-
-          # Check if there are any changes to commit
-          if ! git diff --quiet; then
-            # Commit the changes
-            git add .
-            git commit -m "chore(release): process changesets"
-            
-            # Create versioned release notes in .changelogs directory
-            mkdir -p .changelogs
-            # Get the new version from package.json
-            NEW_VERSION=$(node -p "require('./package.json').version")
-            # Get the latest changelog entry
-            awk '/^## / {if(++count == 1) {flag=1; next}} flag{print; if(/^## /) exit}' CHANGELOG.md | \
-              sed '$d' > ".changelogs/v${NEW_VERSION}.md"
-            
-            # Add and commit the new release notes file
-            git add .changelogs/"v${NEW_VERSION}.md"
-            git commit -m "chore: add release notes for v${NEW_VERSION}" || echo "No new release notes to commit"
-            
-            # Push the branch
-            git push -u origin "$RELEASE_BRANCH"
-            echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
-            echo "RELEASE_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
-          else
-            echo "No version changes to commit. Exiting."
-            exit 0
-          fi
-
-      - name: Set branch name output
-        id: branch_output
-        if: steps.check-changesets.outputs.has_changesets == 'true'
-        run: |
-          # This step just ensures we have the output set
-          echo "Branch output step completed"
-
-      - name: Get changelog content
-        id: changelog
-        if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
-        run: |
-          # Get the new version from package.json
-          VERSION=$(node -p "require('./package.json').version")
-          CHANGELOG_FILE=".changelogs/v${VERSION}.md"
-
-          if [ -f "$CHANGELOG_FILE" ]; then
-            # Escape newlines for JSON output
-            CHANGES=$(cat "$CHANGELOG_FILE" | jq -Rs . | sed 's/"//g')
-          else
-            CHANGES="No changelog content found for v$VERSION"
-          fi
-
-          echo "changes<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
       - name: Create Release PR
-        if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
-        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        if: steps.check-changesets.outputs.has_changesets == 'true'
+        id: create-release
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
-          branch-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'chore(release-pr): update version and changelog'
-          title: 'chore(release-pr): Version bump and changelog update'
-          body: |
-            This PR was automatically generated to process changesets and prepare for release.
-
-            ## Changes in this Release
-
-            ${{ steps.changelog.outputs.changes }}
-
-            ### What's Changed
-            - Version bumped to ${{ steps.changelog.outputs.VERSION }}
-            - Updated CHANGELOG.md with release notes
-
-            ### Next Steps
-            - [ ] Review changes
-            - [ ] Merge when ready to release
-
-            *Auto-generated by GitHub Actions*
+          # This will automatically create a PR with version bumps and changelog updates
+          title: 'chore(release): Version Packages'
+          commit: 'chore(release): update versions and changelogs'
+          # Use GitHub API for commits to ensure they're attributed correctly
+          commitMode: 'github-api'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

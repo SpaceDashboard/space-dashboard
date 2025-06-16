@@ -63,9 +63,14 @@ jobs:
       - name: Build package
         run: yarn build
 
+      - name: Verify GitHub CLI
+        run: gh --version
+
       - name: Get version and create tag
         id: version
         run: |
+          set -e  # Exit on error
+          
           # Use provided version or get from package.json
           if [ -n "${{ github.event.inputs.version }}" ]; then
             VERSION="${{ github.event.inputs.version }}"
@@ -74,28 +79,33 @@ jobs:
             VERSION=$(node -p "require('./package.json').version")
             echo "Using package.json version: $VERSION"
           fi
-
-          # Ensure version has 'v' prefix
+          
+          # Clean up version string
+          VERSION=$(echo "$VERSION" | tr -d '[:space:]')
+          
+          # Ensure version has 'v' prefix for tag
           if [[ ! "$VERSION" =~ ^v ]]; then
             VERSION="v$VERSION"
             echo "Normalized version to: $VERSION"
           fi
 
           TAG="$VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version=${VERSION#v}" >> $GITHUB_OUTPUT  # Store without 'v' prefix
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-
+          
           # Configure git
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+          git config --global --add safe.directory /github/workspace
 
           # Create and push the tag if it doesn't exist
           if ! git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
             echo "Creating and pushing tag: $TAG"
             git tag -a "$TAG" -m "Release $TAG"
             git push origin "$TAG"
+            echo "::notice::Created and pushed tag: $TAG"
           else
-            echo "Tag $TAG already exists"
+            echo "::warning::Tag $TAG already exists"
           fi
 
       - name: Create GitHub Release
@@ -104,52 +114,76 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e  # Exit immediately if a command exits with a non-zero status
-
+          
           # Get the version and tag from outputs
           VERSION="${{ steps.version.outputs.version }}"
           TAG="${{ steps.version.outputs.tag }}"
-
+          
+          echo "Creating release for version: $VERSION (tag: $TAG)"
+          
           # Create release notes using the versioned file from .changelogs
           RELEASE_NOTES_FILE=".changelogs/v${VERSION}.md"
-
-          if [ -f "$RELEASE_NOTES_FILE" ]; then
-            echo "Using release notes from $RELEASE_NOTES_FILE"
-            # Create a temporary file for the release notes
-            {
-              echo "## What's Changed"
-              echo ""
+          RELEASE_NOTES_PATH="./release-notes.md"
+          
+          # Create release notes
+          {
+            echo "## What's Changed"
+            echo ""
+            
+            if [ -f "$RELEASE_NOTES_FILE" ]; then
+              echo "Using release notes from $RELEASE_NOTES_FILE"
               cat "$RELEASE_NOTES_FILE"
-              echo ""
-              echo "### How to Update"
-              echo ""
-              echo '```bash'
-              echo '# Update your local repository'
-              echo 'git fetch --tags'
-              echo "git checkout $TAG"
-              echo ''
-              echo '# Install updated dependencies'
-              echo 'yarn install'
-              echo ''
-              echo '# Rebuild if needed'
-              echo 'yarn build'
-              echo '```'
-            } > release_notes.md
-          else
-            echo "Warning: No release notes found at $RELEASE_NOTES_FILE"
-            # Fallback to minimal notes
-            echo "## Release $TAG" > release_notes.md
-          fi
-
-          # Create the GitHub release with our prepared notes
+            else
+              echo "* No detailed release notes available for this version."
+            fi
+            
+            echo ""
+            echo "---"
+            echo "### How to Update"
+            echo ""
+            echo '```bash'
+            echo '# Update your local repository'
+            echo 'git fetch --tags'
+            echo "git checkout $TAG"
+            echo ''
+            echo '# Install updated dependencies'
+            echo 'yarn install --frozen-lockfile'
+            echo ''
+            echo '# Rebuild if needed'
+            echo 'yarn build'
+            echo '```'
+          } > "$RELEASE_NOTES_PATH"
+          
+          # Debug: Show release notes
+          echo "--- Release Notes ---"
+          cat "$RELEASE_NOTES_PATH"
+          echo "-------------------"
+          
+          # Create the GitHub release
+          echo "Creating GitHub release for $TAG..."
           gh release create "$TAG" \
             --title "Release $TAG" \
-            --notes-file release_notes.md \
+            --notes-file "$RELEASE_NOTES_PATH" \
             --latest \
             --verify-tag
+          
+          # Package and upload artifacts if dist directory exists
+          if [ -d "./dist" ]; then
+            echo "Packaging dist directory..."
+            ARTIFACT_NAME="dist-${VERSION}.zip"
+            zip -r "$ARTIFACT_NAME" ./dist/*
             
-          # Zip and upload the dist directory
-          zip -r "dist-$VERSION.zip" ./dist/*
-          gh release upload "$TAG" "dist-$VERSION.zip" --clobber
+            echo "Uploading artifact: $ARTIFACT_NAME"
+            gh release upload "$TAG" "$ARTIFACT_NAME" --clobber
+            
+            # Add a summary of the release
+            echo "## 🚀 Release $TAG" >> $GITHUB_STEP_SUMMARY
+            echo "- 📦 Version: $VERSION" >> $GITHUB_STEP_SUMMARY
+            echo "- 🏷️ Tag: $TAG" >> $GITHUB_STEP_SUMMARY
+            echo "- 📝 [View Release](https://github.com/${{ github.repository }}/releases/tag/$TAG)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "::warning::No dist directory found. Skipping artifact upload."
+          fi
 
   deploy:
     name: Deploy to Staging
