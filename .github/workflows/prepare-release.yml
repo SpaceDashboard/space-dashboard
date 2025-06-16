@@ -52,14 +52,21 @@ jobs:
       - name: Check for changesets
         id: check-changesets
         run: |
-          if [ -z "$(git diff --name-only --cached | grep '.changeset/')" ] && \
-             [ -z "$(git ls-files --exclude='**/.changeset/*.md' --ignored --others --exclude-standard | grep '.changeset/')" ]; then
-            echo "No changesets found. Nothing to release."
-            echo "has_changesets=false" >> $GITHUB_OUTPUT
-            exit 0
-          else
-            echo "Changesets found. Proceeding with release PR creation."
+          # Debug: Show current directory and files
+          echo "Current directory: $(pwd)"
+          echo "Files in .changeset directory:"
+          ls -la .changeset/ 2>/dev/null || echo "No .changeset directory found"
+          
+          # Check for any .md files in the .changeset directory
+          if [ -d ".changeset" ] && [ -n "$(find .changeset -name '*.md' -type f -not -path '*/.*')" ]; then
+            echo "Found changeset files:"
+            find .changeset -name '*.md' -type f -not -path '*/.*'
             echo "has_changesets=true" >> $GITHUB_OUTPUT
+            echo "Changesets found. Proceeding with release PR creation."
+          else
+            echo "No changeset files (*.md) found in .changeset directory"
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No changesets found. Nothing to release."
           fi
 
       - name: Create Release PR
