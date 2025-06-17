@@ -49,13 +49,13 @@ jobs:
           else
             # Clean up version string
             VERSION=$(echo "$VERSION" | tr -d '[:space:]')
-            
+
             # Ensure version has 'v' prefix for consistency
             if [[ ! "$VERSION" =~ ^v ]]; then
               VERSION="v$VERSION"
               echo "Normalized version to: $VERSION"
             fi
-            
+
             # Verify the release exists
             if ! gh release view "$VERSION" --json tagName >/dev/null 2>&1; then
               echo "::error::Release $VERSION not found"
