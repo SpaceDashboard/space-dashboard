@@ -31,4 +31,9 @@ jobs:
       - name: Check changeset status
         run: |
           git fetch origin main:main
-          yarn dlx -p @changesets/cli changeset status --since=main
+
+          # Check if there are any changesets in this branch that aren't in main
+          if [ "$(yarn dlx -p @changesets/cli changeset status --output=json --since=main | jq '.releases | length')" -eq 0 ]; then
+            echo "::error::No changesets found. Please add a changeset when making changes."
+            exit 1
+          fi
