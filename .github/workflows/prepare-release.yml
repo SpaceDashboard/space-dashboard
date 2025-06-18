@@ -187,7 +187,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PR_CREATE }}
         run: |
-          echo -e "Version bump: ${{ steps.changelog.outputs.VERSION }}\n\nChanges in this release:\n${{ steps.changelog.outputs.changes }}" > msg
+          echo -e "Version bump: ${{ steps.branch_output.outputs.RELEASE_VERSION }}\n\n${{ steps.changelog.outputs.changes }}" > msg
           export msg=$(cat msg) ; gh pr create -b "$msg" --assignee "AstroCaleb" --reviewer "AstroCaleb" --head release-branch/main --base main --title "chore(release-pr): Version bump"
 
       - name: Summary
