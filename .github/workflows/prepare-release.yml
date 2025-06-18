@@ -186,9 +186,11 @@ jobs:
         if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
-          branch-token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.branch_output.outputs.RELEASE_BRANCH }}
           commit-message: 'chore(release-pr): update version and changelog'
           title: 'chore(release-pr): Version bump and changelog update'
+          assignees: AstroCaleb
+          reviewers: AstroCaleb
           body: |
             This PR was automatically generated to process changesets and prepare for release.
 
