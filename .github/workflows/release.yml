@@ -192,7 +192,7 @@ jobs:
     steps:
       - name: Trigger Deploy Workflow
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
         run: |
           gh workflow run deploy.yml \
             --repo ${{ github.repository }} \

@@ -30,7 +30,7 @@ jobs:
     name: Deploy ${{ github.event.inputs.version == 'latest' && 'latest' || github.event.inputs.version }} to ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
     steps:
       - name: Set version and tag
         id: version
@@ -68,8 +68,6 @@ jobs:
           echo "tag=$VERSION" >> $GITHUB_OUTPUT         # With 'v' prefix
           echo "Using version: $VERSION"
           echo "::notice::Preparing to deploy version: $VERSION"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download release asset
         id: download-release
@@ -98,8 +96,6 @@ jobs:
             echo "No pre-built assets found, will build from source"
             echo "use_prebuilt=false" >> $GITHUB_OUTPUT
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout code
         if: steps.download-release.outputs.use_prebuilt != 'true'
