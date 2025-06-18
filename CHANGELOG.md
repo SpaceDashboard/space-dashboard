@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.1
+
+### Patch Changes
+
+- [#117](https://github.com/SpaceDashboard/space-dashboard/pull/117) [`70aa777`](https://github.com/SpaceDashboard/space-dashboard/commit/70aa7777ca57778edde32151374a4bccb6d18f9a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating release workflow to properly trigger staging deploy
+
 ## 2.1.0
 
 ### Minor Changes
