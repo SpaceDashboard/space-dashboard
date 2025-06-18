@@ -35,28 +35,44 @@ jobs:
         run: |
           # Debug: Show current branch and changes
           echo "Current branch: $(git branch --show-current)"
-          echo "Changes in this PR:"
-          git diff --name-status main...HEAD
-          
+          echo "Current commit: $(git rev-parse HEAD)"
+
+          # Fetch the main branch
+          echo "Fetching main branch..."
+          git fetch origin main:refs/remotes/origin/main
+
+          # Show available branches
+          echo "\nAvailable branches:"
+          git branch -a
+
+          # Check if we have a main branch reference
+          if ! git rev-parse --verify refs/remotes/origin/main >/dev/null 2>&1; then
+            echo "❌ Error: Could not find main branch reference"
+            echo "This might be the first commit to the repository."
+            echo "No changeset check needed for initial commit."
+            exit 0
+          fi
+
+          # Show changes in this PR
+          echo "\nChanges in this PR:"
+          git diff --name-status origin/main...HEAD || true
+
           # Check for changeset files
           echo "\nChangeset files:"
           find .changeset -name '*.md' -not -name 'README.md' | xargs -I {} sh -c 'echo "- {}:"; cat {}; echo "\n"' || true
-          
-          # Fetch main branch
-          git fetch origin main:main
-          
+
           # Check changeset status with more verbose output
           echo "\nChecking changeset status..."
-          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=main --verbose)
-          
+          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main --verbose)
+
           echo "$STATUS_OUTPUT"
-          
+
           # Check for any changes that need version bumps
           if echo "$STATUS_OUTPUT" | grep -q "No changed packages"; then
             echo "ℹ️  No package changes detected that require version bumps."
             exit 0
           fi
-          
+
           # Check if changesets are present
           if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
              echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
