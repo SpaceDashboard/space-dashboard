@@ -28,12 +28,12 @@ jobs:
           corepack enable
           yarn set version berry
 
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Check changeset status
         run: |
           git fetch origin main:main
-
-          # First install changesets globally to avoid yarn dlx output issues
-          yarn global add @changesets/cli
 
           # Run changeset status and capture only the JSON output
           # The --no-immutable flag prevents Yarn from failing on lockfile changes
@@ -42,8 +42,9 @@ jobs:
           # If JSON_OUTPUT is empty, the command might have failed
           if [ -z "$JSON_OUTPUT" ]; then
             # Try to get the actual error
-            ERROR_OUTPUT=$(yarn changeset status --output=json --since=main --no-immutable 2>&1 >/dev/null)
+            ERROR_OUTPUT=$(yarn changeset status --output=json --since=main --no-immutable 2>&1 >/dev/null || true)
             echo "::error::Changeset command failed: $ERROR_OUTPUT"
+            echo "If you're adding a new package, you might need to update the lockfile."
             exit 1
           fi
 
