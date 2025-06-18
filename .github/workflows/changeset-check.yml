@@ -32,8 +32,25 @@ jobs:
         run: |
           git fetch origin main:main
 
-          # Check if there are any changesets in this branch that aren't in main
-          if [ "$(yarn dlx -p @changesets/cli changeset status --output=json --since=main | jq '.releases | length')" -eq 0 ]; then
-            echo "::error::No changesets found. Please add a changeset when making changes."
+          # Run changeset status and capture output
+          if ! JSON_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --output=json --since=main 2>&1); then
+            echo "::error::Changeset command failed: $JSON_OUTPUT"
             exit 1
+          fi
+
+          # Check if JSON_OUTPUT is empty or not valid JSON
+          if ! echo "$JSON_OUTPUT" | jq empty 2>/dev/null; then
+            echo "::error::Invalid JSON output from changeset status. Output was: $JSON_OUTPUT"
+            exit 1
+          fi
+
+          # Safely get release count with a default of 0 if releases field doesn't exist
+          RELEASE_COUNT=$(echo "$JSON_OUTPUT" | jq '.releases | length // 0' 2>/dev/null)
+
+          if [ "$RELEASE_COUNT" -eq 0 ]; then
+            echo "::error::No changesets found. Please add a changeset when making changes."
+            echo "To create a changeset, run: yarn changeset"
+            exit 1
+          else
+            echo "✅ Found $RELEASE_COUNT changeset(s)."
           fi
