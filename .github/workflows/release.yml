@@ -138,20 +138,6 @@ jobs:
             fi
 
             echo ""
-            echo "---"
-            echo "### How to Update"
-            echo ""
-            echo '```bash'
-            echo '# Update your local repository'
-            echo 'git fetch --tags'
-            echo "git checkout $TAG"
-            echo ''
-            echo '# Install updated dependencies'
-            echo 'yarn install --frozen-lockfile'
-            echo ''
-            echo '# Rebuild if needed'
-            echo 'yarn build'
-            echo '```'
           } > "$RELEASE_NOTES_PATH"
 
           # Debug: Show release notes
