@@ -185,7 +185,7 @@ jobs:
       - name: Create Release PR
         if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PR_CREATE }}
         run: |
           gh pr create \
             --head release-branch/main \
@@ -193,7 +193,7 @@ jobs:
             --title "chore(release-pr): Version bump and changelog update" \
             --assignee "AstroCaleb" \
             --reviewer "AstroCaleb" \
-            --body-file - <<EOF
+            --body - <<EOF
           This PR was automatically generated to process changesets and prepare for release.
 
           ## Changes in this Release
@@ -201,7 +201,7 @@ jobs:
           ${{ steps.changelog.outputs.changes }}
 
           ### What's Changed
-          - Version bumped to ${{ steps.branch_output.outputs.RELEASE_VERSION }}
+          - Version bumped to ${{ steps.changelog.outputs.VERSION }}
           - Updated CHANGELOG.md with release notes
 
           ### Next Steps
