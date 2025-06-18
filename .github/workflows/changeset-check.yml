@@ -35,32 +35,17 @@ jobs:
         run: |
           git fetch origin main:main
 
-          # Run changeset status and capture only the JSON output
-          # The --no-immutable flag prevents Yarn from failing on lockfile changes
-          JSON_OUTPUT=$(yarn changeset status --output=json --since=main --no-immutable 2>/dev/null | awk '/^{/{found=1} found')
+          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=main)
 
-          # If JSON_OUTPUT is empty, the command might have failed
-          if [ -z "$JSON_OUTPUT" ]; then
-            # Try to get the actual error
-            ERROR_OUTPUT=$(yarn changeset status --output=json --since=main --no-immutable 2>&1 >/dev/null || true)
-            echo "::error::Changeset command failed: $ERROR_OUTPUT"
-            echo "If you're adding a new package, you might need to update the lockfile."
-            exit 1
-          fi
+          echo "$STATUS_OUTPUT"
 
-          # Check if JSON_OUTPUT is valid JSON
-          if ! echo "$JSON_OUTPUT" | jq empty 2>/dev/null; then
-            echo "::error::Invalid JSON output from changeset status. Output was: $JSON_OUTPUT"
-            exit 1
-          fi
+          PATCH=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at patch")
+          MINOR=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at minor")
+          MAJOR=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at major")
 
-          # Safely get release count with a default of 0 if releases field doesn't exist
-          RELEASE_COUNT=$(echo "$JSON_OUTPUT" | jq '.releases | length // 0' 2>/dev/null)
-
-          if [ "$RELEASE_COUNT" -eq 0 ]; then
-            echo "::error::No changesets found. Please add a changeset when making changes."
-            echo "To create a changeset, run: yarn changeset"
+          if [ -n "$PATCH" ] && [ -n "$MINOR" ] && [ -n "$MAJOR" ]; then
+            echo "❌ No changesets found. Please add a changeset for your changes."
             exit 1
           else
-            echo "✅ Found $RELEASE_COUNT changeset(s)."
+            echo "✅ Changeset(s) found."
           fi
