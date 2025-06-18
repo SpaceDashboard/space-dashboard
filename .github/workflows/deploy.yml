@@ -116,7 +116,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.download-release.outputs.use_prebuilt != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build project (if no pre-built assets)
         if: steps.download-release.outputs.use_prebuilt != 'true'

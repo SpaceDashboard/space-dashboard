@@ -54,7 +54,7 @@ jobs:
           yarn set version berry
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Check for changesets
         id: check-changesets
