@@ -33,19 +33,36 @@ jobs:
 
       - name: Check changeset status
         run: |
+          # Debug: Show current branch and changes
+          echo "Current branch: $(git branch --show-current)"
+          echo "Changes in this PR:"
+          git diff --name-status main...HEAD
+          
+          # Check for changeset files
+          echo "\nChangeset files:"
+          find .changeset -name '*.md' -not -name 'README.md' | xargs -I {} sh -c 'echo "- {}:"; cat {}; echo "\n"' || true
+          
+          # Fetch main branch
           git fetch origin main:main
-
-          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=main)
-
+          
+          # Check changeset status with more verbose output
+          echo "\nChecking changeset status..."
+          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=main --verbose)
+          
           echo "$STATUS_OUTPUT"
-
-          PATCH=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at patch")
-          MINOR=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at minor")
-          MAJOR=$(echo "$STATUS_OUTPUT" | grep "NO packages to be bumped at major")
-
-          if [ -n "$PATCH" ] && [ -n "$MINOR" ] && [ -n "$MAJOR" ]; then
-            echo "❌ No changesets found. Please add a changeset for your changes."
+          
+          # Check for any changes that need version bumps
+          if echo "$STATUS_OUTPUT" | grep -q "No changed packages"; then
+            echo "ℹ️  No package changes detected that require version bumps."
+            exit 0
+          fi
+          
+          # Check if changesets are present
+          if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
+             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
+             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at major"; then
+            echo "❌ No changesets found for changes that require version bumps. Please add a changeset for your changes."
             exit 1
           else
-            echo "✅ Changeset(s) found."
+            echo "✅ Changeset(s) found for version changes."
           fi
