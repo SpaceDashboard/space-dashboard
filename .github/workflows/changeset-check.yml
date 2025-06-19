@@ -37,7 +37,7 @@ jobs:
           git fetch origin main:refs/remotes/origin/main
 
           # Get the changeset status
-          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=main --verbose 2>&1 || true)
+          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main)
           echo "$STATUS_OUTPUT"
 
           # Check if there are no packages to be bumped at any level
