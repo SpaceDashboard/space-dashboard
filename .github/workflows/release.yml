@@ -156,7 +156,7 @@ jobs:
           # Package and upload artifacts if dist directory exists
           if [ -d "./dist" ]; then
             echo "Packaging dist directory..."
-            ARTIFACT_NAME="dist-${VERSION}.zip"
+            ARTIFACT_NAME="dist-${{ steps.version.outputs.version }}.zip"
             cd dist && zip -r "../$ARTIFACT_NAME" . && cd -
 
             echo "Uploading artifact: $ARTIFACT_NAME"
