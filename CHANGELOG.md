@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.2
+
+### Patch Changes
+
+- [#119](https://github.com/SpaceDashboard/space-dashboard/pull/119) [`ce82961`](https://github.com/SpaceDashboard/space-dashboard/commit/ce82961c05a1b8019fcd4ebd699e425206b6f22d) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing deploy and changeset check workflows
+
 ## 2.1.1
 
 ### Patch Changes
