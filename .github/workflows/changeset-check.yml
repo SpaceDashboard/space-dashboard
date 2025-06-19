@@ -37,6 +37,16 @@ jobs:
           STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main)
           echo "$STATUS_OUTPUT"
 
+          # Check if changesets are present
+          if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
+             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
+             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at major"; then
+            echo "❌ No changesets found for changes that require version bumps. Please add a changeset for your changes."
+            exit 1
+          else
+            echo "✅ Changeset(s) found for version changes."
+          fi
+
           # # Debug: Show current branch and changes
           # echo "Current branch: $(git branch --show-current)"
           # echo "Current commit: $(git rev-parse HEAD)"
