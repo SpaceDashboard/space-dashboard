@@ -33,52 +33,55 @@ jobs:
 
       - name: Check changeset status
         run: |
-          # Debug: Show current branch and changes
-          echo "Current branch: $(git branch --show-current)"
-          echo "Current commit: $(git rev-parse HEAD)"
-
-          # Fetch the main branch
-          echo "Fetching main branch..."
           git fetch origin main:refs/remotes/origin/main
+          yarn dlx -p @changesets/cli changeset status --since=origin/main
 
-          # Show available branches
-          echo "Available branches:"
-          git branch -a
+          # # Debug: Show current branch and changes
+          # echo "Current branch: $(git branch --show-current)"
+          # echo "Current commit: $(git rev-parse HEAD)"
 
-          # Check if we have a main branch reference
-          if ! git rev-parse --verify refs/remotes/origin/main >/dev/null 2>&1; then
-            echo "❌ Error: Could not find main branch reference"
-            echo "This might be the first commit to the repository."
-            echo "No changeset check needed for initial commit."
-            exit 0
-          fi
+          # # Fetch the main branch
+          # echo "Fetching main branch..."
+          # git fetch origin main:refs/remotes/origin/main
 
-          # Show changes in this PR
-          echo "Changes in this PR:"
-          git diff --name-status origin/main...HEAD || true
+          # # Show available branches
+          # echo "Available branches:"
+          # git branch -a
 
-          # Check for changeset files
-          echo "Changeset files:"
-          find .changeset -name '*.md' -not -name 'README.md' | xargs -I {} sh -c 'echo "- {}:"; cat {}; echo "\n"' || true
+          # # Check if we have a main branch reference
+          # if ! git rev-parse --verify refs/remotes/origin/main >/dev/null 2>&1; then
+          #   echo "❌ Error: Could not find main branch reference"
+          #   echo "This might be the first commit to the repository."
+          #   echo "No changeset check needed for initial commit."
+          #   exit 0
+          # fi
 
-          # Check changeset status with more verbose output
-          echo "Checking changeset status..."
-          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main --verbose)
+          # # Show changes in this PR
+          # echo "Changes in this PR:"
+          # git diff --name-status origin/main...HEAD || true
 
-          echo "$STATUS_OUTPUT"
+          # # Check for changeset files
+          # echo "Changeset files:"
+          # find .changeset -name '*.md' -not -name 'README.md' | xargs -I {} sh -c 'echo "- {}:"; cat {}; echo "\n"' || true
 
-          # Check for any changes that need version bumps
-          if echo "$STATUS_OUTPUT" | grep -q "No changed packages"; then
-            echo "ℹ️  No package changes detected that require version bumps."
-            exit 0
-          fi
+          # # Check changeset status with more verbose output
+          # echo "Checking changeset status..."
+          # STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main --verbose)
 
-          # Check if changesets are present
-          if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
-             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
-             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at major"; then
-            echo "❌ No changesets found for changes that require version bumps. Please add a changeset for your changes."
-            exit 1
-          else
-            echo "✅ Changeset(s) found for version changes."
-          fi
+          # echo "$STATUS_OUTPUT"
+
+          # # Check for any changes that need version bumps
+          # if echo "$STATUS_OUTPUT" | grep -q "No changed packages"; then
+          #   echo "ℹ️  No package changes detected that require version bumps."
+          #   exit 0
+          # fi
+
+          # # Check if changesets are present
+          # if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
+          #    echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
+          #    echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at major"; then
+          #   echo "❌ No changesets found for changes that require version bumps. Please add a changeset for your changes."
+          #   exit 1
+          # else
+          #   echo "✅ Changeset(s) found for version changes."
+          # fi
