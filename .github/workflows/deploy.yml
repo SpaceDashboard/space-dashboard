@@ -145,12 +145,15 @@ jobs:
           echo "Environment: ${{ github.event.inputs.environment }}"
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
-      - name: Build and Upload Source Maps
+      - name: Create Release in Sentry
+        if: github.event.inputs.environment == 'Production'
+        uses: getsentry/action-release@db19a8438b9ff55beba8fbb40fdce2571e85bbd9 # 3.1.2
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: space-dashboard
           SENTRY_PROJECT: space-dashboard
-        run: yarn build
+          sourcemaps: ./dist-release
+          release: ${{ steps.version.outputs.version }}
 
       - name: Sync files to ${{ github.event.inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
