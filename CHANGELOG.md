@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.4
+
+### Patch Changes
+
+- [#124](https://github.com/SpaceDashboard/space-dashboard/pull/124) [`e869d73`](https://github.com/SpaceDashboard/space-dashboard/commit/e869d730a35ca9df9f844c0f9e13a6362012546f) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing dist release path
+
 ## 2.1.3
 
 ### Patch Changes
