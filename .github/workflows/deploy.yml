@@ -73,17 +73,17 @@ jobs:
         id: download-release
         run: |
           if [ "${{ github.event.inputs.version }}" = "latest" ]; then
-            ASSET_URL=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.assets[] | select(.name | startswith("dist-")) | .url')
+            ASSET_URL=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.assets[] | select(.name == "dist-${{ steps.version.outputs.version }}.zip") | .url')
             if [ -n "$ASSET_URL" ]; then
-              gh api "$ASSET_URL" -H "Accept: application/octet-stream" -o dist-release.zip
+              gh api "$ASSET_URL" -H "Accept: application/octet-stream" --output dist-release.zip
             fi
           else
             # Try to find the release by tag
             RELEASE_ID=$(gh api repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }} --jq '.id' || echo "")
             if [ -n "$RELEASE_ID" ]; then
-              ASSET_URL=$(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name | startswith("dist-")) | .url')
+              ASSET_URL=$(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name == "dist-${{ steps.version.outputs.version }}.zip") | .url')
               if [ -n "$ASSET_URL" ]; then
-                gh api $ASSET_URL -H "Accept: application/octet-stream" -o dist-release.zip
+                gh api $ASSET_URL -H "Accept: application/octet-stream" --output dist-release.zip
               fi
             fi
           fi
@@ -116,7 +116,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.download-release.outputs.use_prebuilt != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build project (if no pre-built assets)
         if: steps.download-release.outputs.use_prebuilt != 'true'

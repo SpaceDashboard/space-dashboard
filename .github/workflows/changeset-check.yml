@@ -18,17 +18,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
-        with:
-          node-version: lts/Iron
-
-      - name: Get latest yarn
-        run: |
-          corepack enable
-          yarn set version berry
-
       - name: Check changeset status
         run: |
-          git fetch origin main:main
-          yarn dlx -p @changesets/cli changeset status --since=main
+          git fetch origin main:refs/remotes/origin/main
+          NEW_CHANGESETS=$(git diff --name-only origin/main -- '.changeset/*.md')
+          if [ -z "$NEW_CHANGESETS" ]; then
+            echo "❌ No changeset(s) found since main. Please add a changeset."
+            exit 1
+          else
+            echo "✅ Changeset file(s) detected:"
+            echo "$NEW_CHANGESETS"
+          fi
