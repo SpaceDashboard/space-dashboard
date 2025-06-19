@@ -72,29 +72,32 @@ jobs:
       - name: Download release asset
         id: download-release
         run: |
-          if [ "${{ github.event.inputs.version }}" = "latest" ]; then
-            ASSET_URL=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.assets[] | select(.name == "dist-${{ steps.version.outputs.version }}.zip") | .url')
-            if [ -n "$ASSET_URL" ]; then
-              gh api "$ASSET_URL" -H "Accept: application/octet-stream" --output dist-release.zip
-            fi
-          else
-            # Try to find the release by tag
-            RELEASE_ID=$(gh api repos/${{ github.repository }}/releases/tags/${{ steps.version.outputs.tag }} --jq '.id' || echo "")
-            if [ -n "$RELEASE_ID" ]; then
-              ASSET_URL=$(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name == "dist-${{ steps.version.outputs.version }}.zip") | .url')
-              if [ -n "$ASSET_URL" ]; then
-                gh api $ASSET_URL -H "Accept: application/octet-stream" --output dist-release.zip
-              fi
-            fi
-          fi
+          set -e
 
-          if [ -f "dist-release.zip" ]; then
-            echo "Using pre-built assets from release"
-            echo "use_prebuilt=true" >> $GITHUB_OUTPUT
-            unzip -o dist-release.zip -d dist-release
+          VERSION="${{ github.event.inputs.version }}"
+          TAG="${{ steps.version.outputs.tag }}"
+          FILE_NAME="dist-${{ steps.version.outputs.version }}.zip"
+
+          if [ "$VERSION" = "latest" ]; then
+            echo "Downloading latest release asset..."
+            if gh release download --repo "${{ github.repository }}" --pattern "$FILE_NAME" --dir "." --clobber; then
+              echo "Using pre-built assets from latest release"
+              echo "use_prebuilt=true" >> $GITHUB_OUTPUT
+              unzip -o "$FILE_NAME" -d dist-release
+            else
+              echo "No pre-built assets found for latest release, will build from source"
+              echo "use_prebuilt=false" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "No pre-built assets found, will build from source"
-            echo "use_prebuilt=false" >> $GITHUB_OUTPUT
+            echo "Downloading tagged release asset: $TAG"
+            if gh release download "$TAG" --repo "${{ github.repository }}" --pattern "$FILE_NAME" --dir "." --clobber; then
+              echo "Using pre-built assets from tag $TAG"
+              echo "use_prebuilt=true" >> $GITHUB_OUTPUT
+              unzip -o "$FILE_NAME" -d dist-release
+            else
+              echo "No pre-built assets found for tag $TAG, will build from source"
+              echo "use_prebuilt=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Checkout code
