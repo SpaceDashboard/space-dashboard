@@ -42,7 +42,7 @@ jobs:
           git fetch origin main:refs/remotes/origin/main
 
           # Show available branches
-          echo "\nAvailable branches:"
+          echo "Available branches:"
           git branch -a
 
           # Check if we have a main branch reference
@@ -54,15 +54,15 @@ jobs:
           fi
 
           # Show changes in this PR
-          echo "\nChanges in this PR:"
+          echo "Changes in this PR:"
           git diff --name-status origin/main...HEAD || true
 
           # Check for changeset files
-          echo "\nChangeset files:"
+          echo "Changeset files:"
           find .changeset -name '*.md' -not -name 'README.md' | xargs -I {} sh -c 'echo "- {}:"; cat {}; echo "\n"' || true
 
           # Check changeset status with more verbose output
-          echo "\nChecking changeset status..."
+          echo "Checking changeset status..."
           STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main --verbose)
 
           echo "$STATUS_OUTPUT"
