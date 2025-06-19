@@ -18,34 +18,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
-        with:
-          node-version: lts/Iron
-
-      - name: Get latest yarn
-        run: |
-          corepack enable
-          yarn set version berry
-
-      - name: Install dependencies
-        run: yarn install --immutable
-
       - name: Check changeset status
         run: |
-          # Fetch the main branch
           git fetch origin main:refs/remotes/origin/main
-
-          # Get the changeset status
-          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main)
-          echo "$STATUS_OUTPUT"
-
-          # Check if there are no packages to be bumped at any level
-          if echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at patch" && \
-             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at minor" && \
-             echo "$STATUS_OUTPUT" | grep -q "NO packages to be bumped at major"; then
-            echo "❌ No changesets found for changes that require version bumps. Please add a changeset for your changes."
+          NEW_CHANGESETS=$(git diff --name-only origin/main -- '.changeset/*.md')
+          if [ -z "$NEW_CHANGESETS" ]; then
+            echo "❌ No changeset(s) found since main. Please add a changeset."
             exit 1
+          else
+            echo "✅ Changeset file(s) detected:"
+            echo "$NEW_CHANGESETS"
           fi
-
-          echo "✅ Changeset check passed."
