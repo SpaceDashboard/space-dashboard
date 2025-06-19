@@ -34,7 +34,8 @@ jobs:
       - name: Check changeset status
         run: |
           git fetch origin main:refs/remotes/origin/main
-          yarn dlx -p @changesets/cli changeset status --since=origin/main
+          STATUS_OUTPUT=$(yarn dlx -p @changesets/cli changeset status --since=origin/main)
+          echo "$STATUS_OUTPUT"
 
           # # Debug: Show current branch and changes
           # echo "Current branch: $(git branch --show-current)"
