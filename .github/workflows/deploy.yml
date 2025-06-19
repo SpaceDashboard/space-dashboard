@@ -126,14 +126,14 @@ jobs:
         run: |
           yarn build
           # Create the same structure as the release zip for consistency
-          mkdir -p dist-release/dist
-          cp -r dist/* dist-release/dist/
+          mkdir -p dist-release
+          cp -r dist/* dist-release/
 
       - name: Verify build
         run: |
-          if [ -d "dist-release/dist" ]; then
+          if [ -d "dist-release" ]; then
             echo "Build verified, found dist directory"
-            ls -la dist-release/dist/
+            ls -la dist-release/
           else
             echo "::error::Build output not found"
             exit 1
@@ -160,4 +160,4 @@ jobs:
           username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
           password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
           server-dir: public_html/
-          local-dir: ./dist-release/dist/
+          local-dir: ./dist-release/
