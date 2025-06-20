@@ -57,7 +57,7 @@ jobs:
             fi
 
             # Verify the release exists
-            if ! gh release view "$VERSION" --json tagName >/dev/null 2>&1; then
+            if ! gh api repos/${{ github.repository }}/releases/tags/$VERSION >/dev/null 2>&1; then
               echo "::error::Release $VERSION not found"
               exit 1
             fi
@@ -104,7 +104,8 @@ jobs:
         if: steps.download-release.outputs.use_prebuilt != 'true'
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
-          ref: ${{ steps.version.outputs.tag || 'main' }}
+          fetch-depth: 0
+          ref: ${{ steps.version.outputs.tag }}
 
       - name: Set up Node 20
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
@@ -145,12 +146,18 @@ jobs:
           echo "Environment: ${{ github.event.inputs.environment }}"
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
-      - name: Build and Upload Source Maps
+      - name: Create Release in Sentry
+        if: github.event.inputs.environment == 'Production'
+        uses: getsentry/action-release@db19a8438b9ff55beba8fbb40fdce2571e85bbd9 # 3.1.2
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: space-dashboard
           SENTRY_PROJECT: space-dashboard
-        run: yarn build
+        with:
+          environment: ${{ github.event.inputs.environment }}
+          release: ${{ steps.version.outputs.version }}
+          sourcemaps: ./dist-release
+          set_commits: 'skip'
 
       - name: Sync files to ${{ github.event.inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
