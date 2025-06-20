@@ -105,10 +105,11 @@ jobs:
           fi
 
       - name: Checkout code
+        if: steps.download-release.outputs.use_prebuilt != 'true'
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
           fetch-depth: 0
-          ref: ${{ steps.version.outputs.tag || 'main' }}
+          ref: ${{ steps.version.outputs.tag }}
 
       - name: Set up Node 20
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
