@@ -7,7 +7,7 @@ permissions:
   deployments: write
 
 on:
-  pull_request:
+  push:
     branches:
       - fix-sourcemap-upload-step
   workflow_dispatch:
