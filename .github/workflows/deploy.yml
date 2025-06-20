@@ -149,7 +149,6 @@ jobs:
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
       - name: Create Release in Sentry
-        if: github.event.inputs.environment == 'Production'
         uses: getsentry/action-release@db19a8438b9ff55beba8fbb40fdce2571e85bbd9 # 3.1.2
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
