@@ -107,6 +107,7 @@ jobs:
         if: steps.download-release.outputs.use_prebuilt != 'true'
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
+          fetch-depth: 0
           ref: ${{ steps.version.outputs.tag || 'main' }}
 
       - name: Set up Node 20
@@ -154,8 +155,10 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: space-dashboard
           SENTRY_PROJECT: space-dashboard
-          sourcemaps: ./dist-release
+        with:
+          environment: ${{ github.event.inputs.environment }}
           release: ${{ steps.version.outputs.version }}
+          sourcemaps: ./dist-release
 
       # - name: Sync files to ${{ github.event.inputs.environment }}
       #   uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
