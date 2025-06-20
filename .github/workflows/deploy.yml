@@ -7,9 +7,6 @@ permissions:
   deployments: write
 
 on:
-  push:
-    branches:
-      - fix-sourcemap-upload-step
   workflow_dispatch:
     inputs:
       environment:
@@ -22,7 +19,7 @@ on:
       version:
         description: 'Version/tag to deploy (e.g., v2.0.2) or "latest" for most recent release'
         required: false
-        default: '2.1.3'
+        default: 'latest'
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -150,6 +147,7 @@ jobs:
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
       - name: Create Release in Sentry
+        if: github.event.inputs.environment == 'Production'
         uses: getsentry/action-release@db19a8438b9ff55beba8fbb40fdce2571e85bbd9 # 3.1.2
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -161,12 +159,12 @@ jobs:
           sourcemaps: ./dist-release
           set_commits: 'skip'
 
-      # - name: Sync files to ${{ github.event.inputs.environment }}
-      #   uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
-      #   if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Staging'
-      #   with:
-      #     server: ${{ secrets.FTP_SERVER }}
-      #     username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
-      #     password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
-      #     server-dir: public_html/
-      #     local-dir: ./dist-release/
+      - name: Sync files to ${{ github.event.inputs.environment }}
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
+        if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Staging'
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
+          password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist-release/
