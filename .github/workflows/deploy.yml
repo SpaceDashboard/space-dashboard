@@ -61,7 +61,7 @@ jobs:
             fi
 
             # Verify the release exists
-            if ! gh release view "$VERSION" --json tagName >/dev/null 2>&1; then
+            if ! gh api repos/${{ github.repository }}/releases/tags/$VERSION >/dev/null 2>&1; then
               echo "::error::Release $VERSION not found"
               exit 1
             fi
