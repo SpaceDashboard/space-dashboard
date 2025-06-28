@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.6
+
+### Patch Changes
+
+- [#128](https://github.com/SpaceDashboard/space-dashboard/pull/128) [`a0d8c4f`](https://github.com/SpaceDashboard/space-dashboard/commit/a0d8c4fca074e1fd4b29c8eaa2442dbde639625f) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing tooltips for touch devices, disabling background scrolling when full page modal is open, and adding scrollbar-color and scrollbar-width for supported browsers
+
 ## 2.1.5
 
 ### Patch Changes
