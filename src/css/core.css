@@ -28,6 +28,18 @@ body {
     'YTLC' 530;
   overscroll-behavior: none;
   padding: 0;
+  scrollbar-color: hsl(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 8%)
+    )
+    hsla(
+      var(--base-blue-hue),
+      var(--base-blue-saturation),
+      calc(var(--base-blue-lightness) - 15%),
+      0.6
+    );
+  scrollbar-width: thin;
 }
 
 input:focus,
@@ -163,6 +175,10 @@ a {
   overflow-y: auto;
   padding: 25px;
   width: calc(100vw - 120px);
+
+  &:has(.modal.full-screen.open) {
+    overflow-y: hidden;
+  }
 }
 
 .content {
