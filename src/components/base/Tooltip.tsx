@@ -16,7 +16,7 @@ export const TooltipWrapper = ({
   children,
   enabled = true,
   delay = 0,
-  hideOnTouchDevice = false,
+  hideOnTouchDevice = true,
   title = '',
   placement = 'top',
   tooltipOffset = 8,
