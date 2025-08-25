@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.9
+
+### Patch Changes
+
+- [#139](https://github.com/SpaceDashboard/space-dashboard/pull/139) [`4db9db2`](https://github.com/SpaceDashboard/space-dashboard/commit/4db9db272f3b9539a8ca0bd875b95dd011984054) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Minor updates to staging and production workflows and trigger new staging deploy workflow on release creation
+
 ## 2.1.8
 
 ### Patch Changes
