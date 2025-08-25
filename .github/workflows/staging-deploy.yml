@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   call-deploy-workflow:
-    name: Deploy to Staging
+    name: Trigger Staging Deployment
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Deploy Workflow
