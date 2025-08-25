@@ -1,0 +1,34 @@
+name: Staging Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version/tag to deploy (e.g., v2.0.2) or "latest" for most recent release'
+        required: false
+        default: 'latest'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  call-deploy-workflow:
+    name: Trigger Staging Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Staging Deployment
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            await github.rest.actions.createWorkflowDispatch({
+              owner,
+              repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main',
+              inputs: {
+                environment: 'Staging',
+                version: '${{ github.event.inputs.version || 'latest' }}'
+              }
+            });
