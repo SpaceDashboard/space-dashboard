@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.8
+
+### Patch Changes
+
+- [#136](https://github.com/SpaceDashboard/space-dashboard/pull/136) [`a78e345`](https://github.com/SpaceDashboard/space-dashboard/commit/a78e345d7c6503514cdd90246574ff574af74ee5) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding staging and production deploy workflows that trigger the core deploy workflow
+
 ## 2.1.7
 
 ### Patch Changes
