@@ -180,7 +180,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
         run: |
-          gh workflow run deploy.yml \
+          gh workflow run staging-deploy.yml \
             --repo ${{ github.repository }} \
             --ref ${{ github.ref }} \
             --field version=${{ needs.release.outputs.tag }} \

@@ -9,26 +9,28 @@ on:
         default: 'latest'
 
 permissions:
-  contents: read
-  actions: write
+  contents: write
+  pull-requests: write
+  deployments: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+concurrency:
+  group: production-deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   call-deploy-workflow:
-    name: Trigger Production Deployment
+    name: Deploy to Production
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Production Deployment
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            await github.rest.actions.createWorkflowDispatch({
-              owner,
-              repo,
-              workflow_id: 'deploy.yml',
-              ref: 'main',
-              inputs: {
-                environment: 'Production',
-                version: '${{ github.event.inputs.version || 'latest' }}'
-              }
-            });
+      - name: Trigger Deploy Workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
+        run: |
+          gh workflow run deploy.yml \
+            --repo ${{ github.repository }} \
+            --ref ${{ github.ref }} \
+            --field version='${{ github.event.inputs.version || 'latest' }}' \
+            --field environment="Production"
