@@ -29,7 +29,7 @@ To contribute:
 
 	1. Fork the repository.
 	2. Create a new branch.
-	3. Make your changes and push the branch.
+	3. Make your changes, add a changeset, and push the branch.
 	4. Open a pull request for review.
 
 ---
