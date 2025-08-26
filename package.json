@@ -26,8 +26,8 @@
     "@astrocaleb/content-slider": "^1.0.0",
     "@date-fns/utc": "^2.1.1",
     "@emotion/css": "^11.13.5",
-    "@sentry/react": "^8.55.0",
-    "@sentry/vite-plugin": "^2.23.1",
+    "@sentry/react": "^10.5.0",
+    "@sentry/vite-plugin": "^4.1.1",
     "@tabler/icons-react": "^3.34.1",
     "@tanstack/react-query": "^5.85.5",
     "axios": "^1.11.0",
@@ -36,9 +36,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.62.0",
-    "react-toastify": "^10.0.6",
+    "react-toastify": "^11.0.5",
     "react-tooltip": "^5.29.1",
-    "recharts": "^2.15.4"
+    "recharts": "^3.1.2"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
