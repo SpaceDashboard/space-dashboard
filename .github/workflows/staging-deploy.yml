@@ -9,28 +9,23 @@ on:
         default: 'latest'
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  packages: read
+  actions: write
   deployments: write
-
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  id-token: write
 
 concurrency:
   group: staging-deploy-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  call-deploy-workflow:
-    name: Trigger Staging Deployment
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Deploy Workflow
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
-        run: |
-          gh workflow run deploy.yml \
-            --repo ${{ github.repository }} \
-            --ref ${{ github.ref }} \
-            --field version='${{ github.event.inputs.version || 'latest' }}' \
-            --field environment="Staging"
+  deploy:
+    name: Deploy to Staging
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Staging
+      version: ${{ github.event.inputs.version || 'latest' }}
+    secrets:
+      GH_PR_CREATE: ${{ secrets.GH_PR_CREATE }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
