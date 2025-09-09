@@ -1,6 +1,6 @@
 {
   "name": "space-dashboard",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "description": "Collection of happenings in space",
   "author": "Caleb Dudley",
   "private": true,
@@ -69,5 +69,5 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
-  "packageManager": "yarn@4.9.3"
+  "packageManager": "yarn@4.9.4"
 }
