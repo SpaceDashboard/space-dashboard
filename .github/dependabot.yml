@@ -16,3 +16,6 @@ updates:
         exclude-patterns:
           - "react"
           - "react-dom"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

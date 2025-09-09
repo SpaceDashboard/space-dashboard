@@ -5,10 +5,10 @@ import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { App } from 'src/App';
+import { App } from './App';
 import AppProvider from './providers/AppProvider';
 import SettingsProvider from './providers/SettingsProvider';
-import 'src/css/index.css';
+import './css/index.css';
 
 Sentry.init({
   dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',

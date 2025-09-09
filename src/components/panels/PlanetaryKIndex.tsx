@@ -30,6 +30,9 @@ import {
   getCurrentTimestamp,
 } from 'src/shared/utils';
 
+const planetaryKIndexKey = 'current-planetary-k-index';
+const planetaryKIndexHourlyKey = 'hourly-planetary-k-index';
+
 const planetaryKIndexCss = css`
   .corners-wrapper-content {
     gap: 0 !important;
@@ -258,7 +261,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
     isFetching: isFetchingLiveData,
     refetch: refetchLiveData,
   } = useQuery({
-    queryKey: ['current-planetary-k-index'],
+    queryKey: [planetaryKIndexKey],
     queryFn: getLiveData,
   });
 
@@ -267,7 +270,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
     isFetching: isFetchingChartData,
     refetch: refetchChartData,
   } = useQuery({
-    queryKey: ['hourly-planetary-k-index'],
+    queryKey: [planetaryKIndexHourlyKey],
     queryFn: getHourlyData,
   });
 
@@ -284,7 +287,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
 
   const { resetTimer } = useAutoRefresh(() => {
     queryClient.invalidateQueries({
-      queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
+      queryKey: [planetaryKIndexKey, planetaryKIndexHourlyKey],
     });
     refetchLiveData();
     refetchChartData();
@@ -405,7 +408,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
       <PanelActions
         refreshData={() => {
           queryClient.invalidateQueries({
-            queryKey: ['current-planetary-k-index', 'hourly-planetary-k-index'],
+            queryKey: [planetaryKIndexKey, planetaryKIndexHourlyKey],
           });
           resetTimer();
           refetchLiveData();
