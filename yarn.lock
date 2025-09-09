@@ -1309,6 +1309,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@posthog/core@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@posthog/core@npm:1.0.2"
+  checksum: 10c0/b6cb66df077230c5cbd0de15b708b7e6fa47dac20a1bcfe5308d5c1b1ec487e57c923e22a51d6f8d45acea8239562fa9546c528d5c2bef1487419c70d3a76a43
+  languageName: node
+  linkType: hard
+
 "@rolldown/pluginutils@npm:1.0.0-beta.27":
   version: 1.0.0-beta.27
   resolution: "@rolldown/pluginutils@npm:1.0.0-beta.27"
@@ -1664,10 +1671,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.85.5":
-  version: 5.85.5
-  resolution: "@tanstack/query-core@npm:5.85.5"
-  checksum: 10c0/344670ac117bc4775a9e812fc91e27befc9ef4f681e341d8f76af3cd075eecdcc5aa058a9544a6b56cccb8e07f22ef5c9e0c852331d428bcce5e1223deef14bd
+"@tanstack/query-core@npm:5.87.1":
+  version: 5.87.1
+  resolution: "@tanstack/query-core@npm:5.87.1"
+  checksum: 10c0/12c83ca67d778c1065836d0215987b4b04369c8195a32b2b3bd73ed873ff72d20027b72175ee9120b98278c299bdf5161a92f7ba629ab4ee687cb4085e91568a
   languageName: node
   linkType: hard
 
@@ -1690,14 +1697,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.85.5":
-  version: 5.85.5
-  resolution: "@tanstack/react-query@npm:5.85.5"
+"@tanstack/react-query@npm:^5.87.1":
+  version: 5.87.1
+  resolution: "@tanstack/react-query@npm:5.87.1"
   dependencies:
-    "@tanstack/query-core": "npm:5.85.5"
+    "@tanstack/query-core": "npm:5.87.1"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/7518cd624f9fe7c258b460192a73021a1e7fe0e0ea4173de69ca0a69cf60cc812bdb59b13c7f9acdbf45f4f0e82e8efb1e739528cf26e334e4a80606d7c7050d
+  checksum: 10c0/12b224d6e0a5b1f033c3475d475d79ca8a5693720b5cd35c3a872a67690ff3993576d2af96d3a82c054f2fe985738044ef5ef9824f8c476bc959f188f10defe8
   languageName: node
   linkType: hard
 
@@ -5604,10 +5611,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:^1.260.2":
-  version: 1.260.2
-  resolution: "posthog-js@npm:1.260.2"
+"posthog-js@npm:^1.262.0":
+  version: 1.262.0
+  resolution: "posthog-js@npm:1.262.0"
   dependencies:
+    "@posthog/core": "npm:1.0.2"
     core-js: "npm:^3.38.1"
     fflate: "npm:^0.4.8"
     preact: "npm:^10.19.3"
@@ -5620,7 +5628,7 @@ __metadata:
       optional: true
     rrweb-snapshot:
       optional: true
-  checksum: 10c0/faed7cde05604a72722119395a7c21926469e36c102d3777bf705f62a4e98bb6f3d0c10fbeebe40765ba9e08bcf951bc76b10bd81ef30127385a39253f368e30
+  checksum: 10c0/4c3cbeec787afd3768fe1e0856e0575b3699ed93cbe4041620a0457dd582acc2c5fc0a88f7f5086a04564ee4bc1e774d50c588e90565818fc183dff78c8a9ab9
   languageName: node
   linkType: hard
 
@@ -6449,7 +6457,7 @@ __metadata:
     "@sentry/react": "npm:^8.55.0"
     "@sentry/vite-plugin": "npm:^2.23.1"
     "@tabler/icons-react": "npm:^3.34.1"
-    "@tanstack/react-query": "npm:^5.85.5"
+    "@tanstack/react-query": "npm:^5.87.1"
     "@tanstack/react-query-devtools": "npm:^5.85.5"
     "@types/node": "npm:^22.17.2"
     "@types/react": "npm:^18.3.24"
@@ -6467,7 +6475,7 @@ __metadata:
     eslint-plugin-sonarjs: "npm:^3.0.5"
     globals: "npm:^15.15.0"
     husky: "npm:^9.1.7"
-    posthog-js: "npm:^1.260.2"
+    posthog-js: "npm:^1.262.0"
     prettier: "npm:^3.6.2"
     process: "npm:^0.11.10"
     react: "npm:^18.3.1"
