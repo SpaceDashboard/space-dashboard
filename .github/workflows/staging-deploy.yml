@@ -1,0 +1,36 @@
+name: Staging Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version/tag to deploy (e.g., v2.0.2) or "latest" for most recent release'
+        required: false
+        default: 'latest'
+
+permissions:
+  contents: write
+  pull-requests: write
+  deployments: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+concurrency:
+  group: staging-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  call-deploy-workflow:
+    name: Trigger Staging Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deploy Workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
+        run: |
+          gh workflow run deploy.yml \
+            --repo ${{ github.repository }} \
+            --ref ${{ github.ref }} \
+            --field version='${{ github.event.inputs.version || 'latest' }}' \
+            --field environment="Staging"

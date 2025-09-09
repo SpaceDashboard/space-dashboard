@@ -1,5 +1,35 @@
 # space-dashboard
 
+## 2.1.11
+
+### Patch Changes
+
+- [#148](https://github.com/SpaceDashboard/space-dashboard/pull/148) [`bcb3544`](https://github.com/SpaceDashboard/space-dashboard/commit/bcb3544a9e099617cd4ea97de5a3f017bede1b9a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating NASA video feed IDs
+
+## 2.1.10
+
+### Patch Changes
+
+- [#141](https://github.com/SpaceDashboard/space-dashboard/pull/141) [`db7357a`](https://github.com/SpaceDashboard/space-dashboard/commit/db7357a3e1f22ad1805cb6febef06e19e005b086) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing staging-deploy workflow trigger in release workflow
+
+## 2.1.9
+
+### Patch Changes
+
+- [#139](https://github.com/SpaceDashboard/space-dashboard/pull/139) [`4db9db2`](https://github.com/SpaceDashboard/space-dashboard/commit/4db9db272f3b9539a8ca0bd875b95dd011984054) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Minor updates to staging and production workflows and trigger new staging deploy workflow on release creation
+
+## 2.1.8
+
+### Patch Changes
+
+- [#136](https://github.com/SpaceDashboard/space-dashboard/pull/136) [`a78e345`](https://github.com/SpaceDashboard/space-dashboard/commit/a78e345d7c6503514cdd90246574ff574af74ee5) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding staging and production deploy workflows that trigger the core deploy workflow
+
+## 2.1.7
+
+### Patch Changes
+
+- [#133](https://github.com/SpaceDashboard/space-dashboard/pull/133) [`a95332d`](https://github.com/SpaceDashboard/space-dashboard/commit/a95332ddcb18c119befbfed4df8f0cd91e8c937a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating dependencies
+
 ## 2.1.6
 
 ### Patch Changes
