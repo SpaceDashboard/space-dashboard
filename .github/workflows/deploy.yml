@@ -1,25 +1,26 @@
 name: Deploy
 
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      version:
+        required: false
+        type: string
+        default: 'latest'
+    secrets:
+      GH_PR_CREATE:
+        required: true
+      SENTRY_AUTH_TOKEN:
+        required: false
+
 permissions:
   contents: read
   packages: read
   actions: write
   deployments: write
-
-on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to deploy to'
-        required: true
-        type: choice
-        options:
-          - Production
-          - Staging
-      version:
-        description: 'Version/tag to deploy (e.g., v2.0.2) or "latest" for most recent release'
-        required: false
-        default: 'latest'
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -27,17 +28,18 @@ concurrency:
 
 jobs:
   web-deploy:
-    name: Deploy ${{ github.event.inputs.version == 'latest' && 'latest' || github.event.inputs.version }} to ${{ github.event.inputs.environment }}
+    name: Deploy ${{ inputs.version == 'latest' && 'latest' || inputs.version }} to ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
+      ENVIRONMENT: ${{ inputs.environment }}
     steps:
       - name: Set version and tag
         id: version
         run: |
           set -e  # Exit on error
 
-          VERSION="${{ github.event.inputs.version || 'latest' }}"
+          VERSION="${{ inputs.version || 'latest' }}"
           echo "Input version: $VERSION"
 
           if [ "$VERSION" = "latest" ]; then
@@ -57,7 +59,7 @@ jobs:
             fi
 
             # Verify the release exists
-            if ! gh api repos/${{ github.repository }}/releases/tags/$VERSION >/dev/null 2>&1; then
+            if ! gh api repos/${{ github.repository }}/releases/tags/$VERSION --jq .id >/dev/null 2>&1; then
               echo "::error::Release $VERSION not found"
               exit 1
             fi
@@ -74,7 +76,7 @@ jobs:
         run: |
           set -e
 
-          VERSION="${{ github.event.inputs.version }}"
+          VERSION="${{ inputs.version }}"
           TAG="${{ steps.version.outputs.tag }}"
           FILE_NAME="dist-${{ steps.version.outputs.version }}.zip"
 
@@ -147,7 +149,7 @@ jobs:
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
       - name: Create Release in Sentry
-        if: github.event.inputs.environment == 'Production'
+        if: inputs.environment == 'Production'
         uses: getsentry/action-release@db19a8438b9ff55beba8fbb40fdce2571e85bbd9 # 3.1.2
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
