@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.11
+
+### Patch Changes
+
+- [#148](https://github.com/SpaceDashboard/space-dashboard/pull/148) [`bcb3544`](https://github.com/SpaceDashboard/space-dashboard/commit/bcb3544a9e099617cd4ea97de5a3f017bede1b9a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating NASA video feed IDs
+
 ## 2.1.10
 
 ### Patch Changes
