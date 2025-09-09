@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.1.12
+
+### Patch Changes
+
+- [#151](https://github.com/SpaceDashboard/space-dashboard/pull/151) [`46df169`](https://github.com/SpaceDashboard/space-dashboard/commit/46df169b81759331da9e41701b0d0d1653703f93) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing live feed IDs and their links, as well as updating dependabot config to ignore major versions.
+
 ## 2.1.11
 
 ### Patch Changes
