@@ -24,6 +24,7 @@ const CARD_HEIGHT = 160;
 const DEFAULT_CARD_WIDTH = 300;
 const COLUMN_GAP = 20;
 const ROW_GAP = 20;
+const CARD_ARROW_BTN_CLASS = 'card-arrow-button';
 
 const wrapperCss = (reduceMotion: boolean, reduceTransparency: boolean) => css`
   --column-manager--background-opacity: ${reduceTransparency
@@ -318,7 +319,10 @@ export const ColumnManager: React.FC = () => {
               style={{ height: '100%', padding: '0 5px' }}
             >
               <button
-                className={cx('card-arrow-button', arrowButtonCss('leftRight'))}
+                className={cx(
+                  CARD_ARROW_BTN_CLASS,
+                  arrowButtonCss('leftRight'),
+                )}
                 onClick={() => movePanel(panel, 'left')}
                 disabled={columnIndex === 0}
               >
@@ -333,7 +337,7 @@ export const ColumnManager: React.FC = () => {
               >
                 <button
                   className={cx(
-                    'card-arrow-button',
+                    CARD_ARROW_BTN_CLASS,
                     arrowButtonCss('topBottom'),
                   )}
                   onClick={() => movePanel(panel, 'up')}
@@ -364,7 +368,7 @@ export const ColumnManager: React.FC = () => {
 
                 <button
                   className={cx(
-                    'card-arrow-button',
+                    CARD_ARROW_BTN_CLASS,
                     arrowButtonCss('topBottom'),
                   )}
                   onClick={() => movePanel(panel, 'down')}
@@ -381,7 +385,10 @@ export const ColumnManager: React.FC = () => {
               </FlexWrapper>
 
               <button
-                className={cx('card-arrow-button', arrowButtonCss('leftRight'))}
+                className={cx(
+                  CARD_ARROW_BTN_CLASS,
+                  arrowButtonCss('leftRight'),
+                )}
                 onClick={() => movePanel(panel, 'right')}
                 disabled={columnIndex === 2}
               >

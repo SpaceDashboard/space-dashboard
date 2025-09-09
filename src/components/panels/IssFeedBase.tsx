@@ -32,18 +32,27 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
   index,
   menuContent,
 }) => {
-  const { issLiveFeedVideoId1, issLiveFeedVideoId2, issLiveFeedVideoId3 } =
-    useAppContext();
+  const {
+    issLiveFeedVideoId1 = '',
+    issLiveFeedVideoId2 = '',
+    issLiveFeedVideoId3 = '',
+  } = useAppContext();
   const { settings } = useSettingsContext();
   const panelConfig = settings.panelConfigs[feedName as FeedName];
-  const videoId =
-    feedName === 'IssFeed1'
-      ? issLiveFeedVideoId1
-      : feedName === 'IssFeed2'
-        ? issLiveFeedVideoId2
-        : feedName === 'IssFeed3'
-          ? issLiveFeedVideoId3
-          : '';
+  let videoId = '';
+  switch (feedName) {
+    case 'IssFeed1':
+      videoId = issLiveFeedVideoId1;
+      break;
+    case 'IssFeed2':
+      videoId = issLiveFeedVideoId2;
+      break;
+    case 'IssFeed3':
+      videoId = issLiveFeedVideoId3;
+      break;
+    default:
+      videoId = '';
+  }
   const feedId = useMemo(
     () => panelConfig.videoIdOverride || videoId,
     [panelConfig, videoId],

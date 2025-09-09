@@ -7,7 +7,7 @@ export const IssFeed3: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
   index,
   componentKey,
 }) => {
-  const { issLiveFeedVideoId2 } = useAppContext();
+  const { issLiveFeedVideoId3 } = useAppContext();
 
   return (
     <IssFeedBase
@@ -19,7 +19,7 @@ export const IssFeed3: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
           <p>
             {'Credit: '}
             <a
-              href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId2}`}
+              href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId3}`}
               target="_blank"
               rel="noreferrer"
               title="Live High-Definition Views from the International Space Station (Official NASA Stream)"

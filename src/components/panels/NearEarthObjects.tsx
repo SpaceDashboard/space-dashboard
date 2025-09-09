@@ -18,6 +18,8 @@ import {
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
 
+const nearEarthObjectsKey = 'near-earth-objects';
+
 const neoDetailsModalCss = css`
   top: 60px;
   left: 20px;
@@ -143,7 +145,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
     isFetching: isFetchingNeoData,
     refetch: refetchNeoData,
   } = useQuery({
-    queryKey: ['near-earth-objects'],
+    queryKey: [nearEarthObjectsKey],
     queryFn: getNeoData,
   });
 
@@ -181,7 +183,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
   const { resetTimer } = useAutoRefresh(
     () => {
       queryClient.invalidateQueries({
-        queryKey: ['near-earth-objects'],
+        queryKey: [nearEarthObjectsKey],
       });
       refetchNeoData();
     },
@@ -264,7 +266,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
       <PanelActions
         refreshData={() => {
           queryClient.invalidateQueries({
-            queryKey: ['near-earth-objects'],
+            queryKey: [nearEarthObjectsKey],
           });
           resetTimer();
           refetchNeoData();
