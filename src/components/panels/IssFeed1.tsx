@@ -1,13 +1,14 @@
 import React from 'react';
 import { IssFeedBase } from 'src/components/panels/IssFeedBase';
 import { PanelProps } from 'src/components/base';
-import { useAppContext } from 'src/hooks';
+import { useVideoStatus } from 'src/hooks';
 
 export const IssFeed1: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
   index,
   componentKey,
 }) => {
-  const { issLiveFeedVideoId1 } = useAppContext();
+  const { data: videoStatus } = useVideoStatus();
+  const videoId = videoStatus?.issLiveFeedVideoId1?.videoId || '';
 
   return (
     <IssFeedBase
@@ -19,7 +20,7 @@ export const IssFeed1: React.FC<Pick<PanelProps, 'index' | 'componentKey'>> = ({
           <p>
             {'Credit: '}
             <a
-              href={`https://www.youtube.com/watch?v=${issLiveFeedVideoId1}`}
+              href={`https://www.youtube.com/watch?v=${videoId}`}
               target="_blank"
               rel="noreferrer"
             >
