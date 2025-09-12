@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.1
+
+### Patch Changes
+
+- [#165](https://github.com/SpaceDashboard/space-dashboard/pull/165) [`5eaa712`](https://github.com/SpaceDashboard/space-dashboard/commit/5eaa712e4ed6595d27fc6a533893e916e9c94c70) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding app version to Sentry initialization
+
 ## 2.2.0
 
 ### Minor Changes
