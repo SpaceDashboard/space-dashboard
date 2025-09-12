@@ -8,6 +8,7 @@ import { DeepSpaceNetwork } from 'src/components/panels';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
 import { ToastContainer, PersistentToastContainer } from 'src/shared/utils';
+import packageConfig from '../package.json';
 
 const contentCss = (reduceMotion: boolean, speedAdjustment: number) => css`
   --content--transition-duration: ${reduceMotion ? 0 : 0.3 * speedAdjustment}s;
@@ -127,6 +128,20 @@ export const App: React.FC = () => {
       <ToastContainer />
       <PersistentToastContainer />
       {allPanelsLoaded && <SiteMonitors />}
+      <span
+        id="app-version"
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          display: 'none',
+          overflow: 'hidden',
+          width: '0',
+          height: '0',
+        }}
+      >
+        {packageConfig?.version}
+      </span>
     </>
   );
 };
