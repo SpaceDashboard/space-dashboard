@@ -27,8 +27,8 @@ export const useVideoStatus = () => {
         throw new Error('Failed to load video status');
       }
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    staleTime: 2 * 60 * 1000, // 2 minutes
+    refetchInterval: 2 * 60 * 1000, // Refetch every 2 minutes
   });
 
   return useMemo(
