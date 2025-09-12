@@ -4,26 +4,13 @@ import { AppContext } from 'src/providers';
 
 const AppProvider = ({ children }: React.PropsWithChildren) => {
   const {
-    settings: {
-      animationSpeedAdjustment,
-      enableLoadingAnimation,
-      panelConfigs,
-    },
+    settings: { animationSpeedAdjustment, enableLoadingAnimation },
   } = useSettingsContext();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
   const [allPanelsLoaded, setAllPanelsLoaded] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [issLiveFeedVideoId1, setIssLiveFeedVideoId1] = useState<string>(
-    panelConfigs.IssFeed1.videoIdOverride || '',
-  );
-  const [issLiveFeedVideoId2, setIssLiveFeedVideoId2] = useState<string>(
-    panelConfigs.IssFeed2.videoIdOverride || '',
-  );
-  const [issLiveFeedVideoId3, setIssLiveFeedVideoId3] = useState<string>(
-    panelConfigs.IssFeed3.videoIdOverride || '',
-  );
 
   useEffect(() => {
     const handleResize = () => setViewportWidth(window.innerWidth);
@@ -63,12 +50,9 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       setIsContactFormOpen,
       isUserSettingsOpen,
       setIsUserSettingsOpen,
-      issLiveFeedVideoId1,
-      issLiveFeedVideoId2,
-      issLiveFeedVideoId3,
-      setIssLiveFeedVideoId1,
-      setIssLiveFeedVideoId2,
-      setIssLiveFeedVideoId3,
+      issLiveFeedVideoId1: 'fO9e9jnhYK8',
+      issLiveFeedVideoId2: 'iYmvCUonukw',
+      issLiveFeedVideoId3: 'yf5cEJULZXk',
     }),
     [
       navAnimationSeconds,
@@ -79,12 +63,6 @@ const AppProvider = ({ children }: React.PropsWithChildren) => {
       setIsContactFormOpen,
       isUserSettingsOpen,
       setIsUserSettingsOpen,
-      issLiveFeedVideoId1,
-      issLiveFeedVideoId2,
-      issLiveFeedVideoId3,
-      setIssLiveFeedVideoId1,
-      setIssLiveFeedVideoId2,
-      setIssLiveFeedVideoId3,
     ],
   );
 
