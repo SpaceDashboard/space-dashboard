@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.0
+
+### Minor Changes
+
+- [#161](https://github.com/SpaceDashboard/space-dashboard/pull/161) [`c51d861`](https://github.com/SpaceDashboard/space-dashboard/commit/c51d8614c123960dfc49c8809c672a8bbb753fb3) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Refactor ISS feed handling to use a more maintainable pattern for managing multiple video feeds
+
 ## 2.1.13
 
 ### Patch Changes
