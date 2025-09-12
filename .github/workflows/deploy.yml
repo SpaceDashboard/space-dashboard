@@ -15,6 +15,16 @@ on:
         required: true
       SENTRY_AUTH_TOKEN:
         required: false
+      FTP_SERVER:
+        required: true
+      PROD_FTP_USERNAME:
+        required: true
+      PROD_FTP_PASSWORD:
+        required: true
+      STAGING_FTP_USERNAME:
+        required: true
+      STAGING_FTP_PASSWORD:
+        required: true
 
 permissions:
   contents: read

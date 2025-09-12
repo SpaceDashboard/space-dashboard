@@ -29,3 +29,9 @@ jobs:
     secrets:
       GH_PR_CREATE: ${{ secrets.GH_PR_CREATE }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      STAGING_FTP_USERNAME: ${{ secrets.STAGING_FTP_USERNAME }}
+      STAGING_FTP_PASSWORD: ${{ secrets.STAGING_FTP_PASSWORD }}
+      # These are included to satisfy the workflow call requirements
+      PROD_FTP_USERNAME: ''
+      PROD_FTP_PASSWORD: ''
