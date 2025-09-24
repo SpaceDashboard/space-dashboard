@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.4
+
+### Patch Changes
+
+- [#173](https://github.com/SpaceDashboard/space-dashboard/pull/173) [`d91d1a5`](https://github.com/SpaceDashboard/space-dashboard/commit/d91d1a5ae3b2bcfc496b585ae67c84950ba30eef) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Small fix for dependabot changeset workflow
+
 ## 2.2.3
 
 ### Patch Changes
