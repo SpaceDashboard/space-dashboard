@@ -222,7 +222,6 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
                     position: 'relative',
                     width: '100%',
                     height: '100%',
-                    minHeight: '300px', // Ensure minimum height for better visibility
                   }}
                 >
                   <iframe
