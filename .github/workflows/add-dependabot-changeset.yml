@@ -3,7 +3,6 @@ name: Add dependabot changeset
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: ['main']
 
 permissions:
   pull-requests: write
