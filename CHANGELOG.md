@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.5
+
+### Patch Changes
+
+- [#163](https://github.com/SpaceDashboard/space-dashboard/pull/163) [`0c53ca9`](https://github.com/SpaceDashboard/space-dashboard/commit/0c53ca90f150a60943f8dfccf6ed790328fe2a2e) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump axios from 1.11.0 to 1.12.0
+
 ## 2.2.4
 
 ### Patch Changes
