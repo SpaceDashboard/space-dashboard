@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import posthog from 'posthog-js';
+import packageConfig from '../package.json';
 import { PostHogProvider } from 'posthog-js/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -13,6 +14,7 @@ import './css/index.css';
 Sentry.init({
   dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',
   // integrations: [Sentry.browserTracingIntegration()],
+  release: packageConfig?.version ?? '',
   tracesSampleRate: 1.0,
   tracePropagationTargets: [
     /^\//,

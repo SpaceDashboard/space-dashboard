@@ -1,6 +1,6 @@
 {
   "name": "space-dashboard",
-  "version": "2.2.0",
+  "version": "2.2.3",
   "description": "Collection of happenings in space",
   "author": "Caleb Dudley",
   "private": true,
@@ -13,7 +13,7 @@
     "format:check": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
     "checks-before-push": "yarn lint && yarn format:check && yarn type-check",
-    "changeset:add": "changeset",
+    "changeset:add": "changeset add",
     "changeset:version": "changeset version",
     "changeset:publish": "changeset publish --no-git-tag",
     "update-version": "yarn changeset:version",
@@ -70,5 +70,5 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }

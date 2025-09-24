@@ -1,5 +1,23 @@
 # space-dashboard
 
+## 2.2.3
+
+### Patch Changes
+
+- [#171](https://github.com/SpaceDashboard/space-dashboard/pull/171) [`6253981`](https://github.com/SpaceDashboard/space-dashboard/commit/625398121540998988e6797fbb4c9ba9a4efcd2a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding workflow to add changeset for dependabot PRs
+
+## 2.2.2
+
+### Patch Changes
+
+- [#168](https://github.com/SpaceDashboard/space-dashboard/pull/168) [`b1aadc9`](https://github.com/SpaceDashboard/space-dashboard/commit/b1aadc98c7b6ff397d15932162fbbffb5a8fe409) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing min-height that was accidentally set on the base ISS feed component, causing mobile views to not render correctly.
+
+## 2.2.1
+
+### Patch Changes
+
+- [#165](https://github.com/SpaceDashboard/space-dashboard/pull/165) [`5eaa712`](https://github.com/SpaceDashboard/space-dashboard/commit/5eaa712e4ed6595d27fc6a533893e916e9c94c70) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding app version to Sentry initialization
+
 ## 2.2.0
 
 ### Minor Changes

@@ -10,8 +10,11 @@ const __dirname = path.dirname(__filename);
 
 export default [
   {
+    ignores: ['**/*.cjs'],
+  },
+  {
     files: ['src/**/*.ts', 'src/**/*.tsx'],
-    ignores: ["**/*.js"],
+    ignores: ['**/*.js'],
     plugins: {
       'react-refresh': reactRefresh,
       sonarjs
