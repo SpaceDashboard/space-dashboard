@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.3
+
+### Patch Changes
+
+- [#171](https://github.com/SpaceDashboard/space-dashboard/pull/171) [`6253981`](https://github.com/SpaceDashboard/space-dashboard/commit/625398121540998988e6797fbb4c9ba9a4efcd2a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding workflow to add changeset for dependabot PRs
+
 ## 2.2.2
 
 ### Patch Changes
