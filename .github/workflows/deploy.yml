@@ -15,6 +15,16 @@ on:
         required: true
       SENTRY_AUTH_TOKEN:
         required: false
+      FTP_SERVER:
+        required: true
+      PROD_FTP_USERNAME:
+        required: true
+      PROD_FTP_PASSWORD:
+        required: true
+      STAGING_FTP_USERNAME:
+        required: true
+      STAGING_FTP_PASSWORD:
+        required: true
 
 permissions:
   contents: read
@@ -145,7 +155,7 @@ jobs:
       - name: Show deployment info
         run: |
           echo "Deploying version: ${{ steps.version.outputs.version }}"
-          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Environment: ${{ inputs.environment }}"
           echo "Using pre-built: ${{ steps.download-release.outputs.use_prebuilt || 'false' }}"
 
       - name: Create Release in Sentry
@@ -156,17 +166,17 @@ jobs:
           SENTRY_ORG: space-dashboard
           SENTRY_PROJECT: space-dashboard
         with:
-          environment: ${{ github.event.inputs.environment }}
+          environment: ${{ inputs.environment }}
           release: ${{ steps.version.outputs.version }}
           sourcemaps: ./dist-release
           set_commits: 'skip'
 
-      - name: Sync files to ${{ github.event.inputs.environment }}
+      - name: Sync files to ${{ inputs.environment }}
         uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # 4.3.5
-        if: github.event.inputs.environment == 'Production' || github.event.inputs.environment == 'Staging'
+        if: inputs.environment == 'Production' || inputs.environment == 'Staging'
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
-          password: ${{ github.event.inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
+          username: ${{ inputs.environment == 'Production' && secrets.PROD_FTP_USERNAME || secrets.STAGING_FTP_USERNAME }}
+          password: ${{ inputs.environment == 'Production' && secrets.PROD_FTP_PASSWORD || secrets.STAGING_FTP_PASSWORD }}
           server-dir: public_html/
           local-dir: ./dist-release/
