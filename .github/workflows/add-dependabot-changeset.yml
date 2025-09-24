@@ -21,7 +21,7 @@ concurrency:
 jobs:
   add-dependabot-changeset:
     name: Add dependabot changeset
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ startsWith(github.head_ref, 'dependabot/') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
