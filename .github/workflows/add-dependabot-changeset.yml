@@ -1,0 +1,92 @@
+name: Add dependabot changeset
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: ['main']
+
+permissions:
+  pull-requests: write
+  contents: write
+  id-token: write
+  packages: read
+
+env:
+  GH_API_ACCESS_TOKEN: ${{ secrets.GH_PR_CREATE }}
+  GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
+
+concurrency:
+  group: add-dependabot-changeset-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  add-dependabot-changeset:
+    name: Add dependabot changeset
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+        with:
+          token: ${{ secrets.GH_PR_CREATE }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
+        with:
+          node-version: lts/Iron
+
+      - name: Get latest yarn
+        run: |
+          corepack enable
+          yarn set version berry
+
+      - name: Cache dependencies
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # 4.2.2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      # This will set the changes.outputs.changeset output to false if no changesets created in PR
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # 3.0.2
+        id: changes
+        with:
+          filters: |
+            changeset:
+              - '.changeset/**'
+
+      - name: Install dependencies
+        if: ${{ steps.changes.outputs.changeset == 'false' }}
+        run: yarn install --immutable
+
+      - name: Get PR Title
+        if: ${{ steps.changes.outputs.changeset == 'false' }}
+        id: pr_title
+        run: echo "title=$(jq -r .pull_request.title < $GITHUB_EVENT_PATH)" >> $GITHUB_OUTPUT
+
+      - name: Generate Changeset
+        if: ${{ steps.changes.outputs.changeset == 'false' }}
+        run: |
+          timestamp=$(date +%s)
+          repo_name=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+          echo "---" > .changeset/${timestamp}-dependabot-changeset.md
+          echo "'$repo_name': patch" >> .changeset/${timestamp}-dependabot-changeset.md
+          echo "---" >> .changeset/${timestamp}-dependabot-changeset.md
+          echo "" >> .changeset/${timestamp}-dependabot-changeset.md
+          echo "${{ steps.pr_title.outputs.title }}" >> .changeset/${timestamp}-dependabot-changeset.md
+
+      - name: Checkout PR Branch
+        if: ${{ steps.changes.outputs.changeset == 'false' }}
+        run: |
+          git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}
+          git checkout ${{ github.head_ref }}
+
+      - name: Commit and Push Changeset
+        if: ${{ steps.changes.outputs.changeset == 'false' }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .changeset
+          git commit -m "chore: add changeset for dependabot PR"
+          git push origin ${{ github.head_ref }}
