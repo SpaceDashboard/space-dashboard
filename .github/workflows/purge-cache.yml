@@ -1,5 +1,8 @@
 name: Purge Cloudflare Cache
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
 
