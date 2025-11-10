@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.7
+
+### Patch Changes
+
+- [#185](https://github.com/SpaceDashboard/space-dashboard/pull/185) [`03f6c8b`](https://github.com/SpaceDashboard/space-dashboard/commit/03f6c8b98021f5abdaf412c9d5a2423cda689fea) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing workflow usage
+
 ## 2.2.6
 
 ### Patch Changes
