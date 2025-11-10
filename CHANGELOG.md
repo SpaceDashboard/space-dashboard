@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.8
+
+### Patch Changes
+
+- [#187](https://github.com/SpaceDashboard/space-dashboard/pull/187) [`e76828a`](https://github.com/SpaceDashboard/space-dashboard/commit/e76828a07b7c5ae15b9b295b90c59bdfcc5ea819) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fix deploy workflow to run post to cloudflare cache purge endpoint directly
+
 ## 2.2.7
 
 ### Patch Changes
