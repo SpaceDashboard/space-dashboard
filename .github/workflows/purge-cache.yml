@@ -1,0 +1,21 @@
+name: Purge Cloudflare Cache
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: purge-cache-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  purge-cache:
+    name: Purge Cloudflare Cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cloudflare Cache
+        run: |
+          curl --request POST \
+                --url ${{ secrets.CLOUDFLARE_PURGE_CACHE_URL }} \
+                --header 'Content-Type: application/json' \
+                --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}' \
+                --data '{"purge_everything":true}'
