@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.6
+
+### Patch Changes
+
+- [#183](https://github.com/SpaceDashboard/space-dashboard/pull/183) [`c782a7a`](https://github.com/SpaceDashboard/space-dashboard/commit/c782a7a245ee9af7a6bbfdafac0baaa34c205c12) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding cache purge workflow
+
 ## 2.2.5
 
 ### Patch Changes
