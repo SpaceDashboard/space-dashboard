@@ -185,6 +185,11 @@ jobs:
           server-dir: public_html/
           local-dir: ./dist-release/
 
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+        with:
+          fetch-depth: 0
+
       - name: Purge Cloudflare Cache
         if: inputs.environment == 'Production'
         run: |
