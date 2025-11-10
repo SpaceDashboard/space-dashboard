@@ -25,6 +25,10 @@ on:
         required: true
       STAGING_FTP_PASSWORD:
         required: true
+      CLOUDFLARE_PURGE_CACHE_URL:
+        required: true
+      CLOUDFLARE_TOKEN:
+        required: true
 
 permissions:
   contents: read
@@ -188,4 +192,9 @@ jobs:
 
       - name: Purge Cloudflare Cache
         if: inputs.environment == 'Production'
-        uses: ./.github/workflows/purge-cache.yml
+        run: |
+          curl --request POST \
+                --url ${{ secrets.CLOUDFLARE_PURGE_CACHE_URL }} \
+                --header 'Content-Type: application/json' \
+                --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}' \
+                --data '{"purge_everything":true}'

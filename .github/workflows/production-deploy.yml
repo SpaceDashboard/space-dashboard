@@ -32,6 +32,8 @@ jobs:
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
       PROD_FTP_USERNAME: ${{ secrets.PROD_FTP_USERNAME }}
       PROD_FTP_PASSWORD: ${{ secrets.PROD_FTP_PASSWORD }}
+      CLOUDFLARE_PURGE_CACHE_URL: ${{ secrets.CLOUDFLARE_PURGE_CACHE_URL }}
+      CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
       # These are included to satisfy the workflow call requirements
       STAGING_FTP_USERNAME: ''
       STAGING_FTP_PASSWORD: ''
