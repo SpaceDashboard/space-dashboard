@@ -1,10 +1,11 @@
 name: Purge Cloudflare Cache
 
+on:
+  workflow_dispatch:
+
 permissions:
   contents: read
 
-on:
-  workflow_dispatch:
 
 concurrency:
   group: purge-cache-${{ github.ref }}
