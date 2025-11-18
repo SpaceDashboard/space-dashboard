@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.2.9
+
+### Patch Changes
+
+- [#190](https://github.com/SpaceDashboard/space-dashboard/pull/190) [`b72fd8b`](https://github.com/SpaceDashboard/space-dashboard/commit/b72fd8b6539788cb6eeaa44f39ab65be9fede3a1) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating dependencies
+
 ## 2.2.8
 
 ### Patch Changes
