@@ -142,34 +142,59 @@
 
 nav {
   @container (min-height: 201px) and (max-height: 300px) {
-    button.nav {
-      height: 40px !important;
-      min-height: 40px !important;
+    .btn-wrapper {
+      gap: 6px;
+    }
+
+    button {
+      &.nav {
+        height: 40px !important;
+        min-height: 40px !important;
+      }
     }
   }
   @container (max-height: 250px) {
-    button.nav {
-      --button--edge-size: 10px !important;
-      background-size: 11.5px 11.5px !important;
-      height: 32px !important;
-      min-height: 32px !important;
-      padding: 0 8px 3px 18px;
+    button {
+      &.nav,
+      &.small.coffee-button {
+        --button--edge-size: 10px !important;
+        background-size: 11.5px 11.5px !important;
+        height: 32px !important;
+        min-height: 32px !important;
+        padding: 0 8px 3px 18px;
+      }
     }
   }
 
   @container (min-width: 231px) and (max-width: 300px) and (max-height: 55px) {
-    button.nav {
-      padding-left: 10px !important;
-      padding-right: 8px !important;
-      width: 38px !important;
+    .btn-wrapper {
+      gap: 6px;
+    }
+
+    button {
+      &.nav,
+      &.small.coffee-button {
+        min-width: 38px !important;
+        padding-left: 10px !important;
+        padding-right: 8px !important;
+        width: 38px !important;
+      }
     }
   }
 
   @container (max-width: 230px) and (max-height: 55px) {
-    button.nav {
-      padding-left: 5px;
-      padding-right: 5px;
-      width: 30px !important;
+    .btn-wrapper {
+      gap: 4px;
+    }
+
+    button {
+      &.nav,
+      &.small.coffee-button {
+        min-width: 30px !important;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 30px !important;
+      }
     }
   }
 }
