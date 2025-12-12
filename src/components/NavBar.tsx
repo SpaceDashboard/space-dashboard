@@ -6,6 +6,7 @@ import {
   IconHelpHexagon,
   IconSocial,
   IconAdjustments,
+  IconCoffee,
 } from '@tabler/icons-react';
 
 const navBarCss = (
@@ -234,6 +235,23 @@ export const NavBar: React.FC = () => {
               'nav',
               ...(isUserSettingsOpen ? (['active'] as Variant[]) : []),
             ]}
+          />
+          <Button
+            ariaLabel="Buy me a coffee?"
+            Icon={IconCoffee}
+            className="coffee-button"
+            onClick={() => {
+              window.open(
+                'https://ko-fi.com/spacedashboard',
+                '_blank',
+                'noopener,noreferrer',
+              );
+            }}
+            tooltipOffset={12}
+            tooltipDelay={500}
+            tooltipPlacement={tooltipPlacement}
+            tooltipTitle="Buy me a coffee?"
+            variantsList={['small']}
           />
         </NavButtonContainer>
       </div>
