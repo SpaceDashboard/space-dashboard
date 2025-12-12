@@ -31,6 +31,13 @@ To contribute:
 	2. Create a new branch.
 	3. Make your changes, add a changeset, and push the branch.
 	4. Open a pull request for review.
+	5. ☕️
+
+## 🩶 Built with Love
+
+This is a passion project born from my love of space. Everything here is built by hand. Only two files were generated with AI assistance for boilerplate functionality (`ColumnManager.tsx` and `useLocalStorage.tsx`), but all other application logic, components, and features were crafted by me.
+
+Enjoy!
 
 ---
 
