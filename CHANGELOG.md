@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.3.0
+
+### Minor Changes
+
+- [#196](https://github.com/SpaceDashboard/space-dashboard/pull/196) [`208309b`](https://github.com/SpaceDashboard/space-dashboard/commit/208309b65e16da0223e3aa0cd3e9c3c5167f7755) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding support button in nav bar and updating nav button responsive styles
+
 ## 2.2.9
 
 ### Patch Changes
