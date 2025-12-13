@@ -1313,12 +1313,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@posthog/core@npm:1.5.2":
-  version: 1.5.2
-  resolution: "@posthog/core@npm:1.5.2"
+"@posthog/core@npm:1.7.1":
+  version: 1.7.1
+  resolution: "@posthog/core@npm:1.7.1"
   dependencies:
     cross-spawn: "npm:^7.0.6"
-  checksum: 10c0/89fc7b090f657c4e0a241fbaed928cb49a2b02cae91655bd172b12b23ecabd91e3ba8efb5437d2fcd5887ed8768be08bc948f50ca23b58137c654ce0030dd5e7
+  checksum: 10c0/4c496078b59eb60adbf18257c36d13b91b7f2a58c24c0d0464c826cfb2a8714c8d16c695737e5578495a2854efb7caa5251fc914971bf298e24f4f2eac27e2e8
   languageName: node
   linkType: hard
 
@@ -1677,10 +1677,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.90.10":
-  version: 5.90.10
-  resolution: "@tanstack/query-core@npm:5.90.10"
-  checksum: 10c0/c51762d4413f99886af24d0a4897e286233fae305131df2db8294c26b1375e74e87d0cd7dafbe1b7d23338221fca0304c05058dd9a909c0988a8829d8f7283e6
+"@tanstack/query-core@npm:5.90.12":
+  version: 5.90.12
+  resolution: "@tanstack/query-core@npm:5.90.12"
+  checksum: 10c0/60d5dd23d7801118d6ef84a3d76e798aaf6eb851ee5227629a1dc798fa01ac9560580553413208fcc8a003fb12a89e83d6dd1f38ebc3bd9b6e8838cfaaa45fef
   languageName: node
   linkType: hard
 
@@ -1703,14 +1703,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.90.10":
-  version: 5.90.10
-  resolution: "@tanstack/react-query@npm:5.90.10"
+"@tanstack/react-query@npm:^5.90.12":
+  version: 5.90.12
+  resolution: "@tanstack/react-query@npm:5.90.12"
   dependencies:
-    "@tanstack/query-core": "npm:5.90.10"
+    "@tanstack/query-core": "npm:5.90.12"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/a852c44fafb0331a47ba8b46f96bc6c3c66a1bfbec8a09de15fc0ba6fd1b867da42c4974f83489a03cc4d7fd9fa40ec23b8790d2f69a930ca63b85f2bf4a4885
+  checksum: 10c0/da01ec2819d301e4be89731e82d3f091fa4f1ab2745be324e5166f9df77e2aaf1c362b0fa61aab226bb01634873f1a00562f7d7f405867fe23bdd47fe4d00fda
   languageName: node
   linkType: hard
 
@@ -5616,16 +5616,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:^1.295.0":
-  version: 1.295.0
-  resolution: "posthog-js@npm:1.295.0"
+"posthog-js@npm:^1.302.2":
+  version: 1.302.2
+  resolution: "posthog-js@npm:1.302.2"
   dependencies:
-    "@posthog/core": "npm:1.5.2"
+    "@posthog/core": "npm:1.7.1"
     core-js: "npm:^3.38.1"
     fflate: "npm:^0.4.8"
     preact: "npm:^10.19.3"
     web-vitals: "npm:^4.2.4"
-  checksum: 10c0/fcdc6ed077201577b516a88090715f15cf337e9fcda1ca6526798cfcf2d3abcf120c55f0f633dda418a4ea814f2a7872cd2a5397ecf28a2822f128a54bd7f223
+  checksum: 10c0/7282123ade17dd7223e495bf04eb91b2240fde2407c33683df0ca9f901bee27595da487ecd320ccf498e99f5cec297e9ddb3c8818fbd9159311429c011ac8a88
   languageName: node
   linkType: hard
 
@@ -5743,12 +5743,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.66.1":
-  version: 7.66.1
-  resolution: "react-hook-form@npm:7.66.1"
+"react-hook-form@npm:^7.68.0":
+  version: 7.68.0
+  resolution: "react-hook-form@npm:7.68.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10c0/f82238249d44111b377116bdfb6063045e3e81fef4c73d7f487160554fa4b43ff0970dec1f4d031e57bc2dfbdd974bdfba5608bc8c5785998a7b8a39a566428f
+  checksum: 10c0/5fb500fe60077185ab6de32a2371d05bf75ae335ef62993f0359dbb42bb0c95e0c28d4f7d70c4382995486c82715295c87fc44f2ced5de1ae353aa1f23398f47
   languageName: node
   linkType: hard
 
@@ -6454,7 +6454,7 @@ __metadata:
     "@sentry/react": "npm:^8.55.0"
     "@sentry/vite-plugin": "npm:^2.23.1"
     "@tabler/icons-react": "npm:^3.35.0"
-    "@tanstack/react-query": "npm:^5.90.10"
+    "@tanstack/react-query": "npm:^5.90.12"
     "@tanstack/react-query-devtools": "npm:^5.90.2"
     "@types/node": "npm:^22.19.1"
     "@types/react": "npm:^18.3.26"
@@ -6472,12 +6472,12 @@ __metadata:
     eslint-plugin-sonarjs: "npm:^3.0.5"
     globals: "npm:^15.15.0"
     husky: "npm:^9.1.7"
-    posthog-js: "npm:^1.295.0"
+    posthog-js: "npm:^1.302.2"
     prettier: "npm:^3.6.2"
     process: "npm:^0.11.10"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-hook-form: "npm:^7.66.1"
+    react-hook-form: "npm:^7.68.0"
     react-toastify: "npm:^10.0.6"
     react-tooltip: "npm:^5.30.0"
     recharts: "npm:^2.15.4"
