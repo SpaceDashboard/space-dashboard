@@ -64,7 +64,7 @@
 
   /* Panel, wrapper, body, actions, and menu */
   --panel-wrapper--before--transition-duration: 0.4s;
-  --panel--background-opacity: 0.65;
+  --panel--background-opacity: 0.6;
   --panel--transition-duration: 0.3s;
   --panel-body--transition-duration: 0.4s;
   --panel-body--transition-delay: 0.45s;

@@ -170,6 +170,8 @@
       transform: translateY(-40px);
 
       &::before {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
         background: hsla(
           var(--base-blue-hue),
           var(--base-blue-saturation),

@@ -32,10 +32,10 @@ jobs:
        !contains(github.event.head_commit.message, 'chore(release-pr)'))
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GIT_AUTHOR_NAME: github-actions
-      GIT_AUTHOR_EMAIL: github-actions@github.com
-      GIT_COMMITTER_NAME: github-actions
-      GIT_COMMITTER_EMAIL: github-actions@github.com
+      GIT_AUTHOR_NAME: github-actions[bot]
+      GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+      GIT_COMMITTER_NAME: github-actions[bot]
+      GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
 
     steps:
       - name: Checkout repository
@@ -182,13 +182,28 @@ jobs:
           echo "$CHANGES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Create Release PR
+      - name: Create release PR
+        id: create_release_pr
         if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
         env:
-          GH_TOKEN: ${{ secrets.GH_PR_CREATE }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo -e "Version bump: ${{ steps.branch_output.outputs.RELEASE_VERSION }}\n\n${{ steps.changelog.outputs.changes }}" > msg
-          export msg=$(cat msg) ; gh pr create -b "$msg" --assignee "AstroCaleb" --reviewer "AstroCaleb" --head release-branch/main --base main --title "chore(release-pr): Version bump to ${{ steps.branch_output.outputs.RELEASE_VERSION }}"
+          msg=$(cat msg)
+
+          PR_URL=$(gh pr view --head release-branch/main --json url -q .url 2>/dev/null || true)
+          if [ -z "$PR_URL" ]; then
+            PR_URL=$(gh pr create -b "$msg" --assignee "AstroCaleb" --reviewer "AstroCaleb" --head release-branch/main --base main --title "chore(release-pr): Version bump to ${{ steps.branch_output.outputs.RELEASE_VERSION }}")
+          fi
+
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+
+      - name: Set auto-merge
+        if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge "${{ steps.create_release_pr.outputs.pr_url }}" --auto --squash
 
       - name: Summary
         if: steps.check-changesets.outputs.has_changesets == 'true'

@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.3.1
+
+### Patch Changes
+
+- [#194](https://github.com/SpaceDashboard/space-dashboard/pull/194) [`75ecfce`](https://github.com/SpaceDashboard/space-dashboard/commit/75ecfce260bbf357c0daaf2db18b7567423acee7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump the regular-dependencies group across 1 directory with 3 updates
+
 ## 2.3.0
 
 ### Minor Changes
