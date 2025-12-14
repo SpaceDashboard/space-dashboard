@@ -183,27 +183,12 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create release PR
-        id: create_release_pr
         if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PR_CREATE }}
         run: |
           echo -e "Version bump: ${{ steps.branch_output.outputs.RELEASE_VERSION }}\n\n${{ steps.changelog.outputs.changes }}" > msg
-          msg=$(cat msg)
-
-          PR_URL=$(gh pr view --head release-branch/main --json url -q .url 2>/dev/null || true)
-          if [ -z "$PR_URL" ]; then
-            PR_URL=$(gh pr create -b "$msg" --assignee "AstroCaleb" --reviewer "AstroCaleb" --head release-branch/main --base main --title "chore(release-pr): Version bump to ${{ steps.branch_output.outputs.RELEASE_VERSION }}")
-          fi
-
-          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
-
-      - name: Set auto-merge
-        if: steps.check-changesets.outputs.has_changesets == 'true' && steps.branch_output.outputs.RELEASE_BRANCH
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge "${{ steps.create_release_pr.outputs.pr_url }}" --auto --squash
+          export msg=$(cat msg) ; gh pr create -b "$msg" --assignee "AstroCaleb" --reviewer "AstroCaleb" --head release-branch/main --base main --title "chore(release-pr): Version bump to ${{ steps.branch_output.outputs.RELEASE_VERSION }}"
 
       - name: Summary
         if: steps.check-changesets.outputs.has_changesets == 'true'

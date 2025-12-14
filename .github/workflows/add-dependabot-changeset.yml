@@ -15,13 +15,13 @@ env:
   GITHUB_TOKEN: ${{ secrets.GH_PR_CREATE }}
 
 concurrency:
-  group: add-dependabot-changeset-${{ github.ref }}
+  group: add-dependabot-changeset-${{ github.event.pull_request.number }}
   cancel-in-progress: false
 
 jobs:
   add-dependabot-changeset:
     name: Add dependabot changeset
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
