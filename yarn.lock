@@ -5616,16 +5616,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:^1.302.2":
-  version: 1.302.2
-  resolution: "posthog-js@npm:1.302.2"
+"posthog-js@npm:^1.306.1":
+  version: 1.306.1
+  resolution: "posthog-js@npm:1.306.1"
   dependencies:
     "@posthog/core": "npm:1.7.1"
     core-js: "npm:^3.38.1"
     fflate: "npm:^0.4.8"
     preact: "npm:^10.19.3"
     web-vitals: "npm:^4.2.4"
-  checksum: 10c0/7282123ade17dd7223e495bf04eb91b2240fde2407c33683df0ca9f901bee27595da487ecd320ccf498e99f5cec297e9ddb3c8818fbd9159311429c011ac8a88
+  checksum: 10c0/83f4ff5936f80f83e0b424b1747da0982dfa8adabfce82a07859682b958244c03b4545a946e399486f26746cad2172c0cf893b3894b15ca0d88db6b0f8818b21
   languageName: node
   linkType: hard
 
@@ -6472,7 +6472,7 @@ __metadata:
     eslint-plugin-sonarjs: "npm:^3.0.5"
     globals: "npm:^15.15.0"
     husky: "npm:^9.1.7"
-    posthog-js: "npm:^1.302.2"
+    posthog-js: "npm:^1.306.1"
     prettier: "npm:^3.6.2"
     process: "npm:^0.11.10"
     react: "npm:^18.3.1"
