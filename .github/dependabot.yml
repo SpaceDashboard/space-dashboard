@@ -19,3 +19,5 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+    pull-request-branch-name:
+      separator: "-"

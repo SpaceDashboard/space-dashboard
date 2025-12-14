@@ -14,7 +14,7 @@ const panelWrapperCss = (
   speedAdjustment: number,
   reduceTransparency: boolean,
 ) => css`
-  --panel--background-opacity: ${reduceTransparency ? 1 : 0.65} !important;
+  --panel--background-opacity: ${reduceTransparency ? 1 : 0.6} !important;
   --panel-menu--background-opacity: ${reduceTransparency ? 1 : 0.9} !important;
 
   &::before {
@@ -80,7 +80,9 @@ const panelActionsCss = (
   animationDelay: number,
   reduceMotion: boolean,
   speedAdjustment: number,
+  reduceTransparency?: boolean,
 ) => css`
+  --panel--background-opacity: ${reduceTransparency ? 1 : 0.6} !important;
   transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
     ease;
   transition-delay: ${reduceMotion
@@ -276,6 +278,7 @@ export const PanelActions = ({
       reduceMotion,
       enableLoadingAnimation,
       animationSpeedAdjustment,
+      reduceTransparency,
     },
   } = useSettingsContext();
   const {
@@ -336,6 +339,7 @@ export const PanelActions = ({
             animationDelaySeconds ?? 0,
             isLoadingAnimationDisabled,
             animationSpeedAdjustment,
+            reduceTransparency,
           ),
         )}
       >
