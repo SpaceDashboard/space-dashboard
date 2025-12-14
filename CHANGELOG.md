@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.4.0
+
+### Minor Changes
+
+- [#201](https://github.com/SpaceDashboard/space-dashboard/pull/201) [`df4de3f`](https://github.com/SpaceDashboard/space-dashboard/commit/df4de3ff95943e496a0593a223c8e4dbe36befaf) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating reduce transparency styles, improving workflows
+
 ## 2.3.1
 
 ### Patch Changes
