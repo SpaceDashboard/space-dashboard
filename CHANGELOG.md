@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.4.2
+
+### Patch Changes
+
+- [#211](https://github.com/SpaceDashboard/space-dashboard/pull/211) [`ccb1075`](https://github.com/SpaceDashboard/space-dashboard/commit/ccb1075e82721366790ee509811f9dda2237b324) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating copyright year in README
+
 ## 2.4.1
 
 ### Patch Changes
