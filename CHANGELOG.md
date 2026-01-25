@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.5.0
+
+### Minor Changes
+
+- [#217](https://github.com/SpaceDashboard/space-dashboard/pull/217) [`9aa8f1a`](https://github.com/SpaceDashboard/space-dashboard/commit/9aa8f1a42682619b1ccf48e320351128fa908949) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Updating API resources to use versioned data
+
 ## 2.4.2
 
 ### Patch Changes
