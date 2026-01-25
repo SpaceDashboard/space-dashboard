@@ -2,25 +2,26 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { showToast } from 'src/shared/utils';
 
+type Monitor = {
+  status: string;
+  url: string;
+  friendlyName: string;
+};
+
 interface StatusResult {
-  monitors: { status: number }[];
+  data: Monitor[];
 }
 
 const fetchSiteAssetStatuses = async (): Promise<number> => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v1/json/status-monitors.json`,
+    `${import.meta.env.VITE_API_URL}/v2/json/status-monitors.json`,
   );
   const result: StatusResult = await response.json();
-  // 0 - Paused
-  // 1 - Not checked yet
-  // 2 - Up
-  // 8 - Possibly down
-  // 9 - Down
 
   let downCount = 0;
   try {
-    result.monitors.forEach((monitor) => {
-      if (monitor.status === 8 || monitor.status === 9) {
+    result.data.forEach((monitor) => {
+      if (monitor.status !== 'UP') {
         downCount++;
       }
     });
