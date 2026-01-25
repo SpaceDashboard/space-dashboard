@@ -30,8 +30,8 @@ export const SolarVisual: React.FC<PanelProps> = ({ index, componentKey }) => {
       panelConfigs: { SolarVisual },
     },
   } = useSettingsContext();
-  const coronaImage = 'https://api.spacedashboard.com/img/current-corona.webp';
-  const coronaVideo = 'https://api.spacedashboard.com/vid/current-corona.mp4';
+  const coronaImage = `${import.meta.env.VITE_API_URL}/v1/img/current-corona.webp`;
+  const coronaVideo = `${import.meta.env.VITE_API_URL}/v1/vid/current-corona.mp4`;
   const [imageSrc, setImageSrc] = useState(coronaImage);
   const [videoSrc, setVideoSrc] = useState(coronaVideo);
   const [showVideo, setShowVideo] = useState(

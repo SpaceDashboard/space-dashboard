@@ -49,8 +49,8 @@ export const AuroraForecast: React.FC<PanelProps> = ({
   const getHemisphereMedia = () => {
     const hemisphere = showSouthernHemisphere ? 'southern' : 'northern';
     return {
-      img: `https://api.spacedashboard.com/img/aurora-forecast-${hemisphere}-hemisphere.webp`,
-      vid: `https://api.spacedashboard.com/vid/${hemisphere}_hemisphere_forecast.mp4`,
+      img: `${import.meta.env.VITE_API_URL}/v1/img/aurora-forecast-${hemisphere}-hemisphere.webp`,
+      vid: `${import.meta.env.VITE_API_URL}/v1/vid/${hemisphere}_hemisphere_forecast.mp4`,
     };
   };
   const [imageSrc, setImageSrc] = useState(

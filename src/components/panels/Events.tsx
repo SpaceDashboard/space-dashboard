@@ -86,7 +86,7 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
   const getData = async (): Promise<any> => {
     const response = await axios
       .get(
-        `${import.meta.env.VITE_API_URL}/json/events-data.json?u=${getCurrentTimestamp()}`,
+        `${import.meta.env.VITE_API_URL}/v1/json/events-data.json?u=${getCurrentTimestamp()}`,
         {
           timeout: 1000 * 10,
         },

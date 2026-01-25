@@ -235,7 +235,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   const getLiveData = async (): Promise<any> => {
     const response = await axios
       .get(
-        `${import.meta.env.VITE_API_URL}/json/planetary-k-index-dst.json?u=${getCurrentTimestamp()}`,
+        `${import.meta.env.VITE_API_URL}/v1/json/planetary-k-index-dst.json?u=${getCurrentTimestamp()}`,
         {
           timeout: 1000 * 10,
         },
@@ -247,7 +247,7 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   const getHourlyData = async (): Promise<any> => {
     const response = await axios
       .get(
-        `${import.meta.env.VITE_API_URL}/json/noaa-planetary-k-index.json?u=${getCurrentTimestamp()}`,
+        `${import.meta.env.VITE_API_URL}/v1/json/noaa-planetary-k-index.json?u=${getCurrentTimestamp()}`,
         {
           timeout: 1000 * 10,
         },
