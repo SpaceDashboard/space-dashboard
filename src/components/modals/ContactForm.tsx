@@ -65,7 +65,7 @@ export const ContactForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     setIsSubmitting(true);
-    const formUrl1 = 'https://api.spacedashboard.com/contact/';
+    const formUrl1 = `${import.meta.env.VITE_API_URL}/contact/`;
     // Only get 50 submissions per month, so I hope the first flow works most of the time
     const formUrl2 = 'https://formspree.io/f/xvgogpaa';
 

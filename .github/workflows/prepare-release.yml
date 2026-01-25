@@ -137,8 +137,10 @@ jobs:
 
             # Create versioned release notes in .changelogs directory
             mkdir -p .changelogs
+
             # Get the new version from package.json
             NEW_VERSION=$(node -p "require('./package.json').version")
+
             # Get the latest changelog entry
             awk '/^## / {if(++count == 1) {flag=1; next}} flag{print; if(/^## /) exit}' CHANGELOG.md | \
               sed '$d' > ".changelogs/v${NEW_VERSION}.md"

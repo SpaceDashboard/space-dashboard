@@ -8,7 +8,7 @@ interface StatusResult {
 
 const fetchSiteAssetStatuses = async (): Promise<number> => {
   const response = await fetch(
-    `${import.meta.env.VITE_STATUS_URL}/json/status-monitors.json`,
+    `${import.meta.env.VITE_API_URL}/v1/json/status-monitors.json`,
   );
   const result: StatusResult = await response.json();
   // 0 - Paused

@@ -79,12 +79,6 @@ export default defineConfig(() => {
           changeOrigin: true,
           secure: false
         },
-        '/status': {
-          target: 'https://status.spacedashboard.com',
-          rewrite: (path) => path.replace(/^\/status/, ''),
-          changeOrigin: true,
-          secure: false
-        }
       },
       cors: false
     }

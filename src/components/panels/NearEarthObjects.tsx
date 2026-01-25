@@ -131,7 +131,7 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
   const getNeoData = async (): Promise<any> => {
     const response = await axios
       .get(
-        `${import.meta.env.VITE_API_URL}/json/neo-feed.json?u=${getCurrentTimestamp()}`,
+        `${import.meta.env.VITE_API_URL}/v1/json/neo-feed.json?u=${getCurrentTimestamp()}`,
         {
           timeout: 1000 * 10,
         },

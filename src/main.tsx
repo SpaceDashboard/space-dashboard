@@ -16,11 +16,7 @@ Sentry.init({
   // integrations: [Sentry.browserTracingIntegration()],
   release: packageConfig?.version ?? '',
   tracesSampleRate: 1.0,
-  tracePropagationTargets: [
-    /^\//,
-    /^https:\/\/api\.spacedashboard\.com/,
-    /^https:\/\/status\.spacedashboard\.com/,
-  ],
+  tracePropagationTargets: [/^\//, /^https:\/\/api\.spacedashboard\.com/],
 });
 
 posthog.init('phc_9c7D91ze1wShYC4X83jlsYBnNvqDMSaOOyeJEm418hK', {
