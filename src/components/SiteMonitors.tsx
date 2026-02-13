@@ -44,9 +44,29 @@ export const SiteMonitors: React.FC = () => {
       console.error('Error fetching statuses:', error);
     } else if (downSites > 0) {
       const message =
-        downSites > 1
-          ? 'Apologies, multiple sites providing data for Space Dashboard are down'
-          : 'Apologies, a site providing data for Space Dashboard is down';
+        downSites > 1 ? (
+          <div>
+            Apologies, multiple sites providing data for{' '}
+            <a
+              href="https://status.spacedashboard.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Space Dashboard are down
+            </a>
+          </div>
+        ) : (
+          <div>
+            Apologies, a site providing data for{' '}
+            <a
+              href="https://status.spacedashboard.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Space Dashboard is down
+            </a>
+          </div>
+        );
       showToast(message, { variant: 'error' }, true);
     }
   }, [downSites, error, showToast]);
