@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.6.0
+
+### Minor Changes
+
+- [#223](https://github.com/SpaceDashboard/space-dashboard/pull/223) [`538b200`](https://github.com/SpaceDashboard/space-dashboard/commit/538b2005890cb7af2333cc32db9171d9cb4a8fa0) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding link to status page from site monitor toast
+
 ## 2.5.0
 
 ### Minor Changes
