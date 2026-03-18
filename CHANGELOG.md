@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.7.0
+
+### Minor Changes
+
+- [#229](https://github.com/SpaceDashboard/space-dashboard/pull/229) [`c98db49`](https://github.com/SpaceDashboard/space-dashboard/commit/c98db4900027e1cb31578c59b1674c06c9243c98) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding live indicators to launches and events list and details
+
 ## 2.6.0
 
 ### Minor Changes
