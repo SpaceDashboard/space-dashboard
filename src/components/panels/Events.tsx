@@ -14,6 +14,7 @@ import {
   CornersWrapper,
   FlexWrapper,
   ListDetails,
+  LiveBadge,
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
@@ -51,15 +52,18 @@ const DetailsModal: React.FC<{
               <strong>{'Webcast Link(s): '}</strong>
               <FlexWrapper gap={3}>
                 {item?.vid_urls?.map((vid: any) => (
-                  <a
-                    key={vid?.url}
-                    href={vid?.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ margin: 0 }}
-                  >
-                    {`${vid?.publisher} - ${vid?.source}`}
-                  </a>
+                  <FlexWrapper gap={6} alignItems="center" flexDirection="row">
+                    {vid?.live && <LiveBadge />}
+                    <a
+                      key={vid?.url}
+                      href={vid?.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ margin: 0 }}
+                    >
+                      {`${vid?.publisher} - ${vid?.source}`}
+                    </a>
+                  </FlexWrapper>
                 ))}
               </FlexWrapper>
             </FlexWrapper>
@@ -128,15 +132,23 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
             items={data ? data.results : emptyData}
             listHeader="Upcoming Events"
             renderLabel={(item: any) => (
-              <FlexWrapper gap={4}>
-                <span>
-                  <strong>{item?.name}</strong>
-                </span>
-                <span className={eventDateTimeCss}>
-                  {item?.date !== ''
-                    ? format(new UTCDate(item?.date), 'dd MMMM yyyy')
-                    : '-'}
-                </span>
+              <FlexWrapper
+                alignItems="center"
+                flexDirection="row"
+                gap={4}
+                justifyContent="space-between"
+              >
+                <FlexWrapper gap={4}>
+                  <span>
+                    <strong>{item?.name}</strong>
+                  </span>
+                  <span className={eventDateTimeCss}>
+                    {item?.date !== ''
+                      ? format(new UTCDate(item?.date), 'dd MMMM yyyy')
+                      : '-'}
+                  </span>
+                </FlexWrapper>
+                {item?.webcast_live && <LiveBadge />}
               </FlexWrapper>
             )}
             renderDetails={(item: any) => {

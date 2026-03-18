@@ -1,0 +1,21 @@
+.live-badge {
+  background-color: rgb(210, 0, 42);
+  border-radius: 3px;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 2px 4px;
+}
+
+.live-indicator {
+  animation-name: livePulse;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 1;
+  height: 5px;
+  width: 5px;
+}
