@@ -29,6 +29,24 @@
   }
 }
 
+@keyframes livePulse {
+  0% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
 @keyframes toastSlideInDown {
   0% {
     opacity: 0;

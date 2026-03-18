@@ -14,6 +14,7 @@ import {
   CornersWrapper,
   FlexWrapper,
   ListDetails,
+  LiveBadge,
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
@@ -133,15 +134,18 @@ const DetailsModal: React.FC<{
           <strong>{'Webcast Link(s): '}</strong>
           <FlexWrapper gap={3}>
             {item?.vid_urls?.map((vid: any) => (
-              <a
-                key={vid?.url}
-                href={vid?.url}
-                target="_blank"
-                rel="noreferrer"
-                style={{ margin: 0 }}
-              >
-                {`${vid?.publisher} - ${vid?.source}`}
-              </a>
+              <FlexWrapper gap={6} alignItems="center" flexDirection="row">
+                {vid?.live && <LiveBadge />}
+                <a
+                  key={vid?.url}
+                  href={vid?.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ margin: 0 }}
+                >
+                  {`${vid?.publisher} - ${vid?.source}`}
+                </a>
+              </FlexWrapper>
             ))}
           </FlexWrapper>
         </FlexWrapper>
@@ -200,7 +204,7 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
               <FlexWrapper
                 alignItems="center"
                 flexDirection="row"
-                gap={4}
+                gap={8}
                 justifyContent="space-between"
               >
                 <FlexWrapper gap={4}>
@@ -213,6 +217,7 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
                       : '-'}
                   </span>
                 </FlexWrapper>
+                {item?.webcast_live && <LiveBadge />}
                 {item?.net !== '' ? (
                   <CountdownTimer netT0={item?.net} />
                 ) : (
