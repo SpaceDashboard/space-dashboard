@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.7.1
+
+### Patch Changes
+
+- [#234](https://github.com/SpaceDashboard/space-dashboard/pull/234) [`1c2c150`](https://github.com/SpaceDashboard/space-dashboard/commit/1c2c15076f68bb288fd27064ff83062cd5005152) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Minor toggle switch color updates
+
 ## 2.7.0
 
 ### Minor Changes
