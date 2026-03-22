@@ -88,7 +88,22 @@
   /* Toggle checkbox */
   --toggle--size: 18px;
   --toggle--gap: 3px;
-  --toggle--transition-duration: 0.08s;
+  --toggle--transition-duration: 0.12s;
+  --toggle--bg-color: hsla(0, 0%, 0%, 0);
+  --toggle--border-color: hsl(0, 0%, 100%);
+  --toggle--slider-bg-color: hsl(0, 0%, 100%);
+  /* Checked */
+  --toggle--checked--bg-color: hsla(96, 100%, 21%, 0.85);
+  --toggle--checked--border-color: hsl(96, 50%, 75%);
+  --toggle--checked--slider-bg-color: hsl(96, 50%, 90%);
+  /* Disabled */
+  --toggle--disabled--bg-color: hsl(0, 0%, 0%);
+  --toggle--disabled--border-color: hsl(0, 0%, 50%);
+  --toggle--disabled--slider-bg-color: hsl(0, 0%, 50%);
+  /* Checked and disabled */
+  --toggle--checked-disabled--bg-color: hsla(95, 18%, 28%, 0.85);
+  --toggle--checked-disabled--border-color: hsl(96, 20%, 65%);
+  --toggle--checked-disabled--slider-bg-color: hsl(96 8% 55%);
 
   /* Toast */
   --toast--transition-duration: 0.2s;
