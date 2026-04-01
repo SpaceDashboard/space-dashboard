@@ -4,7 +4,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { NavBar, SiteMonitors } from 'src/components';
 import { FlexWrapper } from './components/base';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
-import { DeepSpaceNetwork } from 'src/components/panels';
+import { DeepSpaceNetwork, SpecialBroadcast } from 'src/components/panels';
 import { useAppContext, useSettingsContext } from 'src/hooks';
 import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
 import { ToastContainer, PersistentToastContainer } from 'src/shared/utils';
@@ -84,7 +84,8 @@ export const App: React.FC = () => {
               {isViewportLarge ? (
                 <>
                   <div className="content-column">
-                    {renderColumn(column1Order, 0)}
+                    <SpecialBroadcast />
+                    {renderColumn(column1Order, 1)}
                   </div>
                   <div className="content-column">
                     {renderColumn(column2Order, column1Order?.length)}
@@ -98,6 +99,7 @@ export const App: React.FC = () => {
                 </>
               ) : (
                 <div className="content-column">
+                  <SpecialBroadcast />
                   {renderColumn(column1Order, 0)}
                   {renderColumn(column2Order, column1Order?.length)}
                   {renderColumn(

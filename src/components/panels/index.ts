@@ -10,3 +10,4 @@ export * from './NearEarthObjects';
 export * from './Launches';
 export * from './Events';
 export * from './DeepSpaceNetwork';
+export * from './SpecialBroadcast';

@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useMemo } from 'react';
 
 interface VideoStatus {
   [key: string]: {
@@ -28,13 +27,10 @@ export const useVideoStatus = () => {
     refetchInterval: 2 * 60 * 1000, // Refetch every 2 minutes
   });
 
-  return useMemo(
-    () => ({
-      data,
-      error,
-      isLoading,
-      isError: !!error,
-    }),
-    [data, error, isLoading],
-  );
+  return {
+    data,
+    error,
+    isLoading,
+    isError: !!error,
+  };
 };

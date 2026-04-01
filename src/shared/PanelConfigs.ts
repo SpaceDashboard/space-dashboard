@@ -23,9 +23,13 @@ export type AvailablePanels =
   | 'Launches'
   | 'Events'
   | 'SolarVisual'
-  | 'DeepSpaceNetwork';
+  | 'DeepSpaceNetwork'
+  | 'SpecialBroadcast';
 
-export type MoveablePanels = Exclude<AvailablePanels, 'DeepSpaceNetwork'>;
+export type MoveablePanels = Exclude<
+  AvailablePanels,
+  'DeepSpaceNetwork' | 'SpecialBroadcast'
+>;
 
 type PanelMapType = Record<MoveablePanels, React.FC<PanelProps>>;
 export const columnPanelMap: PanelMapType = {
@@ -145,5 +149,9 @@ export const defaultPanelConfigs: Record<AvailablePanels, PanelConfig> = {
     label: 'Deep Space Network',
     enabled: true,
     renderDSNOnLoad: false,
+  },
+  SpecialBroadcast: {
+    label: 'Special Broadcast',
+    enabled: true,
   },
 };
