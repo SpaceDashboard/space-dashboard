@@ -148,11 +148,28 @@ const geoStormCss = (
   padding: ${size === 'small' ? '1px 3px' : '6px 6px 4px'};
 `;
 
-const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
-  const chartData = data.slice(1).map((item) => ({
-    time: item[0],
-    kp: item[1],
-  }));
+const KIndexChart: React.FC<{ data: any[] }> = ({ data = [] }) => {
+  const chartData = data.map((item) => {
+    // Handle object format: { time_tag: "...", Kp: ... }
+    if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
+      return {
+        time: item.time_tag,
+        kp: item.Kp,
+      };
+    }
+    // Handle array format: [time, kp, ...]
+    else if (Array.isArray(item) && item.length >= 2) {
+      return {
+        time: item[0],
+        kp: item[1],
+      };
+    }
+    // Fallback
+    return {
+      time: undefined,
+      kp: undefined,
+    };
+  });
 
   return (
     <ResponsiveContainer width="100%" height={180}>
@@ -167,7 +184,13 @@ const KIndexChart: React.FC<{ data: number[][] }> = ({ data = [] }) => {
         />
         <XAxis
           dataKey="time"
-          tickFormatter={(date) => format(date, 'd MMM yyyy')}
+          tickFormatter={(date) => {
+            if (!date) {
+              console.log('No date provided to tickFormatter');
+              return '';
+            }
+            return format(date, 'd MMM yyyy');
+          }}
         />
         <YAxis
           interval={0}
@@ -277,7 +300,8 @@ export const PlanetaryKIndex: React.FC<PanelProps> = ({
   const currentKpData: { estimatedKp: string; time?: string } = useMemo(() => {
     return liveData
       ? {
-          estimatedKp: liveData[liveData.length - 1].estimated_kp.toFixed(2),
+          estimatedKp:
+            liveData[liveData.length - 1].estimated_kp?.toFixed(2) || '-.--',
           time: liveData[liveData.length - 1].time_tag,
         }
       : {
