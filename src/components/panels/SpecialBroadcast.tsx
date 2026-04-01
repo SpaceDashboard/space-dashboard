@@ -37,6 +37,22 @@ export const SpecialBroadcast: React.FC = () => {
   const [showOfflineMessage, setShowOfflineMessage] = useState(false);
   const [iframeSrc, setIframeSrc] = useState('');
 
+  // Check broadcast timing immediately when data becomes available
+  useEffect(() => {
+    if (broadcastData) {
+      const now = new UTCDate();
+      const shouldBeActive = !!(
+        broadcastData &&
+        now >= new Date(broadcastData.startTimeUTC) &&
+        now <= new Date(broadcastData.endTimeUTC)
+      );
+
+      if (shouldBeActive !== isBroadcastActive) {
+        setIsBroadcastActive(shouldBeActive);
+      }
+    }
+  }, [broadcastData, isBroadcastActive]);
+
   // Check and refetch every so often
   useEffect(() => {
     const interval = setInterval(() => {
