@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.8.0
+
+### Minor Changes
+
+- [#243](https://github.com/SpaceDashboard/space-dashboard/pull/243) [`3c37437`](https://github.com/SpaceDashboard/space-dashboard/commit/3c37437860bfc9ea122e4b0aa33a08374fef9418) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding a special broadcast panel
+
 ## 2.7.2
 
 ### Patch Changes
