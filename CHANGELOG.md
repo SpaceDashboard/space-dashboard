@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.7.2
+
+### Patch Changes
+
+- [#244](https://github.com/SpaceDashboard/space-dashboard/pull/244) [`3639dc4`](https://github.com/SpaceDashboard/space-dashboard/commit/3639dc4360438fd240331363c8771a38ee91b138) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing Invalid time value and undefined toFixed issues
+
 ## 2.7.1
 
 ### Patch Changes
