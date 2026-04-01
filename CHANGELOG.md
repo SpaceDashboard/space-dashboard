@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.8.1
+
+### Patch Changes
+
+- [#247](https://github.com/SpaceDashboard/space-dashboard/pull/247) [`c5c8708`](https://github.com/SpaceDashboard/space-dashboard/commit/c5c8708ad88d97861d7d923cc9b6fbe88dff1d7b) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing broadcast check on page load
+
 ## 2.8.0
 
 ### Minor Changes
