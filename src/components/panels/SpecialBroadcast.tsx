@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useCallback, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { UTCDate } from '@date-fns/utc';
 import {
@@ -37,32 +37,30 @@ export const SpecialBroadcast: React.FC = () => {
   const [showOfflineMessage, setShowOfflineMessage] = useState(false);
   const [iframeSrc, setIframeSrc] = useState('');
 
+  // Reusable broadcast timing check
+  const checkBroadcastTiming = useCallback(() => {
+    const now = new UTCDate();
+    return !!(
+      broadcastData &&
+      now >= new Date(broadcastData.startTimeUTC) &&
+      now <= new Date(broadcastData.endTimeUTC)
+    );
+  }, [broadcastData]);
+
   // Check broadcast timing immediately when data becomes available
   useEffect(() => {
     if (broadcastData) {
-      const now = new UTCDate();
-      const shouldBeActive = !!(
-        broadcastData &&
-        now >= new Date(broadcastData.startTimeUTC) &&
-        now <= new Date(broadcastData.endTimeUTC)
-      );
-
+      const shouldBeActive = checkBroadcastTiming();
       if (shouldBeActive !== isBroadcastActive) {
         setIsBroadcastActive(shouldBeActive);
       }
     }
-  }, [broadcastData, isBroadcastActive]);
+  }, [broadcastData, isBroadcastActive, checkBroadcastTiming]);
 
   // Check and refetch every so often
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = new UTCDate();
-      const shouldBeActive = !!(
-        broadcastData &&
-        now >= new Date(broadcastData.startTimeUTC) &&
-        now <= new Date(broadcastData.endTimeUTC)
-      );
-
+      const shouldBeActive = checkBroadcastTiming();
       if (shouldBeActive !== isBroadcastActive) {
         setIsBroadcastActive(shouldBeActive);
       }
@@ -72,7 +70,7 @@ export const SpecialBroadcast: React.FC = () => {
     }, BROADCAST_REFRESH_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [broadcastData, isBroadcastActive, refetch]);
+  }, [broadcastData, isBroadcastActive, refetch, checkBroadcastTiming]);
 
   // Memoize the iframe base URL to prevent unnecessary recalculations
   const iframeBase = useMemo(() => {
