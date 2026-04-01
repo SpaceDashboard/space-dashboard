@@ -5,6 +5,7 @@ interface CornersWrapperProps {
   className?: string;
   height?: number | string;
   size?: number;
+  variant?: 'default' | 'special';
 }
 
 const cornersWrapperCss = (size: number) => css`
@@ -20,11 +21,13 @@ export const CornersWrapper = ({
   children,
   ...props
 }: React.PropsWithChildren<CornersWrapperProps>) => {
-  const { className, height, size = 12 } = props;
+  const { className, height, size = 12, variant = 'default' } = props;
   const heightValue = typeof height === 'string' ? height : `${height}%`;
   return (
     <div
-      className={cx('corners-wrapper', cornersWrapperCss(size))}
+      className={cx('corners-wrapper', cornersWrapperCss(size), {
+        'variant-special': variant === 'special',
+      })}
       style={{ height: heightValue }}
     >
       <div className="corner-top-left"></div>

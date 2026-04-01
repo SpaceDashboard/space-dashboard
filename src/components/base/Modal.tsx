@@ -53,6 +53,7 @@ interface ModalProps {
   modalPadding?: number;
   setIsOpen?: (isOpen: boolean) => void;
   showCloseButton?: boolean;
+  variant?: 'default' | 'special';
 }
 
 export const Modal = ({
@@ -66,6 +67,7 @@ export const Modal = ({
   modalPadding = 20,
   setIsOpen,
   showCloseButton = true,
+  variant = 'default',
 }: React.PropsWithChildren<ModalProps>) => {
   const {
     settings: {
@@ -165,6 +167,7 @@ export const Modal = ({
         size={isFullScreen ? 25 : cornerSize}
         height="100%"
         className={cx(className, modalInnerCss(isFullScreen))}
+        variant={variant}
       >
         {canHaveChildrenModals ? (
           <>{isOpen ? children : renderChildrenWithClosePropagation()}</>

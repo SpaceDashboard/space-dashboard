@@ -53,4 +53,33 @@
     bottom: var(--corners-wrapper--distance);
     right: var(--corners-wrapper--distance);
   }
+
+  /* Special variant */
+  &.variant-special {
+    .corner-top-left,
+    .corner-top-right,
+    .corner-bottom-left,
+    .corner-bottom-right {
+      border-color: hsl(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) + 20%)
+      );
+    }
+
+    .corners-wrapper-content {
+      scrollbar-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) - 8%)
+        )
+        hsla(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) - 15%),
+          0.6
+        );
+      scrollbar-width: thin;
+    }
+  }
 }

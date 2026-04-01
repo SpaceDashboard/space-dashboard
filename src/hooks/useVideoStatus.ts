@@ -28,13 +28,10 @@ export const useVideoStatus = () => {
     refetchInterval: 2 * 60 * 1000, // Refetch every 2 minutes
   });
 
-  return useMemo(
-    () => ({
-      data,
-      error,
-      isLoading,
-      isError: !!error,
-    }),
-    [data, error, isLoading],
-  );
+  return {
+    data,
+    error,
+    isLoading,
+    isError: !!error,
+  };
 };

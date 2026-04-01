@@ -255,4 +255,56 @@
       z-index: 3;
     }
   }
+
+  /* Special variant */
+  &.variant-special {
+    --panel--border-color: hsl(
+      var(--base-orange-hue),
+      var(--base-orange-saturation),
+      calc(var(--base-orange-lightness) + 15%)
+    );
+
+    .panel-wrapper {
+      &::before {
+        border-color: hsl(
+          var(--base-orange-hue),
+          var(--base-orange-saturation),
+          calc(var(--base-orange-lightness) + 15%)
+        );
+      }
+
+      .panel {
+        &::before {
+          background: hsla(
+            var(--base-orange-hue),
+            var(--base-orange-saturation),
+            calc(var(--base-orange-lightness) - 6%),
+            var(--panel--background-opacity)
+          );
+        }
+      }
+    }
+
+    .panel-actions-wrapper {
+      .panel-actions {
+        &::before {
+          background: hsla(
+            var(--base-orange-hue),
+            var(--base-orange-saturation),
+            calc(var(--base-orange-lightness) - 2%),
+            var(--panel--background-opacity)
+          );
+        }
+      }
+    }
+
+    .panel-menu {
+      background: hsla(
+        var(--base-orange-hue),
+        var(--base-orange-saturation),
+        calc(var(--base-orange-lightness) - 10%),
+        0.7
+      );
+    }
+  }
 }

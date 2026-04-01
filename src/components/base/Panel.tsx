@@ -98,6 +98,7 @@ export interface PanelProps {
   index: number;
   isMenuOpen?: boolean;
   minHeight?: number;
+  variant?: 'default' | 'special';
 }
 
 export const InnerPanel = ({
@@ -109,6 +110,7 @@ export const InnerPanel = ({
   index,
   isMenuOpen,
   minHeight,
+  variant = 'default',
 }: React.PropsWithChildren<PanelProps>) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const [showPanelBorders, setShowPanelBorders] = useState<boolean>(false);
@@ -206,7 +208,12 @@ export const InnerPanel = ({
   });
 
   return (
-    <div className="panel-section">
+    <div
+      className={cx(
+        'panel-section',
+        variant === 'special' && 'variant-special',
+      )}
+    >
       <Sentry.ErrorBoundary fallback={<p>Something went wrong</p>}>
         <div
           className={cx(
@@ -263,6 +270,8 @@ interface PanelActionsProps {
   isRefreshEnabled?: boolean;
   refreshData?: () => void;
   refreshTooltip?: string;
+  /** Internal prop, please ignore */
+  variant?: 'default' | 'special';
 }
 
 export const PanelActions = ({
@@ -271,7 +280,9 @@ export const PanelActions = ({
   isRefreshEnabled = true,
   refreshData,
   refreshTooltip = 'Refresh data',
+  variant = 'default',
 }: React.PropsWithChildren<PanelActionsProps>) => {
+  const panelVariant = variant;
   const updatedChildren: React.ReactNode[] = [];
   const {
     settings: {
@@ -306,10 +317,12 @@ export const PanelActions = ({
     if (isMenuRendered && isPanelMenuOpen) {
       variantsList.push('active');
     } else if (isMenuRendered && !isPanelMenuOpen) {
-      variantsList.push('secondary');
+      if (panelVariant !== 'special') {
+        variantsList.push('secondary');
+      }
     }
     return variantsList;
-  }, [isMenuRendered, isPanelMenuOpen]);
+  }, [isMenuRendered, isPanelMenuOpen, variant]);
 
   useEffect(() => {
     if (spinIcon) {
@@ -356,7 +369,7 @@ export const PanelActions = ({
               refreshData();
             }}
             tooltipTitle={refreshTooltip}
-            variantsList={['secondary']}
+            variantsList={variant !== 'special' ? ['secondary'] : []}
           ></Button>
         )}
         {isMenuRendered && (
@@ -376,7 +389,10 @@ export const PanelActions = ({
   );
 };
 
-export const PanelMenu = ({ children }: React.PropsWithChildren) => {
+export const PanelMenu = ({
+  children,
+  variant = 'default',
+}: React.PropsWithChildren<{ variant?: 'default' | 'special' }>) => {
   const { isPanelMenuOpen, setIsPanelMenuOpen, componentKey } =
     usePanelContext();
   const {
@@ -416,9 +432,9 @@ export const PanelMenu = ({ children }: React.PropsWithChildren) => {
       className={cx('panel-menu', { open: isPanelMenuOpen })}
       style={{ visibility: isMenuFullyHidden ? 'hidden' : 'visible' }}
     >
-      <Modal isOpen={isPanelMenuOpen} showCloseButton={false}>
-        {componentKey && (
-          <h3>{panelConfigs[componentKey as AvailablePanels].label}</h3>
+      <Modal isOpen={isPanelMenuOpen} showCloseButton={false} variant={variant}>
+        {componentKey && panelConfigs[componentKey as AvailablePanels] && (
+          <h3>{panelConfigs[componentKey as AvailablePanels]?.label || ''}</h3>
         )}
         {children}
       </Modal>
