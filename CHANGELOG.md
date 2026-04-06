@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.9.0
+
+### Minor Changes
+
+- [#251](https://github.com/SpaceDashboard/space-dashboard/pull/251) [`151a65c`](https://github.com/SpaceDashboard/space-dashboard/commit/151a65cd6adf096caa3a37d57f389fffcf41abef) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding better broadcast time detection and live feed status detection
+
 ## 2.8.1
 
 ### Patch Changes
