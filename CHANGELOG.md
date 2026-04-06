@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.9.1
+
+### Patch Changes
+
+- [#254](https://github.com/SpaceDashboard/space-dashboard/pull/254) [`e5b7ac1`](https://github.com/SpaceDashboard/space-dashboard/commit/e5b7ac1817a36785e509ec4527842a420b122699) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing some cors issues
+
 ## 2.9.0
 
 ### Minor Changes
