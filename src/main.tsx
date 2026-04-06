@@ -11,7 +11,7 @@ import AppProvider from './providers/AppProvider';
 import SettingsProvider from './providers/SettingsProvider';
 import './css/index.css';
 
-if (import.meta.env.NODE_ENV !== 'development') {
+if (import.meta.env.PROD) {
   Sentry.init({
     dsn: 'https://4ef023b94fba4dfd9ab26e6a3f8610f3@o142627.ingest.us.sentry.io/1074117',
     // integrations: [Sentry.browserTracingIntegration()],
