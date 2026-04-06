@@ -14,7 +14,6 @@ import { getCurrentTimestamp } from 'src/shared/utils';
 import { useSpecialBroadcast } from 'src/hooks';
 
 const ASPECT_RATIO_CLASS = 'aspect-16-9';
-const BROADCAST_REFRESH_INTERVAL = 2 * 60 * 1000; // Refetch every 2 minutes
 
 const iframeCss = css`
   background: #000;
@@ -27,6 +26,7 @@ const iframeCss = css`
 export const SpecialBroadcast: React.FC = () => {
   const {
     data,
+    dataUpdatedAt,
     isLoading: isStatusLoading,
     isError,
     refetch,
@@ -47,7 +47,7 @@ export const SpecialBroadcast: React.FC = () => {
     );
   }, [broadcastData]);
 
-  // Check broadcast timing immediately when data becomes available
+  // Re-check broadcast timing on every successful refetch
   useEffect(() => {
     if (broadcastData) {
       const shouldBeActive = checkBroadcastTiming();
@@ -55,22 +55,7 @@ export const SpecialBroadcast: React.FC = () => {
         setIsBroadcastActive(shouldBeActive);
       }
     }
-  }, [broadcastData, isBroadcastActive, checkBroadcastTiming]);
-
-  // Check and refetch every so often
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const shouldBeActive = checkBroadcastTiming();
-      if (shouldBeActive !== isBroadcastActive) {
-        setIsBroadcastActive(shouldBeActive);
-      }
-
-      // Refetch data to get latest broadcast info
-      refetch();
-    }, BROADCAST_REFRESH_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [broadcastData, isBroadcastActive, refetch, checkBroadcastTiming]);
+  }, [broadcastData, dataUpdatedAt, isBroadcastActive, checkBroadcastTiming]);
 
   // Memoize the iframe base URL to prevent unnecessary recalculations
   const iframeBase = useMemo(() => {
@@ -180,7 +165,12 @@ export const SpecialBroadcast: React.FC = () => {
       </PanelBody>
       <PanelMenu variant="special">
         <h3>{broadcastData?.title}</h3>
-        <p>{broadcastData?.description}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html:
+              broadcastData?.description || '<p>No description available</p>',
+          }}
+        />
       </PanelMenu>
       <PanelActions
         variant="special"
