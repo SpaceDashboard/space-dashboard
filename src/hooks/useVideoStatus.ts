@@ -10,12 +10,21 @@ interface VideoStatus {
 }
 
 export const useVideoStatus = () => {
-  const { data, error, isLoading } = useQuery<VideoStatus, Error>({
+  const { data, dataUpdatedAt, error, isLoading } = useQuery<
+    VideoStatus,
+    Error
+  >({
     queryKey: ['videoStatus'],
     queryFn: async () => {
       try {
         const response = await axios.get<VideoStatus>(
           `${import.meta.env.VITE_API_URL}/v1/json/live-video-ids.json`,
+          {
+            params: { u: Date.now() },
+            headers: {
+              'Cache-Control': 'no-cache',
+            },
+          },
         );
         return response.data;
       } catch (error) {
@@ -25,10 +34,12 @@ export const useVideoStatus = () => {
     },
     staleTime: 2 * 60 * 1000, // 2 minutes
     refetchInterval: 2 * 60 * 1000, // Refetch every 2 minutes
+    refetchOnWindowFocus: true,
   });
 
   return {
     data,
+    dataUpdatedAt,
     error,
     isLoading,
     isError: !!error,

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { showToast } from 'src/shared/utils';
+import { getCurrentTimestamp } from 'src/shared/utils';
 
 type Monitor = {
   status: string;
@@ -14,7 +15,12 @@ interface StatusResult {
 
 const fetchSiteAssetStatuses = async (): Promise<number> => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/v2/json/status-monitors.json`,
+    `${import.meta.env.VITE_API_URL}/v2/json/status-monitors.json?u=${getCurrentTimestamp()}`,
+    {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    },
   );
   const result: StatusResult = await response.json();
 

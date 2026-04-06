@@ -55,7 +55,11 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
 }) => {
   const { settings } = useSettingsContext();
   const panelConfig = settings.panelConfigs[feedName as FeedName];
-  const { data: videoStatus, isLoading: isStatusLoading } = useVideoStatus();
+  const {
+    data: videoStatus,
+    dataUpdatedAt,
+    isLoading: isStatusLoading,
+  } = useVideoStatus();
   const appContext = useAppContext();
 
   const FEED_TO_SETTER: Record<FeedName, (id: string) => void> = {
@@ -130,6 +134,7 @@ export const IssFeedBase: React.FC<IssFeedBaseProps> = ({
     };
   }, [
     videoStatus,
+    dataUpdatedAt,
     videoId,
     feedId,
     isStatusLoading,
