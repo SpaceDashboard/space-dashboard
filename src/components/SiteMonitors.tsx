@@ -16,11 +16,6 @@ interface StatusResult {
 const fetchSiteAssetStatuses = async (): Promise<number> => {
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/v2/json/status-monitors.json?u=${getCurrentTimestamp()}`,
-    {
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    },
   );
   const result: StatusResult = await response.json();
 

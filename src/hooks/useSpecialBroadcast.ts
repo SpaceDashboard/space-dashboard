@@ -26,9 +26,6 @@ export const useSpecialBroadcast = () => {
           `${import.meta.env.VITE_API_URL}/v1/json/special-broadcast.json`,
           {
             params: { u: getCurrentTimestamp() },
-            headers: {
-              'Cache-Control': 'no-cache',
-            },
           },
         );
         return response.data;

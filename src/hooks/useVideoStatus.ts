@@ -21,9 +21,6 @@ export const useVideoStatus = () => {
           `${import.meta.env.VITE_API_URL}/v1/json/live-video-ids.json`,
           {
             params: { u: Date.now() },
-            headers: {
-              'Cache-Control': 'no-cache',
-            },
           },
         );
         return response.data;
