@@ -12,8 +12,7 @@ interface SpecialBroadcast {
   };
 }
 
-// const BROADCAST_REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
-const BROADCAST_REFRESH_INTERVAL = 10 * 1000; // 10 seconds
+const BROADCAST_REFRESH_INTERVAL = 2 * 60 * 1000; // 2 minutes
 
 export const useSpecialBroadcast = () => {
   const { data, error, isLoading, refetch, dataUpdatedAt } = useQuery<
