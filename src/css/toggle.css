@@ -93,6 +93,17 @@
     align-items: center;
     display: flex;
     gap: 8px;
+
+    /* TODO: Come back to this */
+    /* &.sm {
+      font-size: 0.875rem;
+    }
+    &.md {
+      font-size: 1.1rem;
+    }
+    &.lg {
+      font-size: 1.25rem;
+    } */
   }
 
   .toggle-label-divider {

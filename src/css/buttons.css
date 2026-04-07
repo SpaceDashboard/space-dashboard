@@ -197,18 +197,18 @@
   .close-x {
     align-items: center;
     display: flex;
-    height: 6px;
+    height: 10px;
     justify-content: center;
-    margin: 1px 0 0 1px;
+    margin: 2px 0 0 1.5px;
     position: relative;
-    width: 5px;
+    width: 8px;
 
     span {
       background: #fff;
       height: 100%;
       position: absolute;
       top: 0;
-      width: 1px;
+      width: 1.5px;
 
       &:first-child {
         left: 0;

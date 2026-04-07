@@ -237,7 +237,7 @@ export const NavBar: React.FC = () => {
             ]}
           />
           <Button
-            ariaLabel="Buy me a coffee?"
+            ariaLabel="Buy me a coffee"
             Icon={IconCoffee}
             className="coffee-button"
             onClick={() => {
@@ -250,7 +250,7 @@ export const NavBar: React.FC = () => {
             tooltipOffset={12}
             tooltipDelay={500}
             tooltipPlacement={tooltipPlacement}
-            tooltipTitle="Buy me a coffee?"
+            tooltipTitle="Buy me a coffee"
             variantsList={['small']}
           />
         </NavButtonContainer>

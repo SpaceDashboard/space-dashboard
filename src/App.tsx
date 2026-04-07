@@ -100,7 +100,7 @@ export const App: React.FC = () => {
               ) : (
                 <div className="content-column">
                   <SpecialBroadcast />
-                  {renderColumn(column1Order, 0)}
+                  {renderColumn(column1Order, 1)}
                   {renderColumn(column2Order, column1Order?.length)}
                   {renderColumn(
                     column3Order,
