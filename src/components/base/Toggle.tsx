@@ -19,11 +19,13 @@ const toggleSwitchCss = (
   reduceMotion: boolean,
   width: number | string,
   justifyContent?: string,
+  size?: 'sm' | 'md' | 'lg',
 ) => css`
   justify-content: ${justifyContent};
   width: ${typeof width === 'number' ? `${width}px` : width};
 
   --toggle--transition-duration: ${reduceMotion ? 0 : 0.08}s !important;
+  --toggle--size: ${size === 'sm' ? '14px' : size === 'md' ? '18px' : '24px'};
 `;
 
 interface ToggleProps {
@@ -33,8 +35,11 @@ interface ToggleProps {
   isDisabled?: boolean;
   justifyContent?: JustifyContent;
   label?: string | React.ReactNode;
+  hideLabelDivider?: boolean;
   onChange?: (checked: boolean) => void;
+  size?: 'sm' | 'md' | 'lg';
   tooltip?: string;
+  tooltipDelay?: number;
   width?: number | string;
   wrapperJustifyContent?: JustifyContent;
 }
@@ -46,8 +51,11 @@ export const Toggle: React.FC<ToggleProps> = ({
   isDisabled,
   justifyContent = 'space-between',
   label,
+  hideLabelDivider = false,
   onChange,
+  size = 'md',
   tooltip,
+  tooltipDelay = 300,
   width = 'fit-content',
   wrapperJustifyContent = 'flex-start',
 }) => {
@@ -75,23 +83,37 @@ export const Toggle: React.FC<ToggleProps> = ({
       flexDirection="row"
       alignItems="center"
       justifyContent={wrapperJustifyContent}
+      className="toggle-wrapper"
     >
       {tooltip && (
-        <TooltipWrapper title={tooltip} delay={300}>
-          <IconInfoCircle color="#CCC" size={20} />
+        <TooltipWrapper title={tooltip} delay={tooltipDelay}>
+          <IconInfoCircle
+            color="#CCC"
+            size={size === 'sm' ? 16 : size === 'md' ? 20 : 24}
+          />
         </TooltipWrapper>
       )}
       <label
         htmlFor={toggleId}
         className={cx(
           'toggle-switch',
-          toggleSwitchCss(reduceMotion, width, justifyContent),
+          toggleSwitchCss(reduceMotion, width, justifyContent, size),
         )}
       >
         {label && (
           <>
-            <span className="toggle-label">{label}</span>
-            <span className="toggle-label-divider"></span>
+            <span
+              className={cx('toggle-label', {
+                sm: size === 'sm',
+                md: size === 'md',
+                lg: size === 'lg',
+              })}
+            >
+              {label}
+            </span>
+            {!hideLabelDivider && (
+              <span className="toggle-label-divider"></span>
+            )}
           </>
         )}
         <span>

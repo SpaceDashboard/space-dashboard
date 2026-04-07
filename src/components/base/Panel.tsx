@@ -83,6 +83,9 @@ const panelActionsCss = (
   reduceTransparency?: boolean,
 ) => css`
   --panel--background-opacity: ${reduceTransparency ? 1 : 0.6} !important;
+  --special-panel-actions--transition-duration: ${reduceMotion
+    ? 0
+    : animationDuration * speedAdjustment}s !important;
   transition: ${reduceMotion ? 0 : animationDuration * speedAdjustment}s all
     ease;
   transition-delay: ${reduceMotion
@@ -171,6 +174,14 @@ export const InnerPanel = ({
     return panelActions;
   }, [children, panelMenuChild]);
 
+  const specialPanelActionsChild = useMemo(() => {
+    const specialPanelActions = React.Children.toArray(children).filter(
+      (child) =>
+        React.isValidElement(child) && child.type === SpecialPanelActions,
+    );
+    return specialPanelActions;
+  }, [children]);
+
   useEffect(() => {
     setAnimationDurationSeconds?.(animationDuration);
     setAnimationDelaySeconds?.(delayedAnimationSeconds + 0.1);
@@ -247,6 +258,7 @@ export const InnerPanel = ({
             </div>
           </div>
         </div>
+        {specialPanelActionsChild}
         {panelActionsChild}
       </Sentry.ErrorBoundary>
     </div>
@@ -441,6 +453,44 @@ export const PanelMenu = ({
     </div>
   );
 };
+
+export const SpecialPanelActions = React.forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren
+>(({ children }, ref) => {
+  const {
+    settings: {
+      reduceMotion,
+      enableLoadingAnimation,
+      animationSpeedAdjustment,
+      reduceTransparency,
+    },
+  } = useSettingsContext();
+  const { animationDurationSeconds, animationDelaySeconds } = usePanelContext();
+  const isLoadingAnimationDisabled = useMemo(
+    () => !enableLoadingAnimation || reduceMotion,
+    [enableLoadingAnimation, reduceMotion],
+  );
+
+  return (
+    <div
+      className={cx(
+        'special-panel-actions',
+        panelActionsCss(
+          animationDurationSeconds ?? 0,
+          animationDelaySeconds ?? 0,
+          isLoadingAnimationDisabled,
+          animationSpeedAdjustment,
+          reduceTransparency,
+        ),
+      )}
+      ref={ref}
+    >
+      {children}
+    </div>
+  );
+});
+SpecialPanelActions.displayName = 'SpecialPanelActions';
 
 export const PanelBody = React.forwardRef<
   HTMLDivElement,

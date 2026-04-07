@@ -1,17 +1,21 @@
 import React, { useEffect, useMemo, useCallback, useState } from 'react';
 import { css, cx } from '@emotion/css';
 import { UTCDate } from '@date-fns/utc';
+import { format } from 'date-fns';
 import {
   Panel,
   PanelBody,
   PanelActions,
   PanelMenu,
+  SpecialPanelActions,
   PlanetsLoader,
   FlexWrapper,
+  Toggle,
 } from 'src/components/base';
+import { UtcClock } from 'src/components';
 import { IconX } from '@tabler/icons-react';
 import { getCurrentTimestamp } from 'src/shared/utils';
-import { useSpecialBroadcast } from 'src/hooks';
+import { useSpecialBroadcast, useSettingsContext } from 'src/hooks';
 
 const ASPECT_RATIO_CLASS = 'aspect-16-9';
 
@@ -32,10 +36,49 @@ export const SpecialBroadcast: React.FC = () => {
     refetch,
   } = useSpecialBroadcast();
   const { broadcast: broadcastData } = data || {};
+  const { settings, updateSettings } = useSettingsContext();
   const [isBroadcastActive, setIsBroadcastActive] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showOfflineMessage, setShowOfflineMessage] = useState(false);
   const [iframeSrc, setIframeSrc] = useState('');
+
+  const persistBroadcast = settings.persistBroadcast;
+
+  const broadcastTimeRange = useMemo(() => {
+    if (!broadcastData) return null;
+    return {
+      start: new UTCDate(broadcastData.startTimeUTC),
+      end: new UTCDate(broadcastData.endTimeUTC),
+    };
+  }, [broadcastData]);
+
+  const setPersistBroadcast = useCallback(
+    (persist: boolean) => {
+      updateSettings({ persistBroadcast: persist });
+    },
+    [updateSettings],
+  );
+
+  // Restore broadcast active state from persisted settings
+  useEffect(() => {
+    if (persistBroadcast && broadcastData && !isBroadcastActive) {
+      const isGtEqStartTime =
+        new UTCDate() >= new Date(broadcastData.startTimeUTC);
+      if (isGtEqStartTime) {
+        setIsBroadcastActive(true);
+      }
+    }
+  }, [persistBroadcast, broadcastData, isBroadcastActive]);
+
+  // Clear persisted state if startTime is in the future (new broadcast)
+  useEffect(() => {
+    if (!broadcastData || !persistBroadcast) return;
+    const isGtEqStartTime =
+      new UTCDate() >= new Date(broadcastData.startTimeUTC);
+    if (!isGtEqStartTime) {
+      setPersistBroadcast(false);
+    }
+  }, [broadcastData, persistBroadcast, setPersistBroadcast]);
 
   // Reusable broadcast timing check
   const checkBroadcastTiming = useCallback(() => {
@@ -51,11 +94,23 @@ export const SpecialBroadcast: React.FC = () => {
   useEffect(() => {
     if (broadcastData) {
       const shouldBeActive = checkBroadcastTiming();
+      const isGtEqStartTime =
+        new UTCDate() >= new Date(broadcastData.startTimeUTC);
+      if (persistBroadcast && isGtEqStartTime) {
+        return;
+      }
+
       if (shouldBeActive !== isBroadcastActive) {
         setIsBroadcastActive(shouldBeActive);
       }
     }
-  }, [broadcastData, dataUpdatedAt, isBroadcastActive, checkBroadcastTiming]);
+  }, [
+    broadcastData,
+    dataUpdatedAt,
+    isBroadcastActive,
+    checkBroadcastTiming,
+    persistBroadcast,
+  ]);
 
   // Memoize the iframe base URL to prevent unnecessary recalculations
   const iframeBase = useMemo(() => {
@@ -163,6 +218,38 @@ export const SpecialBroadcast: React.FC = () => {
           </div>
         )}
       </PanelBody>
+      <SpecialPanelActions>
+        <div className="special-broadcast-title-wrapper">
+          <h4 className="special-broadcast-title">Special Broadcast</h4>
+          <div className="special-broadcast-time-wrapper">
+            <small className="special-broadcast-time">
+              (
+              {broadcastTimeRange?.start &&
+                format(broadcastTimeRange.start, 'HH:mm')}{' '}
+              -{' '}
+              {broadcastTimeRange?.end &&
+                format(broadcastTimeRange.end, 'HH:mm')}
+              )
+            </small>
+            <small className="special-broadcast-time">
+              <UtcClock />
+            </small>
+          </div>
+        </div>
+        <Toggle
+          label="Keep alive"
+          tooltip="Prevent this broadcast from ending at the scheduled time"
+          justifyContent="flex-end"
+          wrapperJustifyContent="flex-end"
+          hideLabelDivider={true}
+          tooltipDelay={0}
+          size="sm"
+          checked={persistBroadcast}
+          onChange={(checked) => {
+            setPersistBroadcast(checked);
+          }}
+        />
+      </SpecialPanelActions>
       <PanelMenu variant="special">
         <h3>{broadcastData?.title}</h3>
         <p
@@ -177,6 +264,7 @@ export const SpecialBroadcast: React.FC = () => {
         refreshData={() => {
           refetch();
         }}
+        refreshTooltip="Refresh broadcast data"
       />
     </Panel>
   );

@@ -24,6 +24,7 @@ export interface Settings {
   enableButtonAnimationAlways: boolean;
   animationSpeedAdjustment: number;
   disableButtonTooltips: boolean;
+  persistBroadcast: boolean;
   lastUpdated?: Date | string;
 }
 
@@ -40,6 +41,7 @@ const SettingsProvider = ({ children }: { children: React.ReactNode }) => {
     enableButtonAnimationAlways: false,
     animationSpeedAdjustment: 1,
     disableButtonTooltips: false,
+    persistBroadcast: false,
     lastUpdated: '',
   };
 

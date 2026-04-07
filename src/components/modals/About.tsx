@@ -42,15 +42,15 @@ export const About: React.FC = () => {
     <Modal isOpen={isAboutOpen} setIsOpen={setIsAboutOpen} isFullScreen={true}>
       <FlexWrapper gap={sectionGap}>
         <FlexWrapper gap={20}>
-          <h1>{'Welcome to the new Space Dashboard!'}</h1>
+          <h1>{'Welcome to Space Dashboard!'}</h1>
           <p>
             {
-              "I'm Caleb, a Software Engineer, and Space Dashboard is something I originally built in 2016 to put as much space-related data in one place as possible. Now, it's been completely redesigned and rebuilt from the ground up, and I'm excited to share it with you."
+              "I'm Caleb, a Software Engineer. I built Space Dashboard in 2016 with one goal: put as much space-related data in one place as possible. A decade later, it's still evolving. I'm glad you're here for it."
             }
           </p>
           <p>
             {
-              "Whether you're a returning visitor or checking it out for the first time, I hope you enjoy exploring the new features. If you have any questions, suggestions, or bug reports, feel free to reach out through the "
+              "Whether you're a returning visitor or stopping by for the first time, I hope you enjoy poking around. If you have any questions, suggestions, or bug reports, feel free to reach out through the "
             }
             <a
               href="#"
@@ -63,9 +63,7 @@ export const About: React.FC = () => {
             </a>
             .
           </p>
-          <p>
-            {'Thanks so much for visiting, and I hope you love the update!'}
-          </p>
+          <p>{'Thanks so much for visiting! I hope you love it here.'}</p>
         </FlexWrapper>
 
         <FlexWrapper gap={14} className={coffeeCss}>

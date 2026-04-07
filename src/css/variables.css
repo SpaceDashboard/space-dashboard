@@ -68,6 +68,7 @@
   --panel--transition-duration: 0.3s;
   --panel-body--transition-duration: 0.4s;
   --panel-body--transition-delay: 0.45s;
+  --special-panel-actions--transition-duration: 0.4s;
   --panel-actions-wrapper--before--transition-duration: 0.4s;
   --panel-actions-wrapper--after--transition-duration: 0.4s;
   --panel-actions--before-transition-duration: 0.4s;
