@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.10.0
+
+### Minor Changes
+
+- [#257](https://github.com/SpaceDashboard/space-dashboard/pull/257) [`7cae8f4`](https://github.com/SpaceDashboard/space-dashboard/commit/7cae8f4bb7496bc7f85c5fc731ea63fbf66089e9) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Improving special broadcast panel control and other small visual updates
+
 ## 2.9.1
 
 ### Patch Changes
