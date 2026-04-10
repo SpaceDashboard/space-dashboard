@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.11.0
+
+### Minor Changes
+
+- [#259](https://github.com/SpaceDashboard/space-dashboard/pull/259) [`521dc74`](https://github.com/SpaceDashboard/space-dashboard/commit/521dc74002b8194ee5fff569aa1c3fa11392414a) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding version check and site refresh option
+
 ## 2.10.0
 
 ### Minor Changes
