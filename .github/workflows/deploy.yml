@@ -29,6 +29,8 @@ on:
         required: true
       CLOUDFLARE_TOKEN:
         required: true
+      API_REPO_DISPATCH_TOKEN:
+        required: false
 
 permissions:
   contents: read
@@ -198,3 +200,14 @@ jobs:
                 --header 'Content-Type: application/json' \
                 --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_TOKEN }}' \
                 --data '{"purge_everything":true}'
+
+      - name: Notify api.spacedashboard repo of production deploy
+        if: inputs.environment == 'Production'
+        run: |
+          set -e
+          curl -fsSL -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.API_REPO_DISPATCH_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/SpaceDashboard/api.spacedashboard/dispatches \
+            -d '{"event_type":"sd-prod-deployed","client_payload":{"version":"${{ steps.version.outputs.version }}"}}'

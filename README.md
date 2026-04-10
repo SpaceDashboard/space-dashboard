@@ -35,7 +35,7 @@ To contribute:
 
 ## 🩶 Built with Love
 
-This is a passion project born from my love of space. Everything here is built by hand. Only two files were generated with AI assistance for boilerplate functionality (`ColumnManager.tsx` and `useLocalStorage.tsx`), but all other application logic, components, and features were crafted by me.
+This is a passion project born from my love of space. Everything here is built by hand. Only a few files were generated with AI assistance (`ColumnManager.tsx`, `useLocalStorage.tsx`, and `useVersionCheck.tsx`), but all other application logic, components, and features were crafted by me.
 
 Enjoy!
 

@@ -107,14 +107,21 @@
   --toggle--checked-disabled--slider-bg-color: hsl(96 8% 55%);
 
   /* Toast */
+  --toast--backdrop-blur: 4px;
+  --toast--bg-opacity: 0.75;
   --toast--transition-duration: 0.2s;
-  --toast--confirmation--bg-color: #223a18;
+  --toast--confirmation--bg-color: hsla(
+    102,
+    41%,
+    16%,
+    var(--toast--bg-opacity)
+  );
   --toast--confirmation--border-color: #628a51;
-  --toast--warning--bg-color: #7d6016;
+  --toast--warning--bg-color: hsla(43, 70%, 29%, var(--toast--bg-opacity));
   --toast--warning--border-color: #e9ad0a;
-  --toast--error--bg-color: #511010;
+  --toast--error--bg-color: hsla(0, 70%, 29%, var(--toast--bg-opacity));
   --toast--error--border-color: #9d2020;
-  --toast--info--bg-color: #143257;
+  --toast--info--bg-color: hsla(218, 70%, 29%, var(--toast--bg-opacity));
   --toast--info--border-color: #335681;
   /* -- Defaults, overridden in ToastContent.tsx -- */
   --toast--bg-color: var(--toast--confirmation--bg-color);
