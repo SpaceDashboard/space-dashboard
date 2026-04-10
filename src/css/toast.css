@@ -93,6 +93,7 @@
     border-color: var(--toast--border-color);
     bottom: var(--toast--border-distance);
     content: '';
+    backdrop-filter: blur(var(--toast--backdrop-blur));
     height: auto;
     left: var(--toast--border-distance);
     position: absolute;

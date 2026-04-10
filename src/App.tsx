@@ -5,7 +5,7 @@ import { NavBar, SiteMonitors } from 'src/components';
 import { FlexWrapper } from './components/base';
 import { About, ContactForm, UserSettings } from 'src/components/modals';
 import { DeepSpaceNetwork, SpecialBroadcast } from 'src/components/panels';
-import { useAppContext, useSettingsContext } from 'src/hooks';
+import { useAppContext, useSettingsContext, useVersionCheck } from 'src/hooks';
 import { columnPanelMap, MoveablePanels } from 'src/shared/PanelConfigs';
 import { ToastContainer, PersistentToastContainer } from 'src/shared/utils';
 import packageConfig from '../package.json';
@@ -27,6 +27,8 @@ export const App: React.FC = () => {
     },
   } = useSettingsContext();
   const [isViewportLarge, setIsViewportLarge] = useState(true);
+
+  useVersionCheck();
 
   const renderColumn = (
     componentOrder?: MoveablePanels[] | undefined,
