@@ -1,5 +1,12 @@
 # space-dashboard
 
+## 2.11.1
+
+### Patch Changes
+
+- [#263](https://github.com/SpaceDashboard/space-dashboard/pull/263) [`9fd860a`](https://github.com/SpaceDashboard/space-dashboard/commit/9fd860a5550f55b08a298320668f923711a2cc70) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Pushing a tiny change to test the version check and file update
+  git p
+
 ## 2.11.0
 
 ### Minor Changes
