@@ -6,8 +6,8 @@ import { css } from '@emotion/css';
 const refreshButtonStyles = css`
   background: rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  color: inherit;
+  border-radius: 30px;
+  color: #fff;
   cursor: pointer;
   font: inherit;
   margin-left: 8px;
