@@ -1495,19 +1495,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@posthog/core@npm:1.23.4":
-  version: 1.23.4
-  resolution: "@posthog/core@npm:1.23.4"
-  dependencies:
-    cross-spawn: "npm:^7.0.6"
-  checksum: 10c0/a6d867093bc8fde11a9d4db0fadf06fd7130285a9da46cf681652fbb15b74ded8f26236423d756c61252e634d215dd8635348641469c714892b8b7c49f816485
+"@posthog/core@npm:1.25.2":
+  version: 1.25.2
+  resolution: "@posthog/core@npm:1.25.2"
+  checksum: 10c0/a462328aa50303417abe0c87a0e4a4760b2e836b74cc582449e0480f2f04b832d1d51ade883c4d7fde2bf7e820646a050577b3a9339dd534de4ddd5cadd4bd15
   languageName: node
   linkType: hard
 
-"@posthog/types@npm:1.361.1":
-  version: 1.361.1
-  resolution: "@posthog/types@npm:1.361.1"
-  checksum: 10c0/941704694ab8cfcbaa339866c7dbd832c8791ef7f3f8fbbec4d9237964894a251fbc81cd70fe32e1d519d2253cf4de150b50b9f33316b8c708f992a61f42f423
+"@posthog/types@npm:1.367.0":
+  version: 1.367.0
+  resolution: "@posthog/types@npm:1.367.0"
+  checksum: 10c0/4441b1cd0170acd3a205f6e47089de20d9171e2ae8778b50ff976fc3ad61e9c8ec76b71742572afb88bfe95c5390aaff78035805c80108ab1d3575dfb104bd67
   languageName: node
   linkType: hard
 
@@ -1731,41 +1729,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/browser-utils@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry-internal/browser-utils@npm:8.55.0"
+"@sentry-internal/browser-utils@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry-internal/browser-utils@npm:8.55.1"
   dependencies:
-    "@sentry/core": "npm:8.55.0"
-  checksum: 10c0/201eb94ee64a4dab058153c64dd4ce0af082f3c3bc84a5441cdadf344d9554a0a67c9d9dfdff720eb42de214d67d734d5bda25a050c2efd59c03f60562bb139a
+    "@sentry/core": "npm:8.55.1"
+  checksum: 10c0/161991035e0ffd728f9bbeb7da547cc0cea94e327400beb1b9ed6071ee53387f85adbeefe34d8415a1b8872c1b0e212b955f7951aac18731970fd68c34279597
   languageName: node
   linkType: hard
 
-"@sentry-internal/feedback@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry-internal/feedback@npm:8.55.0"
+"@sentry-internal/feedback@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry-internal/feedback@npm:8.55.1"
   dependencies:
-    "@sentry/core": "npm:8.55.0"
-  checksum: 10c0/2515c4eca6226e3df28a498f7f3771d7820556887bf8c06f2d5469c92474cf72ed81eaa0079f6bcf46905c54315e2631bb7b9ed7ed6741cf9b7f73a3f4875acc
+    "@sentry/core": "npm:8.55.1"
+  checksum: 10c0/d96c7bdebfe65d079d9eb623d89645e045f3836d7d3a5819b8017939b11f1717a008a97a2bded4869ed7d24d260a18c7d6aeea937e4775c8ad3956e82e532f64
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay-canvas@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry-internal/replay-canvas@npm:8.55.0"
+"@sentry-internal/replay-canvas@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry-internal/replay-canvas@npm:8.55.1"
   dependencies:
-    "@sentry-internal/replay": "npm:8.55.0"
-    "@sentry/core": "npm:8.55.0"
-  checksum: 10c0/6f3c619ede1de47635035f74477dd5a11e5c2cac9d0906448a7fffb6dad1c5bd9a49a594fbc2a51ba3b1859a91f60e08ab6de2d9961ccbaa343af580f1d13fb1
+    "@sentry-internal/replay": "npm:8.55.1"
+    "@sentry/core": "npm:8.55.1"
+  checksum: 10c0/f385c9501c5c2e6a7683e15d26f42b3e08cb5ab7dcdf94a7b4fd58ef9a6d849d3aaaf7b32b15cfbf66d5477b6b79ed8b257784cc7ebc21b99c1d27e47dae55bd
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry-internal/replay@npm:8.55.0"
+"@sentry-internal/replay@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry-internal/replay@npm:8.55.1"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:8.55.0"
-    "@sentry/core": "npm:8.55.0"
-  checksum: 10c0/320fd5685c1e84c5feebaa88fc72afd0bd5189b95d690f8c24301cd8b13789431b2c1d28e3e5a93f669ca3b80cdc830e672723aa7a28ff8f0b901674ce0c0529
+    "@sentry-internal/browser-utils": "npm:8.55.1"
+    "@sentry/core": "npm:8.55.1"
+  checksum: 10c0/65f3ba885a4349530ca42cd3d57fc0dca61c2333b633786a5a818d0b5e59c4dd950aedfd197fa0e9a7f8c7f0ff2ad6caf5a3c030b6cc9671f32c1dd8c4cc4275
   languageName: node
   linkType: hard
 
@@ -1776,16 +1774,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry/browser@npm:8.55.0"
+"@sentry/browser@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry/browser@npm:8.55.1"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:8.55.0"
-    "@sentry-internal/feedback": "npm:8.55.0"
-    "@sentry-internal/replay": "npm:8.55.0"
-    "@sentry-internal/replay-canvas": "npm:8.55.0"
-    "@sentry/core": "npm:8.55.0"
-  checksum: 10c0/a485de7385851c96ed4c2291d065594aeea2076b11b3b113f4866fdbff1522524abd97664f0d0b011e0eff6c4986a556f080bccfa1b770466c6afcb6122dfbaf
+    "@sentry-internal/browser-utils": "npm:8.55.1"
+    "@sentry-internal/feedback": "npm:8.55.1"
+    "@sentry-internal/replay": "npm:8.55.1"
+    "@sentry-internal/replay-canvas": "npm:8.55.1"
+    "@sentry/core": "npm:8.55.1"
+  checksum: 10c0/5b25013f7a5b57aab4c9d4d3a36aaa0076c0cabf3d2d5f2f01bbef9363aaff5b02e75c7ea48043f3204b97967707a553b78cdb0846a8131cb6c95dde3dfa9843
   languageName: node
   linkType: hard
 
@@ -1891,23 +1889,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:8.55.0":
-  version: 8.55.0
-  resolution: "@sentry/core@npm:8.55.0"
-  checksum: 10c0/51c1768f0bd940a060787b402dba9df3347c918ea4c0fdc300d45c37703ebbf6f7adee9fff332cfd6b23372b33c46e6d2f31a04227762d490aaddc14773894a0
+"@sentry/core@npm:8.55.1":
+  version: 8.55.1
+  resolution: "@sentry/core@npm:8.55.1"
+  checksum: 10c0/4672f1bb4d3f0fe5aa816d38ee28cd42a19fc66f2cdadbb9b2170e8bb10c7edf3521237cacc81a8ed155c6c68f30ba6922e380401276bf11a6baa1b081542602
   languageName: node
   linkType: hard
 
-"@sentry/react@npm:^8.55.0":
-  version: 8.55.0
-  resolution: "@sentry/react@npm:8.55.0"
+"@sentry/react@npm:^8.55.1":
+  version: 8.55.1
+  resolution: "@sentry/react@npm:8.55.1"
   dependencies:
-    "@sentry/browser": "npm:8.55.0"
-    "@sentry/core": "npm:8.55.0"
+    "@sentry/browser": "npm:8.55.1"
+    "@sentry/core": "npm:8.55.1"
     hoist-non-react-statics: "npm:^3.3.2"
   peerDependencies:
     react: ^16.14.0 || 17.x || 18.x || 19.x
-  checksum: 10c0/09dafee92cb62d3aea5c4503b6d1ad79e293c0e4ad59a60b7700b9d99b18e8e8d6a47e18ed26278d7aa64adbf64c0797c2d096287eeb122a379f5b23b35f597e
+  checksum: 10c0/7fe204425117090169c62986e54b9b0da7ea0ef2a9fc1a4e9164d7fe75737208733b95a71f2bd4b5a3b7c4326f3a954b03bd2f69ee7b6b2fac75c751b033c1c8
   languageName: node
   linkType: hard
 
@@ -1921,28 +1919,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^3.40.0":
-  version: 3.40.0
-  resolution: "@tabler/icons-react@npm:3.40.0"
+"@tabler/icons-react@npm:^3.41.1":
+  version: 3.41.1
+  resolution: "@tabler/icons-react@npm:3.41.1"
   dependencies:
-    "@tabler/icons": "npm:3.40.0"
+    "@tabler/icons": "npm:3.41.1"
   peerDependencies:
     react: ">= 16"
-  checksum: 10c0/a6985c9e8d1986c14594f5bc7007d2398b7b1efd2202304a24e23eb1fa6a48a23f9a6aaa3c5626781990cc0f0a46773c0a0cb747b6984dde26f03ba4ebd1d9cf
+  checksum: 10c0/d103816d91df212ef6a4fc05e9f8d5f01deec2197d3accc4a398d325d1cfa8910e06b4daaf82cd08749f242c3908885ac60b21c4129b21094ece9fe0ecd46e4c
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.40.0":
-  version: 3.40.0
-  resolution: "@tabler/icons@npm:3.40.0"
-  checksum: 10c0/d335323695dff9218b486bb84a79893f86d5c284dc022c86bfdcfc550605c48ddffe72161c93f6fcab47ba6d828311c101fc5e306fb698b5b5104cf6250ed314
+"@tabler/icons@npm:3.41.1":
+  version: 3.41.1
+  resolution: "@tabler/icons@npm:3.41.1"
+  checksum: 10c0/b1238157fe6e57c0202f1f7153621ad937a6f73ff7c0f0af5a71fcbdace18a3281cddd6632229029c3a3df7c530ae8bcefa75c18e35db4b65e7f884282762cf1
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.90.20":
-  version: 5.90.20
-  resolution: "@tanstack/query-core@npm:5.90.20"
-  checksum: 10c0/70637dfcecd5ed9d810629aa27f1632af8a4bcd083e75cf29408d058c32f8234704a3231ec280e2c4016ea0485b16124fdf70ab97793b5a7b670f43f7659e9fe
+"@tanstack/query-core@npm:5.99.0":
+  version: 5.99.0
+  resolution: "@tanstack/query-core@npm:5.99.0"
+  checksum: 10c0/e46315e0a532be77b86e3bf47c4395b2ba072251f007794b670f72d36062ae6b5560957400281ece8c177c9518fe6b2fef92d3e56cea3bc12d5c2f750ea7743b
   languageName: node
   linkType: hard
 
@@ -1965,14 +1963,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.90.21":
-  version: 5.90.21
-  resolution: "@tanstack/react-query@npm:5.90.21"
+"@tanstack/react-query@npm:^5.99.0":
+  version: 5.99.0
+  resolution: "@tanstack/react-query@npm:5.99.0"
   dependencies:
-    "@tanstack/query-core": "npm:5.90.20"
+    "@tanstack/query-core": "npm:5.99.0"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/e8994c57f6ceb2c886a4d6486a8c6a3f89bc6b1220de3e732448d7fcbeb386e9358f03c73804de72004c6ac2668d0bf1b44cedbb273d3e4b33afcbaee7b7d24d
+  checksum: 10c0/4a4783da869b29f166f13bde592662477b7473e19758f3cdd862538876d237fa0d1593d47c7c758d6b86fecc6a92f7db89c5ba7f5528c705ed0cb8a8e5e5eef0
   languageName: node
   linkType: hard
 
@@ -2623,14 +2621,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.13.6":
-  version: 1.13.6
-  resolution: "axios@npm:1.13.6"
+"axios@npm:^1.15.0":
+  version: 1.15.0
+  resolution: "axios@npm:1.15.0"
   dependencies:
     follow-redirects: "npm:^1.15.11"
     form-data: "npm:^4.0.5"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/51fb5af055c3b85662fa97df17d986ae2c37d13bf86d50b6bb36b6b3a2dec6966a1d3a14ab3774b71707b155ae3597ed9b7babdf1a1a863d1a31840cb8e7ec71
+    proxy-from-env: "npm:^2.1.0"
+  checksum: 10c0/47e0f860e98d4d7aa145e89ce0cae00e1fb0f1d2485f065c21fce955ddb1dba4103a46bd0e47acd18a27208a7f62c96249e620db575521b92a968619ab133409
   languageName: node
   linkType: hard
 
@@ -5981,24 +5979,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:^1.361.1":
-  version: 1.361.1
-  resolution: "posthog-js@npm:1.361.1"
+"posthog-js@npm:^1.367.0":
+  version: 1.367.0
+  resolution: "posthog-js@npm:1.367.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
     "@opentelemetry/exporter-logs-otlp-http": "npm:^0.208.0"
     "@opentelemetry/resources": "npm:^2.2.0"
     "@opentelemetry/sdk-logs": "npm:^0.208.0"
-    "@posthog/core": "npm:1.23.4"
-    "@posthog/types": "npm:1.361.1"
+    "@posthog/core": "npm:1.25.2"
+    "@posthog/types": "npm:1.367.0"
     core-js: "npm:^3.38.1"
     dompurify: "npm:^3.3.2"
     fflate: "npm:^0.4.8"
     preact: "npm:^10.28.2"
     query-selector-shadow-dom: "npm:^1.0.1"
     web-vitals: "npm:^5.1.0"
-  checksum: 10c0/9f9e7c18d4e078721f67c8610fd1d903dbc176cfad92c89bc7d2a86a8d6abcf9a0f6b30cf612045c14e21d12f605e7920099eecbaa77fd9275a1e7f831074ae9
+  checksum: 10c0/888b14c3a7df4d70b10a4d07c3209e76968bc10db0d62304788c4510e210971577e96e66a1170ab6726b4899e07d92da3252acdbf9fca300e87a426fbc4e4537
   languageName: node
   linkType: hard
 
@@ -6103,6 +6101,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "proxy-from-env@npm:2.1.0"
+  checksum: 10c0/ed01729fd4d094eab619cd7e17ce3698b3413b31eb102c4904f9875e677cd207392795d5b4adee9cec359dfd31c44d5ad7595a3a3ad51c40250e141512281c58
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
@@ -6143,12 +6148,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.71.2":
-  version: 7.71.2
-  resolution: "react-hook-form@npm:7.71.2"
+"react-hook-form@npm:^7.72.1":
+  version: 7.72.1
+  resolution: "react-hook-form@npm:7.72.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10c0/bff61c229f5f2516e650325e0c450146cb8a08dc323e5e9aa0753eb937be0b66fe17f40a7b4be9aabc2b5cb770d03de07db7f4912c6c9452a86924072cc1cb46
+  checksum: 10c0/b96fb9c10893fd5b31151c412fe3dd475a207e2ca7e7d41f0b3d98c05e3d6e556b9c2edfb568820fcbf598f257871a87b91c9909cc6e07a7ab7bf6b36e22035a
   languageName: node
   linkType: hard
 
@@ -6199,16 +6204,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-tooltip@npm:^5.30.0":
-  version: 5.30.0
-  resolution: "react-tooltip@npm:5.30.0"
+"react-tooltip@npm:^5.30.1":
+  version: 5.30.1
+  resolution: "react-tooltip@npm:5.30.1"
   dependencies:
     "@floating-ui/dom": "npm:^1.6.1"
     classnames: "npm:^2.3.0"
   peerDependencies:
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
-  checksum: 10c0/a942ac78f4c3cf7adfeb97630bf68390683772a37a351cc84b21cef3e3c10991fca8a6ff84e9a410f0cb267ec83de3e19509b9dfaf7ec0d83478a0402621a238
+  checksum: 10c0/479c44f366070daa61ffc9458f7788964cea875eb7c1c4fcccd964fa93ca9bbf59c9e0c140f47c288b84d9db9c7b7ab3815c74e0d8ea698c3e00f8aea8db1411
   languageName: node
   linkType: hard
 
@@ -6851,10 +6856,10 @@ __metadata:
     "@eslint/compat": "npm:^2.0.3"
     "@eslint/eslintrc": "npm:^3.3.5"
     "@eslint/js": "npm:^9.39.4"
-    "@sentry/react": "npm:^8.55.0"
+    "@sentry/react": "npm:^8.55.1"
     "@sentry/vite-plugin": "npm:^2.23.1"
-    "@tabler/icons-react": "npm:^3.40.0"
-    "@tanstack/react-query": "npm:^5.90.21"
+    "@tabler/icons-react": "npm:^3.41.1"
+    "@tanstack/react-query": "npm:^5.99.0"
     "@tanstack/react-query-devtools": "npm:^5.91.3"
     "@types/node": "npm:^22.19.15"
     "@types/react": "npm:^18.3.28"
@@ -6863,7 +6868,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.57.1"
     "@typescript-eslint/parser": "npm:^8.57.1"
     "@vitejs/plugin-react": "npm:^4.7.0"
-    axios: "npm:^1.13.6"
+    axios: "npm:^1.15.0"
     date-fns: "npm:^4.1.0"
     eslint: "npm:^9.39.4"
     eslint-plugin-react: "npm:^7.37.5"
@@ -6872,14 +6877,14 @@ __metadata:
     eslint-plugin-sonarjs: "npm:^3.0.7"
     globals: "npm:^15.15.0"
     husky: "npm:^9.1.7"
-    posthog-js: "npm:^1.361.1"
+    posthog-js: "npm:^1.367.0"
     prettier: "npm:^3.8.1"
     process: "npm:^0.11.10"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-hook-form: "npm:^7.71.2"
+    react-hook-form: "npm:^7.72.1"
     react-toastify: "npm:^10.0.6"
-    react-tooltip: "npm:^5.30.0"
+    react-tooltip: "npm:^5.30.1"
     recharts: "npm:^2.15.4"
     typescript: "npm:^5.9.3"
     vite: "npm:^6.4.1"
