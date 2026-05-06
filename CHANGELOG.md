@@ -1,5 +1,15 @@
 # space-dashboard
 
+## 2.12.0
+
+### Minor Changes
+
+- [#271](https://github.com/SpaceDashboard/space-dashboard/pull/271) [`6b74daf`](https://github.com/SpaceDashboard/space-dashboard/commit/6b74dafcc78b22356ee3298e563aa9a2aaec53e4) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Adding countdown to events panel
+
+### Patch Changes
+
+- [#272](https://github.com/SpaceDashboard/space-dashboard/pull/272) [`ad74355`](https://github.com/SpaceDashboard/space-dashboard/commit/ad7435542ed8b0b3f111a2f0ac1befd7f61f7d4e) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Fixing workflow by updating yarn lock
+
 ## 2.11.1
 
 ### Patch Changes
