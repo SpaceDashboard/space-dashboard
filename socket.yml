@@ -1,0 +1,16 @@
+version: 2
+
+triggerPaths:
+  - 'package.json'
+  - 'package-lock.json'
+
+issueRules:
+  installScripts: error
+  shellAccess: error
+  networkAccess: error
+  filesystemAccess: error
+  obfuscatedCode: error
+  troll: error
+  malware: error
+  telemetry: warn
+  envVars: warn

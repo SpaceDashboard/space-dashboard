@@ -18,6 +18,7 @@ import {
 } from 'src/components/base';
 import { useAutoRefresh } from 'src/hooks';
 import { getCurrentTimestamp } from 'src/shared/utils';
+import { CountdownTimer } from './Launches';
 
 const eventDateTimeCss = css`
   font-size: 0.8rem;
@@ -131,26 +132,40 @@ export const Events: React.FC<PanelProps> = ({ index, componentKey }) => {
           <ListDetails
             items={data ? data.results : emptyData}
             listHeader="Upcoming Events"
-            renderLabel={(item: any) => (
-              <FlexWrapper
-                alignItems="center"
-                flexDirection="row"
-                gap={4}
-                justifyContent="space-between"
-              >
-                <FlexWrapper gap={4}>
-                  <span>
-                    <strong>{item?.name}</strong>
-                  </span>
-                  <span className={eventDateTimeCss}>
-                    {item?.date !== ''
-                      ? format(new UTCDate(item?.date), 'dd MMMM yyyy')
-                      : '-'}
-                  </span>
+            renderLabel={(item: any) => {
+              const eventDate = new UTCDate(item?.date);
+              const isWithinNext14Days =
+                eventDate.getTime() - Date.now() <= 1000 * 60 * 60 * 24 * 14;
+              const eventDateFormat = isWithinNext14Days
+                ? 'dd MMMM yyyy @ HH:mm:ss'
+                : 'dd MMMM yyyy';
+
+              return (
+                <FlexWrapper
+                  alignItems="center"
+                  flexDirection="row"
+                  gap={4}
+                  justifyContent="space-between"
+                >
+                  <FlexWrapper gap={4}>
+                    <span>
+                      <strong>{item?.name}</strong>
+                    </span>
+                    <span className={eventDateTimeCss}>
+                      {item?.date !== ''
+                        ? `${format(new UTCDate(item?.date), eventDateFormat)} ${isWithinNext14Days ? 'UTC' : ''}`
+                        : '-'}
+                    </span>
+                  </FlexWrapper>
+                  {item?.webcast_live && <LiveBadge />}
+                  {item?.date !== '' ? (
+                    <CountdownTimer netT0={item?.date} />
+                  ) : (
+                    <>{'-'}</>
+                  )}
                 </FlexWrapper>
-                {item?.webcast_live && <LiveBadge />}
-              </FlexWrapper>
-            )}
+              );
+            }}
             renderDetails={(item: any) => {
               if (!item) return <></>;
               return <DetailsModal item={item} />;
