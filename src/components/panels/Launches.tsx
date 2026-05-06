@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css, cx } from '@emotion/css';
+import { css } from '@emotion/css';
 import { differenceInSeconds, format } from 'date-fns';
 import { UTCDate } from '@date-fns/utc';
 import axios from 'axios';
@@ -35,16 +35,7 @@ const launchImageCss = css`
   max-width: 140px;
 `;
 
-const countdownTimerCss = css`
-  font-variation-settings: 'GRAD' -200;
-  white-space: nowrap;
-
-  .separator {
-    opacity: 0.8;
-  }
-`;
-
-const CountdownTimer = ({
+export const CountdownTimer = ({
   netT0,
   fontSizeRem = 0.8,
 }: {
@@ -87,12 +78,15 @@ const CountdownTimer = ({
 
   return (
     <span
-      className={cx(
-        countdownTimerCss,
-        css`
-          font-size: ${fontSizeRem}rem;
-        `,
-      )}
+      className={css`
+        font-size: ${fontSizeRem}rem;
+        font-variation-settings: 'GRAD' -200;
+        white-space: nowrap;
+
+        .separator {
+          opacity: 0.8;
+        }
+      `}
     >
       {prefix}
       {formattedTime}
@@ -200,31 +194,40 @@ export const Launches: React.FC<PanelProps> = ({ index, componentKey }) => {
           <ListDetails
             items={data ? data.results : emptyData}
             listHeader="Upcoming Launches"
-            renderLabel={(item: any) => (
-              <FlexWrapper
-                alignItems="center"
-                flexDirection="row"
-                gap={8}
-                justifyContent="space-between"
-              >
-                <FlexWrapper gap={4}>
-                  <span>
-                    <strong>{item?.name}</strong>
-                  </span>
-                  <span className={launchDateTimeCss}>
-                    {item?.net !== ''
-                      ? `${format(new UTCDate(item?.net), 'dd MMMM yyyy @ HH:mm:ss')} UTC`
-                      : '-'}
-                  </span>
+            renderLabel={(item: any) => {
+              const eventDate = new UTCDate(item?.net);
+              const isWithinNext14Days =
+                eventDate.getTime() - Date.now() <= 1000 * 60 * 60 * 24 * 14;
+              const eventDateFormat = isWithinNext14Days
+                ? 'dd MMMM yyyy @ HH:mm:ss'
+                : 'dd MMMM yyyy';
+
+              return (
+                <FlexWrapper
+                  alignItems="center"
+                  flexDirection="row"
+                  gap={8}
+                  justifyContent="space-between"
+                >
+                  <FlexWrapper gap={4}>
+                    <span>
+                      <strong>{item?.name}</strong>
+                    </span>
+                    <span className={launchDateTimeCss}>
+                      {item?.net !== ''
+                        ? `${format(new UTCDate(item?.net), eventDateFormat)} ${isWithinNext14Days ? 'UTC' : ''}`
+                        : '-'}
+                    </span>
+                  </FlexWrapper>
+                  {item?.webcast_live && <LiveBadge />}
+                  {item?.net !== '' ? (
+                    <CountdownTimer netT0={item?.net} />
+                  ) : (
+                    <>{'-'}</>
+                  )}
                 </FlexWrapper>
-                {item?.webcast_live && <LiveBadge />}
-                {item?.net !== '' ? (
-                  <CountdownTimer netT0={item?.net} />
-                ) : (
-                  <>{'-'}</>
-                )}
-              </FlexWrapper>
-            )}
+              );
+            }}
             renderDetails={(item: any) => {
               if (!data) return <></>;
               return <DetailsModal item={item} />;
