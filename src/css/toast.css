@@ -44,17 +44,6 @@
     }
   }
 
-  .Toastify__toast-body {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-
-    > div:last-child {
-      flex: 1;
-    }
-  }
-
   .Toastify__slide-enter--top-center,
   .Toastify__slide-exit--top-center {
     animation-fill-mode: both;
