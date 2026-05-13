@@ -217,6 +217,7 @@ const KIndexChart: React.FC<{ data: any[] }> = ({ data = [] }) => {
                 </div>
               );
             }
+            return null;
           }}
         />
         <Bar
