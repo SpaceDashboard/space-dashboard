@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type JSX } from 'react';
 import { css, cx } from '@emotion/css';
 import { Modal, FlexWrapper } from 'src/components/base';
 import { useSettingsContext } from 'src/hooks';

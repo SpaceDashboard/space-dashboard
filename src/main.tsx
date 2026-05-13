@@ -26,20 +26,6 @@ if (import.meta.env.PROD) {
   });
 }
 
-/**
-When upgrading to React 19, let's use the error hooks:
-
-const root = ReactDOM.createRoot(document.getElementById('app')!, {
-  onUncaughtError: Sentry.reactErrorHandler((error, errorInfo) => {
-    console.warn('Uncaught error', error, errorInfo.componentStack);
-  }),
-  onCaughtError: Sentry.reactErrorHandler(),
-  onRecoverableError: Sentry.reactErrorHandler(),
-});
-
-root.render(...);
-*/
-
 const sharedInterval = 60000 * 10; // 10 minutes
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,7 +38,15 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById('app')!).render(
+const root = ReactDOM.createRoot(document.getElementById('app')!, {
+  onUncaughtError: Sentry.reactErrorHandler((error, errorInfo) => {
+    console.warn('Uncaught error', error, errorInfo.componentStack ?? '');
+  }),
+  onCaughtError: Sentry.reactErrorHandler(),
+  onRecoverableError: Sentry.reactErrorHandler(),
+});
+
+root.render(
   <React.StrictMode>
     <PostHogProvider client={posthog}>
       <QueryClientProvider client={queryClient}>

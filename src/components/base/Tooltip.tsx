@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 interface TooltipWrapperProps {
-  children: React.ReactElement | string;
+  children: React.ReactElement<any> | string;
   enabled?: boolean;
   delay?: number;
   hideOnTouchDevice?: boolean;
@@ -23,7 +23,7 @@ export const TooltipWrapper = ({
 }: React.PropsWithChildren<TooltipWrapperProps>) => {
   const child =
     typeof children === 'string'
-      ? (React.createElement('span', {}, children) as React.ReactElement)
+      ? (React.createElement('span', {}, children) as React.ReactElement<any>)
       : children;
   const isTouchDevice = useMemo(() => {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;

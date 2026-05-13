@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { css, cx } from '@emotion/css';
 import { IconX } from '@tabler/icons-react';
 import { ToastIconByVariant } from './ToastIconByVariant';
