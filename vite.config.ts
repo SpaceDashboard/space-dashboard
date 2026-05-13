@@ -29,11 +29,12 @@ export default defineConfig(() => {
       },
     },
     build: {
+      target: ['edge112', 'firefox117', 'chrome112', 'safari17'],
       sourcemap: true,
       cssTarget: ['edge112', 'firefox117', 'chrome112', 'safari17'],
       cssMinify: true,
       chunkSizeWarningLimit: 1000,
-      rollupOptions: {
+      rolldownOptions: {
         output: {
           minifyInternalExports: true,
           entryFileNames: 'assets/[name].[hash].js',
