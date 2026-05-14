@@ -31,7 +31,7 @@ export const TooltipWrapper = ({
 
   return (
     <>
-      {(isTouchDevice && hideOnTouchDevice) || !enabled ? (
+      {(isTouchDevice && hideOnTouchDevice) || !enabled || !title ? (
         <>{children}</>
       ) : (
         <>
