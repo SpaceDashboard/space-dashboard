@@ -2,6 +2,11 @@
   Override styles for react-toastify
 */
 
+.Toastify__toast-theme--light,
+.Toastify__toast-theme--dark {
+  background: none !important;
+}
+
 .toast-container-wrapper {
   height: 0;
   position: absolute;
@@ -21,7 +26,7 @@
 
   .Toastify__toast {
     align-self: center;
-    border-radius: 100px;
+    border-radius: var(--toast--border-radius);
     box-shadow:
       0 1px 8px 0 rgba(0, 0, 0, 0.9),
       0 2px 12px 0 rgba(0, 0, 0, 0.8);
@@ -37,6 +42,7 @@
     padding: 0;
     position: relative;
     transition: var(--toast--transition-duration) all ease;
+    width: fit-content;
     z-index: 1001;
 
     a {
@@ -62,7 +68,7 @@
 .toast-content-wrapper {
   align-items: center;
   background-color: var(--toast--bg-color);
-  border-radius: 100px;
+  border-radius: var(--toast--border-radius);
   color: #fff;
   display: flex;
   gap: 24px;
@@ -77,7 +83,9 @@
   &::before {
     --toast--border-distance: -2px;
     background: rgba(0, 0, 0, 0.6);
-    border-radius: 100px;
+    border-radius: calc(
+      var(--toast--border-radius) - var(--toast--border-distance)
+    );
     border: 2px solid transparent;
     border-color: var(--toast--border-color);
     bottom: var(--toast--border-distance);

@@ -10,13 +10,20 @@ const refreshButtonStyles = css`
   color: #fff;
   cursor: pointer;
   font: inherit;
-  margin-left: 8px;
   padding: 2px 20px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.25);
     border-color: rgba(255, 255, 255, 0.5);
   }
+`;
+
+const tooltipBodyWrapperStyles = css`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  text-wrap-style: pretty;
 `;
 
 const VERSION_URL = `${import.meta.env.VITE_API_URL}/v1/json/version.json`;
@@ -76,8 +83,8 @@ export const useVersionCheck = () => {
         if (compareVersions(data.version, localVersion) > 0) {
           promptedRef.current = true;
           showToast(
-            <span>
-              A new version of Space Dashboard is ready.{' '}
+            <span className={tooltipBodyWrapperStyles}>
+              A new version of Space Dashboard is ready.
               <button
                 type="button"
                 onClick={refreshNow}

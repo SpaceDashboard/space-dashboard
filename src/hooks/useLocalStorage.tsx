@@ -4,6 +4,12 @@ import { showToast } from 'src/shared/utils';
 // Fallback in-memory storage
 const memoryStorage: Record<string, any> = {};
 
+// Tracks the pending "new panels added" toast across StrictMode's
+// double-invocation of useState initializers in dev. Cancel-and-reschedule
+// keeps only one toast outstanding regardless of how many times the
+// initializer runs.
+let newPanelsToastTimer: ReturnType<typeof setTimeout> | null = null;
+
 const isLocalStorageAvailable = () => {
   try {
     const testKey = '__test__';
@@ -121,12 +127,14 @@ const getSettingWithUpdatedPanels = <T extends Record<string, any>>(
   }
 
   if (newDefaultPanels.length > 0) {
-    setTimeout(() => {
+    if (newPanelsToastTimer) clearTimeout(newPanelsToastTimer);
+    newPanelsToastTimer = setTimeout(() => {
       showToast(
         'New panels or settings have been added. Check them out!',
         { variant: 'info' },
         true,
       );
+      newPanelsToastTimer = null;
     }, 6000);
   }
 

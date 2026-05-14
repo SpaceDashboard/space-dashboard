@@ -107,6 +107,7 @@
   --toggle--checked-disabled--slider-bg-color: hsl(96 8% 55%);
 
   /* Toast */
+  --toast--border-radius: 24px;
   --toast--backdrop-blur: 4px;
   --toast--bg-opacity: 0.75;
   --toast--transition-duration: 0.2s;
