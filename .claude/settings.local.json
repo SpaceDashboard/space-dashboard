@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(npx tsc:*)",
-      "Bash(yarn tsc:*)",
-      "Bash(echo \"exit=$?\")"
-    ]
-  }
-}
