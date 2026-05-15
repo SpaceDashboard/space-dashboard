@@ -1,4 +1,5 @@
 import reactRefresh from 'eslint-plugin-react-refresh';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tsParser from '@typescript-eslint/parser';
 import globals from 'globals';
 import path from 'node:path';
@@ -17,6 +18,7 @@ export default [
     ignores: ['**/*.js'],
     plugins: {
       'react-refresh': reactRefresh,
+      'react-hooks': reactHooks,
       sonarjs
     },
     languageOptions: {
@@ -40,6 +42,8 @@ export default [
       'react-refresh/only-export-components': ['error', {
         allowConstantExport: true,
       }],
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
       'no-empty-function': 'off',
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
