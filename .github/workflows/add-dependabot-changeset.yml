@@ -32,12 +32,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
-          node-version: lts/Jod
+          node-version: 22.19.0
 
       - name: Get latest yarn
         run: |
           corepack enable
-          yarn set version berry
+          yarn set version 4.14.1
 
       - name: Cache dependencies
         uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # 4.2.2

@@ -128,13 +128,13 @@ jobs:
       - name: Set up Node 22
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # 4.4.0
         with:
-          node-version: lts/Jod
+          node-version: 22.19.0
 
       - name: Get latest yarn
         if: steps.download-release.outputs.use_prebuilt != 'true'
         run: |
           corepack enable
-          yarn set version berry
+          yarn set version 4.14.1
 
       - name: Install dependencies
         if: steps.download-release.outputs.use_prebuilt != 'true'
