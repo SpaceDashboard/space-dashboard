@@ -84,7 +84,7 @@ export const useVersionCheck = () => {
           promptedRef.current = true;
           showToast(
             <span className={tooltipBodyWrapperStyles}>
-              A new version of Space Dashboard is ready.
+              An update to Space Dashboard is available.
               <button
                 type="button"
                 onClick={refreshNow}

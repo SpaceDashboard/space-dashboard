@@ -105,11 +105,13 @@
     display: flex;
     flex: 1;
     gap: 8px;
+    line-height: 1.2;
     word-break: break-word;
 
     span {
       align-items: center;
       flex: 1;
+      gap: 6px 12px;
     }
   }
 
