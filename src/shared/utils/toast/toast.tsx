@@ -1,6 +1,8 @@
 import { toast as fireToast } from 'react-toastify';
 import { ToastContent } from './ToastContent';
 
+import type { JSX } from 'react';
+
 // Type for toast variants
 export type Variants = 'confirmation' | 'warning' | 'error' | 'info';
 

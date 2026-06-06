@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, type JSX } from 'react';
 import { css } from '@emotion/css';
 import { differenceInSeconds, format } from 'date-fns';
 import { UTCDate } from '@date-fns/utc';

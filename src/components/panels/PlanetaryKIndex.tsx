@@ -184,6 +184,7 @@ const KIndexChart: React.FC<{ data: any[] }> = ({ data = [] }) => {
         />
         <XAxis
           dataKey="time"
+          tick={{ dx: -10 }}
           tickFormatter={(date) => {
             if (!date) {
               console.log('No date provided to tickFormatter');
@@ -217,6 +218,7 @@ const KIndexChart: React.FC<{ data: any[] }> = ({ data = [] }) => {
                 </div>
               );
             }
+            return null;
           }}
         />
         <Bar

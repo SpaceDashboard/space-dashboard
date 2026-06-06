@@ -24,7 +24,7 @@ export const useAutoRefresh = <T,>(
 ): UseAutoRefreshProps<T> => {
   const [data, setData] = useState<T | null>(null);
   const [isFetching, setIsFetching] = useState<boolean>(true);
-  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalIdRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const getData = async () => {
     setIsFetching(true);
