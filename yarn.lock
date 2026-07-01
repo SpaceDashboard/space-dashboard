@@ -880,19 +880,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@posthog/core@npm:1.30.9":
-  version: 1.30.9
-  resolution: "@posthog/core@npm:1.30.9"
+"@posthog/core@npm:^1.37.1":
+  version: 1.39.3
+  resolution: "@posthog/core@npm:1.39.3"
   dependencies:
-    "@posthog/types": "npm:1.381.0"
-  checksum: 10c0/33a88ad20d727cb08bea213a7e9f1cd15898604601294aa2a994602442dd35939798173e14cf73c0f6eadf60a6612c0d7b15527b332d282f5a367e4c988d541f
+    "@posthog/types": "npm:^1.392.0"
+  checksum: 10c0/7f58372b1d857df3294bdc032146573d145da877331266964fca85b552b96bbf8be94b77a0ed470cd7eb11ccb56478c4f570bf454783b62c22bc0a32516c0225
   languageName: node
   linkType: hard
 
-"@posthog/types@npm:1.381.0":
-  version: 1.381.0
-  resolution: "@posthog/types@npm:1.381.0"
-  checksum: 10c0/6a7df2ef915127b8f0a396153c24afc9da96c9b24827bfe398b9f89839fb628cc19f854a70dbcda9829823de74ac2da97267dfe0eb38c9ebeea2de07d84d4386
+"@posthog/types@npm:^1.391.1, @posthog/types@npm:^1.392.0":
+  version: 1.392.0
+  resolution: "@posthog/types@npm:1.392.0"
+  checksum: 10c0/a4425af5fc62ca3d01c5b4ff0b7c4cbc215342f6ce8bf3410d225248b9637e96f438d25b66b3174a897f5df088cc4d41f7dd9c8db4adaf760a4be8e509bee059
   languageName: node
   linkType: hard
 
@@ -1034,44 +1034,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/browser-utils@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry-internal/browser-utils@npm:10.56.0"
-  dependencies:
-    "@sentry/core": "npm:10.56.0"
-  checksum: 10c0/0fb3401c35b6c20975037c6439a4f8ae25429f9b1e5c61726b3179dbfc755e666ae9ccded3d747d142d0cbe42821b23c86c836c1c71e7a7a67641c95cec857a9
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/feedback@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry-internal/feedback@npm:10.56.0"
-  dependencies:
-    "@sentry/core": "npm:10.56.0"
-  checksum: 10c0/f6b048f8fcbeca611837484b7f07b2e5cf5b9443b770e400277ec1dfb6ac6055853566fb54225801dadea3671b3d5c735fa8af5fde4b99a3820670c19d579d60
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/replay-canvas@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry-internal/replay-canvas@npm:10.56.0"
-  dependencies:
-    "@sentry-internal/replay": "npm:10.56.0"
-    "@sentry/core": "npm:10.56.0"
-  checksum: 10c0/9a94e5f6d27adcefd8a5a6414d84f06dce5e1840a68c568aabd9f893afb214c0c05d8bbc463e172af81fe2550e07f2464709eb8596ddf873ad0aec84c920ecf5
-  languageName: node
-  linkType: hard
-
-"@sentry-internal/replay@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry-internal/replay@npm:10.56.0"
-  dependencies:
-    "@sentry-internal/browser-utils": "npm:10.56.0"
-    "@sentry/core": "npm:10.56.0"
-  checksum: 10c0/2879b0aa900406747d7edb81d08bae27871f483a2b33f9523b0f3a09a309f353aa2cd650245090b654508a5644f51d5bee99f86e7f06f70f558c36452aba9265
-  languageName: node
-  linkType: hard
-
 "@sentry/babel-plugin-component-annotate@npm:5.3.0":
   version: 5.3.0
   resolution: "@sentry/babel-plugin-component-annotate@npm:5.3.0"
@@ -1079,16 +1041,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry/browser@npm:10.56.0"
+"@sentry/browser-utils@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/browser-utils@npm:10.60.0"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:10.56.0"
-    "@sentry-internal/feedback": "npm:10.56.0"
-    "@sentry-internal/replay": "npm:10.56.0"
-    "@sentry-internal/replay-canvas": "npm:10.56.0"
-    "@sentry/core": "npm:10.56.0"
-  checksum: 10c0/52f5d7d34b2c0ee6fa9ce6f0e7e6567a18cb4958603147e4cbb872653f254f9a3c63a559831876f071536a8fb3d0238c219c1e87ee97b7656c23eab1b568463a
+    "@sentry/core": "npm:10.60.0"
+  checksum: 10c0/a8da259fca9513143c7eb2946a6c1cefbf3e844b57978ebf8f1fd52515ee10ec0a9237f73ccaad69e684ffabc60805014a13eb895c6f477cfa2417cdebf479f7
+  languageName: node
+  linkType: hard
+
+"@sentry/browser@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/browser@npm:10.60.0"
+  dependencies:
+    "@sentry/browser-utils": "npm:10.60.0"
+    "@sentry/core": "npm:10.60.0"
+    "@sentry/feedback": "npm:10.60.0"
+    "@sentry/replay": "npm:10.60.0"
+    "@sentry/replay-canvas": "npm:10.60.0"
+  checksum: 10c0/63ff8d70a2fe365ee3fa859c54715defcf08bb5ae8a56fb153826f2a4088d6307b3fa1c19e3d0cfd4d8145cdd1addd71c4157515c5c13251d93a45c4d59ff9b1
   languageName: node
   linkType: hard
 
@@ -1203,22 +1174,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry/core@npm:10.56.0"
-  checksum: 10c0/506fd5632923c44a2fb12964c7aaa5d100a83cd77a6c2053d8de2208d9164d0f36ae787d115537a8a2fe8a1bca8d9b08664f68f766dafb1b09360992fb8c34c9
+"@sentry/core@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/core@npm:10.60.0"
+  checksum: 10c0/7b34d28e35258aafba1302cfaffa1e147dfc11cf813ad88c6faeb29059d47bb66ad59c38cbd569f9e281c3c4fa46ff99d2a602ab0b100db67186e276997bbae2
   languageName: node
   linkType: hard
 
-"@sentry/react@npm:10.56.0":
-  version: 10.56.0
-  resolution: "@sentry/react@npm:10.56.0"
+"@sentry/feedback@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/feedback@npm:10.60.0"
   dependencies:
-    "@sentry/browser": "npm:10.56.0"
-    "@sentry/core": "npm:10.56.0"
+    "@sentry/core": "npm:10.60.0"
+  checksum: 10c0/46880a893dd64ff9758e492851683606c0bc575ba1829a031983e919a30d7c72cf5cc3fd80ee4884f80a114df61cb976a0625013f5d8f04bdff0ba4bd94bb48f
+  languageName: node
+  linkType: hard
+
+"@sentry/react@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/react@npm:10.60.0"
+  dependencies:
+    "@sentry/browser": "npm:10.60.0"
+    "@sentry/core": "npm:10.60.0"
   peerDependencies:
     react: ^16.14.0 || 17.x || 18.x || 19.x
-  checksum: 10c0/8ac9336186f6070c9539a49500226090bb659e9f5c222549f94e3fd937bba83468944bdb355ea4b394cd2534aaf4e9072e38f2ebe264db0d82943dece0ab5da8
+  checksum: 10c0/937aca59abcc376a126a747e1cfde8017589819f9b2432cae96bd3923cdee2be707ca26d1327b6b02ddc93f8f34bdbbf9aff5994225dc7174755eb0018193e88
+  languageName: node
+  linkType: hard
+
+"@sentry/replay-canvas@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/replay-canvas@npm:10.60.0"
+  dependencies:
+    "@sentry/core": "npm:10.60.0"
+    "@sentry/replay": "npm:10.60.0"
+  checksum: 10c0/d531cfb682f68bb5bb236ccc84a8a80eb1163dcba0c69629b7115ff03dffc8a23d2c50e41c749925fe0ca2e6fe91931529fb41f5de0c85f2722a90e3287a77d2
+  languageName: node
+  linkType: hard
+
+"@sentry/replay@npm:10.60.0":
+  version: 10.60.0
+  resolution: "@sentry/replay@npm:10.60.0"
+  dependencies:
+    "@sentry/browser-utils": "npm:10.60.0"
+    "@sentry/core": "npm:10.60.0"
+  checksum: 10c0/b8c6199153ea4d5949f83f38c797aba7a3037d1edcd6874210b0d0e6ee269b9bbfa6275b0af9dd100e872db847902b610cd6fe914458a032de9aff95bf23c757
   languageName: node
   linkType: hard
 
@@ -1279,10 +1279,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.101.0":
-  version: 5.101.0
-  resolution: "@tanstack/query-core@npm:5.101.0"
-  checksum: 10c0/e3aacbb762887214b71d8f959930644594e2321b0cdca8eac098f894cbb75d1e32d45dc34a4b818fb8c68b344398905cf30f17c69cd87283adf73e64457e9320
+"@tanstack/query-core@npm:5.101.1":
+  version: 5.101.1
+  resolution: "@tanstack/query-core@npm:5.101.1"
+  checksum: 10c0/d8354b7adab36aca9ddc7bb7c1b404e324808d1ac76ab56243dee7f5a0c1b7fe66f945301924cab0c514fac234cfb2be2668c2147655312a9cf820131d83e315
   languageName: node
   linkType: hard
 
@@ -1305,14 +1305,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:5.101.0":
-  version: 5.101.0
-  resolution: "@tanstack/react-query@npm:5.101.0"
+"@tanstack/react-query@npm:5.101.1":
+  version: 5.101.1
+  resolution: "@tanstack/react-query@npm:5.101.1"
   dependencies:
-    "@tanstack/query-core": "npm:5.101.0"
+    "@tanstack/query-core": "npm:5.101.1"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/a86add4402c23e26cf4a8c7dade5b0198a7abfb51720b91e83cfe5db8b5ed89acb027b3d5b67882098d0c83cf50099175f8310a41fd5c4b55f6c343779c3dfb6
+  checksum: 10c0/8275e7d21fc05304769c1e141f8f04fa3b68871a777f4f30e1d7791abd0ffd164162d8a6d035825e17ef6571fe6380eb8014c82b0d29a39f03b3615eb390ca31
   languageName: node
   linkType: hard
 
@@ -1745,15 +1745,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.17.0":
-  version: 1.17.0
-  resolution: "axios@npm:1.17.0"
+"axios@npm:1.18.1":
+  version: 1.18.1
+  resolution: "axios@npm:1.18.1"
   dependencies:
     follow-redirects: "npm:^1.16.0"
     form-data: "npm:^4.0.5"
     https-proxy-agent: "npm:^5.0.1"
     proxy-from-env: "npm:^2.1.0"
-  checksum: 10c0/c4fa19ff3a3a63bde48beec03ad816b133b9a6385cccffffe172577ab18c6a70e299280d57f12c80c867fe25df41f92cb91d3a8258708a6d2be3e9e085f92650
+  checksum: 10c0/9d9378a3af0d0ad730a52ad9d15ec7201f3926ad6e7e8bbffc5ae21ca2835ad11d1d9598698f5dd9718917486039f55ea1d7dc23d8e44fa827a55cc3262c02fc
   languageName: node
   linkType: hard
 
@@ -3690,26 +3690,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"posthog-js@npm:1.381.0":
-  version: 1.381.0
-  resolution: "posthog-js@npm:1.381.0"
+"posthog-js@npm:1.393.3":
+  version: 1.393.3
+  resolution: "posthog-js@npm:1.393.3"
   dependencies:
-    "@posthog/core": "npm:1.30.9"
-    "@posthog/types": "npm:1.381.0"
+    "@posthog/core": "npm:^1.37.1"
+    "@posthog/types": "npm:^1.391.1"
     core-js: "npm:^3.38.1"
     dompurify: "npm:^3.3.2"
     fflate: "npm:^0.4.8"
-    preact: "npm:^10.28.2"
+    preact: "npm:^10.29.2"
     query-selector-shadow-dom: "npm:^1.0.1"
-    web-vitals: "npm:^5.1.0"
-  checksum: 10c0/d6d2c8417802b75863c576b6989eb8faaa48aa06291bd47b75aef291e1cb3cb1b4c13f415cd5ad330db2e3d516e029970fda6c5aa6baa8a7efc829f96f9c69a4
+    web-vitals: "npm:^5.3.0"
+  checksum: 10c0/0d61a1fc0bfd81194b8742381deaa406441a2f928079cc1d8ac66b25b4d59cb9b15e6cb5961664adc4abe883948164f0d2b382c6861fdd07ab19541a8b8f2f77
   languageName: node
   linkType: hard
 
-"preact@npm:^10.28.2":
-  version: 10.29.2
-  resolution: "preact@npm:10.29.2"
-  checksum: 10c0/2ee161274e475804524608d42bba8c79920636b322293248796a9e5bf4c3332336f8c0eca1b1566ed09cdee95e408eb20b5b7613d95820ea6b6eb8fc090ef60a
+"preact@npm:^10.29.2":
+  version: 10.29.3
+  resolution: "preact@npm:10.29.3"
+  checksum: 10c0/deede846649c6f31888d36b60de2d2433a85c533268b328af82da11a5c1d9b6f12439bdab6dca3cf7a20720b4137c2f1644c12db21b30b18360766ab70c8fe06
   languageName: node
   linkType: hard
 
@@ -3812,12 +3812,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.77.0":
-  version: 7.77.0
-  resolution: "react-hook-form@npm:7.77.0"
+"react-hook-form@npm:7.80.0":
+  version: 7.80.0
+  resolution: "react-hook-form@npm:7.80.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10c0/b61c9d739cf0fb4fde235cf1e36ae7bb69a583acbf144c9a1e403b47a0406bef5418cc0deb432b0b7e3e50738a998c5c44fad50aa881d85e5233b66c7a67d868
+  checksum: 10c0/9a2a1316a562d3a144e3854ce22123b08fe886c8e0327a0682d3d30312a851beac115049f285bacd20d9dd1bdfe7d05333b5dab8ecb9b18c2976557220c8e648
   languageName: node
   linkType: hard
 
@@ -3891,9 +3891,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:3.8.1":
-  version: 3.8.1
-  resolution: "recharts@npm:3.8.1"
+"recharts@npm:3.9.0":
+  version: 3.9.0
+  resolution: "recharts@npm:3.9.0"
   dependencies:
     "@reduxjs/toolkit": "npm:^1.9.0 || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -3902,7 +3902,7 @@ __metadata:
     eventemitter3: "npm:^5.0.1"
     immer: "npm:^10.1.1"
     react-redux: "npm:8.x.x || 9.x.x"
-    reselect: "npm:5.1.1"
+    reselect: "npm:5.2.0"
     tiny-invariant: "npm:^1.3.3"
     use-sync-external-store: "npm:^1.2.2"
     victory-vendor: "npm:^37.0.2"
@@ -3910,7 +3910,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/71a40596e95c4f683a78e6be5f7c27d1713e7bdd5f012c22c19c07b26375e87703a6620d0a553e810ebb5f15a3a972ab89283a689e8e45dfac29eef028e0c2ca
+  checksum: 10c0/b02e5b6063bae7cc7ee3166551f376bcd25f3bad2839aee759af3acbc7337ade5d82ca214dea7e8b1a72210b3c8da516922d5d31475a85e731814dc57ffad919
   languageName: node
   linkType: hard
 
@@ -3956,14 +3956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reselect@npm:5.1.1":
-  version: 5.1.1
-  resolution: "reselect@npm:5.1.1"
-  checksum: 10c0/219c30da122980f61853db3aebd173524a2accd4b3baec770e3d51941426c87648a125ca08d8c57daa6b8b086f2fdd2703cb035dd6231db98cdbe1176a71f489
-  languageName: node
-  linkType: hard
-
-"reselect@npm:^5.1.0":
+"reselect@npm:5.2.0, reselect@npm:^5.1.0":
   version: 5.2.0
   resolution: "reselect@npm:5.2.0"
   checksum: 10c0/d0a8497e404b25a769fe792eacae88b9b576c30870450cd243d76ec9427d91a59c4a2cc00d824d283448b444c4c698a8f961d771c8ae39c759313afb31950e2e
@@ -4213,10 +4206,10 @@ __metadata:
     "@emotion/css": "npm:11.13.5"
     "@eslint/compat": "npm:2.1.0"
     "@eslint/js": "npm:10.0.1"
-    "@sentry/react": "npm:10.56.0"
+    "@sentry/react": "npm:10.60.0"
     "@sentry/vite-plugin": "npm:5.3.0"
     "@tabler/icons-react": "npm:3.44.0"
-    "@tanstack/react-query": "npm:5.101.0"
+    "@tanstack/react-query": "npm:5.101.1"
     "@tanstack/react-query-devtools": "npm:5.101.0"
     "@types/node": "npm:22.19.20"
     "@types/react": "npm:19.2.17"
@@ -4225,7 +4218,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.60.1"
     "@typescript-eslint/parser": "npm:8.60.1"
     "@vitejs/plugin-react": "npm:6.0.2"
-    axios: "npm:1.17.0"
+    axios: "npm:1.18.1"
     date-fns: "npm:4.4.0"
     eslint: "npm:10.4.1"
     eslint-plugin-react-hooks: "npm:7.1.1"
@@ -4233,16 +4226,16 @@ __metadata:
     eslint-plugin-sonarjs: "npm:4.0.3"
     globals: "npm:17.6.0"
     husky: "npm:9.1.7"
-    posthog-js: "npm:1.381.0"
+    posthog-js: "npm:1.393.3"
     prettier: "npm:3.8.3"
     process: "npm:0.11.10"
     react: "npm:19.2.7"
     react-dom: "npm:19.2.7"
-    react-hook-form: "npm:7.77.0"
+    react-hook-form: "npm:7.80.0"
     react-is: "npm:19.2.7"
     react-toastify: "npm:11.1.0"
     react-tooltip: "npm:5.30.1"
-    recharts: "npm:3.8.1"
+    recharts: "npm:3.9.0"
     typescript: "npm:6.0.3"
     vite: "npm:8.0.16"
     vite-bundle-visualizer: "npm:1.2.1"
@@ -4558,7 +4551,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^5.1.0":
+"web-vitals@npm:^5.3.0":
   version: 5.3.0
   resolution: "web-vitals@npm:5.3.0"
   checksum: 10c0/a073c024d791bfac7a92f82607999b45be978ef3070f642f3cdd94c50d3e1651cf62b2475039248256b2d84651e16fa9bdcaa4b03f31af8bfeefb05832298b97
