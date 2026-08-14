@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { css } from '@emotion/css';
 import { UTCDate } from '@date-fns/utc';
 import { format } from 'date-fns';
@@ -20,6 +20,56 @@ import { getCurrentTimestamp } from 'src/shared/utils';
 
 const nearEarthObjectsKey = 'near-earth-objects';
 
+const METERS_PER_KILOMETER = 1000;
+const FEET_PER_MILE = 5280;
+
+interface NearEarthObject {
+  designation: string;
+  jpl_url: string;
+  close_approach: {
+    epoch_ms: number;
+    utc: string;
+  };
+  miss_distance: {
+    lunar: number;
+    kilometers: number;
+    astronomical: number;
+  };
+  relative_velocity: {
+    kilometers_per_second: number;
+    kilometers_per_hour: number;
+    miles_per_hour: number;
+  };
+  absolute_magnitude_h: number | null;
+  estimated_diameter: {
+    meters_min: number;
+    meters_max: number;
+    feet_min: number;
+    feet_max: number;
+  } | null;
+  time_uncertainty: string | null;
+}
+
+interface NeoDay {
+  date: string;
+  objects: NearEarthObject[];
+}
+
+interface NeoFeed {
+  signature: {
+    version: string;
+    source: string;
+  };
+  date_updated: string;
+  window: {
+    start: string;
+    end: string;
+  };
+  max_lunar_distance: number;
+  count: number;
+  days: NeoDay[];
+}
+
 const neoDetailsModalCss = css`
   top: 60px;
   left: 20px;
@@ -31,43 +81,31 @@ const neoDetailsModalCss = css`
   }
 `;
 
-const cleanName = (name: string) => {
-  if (name.startsWith('(') && name.endsWith(')')) {
-    return name.substring(1, name.length - 1);
-  } else {
-    return name;
-  }
-};
-
 const NeoDetailsModal: React.FC<{
-  neo: any;
+  neo: NearEarthObject;
 }> = ({ neo }) => {
-  const min = (unit: string) => {
-    return Number(
-      neo?.estimated_diameter[unit]?.estimated_diameter_min,
-    ).toFixed(1);
-  };
-  const max = (unit: string) => {
-    return Number(
-      neo?.estimated_diameter[unit]?.estimated_diameter_max,
-    ).toFixed(1);
-  };
-  const isPotentiallyHazardous = neo?.is_potentially_hazardous_asteroid
-    ? 'Yes'
-    : 'No';
-  const estimatedDiameters = {
-    km: `${min('kilometers')} - ${max('kilometers')}`,
-    m: `${min('meters')} - ${max('meters')} m`,
-    miles: `${min('miles')} - ${max('miles')} mi`,
-    feet: `${min('feet')} - ${max('feet')} ft`,
-  };
+  const diameter = neo.estimated_diameter;
+
+  // Metric and imperial each step up to the larger unit on their own terms, so
+  // a rock can read in meters while its imperial range is already in miles.
+  const metricDiameter = diameter
+    ? diameter.meters_max >= METERS_PER_KILOMETER
+      ? `${(diameter.meters_min / METERS_PER_KILOMETER).toFixed(1)} - ${(diameter.meters_max / METERS_PER_KILOMETER).toFixed(1)} km`
+      : `${diameter.meters_min.toFixed(1)} - ${diameter.meters_max.toFixed(1)} m`
+    : null;
+  const imperialDiameter = diameter
+    ? diameter.feet_max >= FEET_PER_MILE
+      ? `${(diameter.feet_min / FEET_PER_MILE).toFixed(1)} - ${(diameter.feet_max / FEET_PER_MILE).toFixed(1)} mi`
+      : `${diameter.feet_min.toFixed(1)} - ${diameter.feet_max.toFixed(1)} ft`
+    : null;
+
   return (
     <FlexWrapper gap={10}>
       <FlexWrapper flexDirection="row" alignItems="center" gap={10}>
-        <h3 style={{ margin: 0 }}>{cleanName(neo?.name)}</h3>
+        <h3 style={{ margin: 0 }}>{neo.designation}</h3>
         &ndash;
         <a
-          href={neo?.nasa_jpl_url}
+          href={neo.jpl_url}
           target="_blank"
           rel="noreferrer"
           style={{ margin: 0 }}
@@ -77,48 +115,32 @@ const NeoDetailsModal: React.FC<{
       </FlexWrapper>
       <FlexWrapper gap={2}>
         <strong>{'Distance: '}</strong>
-        {`${Number(neo?.close_approach_data[0]?.miss_distance?.lunar).toFixed(2)} LD`}
+        {`${neo.miss_distance.lunar.toFixed(2)} LD`}
       </FlexWrapper>
       <FlexWrapper gap={2}>
         <strong>{'Close Approach Date / Time: '}</strong>
-        {`${format(new UTCDate(neo?.close_approach_data[0]?.epoch_date_close_approach), 'd MMM yyyy @ HH:mm')} UTC`}
-      </FlexWrapper>
-      <FlexWrapper gap={2}>
-        <strong>{'Potentially Hazardous: '}</strong>
-        {`${isPotentiallyHazardous}`}
+        {`${format(new UTCDate(neo.close_approach.epoch_ms), 'd MMM yyyy @ HH:mm')} UTC`}
       </FlexWrapper>
       <FlexWrapper gap={2}>
         <strong>{'Relative Velocity: '}</strong>
         <FlexWrapper flexDirection="row">
           <span>
-            {`${Number(neo?.close_approach_data[0]?.relative_velocity?.kilometers_per_hour).toFixed(1)} km/h`}
+            {`${neo.relative_velocity.kilometers_per_hour.toFixed(1)} km/h`}
           </span>
           <span>
-            (
-            {`${Number(neo?.close_approach_data[0]?.relative_velocity?.miles_per_hour).toFixed(1)} mph`}
-            )
+            ({`${neo.relative_velocity.miles_per_hour.toFixed(1)} mph`})
           </span>
         </FlexWrapper>
       </FlexWrapper>
-      <FlexWrapper gap={2}>
-        <strong>{'Estimated Diameter: '}</strong>
-        <FlexWrapper flexDirection="row">
-          <span>
-            {neo?.estimated_diameter?.kilometers.estimated_diameter_min >= 1 ||
-            neo?.estimated_diameter?.kilometers.estimated_diameter_max >= 1
-              ? estimatedDiameters.km
-              : estimatedDiameters.m}
-          </span>
-          <span>
-            (
-            {neo?.estimated_diameter?.miles.estimated_diameter_min >= 1 ||
-            neo?.estimated_diameter?.miles.estimated_diameter_max >= 1
-              ? estimatedDiameters.miles
-              : estimatedDiameters.feet}
-            )
-          </span>
+      {metricDiameter && imperialDiameter && (
+        <FlexWrapper gap={2}>
+          <strong>{'Estimated Diameter: '}</strong>
+          <FlexWrapper flexDirection="row">
+            <span>{metricDiameter}</span>
+            <span>({imperialDiameter})</span>
+          </FlexWrapper>
         </FlexWrapper>
-      </FlexWrapper>
+      )}
     </FlexWrapper>
   );
 };
@@ -128,10 +150,10 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
   componentKey,
 }) => {
   const queryClient = useQueryClient();
-  const getNeoData = async (): Promise<any> => {
+  const getNeoData = async (): Promise<NeoFeed> => {
     const response = await axios
       .get(
-        `${import.meta.env.VITE_API_URL}/v1/json/neo-feed.json?u=${getCurrentTimestamp()}`,
+        `${import.meta.env.VITE_API_URL}/v2/json/neo-feed.json?u=${getCurrentTimestamp()}`,
         {
           timeout: 1000 * 10,
         },
@@ -149,36 +171,13 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
     queryFn: getNeoData,
   });
 
-  const sortByLunarDistance = (a: any, b: any) => {
-    return (
-      a.close_approach_data[0].miss_distance.lunar -
-      b.close_approach_data[0].miss_distance.lunar
-    );
-  };
-
-  const emptyData = Array(8).fill({
+  const emptyData: NeoDay[] = Array(8).fill({
     date: '',
-    neos: [],
+    objects: [],
   });
 
-  const nearEarthObjects: any = useMemo(() => {
-    if (neoData) {
-      const data = Object.keys(neoData.near_earth_objects).map((date) => {
-        const neos = neoData.near_earth_objects[date]
-          .filter(
-            (obj: any) => obj.close_approach_data[0].miss_distance.lunar < 100,
-          )
-          .sort(sortByLunarDistance);
-        return {
-          date,
-          neos,
-        };
-      });
-      return data.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-      );
-    }
-  }, [neoData]);
+  // The feed arrives bucketed by day and sorted by distance, so it renders as-is.
+  const nearEarthObjects = neoData?.days;
 
   const { resetTimer } = useAutoRefresh(
     () => {
@@ -198,17 +197,17 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <ListDetails
             items={nearEarthObjects || emptyData}
             listHeader="Near Earth Objects"
-            renderLabel={(item: any) => (
+            renderLabel={(item: NeoDay) => (
               <ListLabel
                 mainLabel={
                   item.date !== ''
                     ? format(new UTCDate(item.date), 'dd MMMM yyyy')
                     : '-'
                 }
-                subLabel={`${item.neos.length || '-'} objects`}
+                subLabel={`${item.objects.length || '-'} objects`}
               />
             )}
-            renderDetails={(item: any) => {
+            renderDetails={(item: NeoDay) => {
               if (!item) return <></>;
               return (
                 <>
@@ -217,18 +216,20 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
                       {format(new UTCDate(item.date), 'dd MMM yyyy')}
                     </h2>
                     &ndash;
-                    <p>{`${item.neos.length} objects`}</p>
+                    <p>{`${item.objects.length} objects`}</p>
                   </FlexWrapper>
                   <ListDetails
-                    items={item?.neos}
+                    items={item?.objects}
                     modalClassName={neoDetailsModalCss}
-                    renderLabel={(neo: any) => (
+                    renderLabel={(neo: NearEarthObject) => (
                       <ListLabel
-                        mainLabel={cleanName(neo.name)}
-                        subLabel={`${Number(neo.close_approach_data[0].miss_distance.lunar).toFixed(2)} LD`}
+                        mainLabel={neo.designation}
+                        subLabel={`${neo.miss_distance.lunar.toFixed(2)} LD`}
                       />
                     )}
-                    renderDetails={(neo: any) => <NeoDetailsModal neo={neo} />}
+                    renderDetails={(neo: NearEarthObject) => (
+                      <NeoDetailsModal neo={neo} />
+                    )}
                   />
                 </>
               );
@@ -241,8 +242,12 @@ export const NearEarthObjects: React.FC<PanelProps> = ({
           <div>
             <p>{'Credit: '}</p>
             <p>
-              <a href="https://api.nasa.gov/" target="_blank" rel="noreferrer">
-                {'NASA API - Asteroids NeoWs: Near Earth Object Web Service'}
+              <a
+                href="https://ssd-api.jpl.nasa.gov/doc/cad.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {'NASA JPL - SBDB Close-Approach Data API'}
               </a>
             </p>
           </div>
