@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.14.0
+
+### Minor Changes
+
+- [#311](https://github.com/SpaceDashboard/space-dashboard/pull/311) [`bfc46bf`](https://github.com/SpaceDashboard/space-dashboard/commit/bfc46bf98fd88eb53cab5379478c434a17b9cff9) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Switching Near Earth Objects panel to the v2 JPL close-approach feed
+
 ## 2.13.1
 
 ### Patch Changes
