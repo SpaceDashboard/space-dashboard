@@ -22,8 +22,8 @@ if (import.meta.env.PROD) {
 
   posthog.init('phc_9c7D91ze1wShYC4X83jlsYBnNvqDMSaOOyeJEm418hK', {
     api_host: 'https://t.spacedashboard.com',
-    defaults: '2026-05-30'
-  })
+    defaults: '2026-05-30',
+  });
 }
 
 const sharedInterval = 60000 * 10; // 10 minutes
