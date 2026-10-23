@@ -1,5 +1,15 @@
 # space-dashboard
 
+## 2.14.2
+
+### Patch Changes
+
+- [#325](https://github.com/SpaceDashboard/space-dashboard/pull/325) [`0588759`](https://github.com/SpaceDashboard/space-dashboard/commit/058875962faab488c3de8e31285e0d02662866e1) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Prepare Release replaces a leftover release branch instead of reopening it, so release PRs always carry the right version and every pending changeset
+
+- [#321](https://github.com/SpaceDashboard/space-dashboard/pull/321) [`c308f6e`](https://github.com/SpaceDashboard/space-dashboard/commit/c308f6e4385849355da7a5e5c29b94eb66b6cc46) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Build the release PR body from step env vars so changelog text is not run as shell code and commit links render
+
+- [#324](https://github.com/SpaceDashboard/space-dashboard/pull/324) [`9e7d30c`](https://github.com/SpaceDashboard/space-dashboard/commit/9e7d30cf774384c049100afab43163f524f2385c) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Security sweep: bump axios to 1.20.0 and vite to 8.1.6, refresh vulnerable transitive dependencies, and group future Dependabot security updates into one PR
+
 ## 2.14.1
 
 ### Patch Changes
