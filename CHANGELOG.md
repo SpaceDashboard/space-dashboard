@@ -1,5 +1,11 @@
 # space-dashboard
 
+## 2.14.1
+
+### Patch Changes
+
+- [#319](https://github.com/SpaceDashboard/space-dashboard/pull/319) [`dbcdb9e`](https://github.com/SpaceDashboard/space-dashboard/commit/dbcdb9ea3b0a1b4884444820ea5ca9afe5828635) Thanks [@AstroCaleb](https://github.com/AstroCaleb)! - Bump Node to 22.23.4 (Oct 21 2026 security release)
+
 ## 2.14.0
 
 ### Minor Changes
