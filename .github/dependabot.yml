@@ -19,6 +19,10 @@ updates:
         exclude-patterns:
           - "react"
           - "react-dom"
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
